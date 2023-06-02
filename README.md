@@ -1,6 +1,12 @@
 # final-5-
 
-| 사진 | 이름 | 역할 |
-|:----:|:----:|:----:|
-| ![사진]() | 이름 | 역할 |
-| ![사진](링크_또는_이미지_경로) | 이름 | 역할 |
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href=""><img src="width="100px;" alt=""/><br /><sub><b>FE 팀장 : </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE 팀원 : </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE 팀원 : </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE 팀원 : </b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>
