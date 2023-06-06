@@ -1,1 +1,33 @@
-/* 파일 생성 */
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 400;
+    src: local('Spoqa Han Sans Neo Regular'),
+      url('../assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeoRegular.woff2')
+        format('font-woff2'),
+      url('../assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeoRegular.woff')
+        format('woff'),
+      url('../assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeoRegular.otf')
+        format('opentype');
+  }
+  @font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 500;
+    src: local('Spoqa Han Sans Neo Medium'),
+      url('../assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeoMedium.woff2')
+        format('font-woff2'),
+      url('../assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeoMedium.woff')
+        format('woff'),
+      url('../assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeoMedium.otf')
+        format('opentype');
+  }
+  @font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 700;
+    src: local('Spoqa Han Sans Neo Bold'),
+      url('../assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeoBold.woff2')
+        format('font-woff2'),
+      url('../assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeoBold.woff')
+        format('woff'),
+      url('../assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeoBold.otf')
+        format('opentype');
+  }
