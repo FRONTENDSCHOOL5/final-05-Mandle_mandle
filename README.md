@@ -17,7 +17,7 @@
 <p align="right"><a href="#top">(🔼 Top)</a></p>
 
 ## 2. 팀원 소개
-# 만들5️⃣ 조
+### 만들5️⃣ 조
 안녕하세요! 저희는 4명의 Front-end 개발자로 구성된 '만들5️⃣ 조' 입니다.<br/> <br/>
 _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
 |**차다연**|**김예지**|**우경석**|**윤서준** |
@@ -25,3 +25,28 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
 | <img width="180" alt="Dayoun_profile_img" src="https://avatars.githubusercontent.com/u/105140201?v=4"> | <img width="180"  alt="Yegi_profile_img" src="https://likelion.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F23901406-5d30-4f87-a166-03a79e52a991%2FKakaoTalk_Photo_2023-02-28-20-38-30.jpeg?table=block&id=f41783c9-bc51-4c24-ad37-de2caf59e1bd&spaceId=c69962b0-3951-485b-b10a-5bb29576bba8&width=2000&userId=&cache=v2"> | <img width="180" alt="kyungseuk_profile_img" src="https://cdn.discordapp.com/attachments/1114083723663650887/1114083747642482728/1668348982968.jpg"> | <img width="180" alt="seojun_profile_img" src="https://avatars.githubusercontent.com/u/72855681?v=4" > |
 | [dyFlower](https://github.com/Da-Youn) | [	yeji_kim ](https://github.com/yejify) | [5647kr](https://github.com/5647kr) | [junny97](https://github.com/junny97) |
 | 팀장 | 팀원 | 팀원 | 팀원 |
+
+## 2.1. 역할 분담
+🌻 **차다연**
+
+- 추가예정
+
+
+
+🌷 **김예지**
+
+- 추가예정
+
+
+🌳 **우경석**
+
+- 추가예정
+
+
+🍀 **윤서준**
+
+- 추가예정
+
+
+
+<p align="right"><a href="#top">(🔼 Top)</a></p>
