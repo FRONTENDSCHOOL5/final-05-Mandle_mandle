@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ButtonStyle = styled.button`
   width: ${(props) => props.width};
@@ -14,7 +14,7 @@ export const ButtonStyle = styled.button`
 
 // //예시
 // <ButtonDiv>
-//   <ButtonDef type='button' bg='black' width='432px' height='56px' br='4px'>
+//   <ButtonStyle type='button' bg='black' width='432px' height='56px' br='4px'>
 //     다음
-//   </ButtonDef>
+//   </ButtonStyle>
 // </ButtonDiv>;

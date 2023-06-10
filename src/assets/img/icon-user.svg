@@ -1,5 +1,27 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M20 22V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V22" stroke="#767676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M4 22H20" stroke="#767676" stroke-width="2" stroke-linecap="round"/>
-<path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="#767676" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="레이어_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 48 24" style="enable-background:new 0 0 48 24;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#767676;stroke-width:2;stroke-linecap:round;}
+	.st1{fill:none;stroke:#767676;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st2{fill:none;stroke:#036635;stroke-width:2;stroke-linecap:round;}
+	.st3{fill:#036635;stroke:#036635;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<g>
+	<path class="st0" d="M4,21.5h16"/>
+	<g>
+		<path class="st1" d="M20,21.5v-3c0-1.1-0.4-2.1-1.2-2.8c-0.8-0.8-1.8-1.2-2.8-1.2H8c-1.1,0-2.1,0.4-2.8,1.2
+			C4.4,16.4,4,17.4,4,18.5v3"/>
+		<path class="st1" d="M12,10.5c2.2,0,4-1.8,4-4s-1.8-4-4-4c-2.2,0-4,1.8-4,4S9.8,10.5,12,10.5z"/>
+	</g>
+</g>
+<g>
+	<path class="st2" d="M28,21.5h16"/>
+	<g>
+		<path class="st3" d="M44,21.5v-3c0-1.1-0.4-2.1-1.2-2.8c-0.8-0.8-1.8-1.2-2.8-1.2h-8c-1.1,0-2.1,0.4-2.8,1.2
+			c-0.8,0.8-1.2,1.8-1.2,2.8v3"/>
+		<path class="st3" d="M36,10.5c2.2,0,4-1.8,4-4s-1.8-4-4-4c-2.2,0-4,1.8-4,4S33.8,10.5,36,10.5z"/>
+	</g>
+</g>
 </svg>
