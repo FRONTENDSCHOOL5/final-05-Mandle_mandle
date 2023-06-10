@@ -10,11 +10,12 @@ export const ButtonStyle = styled.button`
   text-align: center;
   background-color: ${(props) => props.bg};
   border-radius: ${(props) => props.br};
+  border: ${(props) => props.border};
 `;
 
 // //예시
-// <ButtonDiv>
-//   <ButtonStyle type='button' bg='black' width='432px' height='56px' br='4px'>
-//     다음
-//   </ButtonStyle>
-// </ButtonDiv>;
+{/* <ButtonDiv>
+  <ButtonStyle type='button' bg='black' width='432px' height='56px' br='4px'>
+    다음
+  </ButtonStyle>
+</ButtonDiv>; */}

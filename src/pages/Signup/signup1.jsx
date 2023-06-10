@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import styled from "styled-components";
 import { ArrowLeftNavigation } from "../../components/Common/TopNav";
 import Input from "../../components/Common/Input";
@@ -49,9 +49,8 @@ export default function Signup() {
       >
         다음
       </ButtonStyle>
-
     </div>
-  )
+  );
 }
 
 export const TypeDiv = styled.div`
