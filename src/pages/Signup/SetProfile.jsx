@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ArrowLeftNavigation } from "../../components/Common/TopNav";
-import { ButtonStyle } from "../../components/Common/Button";
+// import { ButtonStyle } from "../../components/Common/Button";
 import UploadProfile from "../../components/Common/UploadProfile";
 import ClayImg from "../../assets/img/L-button-clay.svg";
 
@@ -53,7 +53,7 @@ export const SetProfileDiv = styled.div`
 `;
 export const SetProfileLabel = styled.label`
   font-family: var(--font--Bold);
-  margin-bottom: 9px;
+  margin: 0 0 9px 35px;
   font-weight: normal;
   font-size: 12px;
   color: #767676;
@@ -76,9 +76,9 @@ export const SetProfileInputBox = styled.input`
 
 export const ButtonImg = styled.button`
   display: block;
-  width: 322px;
+  width: 350px;
   height: 70px;
-  margin-top: 17px;
+  margin: 17px 0 0 20px;
   background: url(${ClayImg}) center / contain no-repeat;
 `;
 
@@ -94,7 +94,7 @@ export const P = styled.p`
   font-size: 12px;
   color: #767676;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 `;
 export const Wrap = styled.div`
   text-align: center;

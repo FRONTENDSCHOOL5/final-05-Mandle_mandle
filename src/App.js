@@ -1,6 +1,6 @@
 import GlobalStyle from "./styles/GlobalStyles";
-import Signup from "./pages/Signup/Signup";
 import SetProfile from "./pages/Signup/SetProfile";
+import Signup from "./pages/Signup/Signup";
 
 function App() {
   return (

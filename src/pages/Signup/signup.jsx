@@ -61,9 +61,9 @@ export const Heading = styled.h1`
 `;
 export const ButtonImg = styled.button`
   display: block;
-  width: 322px;
+  width: 350px;
   height: 70px;
-  margin-top: 17px;
+  margin: 17px 0 0 -15px;
   background: url(${ClayImg}) center / contain no-repeat;
 `;
 export const SignupDiv = styled.div`
