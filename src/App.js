@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <GlobalStyle />
-      <Signup />
+      {/* <Signup /> */}
       <SetProfile />
     </div>
   );

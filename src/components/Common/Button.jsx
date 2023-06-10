@@ -11,11 +11,14 @@ export const ButtonStyle = styled.button`
   background-color: ${(props) => props.bg};
   border-radius: ${(props) => props.br};
   border: ${(props) => props.border};
+  background-img: ${(props) => props.bgimg};
 `;
 
 // //예시
-{/* <ButtonDiv>
+{
+  /* <ButtonDiv>
   <ButtonStyle type='button' bg='black' width='432px' height='56px' br='4px'>
     다음
   </ButtonStyle>
-</ButtonDiv>; */}
+</ButtonDiv>; */
+}

@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 export default function Input() {
   return (
@@ -7,7 +7,7 @@ export default function Input() {
       <InputDiv>
         <Label>이메일</Label>
         <InputBox
-          width="432px"
+          width="322px"
           height="48px"
           padding="15px"
           onChange={() => {}}
@@ -17,7 +17,7 @@ export default function Input() {
       <InputDiv>
         <Label>비밀번호</Label>
         <InputBox
-          width="432px"
+          width="322px"
           height="48px"
           onChange={() => {}}
           type="password"
@@ -25,7 +25,7 @@ export default function Input() {
         />
       </InputDiv>
     </>
-  )
+  );
 }
 
 export const InputDiv = styled.div`
@@ -37,20 +37,21 @@ export const Label = styled.label`
   font-family: var(--font--Bold);
   margin-bottom: 9px;
   font-weight: 700;
+  color: #767676;
+  font-size: 12px;
 `;
 
 export const InputBox = styled.input`
   border: none;
   border-bottom: 1px solid #dbdbdb;
-  width: ${ props => props.width};
-  height: ${ props => props.height};
-  padding: 15px;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   box-sizing: border-box;
-  border-radius: 4px;
+  // border-radius: 4px;
   &::placeholder {
     color: #dbdbdb;
   }
   &:focus {
-    border-color: black;
+    border-color: #036635;
   }
 `;
