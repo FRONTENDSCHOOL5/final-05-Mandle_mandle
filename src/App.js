@@ -6,8 +6,8 @@ function App() {
   return (
     <div>
       <GlobalStyle />
-      {/* <Signup /> */}
-      <SetProfile />
+      <Signup />
+      {/* <SetProfile /> */}
     </div>
   );
 }
