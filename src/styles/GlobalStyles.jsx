@@ -53,7 +53,8 @@ const GlobalStyle = createGlobalStyle`
 		border: 0;
 		font-size: 16px;
 		vertical-align: baseline;
-        font-family: 'SpoqaHanSansNeo-Regular';
+    font-family: 'SpoqaHanSansNeo-Regular';
+    box-sizing: border-box;
 	}
 
 	ol, ul{
