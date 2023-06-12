@@ -1,15 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { ArrowLeftNavigation } from "../../components/Common/TopNav";
 import Input from "../../components/Common/Input";
 import { ButtonStyle } from "../../components/Common/Button";
 import ClayImg from "../../assets/img/L-button-clay.svg";
+import ArrowImg from "../../assets/img/icon-arrow-left.svg";
 
 export default function Signup() {
   return (
     <SignupDiv>
-      <ArrowLeftNavigation />
-      <Heading>이메일로 회원가입</Heading>
+      <LoginHeader>
+        <button>
+          <img src={ArrowImg} alt="" />
+        </button>
+        <h1>이메일로 회원가입하기</h1>
+      </LoginHeader>
+
       <Wrap>
         <TypeP>회원구분</TypeP>
 
@@ -51,14 +56,6 @@ export const TypeDiv = styled.div`
   margin: auto;
   justify-content: center;
 `;
-
-export const Heading = styled.h1`
-  font-size: 24px;
-  position: absolute;
-  top: 13px;
-  left: 50%;
-  transform: translate(-50%);
-`;
 export const ButtonImg = styled.button`
   display: block;
   width: 350px;
@@ -82,4 +79,18 @@ export const TypeP = styled.p`
 export const Wrap = styled.div`
   width: 322px;
   margin: auto;
+`;
+
+export const LoginHeader = styled.header`
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  padding: 33px 34px 40px;
+
+  button {
+    position: absolute;
+
+    left: 34px;
+  }
 `;
