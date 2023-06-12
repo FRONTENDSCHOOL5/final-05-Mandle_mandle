@@ -16,7 +16,7 @@ function MenuBar() {
         <li>
           <LinkWrap
             to='/home'
-            active={(location.pathname === '/home').toString()}
+            active={location.pathname.startsWith('/home').toString()}
           >
             <div>
               <img src={HomeIcon} alt='홈 버튼'></img>
@@ -75,13 +75,13 @@ function MenuBar() {
 
 export default MenuBar;
 
-const MenuBarWrap = styled.article`
+const MenuBarWrap = styled.footer`
   border-top: 1px solid var(--border-color);
   width: 100%;
   height: 60px;
-  position: absolute;
   background-color: #fff;
   text-align: center;
+  position: absolute;
   bottom: 0;
   padding-top: 12px;
   ul {
