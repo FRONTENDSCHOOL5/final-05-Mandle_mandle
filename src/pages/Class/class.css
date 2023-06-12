@@ -64,10 +64,6 @@ form button {
 
 /* main */
 
-/* common */
-
-/* /common */
-
 /* pop-class */
 #pop-class {
   padding: 67px 0 30px 16px;
@@ -157,6 +153,7 @@ footer {
   padding: 6px;
   position: fixed;
   bottom: 0;
+  box-sizing: border-box;
 }
 
 .bottom-nav {
@@ -188,7 +185,7 @@ footer {
   bottom: 16px;
   left: 34%;
 }
-
+/* 
 .home::before {
   background: url(../../assets/img/icon-home.svg)no-repeat;
 }
@@ -207,5 +204,5 @@ footer {
 
 .user::before {
   background: url(../../assets/img/icon-user.svg);
-}
+} */
 /* /footer */
