@@ -43,6 +43,7 @@ export default MiniClassList;
 
 const ClassSection = styled.section`
   box-sizing: border-box;
+  padding: 10px;
 `;
 
 const Title = styled.h2`
