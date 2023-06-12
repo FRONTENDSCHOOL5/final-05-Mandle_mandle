@@ -3,6 +3,7 @@ import MiniClassList from "../../components/Common/MiniClassList";
 import ArrowIcon from "../../assets/img/icon-arrow-left.svg";
 import MoreIcon from "../../assets/img/icon- more-vertical.svg";
 import BasicProfile from "../../assets/img/basic-profile-img.svg";
+import PostList from "../../components/Common/PostList/PostList";
 import {
   WrapBtn,
   Wrap,
@@ -16,7 +17,7 @@ export default function Profile() {
       <MoreNavigation />
       <TeacherSelfProfile />
       <MiniClassList />
-      {/* <PostList /> */}
+      <PostList />
     </div>
   );
 }
