@@ -34,7 +34,7 @@ export const Wrap = styled.div`
   margin: auto;
 `;
 
-export const LoginHeader = styled.header`
+export const SignupHeader = styled.header`
   display: flex;
   position: relative;
   justify-content: center;
@@ -45,4 +45,17 @@ export const LoginHeader = styled.header`
     position: absolute;
     left: 34px;
   }
+`;
+
+export const Label = styled.label`
+  font-family: var(--font--Bold);
+  margin-bottom: 9px;
+  font-weight: 700;
+  color: #767676;
+  font-size: 12px;
+`;
+
+export const SignupForm = styled.div`
+  width: 322px;
+  margin: auto;
 `;

@@ -1,7 +1,9 @@
-import React from "react";
+import { React, useState } from "react";
 import styled from "styled-components";
 
 export default function Input() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <>
       <InputDiv>
@@ -10,7 +12,10 @@ export default function Input() {
           width="322px"
           height="48px"
           padding="15px"
-          onChange={() => {}}
+          onChange={(e) => {
+            setEmail(e.target.value.trim());
+            // console.log(e.target.value);
+          }}
           placeholder="이메일을 입력해주세요"
         />
       </InputDiv>
@@ -19,7 +24,10 @@ export default function Input() {
         <InputBox
           width="322px"
           height="48px"
-          onChange={() => {}}
+          onChange={(e) => {
+            setPassword(e.target.value.trim());
+            // console.log(e.target.value);
+          }}
           type="password"
           placeholder="비밀번호를 입력하세요"
         />

@@ -3,21 +3,18 @@ import axios from "axios";
 import styled from "styled-components";
 import ArrowImg from "../../assets/img/icon-arrow-left.svg";
 import ClayDisabledButton from "../../assets/img/L-Disabled-button(clay).svg";
-import ClayButtonImg from "../../assets/img/L-button(clay).svg";
+import ClayButtonImg from "../../assets/img/L-button-clay.svg";
 import Input from "../../components/Common/Input";
 import { ButtonStyle } from "../../components/Common/Button";
-import ArrowImg from "../../assets/img/icon-arrow-left.svg";
 import {
   TypeDiv,
   ButtonImg,
   SignupDiv,
   TypeP,
   Wrap,
-  LoginHeader
+  SignupHeader,
+  SignupForm,
 } from "./SignupStyle";
-
-
-
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -37,16 +34,6 @@ export default function Signup() {
         },
       };
       console.log(data);
-      const response = await axios.post(
-        "https://api.mandarin.weniv.co.kr/user",
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(response);
 
       if (response.status === 200) {
         console.log("회원가입 성공");
@@ -61,7 +48,7 @@ export default function Signup() {
   };
 
   return (
-      <SignupDiv>
+    <SignupDiv>
       <SignupHeader>
         <button>
           <img src={ArrowImg} alt="" />
@@ -82,7 +69,8 @@ export default function Signup() {
             border="1.5px solid #036635"
             color="#036635"
             onClick={(e) => {
-              setType(e.target.value=Student);
+              setType((e.target.value = "Student"));
+              // console.log(e.target.value);
             }}
           >
             일반 회원(수강생)
@@ -96,42 +84,20 @@ export default function Signup() {
             border="1.5px solid #036635"
             color="#036635"
             onClick={(e) => {
-              setType(e.target.value=Teacher);
+              setType((e.target.value = "Teacher"));
+              // console.log(e.target.value);
             }}
           >
             강사 회원
           </ButtonStyle>
         </TypeDiv>
 
-        <LoginForm onSubmit={handleLoginSubmit}>
-        <InputDiv>
-          <Label>이메일</Label>
-          <InputBox
-            width="322px"
-            height="48px"
-            padding="15px"
-            onChange={(e) => {
-              setEmail(e.target.value.trim());
-            }}
-            placeholder="이메일을 입력해주세요"
-          />
-        </InputDiv>
-        <InputDiv>
-          <Label>비밀번호</Label>
-          <InputBox
-            width="322px"
-            height="48px"
-            onChange={(e) => {
-              setPassword(e.target.value.trim());
-            }}
-            type="password"
-            placeholder="비밀번호를 입력하세요"
-          />
-        </InputDiv>
-        <button type="submit">
-          <img src={ClayButtonImg} alt="" />
-        </button>
-      </LoginForm>
+        <SignupForm>
+          <Input />
+          <button type="submit" onSubmit={handleSignupSubmit}>
+            <img src={ClayButtonImg} alt="" />
+          </button>
+        </SignupForm>
       </Wrap>
     </SignupDiv>
   );
