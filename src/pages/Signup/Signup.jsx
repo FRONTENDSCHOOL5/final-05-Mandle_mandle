@@ -1,10 +1,11 @@
 import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import ArrowImg from "../../assets/img/icon-arrow-left.svg";
 import ClayDisabledButton from "../../assets/img/L-Disabled-button(clay).svg";
 import ClayButtonImg from "../../assets/img/L-button-clay.svg";
-import Input from "../../components/Common/Input";
+import { InputDiv, Label, InputBox } from "../../components/Common/Input";
 import { ButtonStyle } from "../../components/Common/Button";
 import {
   TypeDiv,
@@ -21,30 +22,27 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [type, setType] = useState("Student");
 
-  // const navigate = useNavigate();
-
-  const handleSignupSubmit = async (event) => {
+  const navigate = useNavigate();
+  const handleSignupSubmit = (event) => {
     event.preventDefault();
-    try {
-      const data = {
-        user: {
-          accountname: type,
-          email: email,
-          password: password,
-        },
-      };
-      console.log(data);
 
-      if (response.status === 200) {
-        console.log("회원가입 성공");
+    const state = {
+      // username: "",
+      email: email,
+      password: password,
+      accountname: type,
+      // intro: "",
+      // image: "",
+    };
+    console.log(state);
+    navigate("/set_profile", { state });
+  };
 
-        // navigate("/home");
-      } else {
-        console.log("회원가입 성공");
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  const handleStudentBtnClick = () => {
+    setType("Student");
+  };
+  const handleTeacherBtnClick = () => {
+    setType("Teacher");
   };
 
   return (
@@ -62,39 +60,60 @@ export default function Signup() {
         <TypeDiv>
           <ButtonStyle
             type="button"
-            bg="#fff"
+            bg={type === "Student" ? "#036635" : "#fff"}
             width="154.31px"
             height="30px"
             br="20px"
             border="1.5px solid #036635"
-            color="#036635"
-            onClick={(e) => {
-              setType((e.target.value = "Student"));
-              // console.log(e.target.value);
-            }}
+            color={type === "Student" ? "#fff" : "#036635"}
+            onClick={handleStudentBtnClick}
+            // onClick={() => setType("Student")}
           >
             일반 회원(수강생)
           </ButtonStyle>
           <ButtonStyle
             type="button"
-            bg="#fff"
+            bg={type === "Teacher" ? "#036635" : "#fff"}
             width="154.31px"
             height="30px"
             br="20px"
             border="1.5px solid #036635"
-            color="#036635"
-            onClick={(e) => {
-              setType((e.target.value = "Teacher"));
-              // console.log(e.target.value);
-            }}
+            color={type === "Teacher" ? "#fff" : "#036635"}
+            onClick={handleTeacherBtnClick}
+            // onClick={() => setType("Teacher")}
           >
             강사 회원
           </ButtonStyle>
         </TypeDiv>
 
-        <SignupForm>
-          <Input />
-          <button type="submit" onSubmit={handleSignupSubmit}>
+        <SignupForm onSubmit={handleSignupSubmit}>
+          <InputDiv>
+            <Label>이메일</Label>
+            <InputBox
+              width="322px"
+              height="48px"
+              padding="15px"
+              onChange={(e) => {
+                setEmail(e.target.value.trim());
+                // console.log(e.target.value);
+              }}
+              placeholder="이메일을 입력해주세요"
+            />
+          </InputDiv>
+          <InputDiv>
+            <Label>비밀번호</Label>
+            <InputBox
+              width="322px"
+              height="48px"
+              onChange={(e) => {
+                setPassword(e.target.value.trim());
+                // console.log(e.target.value);
+              }}
+              type="password"
+              placeholder="비밀번호를 입력하세요"
+            />
+          </InputDiv>
+          <button type="submit" onClick={handleSignupSubmit}>
             <img src={ClayButtonImg} alt="" />
           </button>
         </SignupForm>
