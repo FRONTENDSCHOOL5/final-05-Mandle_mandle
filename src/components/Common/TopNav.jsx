@@ -238,4 +238,4 @@ function TopNavs({ name }) {
   );
 }
 
-export default TopNavs;
+export { TopNavs, ArrowLeftNavigation };

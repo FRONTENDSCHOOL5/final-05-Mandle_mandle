@@ -46,4 +46,3 @@ export const LoginHeader = styled.header`
     left: 34px;
   }
 `;
-export { TypeDiv, ButtonImg, SignupDiv, TypeP, Wrap, LoginHeader };
