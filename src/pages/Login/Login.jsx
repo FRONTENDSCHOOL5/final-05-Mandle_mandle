@@ -6,6 +6,7 @@ import ArrowImg from "../../assets/img/icon-arrow-left.svg";
 import DisabledButtonImg from "../../assets/img/L-Disabled-button(clay).svg";
 import ButtonImg from "../../assets/img/L-button(clay).svg";
 import { GoBackButton } from "../../components/Common/goBackButton";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -131,7 +132,7 @@ export default function Login() {
           <img src={buttonImg} alt="" />
         </button>
       </LoginForm>
-      <a href="">이메일로 회원가입</a>
+      <Link to="/singup">이메일로 회원가입</Link>
     </LoginWrap>
   );
 }
