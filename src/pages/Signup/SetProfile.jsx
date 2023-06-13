@@ -1,11 +1,87 @@
-import React from "react";
-import styled from "styled-components";
+import { React, useState } from "react";
+import axios from "axios";
 import { ArrowLeftNavigation } from "../../components/Common/TopNav";
 // import { ButtonStyle } from "../../components/Common/Button";
 import UploadProfile from "../../components/Common/UploadProfile";
-import ClayImg from "../../assets/img/L-button-clay.svg";
+import { useLocation, useNavigate } from "react-router-dom";
+import ClayButtonImg from "../../assets/img/L-button-clay.svg";
+import {
+  SignupDiv,
+  SetProfileDiv,
+  SetProfileLabel,
+  SetProfileInputBox,
+  ButtonImg,
+  Heading,
+  P,
+  Wrap,
+} from "./SetProfileStyle";
 
-export default function SetProfile() {
+const SetProfile = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [accountname, setAccountname] = useState("");
+  const [intro, setIntro] = useState("");
+  const [image, setImage] = useState("");
+  const handleSetProfileSubmit = async (event) => {
+    event.preventDefault();
+    console.log(location.state);
+    try {
+      const data = {
+        ...location.state,
+        username: username,
+        accountname: accountname, // location.state에 값이 이미 들어있어서 안넣어도 될 것 같아요
+        intro: intro,
+        image: image,
+      };
+      console.log(data);
+      const response = await axios.post(
+        "https://api.mandarin.weniv.co.kr/user",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(response);
+
+      // if (response.data.status === 200) {
+      //   console.log("회원가입 성공");
+      //   console.log(response);
+      //   // navigate("/home", { state });
+      // } else {
+      //   console.log("회원가입 실패");
+      //   console.log(response);
+      // }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // const UploadProfile = () => {
+  //   const handleImageChange = async (event) => {
+  //     const formData = new FormData();
+  //     const imageFile = event.target.files[0];
+  //     formData.append("image", imageFile);
+
+  //     const res = await fetch(
+  //       "https://api.mandarin.weniv.co.kr/image/uploadfile",
+  //       {
+  //         method: "POST",
+  //         body: formData,
+  //       }
+  //     );
+  //     const json = await res.json();
+  //     console.log(json);
+
+  //     setImage("https://api.mandarin.weniv.co.kr/" + json.filename);
+
+  //     console.log("파일바뀜");
+  //     console.log(event.target.files);
+  //   };
+
   return (
     <SignupDiv>
       <ArrowLeftNavigation />
@@ -17,85 +93,33 @@ export default function SetProfile() {
       <SetProfileDiv>
         <SetProfileLabel>사용자 이름</SetProfileLabel>
         <SetProfileInputBox
-          onChange={() => {}}
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
           placeholder="2-10자 이내 여야 합니다"
         />
       </SetProfileDiv>
       <SetProfileDiv>
         <SetProfileLabel>계정 ID</SetProfileLabel>
         <SetProfileInputBox
-          onChange={() => {}}
+          value={accountname}
+          onChange={(event) => setAccountname(event.target.value)}
           placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
         />
       </SetProfileDiv>
       <SetProfileDiv>
         <SetProfileLabel>소개</SetProfileLabel>
         <SetProfileInputBox
-          onChange={() => {}}
+          value={intro}
+          onChange={(event) => setIntro(event.target.value)}
           placeholder="자신과 판매할 상품에 대해 소개해 주세요!"
         />
       </SetProfileDiv>
 
-      <ButtonImg />
+      <button type="submit" onClick={handleSetProfileSubmit}>
+        <img src={ClayButtonImg} alt="" />
+      </button>
     </SignupDiv>
   );
-}
+};
 
-export const SignupDiv = styled.div`
-  margin: auto;
-  width: 390px;
-`;
-
-export const SetProfileDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 28px;
-`;
-export const SetProfileLabel = styled.label`
-  font-family: var(--font--Bold);
-  margin: 0 0 9px 35px;
-  font-weight: normal;
-  font-size: 12px;
-  color: #767676;
-`;
-export const SetProfileInputBox = styled.input`
-  border: none;
-  border-bottom: 1px solid #dbdbdb;
-  width: 320px;
-  height: 48px;
-  padding: 15px;
-  box-sizing: border-box;
-  margin: auto;
-  &::placeholder {
-    color: #dbdbdb;
-  }
-  &:focus {
-    border-color: #036635;
-  }
-`;
-
-export const ButtonImg = styled.button`
-  display: block;
-  width: 350px;
-  height: 70px;
-  margin: 17px 0 0 20px;
-  background: url(${ClayImg}) center / contain no-repeat;
-`;
-
-export const Heading = styled.h1`
-  font-size: 24px;
-  position: absolute;
-  top: 13px;
-  left: 50%;
-  transform: translate(-50%);
-`;
-
-export const P = styled.p`
-  font-size: 12px;
-  color: #767676;
-  margin-top: 10px;
-  margin-bottom: 30px;
-`;
-export const Wrap = styled.div`
-  text-align: center;
-`;
+export default SetProfile;
