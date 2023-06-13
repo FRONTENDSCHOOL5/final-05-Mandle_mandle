@@ -1,17 +1,17 @@
-import styled from 'styled-components';
-import candleT1 from '../../assets/img/temp/candleT1.png';
-import React from 'react';
+import styled from "styled-components";
+import candleT1 from "../../assets/img/temp/candleT1.png";
+import React from "react";
 
 export default function ClassPost() {
   return (
     <ClassPostWrap
-      src=''
-      width='180px'
-      height='200px'
-      padding='10px 6px 0'
-      alt=''
+      src=""
+      width="180px"
+      height="200px"
+      padding="10px 6px 0"
+      alt=""
     >
-      <img src={candleT1} alt='' />
+      <img src={candleT1} alt="" />
       <div>
         <p>뷰티</p>
         <p>비누 만들기 클래스</p>
@@ -23,13 +23,13 @@ export default function ClassPost() {
 export function ClassPostMini() {
   return (
     <ClassPostWrap
-      src=''
-      width='180px'
-      height='200px'
-      padding='10px 4px 0'
-      alt=''
+      src=""
+      width="180px"
+      height="200px"
+      padding="10px 4px 0"
+      alt=""
     >
-      <img src={candleT1} alt='' />
+      <img src={candleT1} alt="" />
       <div>
         <p>뷰티</p>
         <p>비누 만들기 클래스</p>

@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 import GlobalStyle from "./styles/GlobalStyles";
+import SetProfile from "./pages/Signup/SetProfile";
+import Signup from "./pages/Signup/Signup";
 import styled from "styled-components";
 import MenuBar from "./components/Common/MenuBar";
-import Home from "../src/pages/Home/Home";
-import Search from "../src/pages/Home/Search/Search";
-import PostDetail from "../src/pages/Home/PostDetail/PostDetail";
+// import Home from "../src/pages/Home/Home";
+// import Search from "../src/pages/Home/Search/Search";
+// import PostDetail from "../src/pages/Home/PostDetail/PostDetail";
 import Class from "../src/pages/Class/Class";
 import Chatting from "../src/pages/Chatting/Chatting";
 import Posting from "../src/pages/Posting/Posting";
@@ -22,6 +24,7 @@ function App() {
       {/* <Login /> */}
       <Router>
         <Routes>
+
           <Route path="/" element={<Loading />} />
           <Route path="/intro" element={<Intro />} />
           <Route path="/home" element={<Home to="/home/search" />} />
@@ -29,10 +32,10 @@ function App() {
           <Route path="Signup" element={<Signup />} />
           <Route path="/home/search" element={<Search />} />
           <Route path="/home/postdetail" element={<PostDetail />} />
-          <Route exact path="/class*" element={<Class />} />
-          <Route exact path="/chat*" element={<Chatting />} />
-          <Route exact path="/posting" element={<Posting />} />
-          <Route exact path="/profile*" element={<Profile />} />
+          {/* <Route path="/home" element={<Home to="/home/search" />} />
+          <Route path="/home/search" element={<Search />} /> */}
+          {/* <Route path="/home/postdetail" element={<PostDetail />} /> */}
+
         </Routes>
       </Router>
     </Wrap>
