@@ -132,10 +132,18 @@ export default function Login() {
           <img src={buttonImg} alt="" />
         </button>
       </LoginForm>
-      <Link to="/singup">이메일로 회원가입</Link>
+      <MoveSingUp Link to="/singup">
+        이메일로 회원가입
+      </MoveSingUp>
     </LoginWrap>
   );
 }
+const MoveSingUp = styled(Link)`
+  display: block;
+  color: var(--sub-font-color);
+  font-size: var(--font-sm);
+  text-align: center;
+`;
 
 const LoginWrap = styled.div`
   font-size: var(--font-md);
