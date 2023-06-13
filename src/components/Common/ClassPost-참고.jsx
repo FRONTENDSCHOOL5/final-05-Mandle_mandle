@@ -1,10 +1,18 @@
-import React from 'react'
-import styled from 'styled-components';
-import LikeBtn from './LikeBtn';
-import ProfileUI from './ProfileUI';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import LikeBtn from "./LikeBtn";
+import ProfileUI from "./ProfileUI";
+import { Link } from "react-router-dom";
 
-export default function Card({ profile, name, email, img, title, description, price }) {
+export default function Card({
+  profile,
+  name,
+  email,
+  img,
+  title,
+  description,
+  price,
+}) {
   return (
     <Article>
       <ProfileUI
@@ -18,18 +26,19 @@ export default function Card({ profile, name, email, img, title, description, pr
           <img alt="card" src={img} />
           <h2>{title}</h2>
           <p>{description}</p>
-          <strong>{price}</strong><span>원</span>
+          <strong>{price}</strong>
+          <span>원</span>
         </CardContent>
       </CardLink>
       <LikeBtn />
     </Article>
   );
-};
+}
 
 const CardLink = styled(Link)`
   color: var(--black-color);
   text-decoration: none;
-  `
+`;
 
 const CardContent = styled.div`
   img {
@@ -57,14 +66,14 @@ const CardContent = styled.div`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
-`
+`;
 
 const Article = styled.article`
   position: relative;
-  
+
   button {
     position: absolute;
     right: 16px;
     bottom: 172px;
   }
-`
+`;
