@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
-import './font.css';
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
+import "./font.css";
 
 const GlobalStyle = createGlobalStyle`
 	
@@ -53,8 +53,7 @@ const GlobalStyle = createGlobalStyle`
 		border: 0;
 		font-size: 16px;
 		vertical-align: baseline;
-    font-family: 'SpoqaHanSansNeo-Regular';
-    box-sizing: border-box;
+        font-family: 'SpoqaHanSansNeo-Regular';
 	}
 
 	ol, ul{

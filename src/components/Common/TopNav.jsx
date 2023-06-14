@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import SearchIcon from '../../assets/img/icon-search.svg';
-import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
-import MoreIcon from '../../assets/img/icon- more-vertical.svg';
-import { ButtonStyle } from './Button';
+import React, { useState } from "react";
+import styled from "styled-components";
+import SearchIcon from "../../assets/img/icon-search.svg";
+import ArrowIcon from "../../assets/img/icon-arrow-left.svg";
+import MoreIcon from "../../assets/img/icon- more-vertical.svg";
+import { ButtonStyle } from "./Button";
 
 //메인, 클래스 타이틀 nav
 const MainNav = styled.div`
@@ -141,7 +141,7 @@ function MainNavigation({ title }) {
   return (
     <MainNav>
       <NavTitle>만들만들 {title}</NavTitle>
-      <Image className='search' src={SearchIcon} alt='검색하기 아이콘' />
+      <Image className="search" src={SearchIcon} alt="검색하기 아이콘" />
     </MainNav>
   );
 }
@@ -149,9 +149,9 @@ function MainNavigation({ title }) {
 function SearchNavigation() {
   return (
     <SearchBackNav>
-      <Image src={ArrowIcon} alt='뒤로가기 아이콘' />
-      <label htmlFor='search-input' />
-      <Input id='search-input' type='text' placeholder='계정 검색' />
+      <Image src={ArrowIcon} alt="뒤로가기 아이콘" />
+      <label htmlFor="search-input" />
+      <Input id="search-input" type="text" placeholder="계정 검색" />
     </SearchBackNav>
   );
 }
@@ -159,8 +159,8 @@ function SearchNavigation() {
 function MoreNavigation() {
   return (
     <MoreBackNav>
-      <Image src={ArrowIcon} alt='뒤로가기 아이콘' />
-      <Image className='more-icon' src={MoreIcon} alt='더보기 아이콘' />
+      <Image src={ArrowIcon} alt="뒤로가기 아이콘" />
+      <Image className="more-icon" src={MoreIcon} alt="더보기 아이콘" />
     </MoreBackNav>
   );
 }
@@ -168,7 +168,7 @@ function MoreNavigation() {
 function ArrowLeftNavigation() {
   return (
     <ArrowLeft>
-      <Image src={ArrowIcon} alt='뒤로가기 아이콘' />
+      <Image src={ArrowIcon} alt="뒤로가기 아이콘" />
     </ArrowLeft>
   );
 }
@@ -176,7 +176,7 @@ function ArrowLeftNavigation() {
 function SearchBar() {
   return (
     <SearchNav>
-      <Image className='search' src={SearchIcon} alt='검색하기 아이콘' />
+      <Image className="search" src={SearchIcon} alt="검색하기 아이콘" />
     </SearchNav>
   );
 }
@@ -184,16 +184,16 @@ function SearchBar() {
 function UploadButton() {
   return (
     <BackButtonNav>
-      <Image src={ArrowIcon} alt='뒤로가기 아이콘' />
+      <Image src={ArrowIcon} alt="뒤로가기 아이콘" />
       <ButtonStyle
-        type='button'
-        bg='#036635'
-        width='90px'
-        height='32px'
-        br='32px'
-        color='#ffffff'
-        fontsize='14px'
-        margin='0 16px 0 0'
+        type="button"
+        bg="#036635"
+        width="90px"
+        height="32px"
+        br="32px"
+        color="#ffffff"
+        fontsize="14px"
+        margin="0 16px 0 0"
       >
         업로드
       </ButtonStyle>
@@ -204,16 +204,16 @@ function UploadButton() {
 function DisabledUploadButton() {
   return (
     <BackButtonNav>
-      <Image src={ArrowIcon} alt='뒤로가기 아이콘' />
+      <Image src={ArrowIcon} alt="뒤로가기 아이콘" />
       <ButtonStyle
-        type='button'
-        bg='#b1d4c3'
-        width='90px'
-        height='32px'
-        br='32px'
-        color='#ffffff'
-        fontsize='14px'
-        margin='0 16px 0 0'
+        type="button"
+        bg="#b1d4c3"
+        width="90px"
+        height="32px"
+        br="32px"
+        color="#ffffff"
+        fontsize="14px"
+        margin="0 16px 0 0"
       >
         업로드
       </ButtonStyle>
@@ -238,4 +238,4 @@ function TopNavs({ name }) {
   );
 }
 
-export default TopNavs;
+export { TopNavs, ArrowLeftNavigation };
