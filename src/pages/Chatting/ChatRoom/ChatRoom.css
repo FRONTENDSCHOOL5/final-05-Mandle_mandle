@@ -1,0 +1,151 @@
+.a11y-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
+
+.wrap {
+  width: 390px;
+}
+
+button {
+  cursor: pointer;
+}
+h2 {
+  font-weight: 400;
+}
+nav .More-BackNav {
+  display: flex;
+
+  height: 48px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dbdbdb;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 16px;
+}
+
+nav .More-BackNav .Title-Back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/*<-- main -->*/
+
+.Main-Wrap {
+  height: 711px;
+  padding: 224px 0;
+  background-color: #f2f2f2;
+}
+
+.Main-Wrap .chat {
+  display: flex;
+  padding: 16px;
+}
+
+.Main-Wrap .chat .icon {
+  position: relative;
+  overflow: hidden;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+
+  background-image: url(../../../assets/img/mini-basic-progile-img.svg);
+  background-repeat: no-repeat;
+}
+
+.Main-Wrap .chat .textbox {
+  position: relative;
+  display: inline-block;
+  max-width: calc(100% - 130px);
+  padding: 10px;
+  margin-top: 7px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+/* .text1 {
+    width: 240px;
+    height: 114px;
+    display: block;
+  } */
+
+.ch1 .textbox {
+  margin-left: 12px;
+  background-color: #ffffff;
+}
+
+.ch2 {
+  flex-direction: row-reverse;
+}
+.ch2 .textbox {
+  background-color: #036635;
+  color: #ffffff;
+}
+.chat .textbox::after {
+  position: absolute;
+  display: block;
+  bottom: -3px;
+  right: -30px;
+  font-size: 10px;
+  line-height: 12.74px;
+  color: #767676;
+}
+.ch1 .textbox::after {
+  /* left: -15px; */
+  content: "12:39";
+}
+
+.ch2 .textbox::after {
+  position: absolute;
+  display: block;
+  bottom: -3px;
+  left: -30px;
+  font-size: 10px;
+  line-height: 12.74px;
+  color: #767676;
+}
+
+.ch2 .textbox::after {
+  content: "12:51";
+}
+
+/*footer */
+form {
+  display: flex;
+  width: 390px;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+footer form .icon {
+  position: relative;
+  overflow: hidden;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  margin: 13px 18px 11px 16px;
+  background-image: url(../../../assets/img/mini-basic-progile-img.svg);
+  background-repeat: no-repeat;
+}
+
+footer .TextInput {
+  width: 230px;
+  height: auto;
+  outline: none;
+  border: none;
+  resize: none;
+
+  /* box-shadow: 0 0 10px red inset; */
+}
+
+footer .submitButton {
+  padding-left: 26px;
+  color: #c4c4c4;
+}
