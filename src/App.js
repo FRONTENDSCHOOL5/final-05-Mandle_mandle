@@ -4,7 +4,7 @@ import GlobalStyle from "./styles/GlobalStyles";
 import SetProfile from "./pages/Signup/SetProfile";
 import Signup from "./pages/Signup/Signup";
 import styled from "styled-components";
-import MenuBar from "./components/Common/MenuBar";
+// import MenuBar from "./components/Common/MenuBar";
 // import Home from "../src/pages/Home/Home";
 // import Search from "../src/pages/Home/Search/Search";
 // import PostDetail from "../src/pages/Home/PostDetail/PostDetail";
@@ -24,7 +24,6 @@ function App() {
       {/* <Login /> */}
       <Router>
         <Routes>
-
           <Route path="/" element={<Loading />} />
           <Route path="/intro" element={<Intro />} />
           <Route path="/home" element={<Home to="/home/search" />} />
@@ -35,7 +34,6 @@ function App() {
           {/* <Route path="/home" element={<Home to="/home/search" />} />
           <Route path="/home/search" element={<Search />} /> */}
           {/* <Route path="/home/postdetail" element={<PostDetail />} /> */}
-
         </Routes>
       </Router>
     </Wrap>
