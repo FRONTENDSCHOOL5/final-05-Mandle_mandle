@@ -4,6 +4,7 @@ import { HomeNav } from "../../components/Common/TopNav";
 import MiniClassList from "../../components/Common/MiniClassList";
 import ClassPost from "../../components/Common/ClassPost";
 import  MenuBar  from "../../components/Common/MenuBar";
+// 이건 수정할 필요가 있낭 ㅋㅋㅋ
 
 // Header
 export const HiddenContext = styled.h1`

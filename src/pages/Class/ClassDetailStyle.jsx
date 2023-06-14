@@ -7,6 +7,7 @@ import ClassImg from "../../assets/img/temp/soapT1.png"
 import ExplainImg from "../../assets/img/temp/soapT5.png"
 import UserIcon from "../../assets/img/basic-profile-img.svg"
 import MiniClassList from "../../components/Common/MiniClassList";
+// Header랑 main도 긴데 이거 파일 나눠야 할까....
 
 // Header 
 export function Header() {
