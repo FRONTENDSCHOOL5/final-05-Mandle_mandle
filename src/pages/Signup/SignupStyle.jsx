@@ -1,6 +1,6 @@
 // import React from "react"; // 사용하지 않아 주석처리 합니다
-import styled from "styled-components";
-import ClayImg from "../../assets/img/L-button-clay.svg";
+import styled from 'styled-components';
+import ClayImg from '../../assets/img/L-button(clay).svg';
 // import GlobalStyleComponent from "../../styles/GlobalStyles"; 사용하지 않아 주석처리 합니다
 
 export const SignupDiv = styled.div`
@@ -47,6 +47,3 @@ export const ButtonImg = styled.button`
   margin: 16px 0 0 -14px;
   background: url(${ClayImg}) center / contain no-repeat;
 `;
-
-
-
