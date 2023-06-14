@@ -6,6 +6,7 @@ import EmailIcon from '../../assets/img/icon-email.svg';
 import GoogleIcon from '../../assets/img/google-logo.svg';
 import KaKaoIcon from '../../assets/img/kakao-logo.svg';
 import FaceBookIcon from '../../assets/img/facebook-logo.svg';
+import { Link } from 'react-router-dom';
 export default function Intro() {
   return (
     <IntroWrap>
@@ -18,27 +19,25 @@ export default function Intro() {
       <LoginChooseList>
         <ul>
           <li>
-            <LoginLink imgsrc={EmailIcon} href=''>
+            <LoginLink to='/login' imgsrc={EmailIcon}>
               이메일로 로그인
             </LoginLink>
           </li>
           <li>
-            <LoginLink imgsrc={GoogleIcon} href=''>
-              구글 계정으로 로그인
-            </LoginLink>
+            <LoginLink imgsrc={GoogleIcon}>구글 계정으로 로그인</LoginLink>
           </li>
           <li>
-            <LoginLink bc='#F2C94C' imgsrc={KaKaoIcon} href=''>
+            <LoginLink bc='#F2C94C' imgsrc={KaKaoIcon}>
               카카오톡 계정으로 로그인
             </LoginLink>
           </li>
           <li>
-            <LoginLink bc='#2D9CDB' imgsrc={FaceBookIcon} href=''>
+            <LoginLink bc='#2D9CDB' imgsrc={FaceBookIcon}>
               페이스북 계정으로 로그인
             </LoginLink>
           </li>
         </ul>
-        <SignUpLink href=''>회원가입</SignUpLink>
+        <SignUpLink to='/signup'>회원가입</SignUpLink>
       </LoginChooseList>
     </IntroWrap>
   );
@@ -81,7 +80,7 @@ const LoginChooseList = styled.div`
   }
 `;
 
-const LoginLink = styled.a`
+const LoginLink = styled(Link)`
   width: 322px;
   display: flex;
   justify-content: center;
@@ -94,7 +93,7 @@ const LoginLink = styled.a`
   background: url(${(props) => props.imgsrc}) no-repeat 17px 50%;
 `;
 
-const SignUpLink = styled.a`
+const SignUpLink = styled(Link)`
   margin-top: 20px;
   color: var(--sub-font-color);
   font-size: var;
