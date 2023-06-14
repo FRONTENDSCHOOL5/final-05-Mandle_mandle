@@ -3,10 +3,10 @@ import LoadingImg from '../../assets/img/full-logo(loading).svg';
 import LoadedImg from '../../assets/img/full-logo(loaded).svg';
 import LogoImg from '../../assets/img/logo.svg';
 import styled from 'styled-components';
-
+import { useNavigate } from 'react-router-dom';
 const Loading = () => {
   const [isLoading, setIsLoading] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -14,6 +14,16 @@ const Loading = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      const introTimer = setTimeout(() => {
+        navigate('/intro');
+      }, 2000);
+
+      return () => clearTimeout(introTimer);
+    }
+  }, [isLoading, navigate]);
 
   return (
     <LoadingWrap>
