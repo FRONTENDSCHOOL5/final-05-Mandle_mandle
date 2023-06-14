@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
-import "./font.css";
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
+import './font.css';
 
 const GlobalStyle = createGlobalStyle`
 	
@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     --sub-font-color: #767676;;
     --border-color: #DBDBDB ; 
     --background-color: #F2F2F2;
+    --error-color: #EB5757
 	--font-xl : 24px;
 	--font-lg : 16px;
 	--font-md : 14px;
@@ -32,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
   
   body {
       font-family: 'SpoqaHanSansNeo-Regular';
-      font-size: 10px;
+      font-size: 14px;
   }
 
   
@@ -51,7 +52,7 @@ const GlobalStyle = createGlobalStyle`
 		margin: 0;
 		padding: 0;
 		border: 0;
-		font-size: 16px;
+	  box-sizing: border-box;
 		vertical-align: baseline;
         font-family: 'SpoqaHanSansNeo-Regular';
 	}
