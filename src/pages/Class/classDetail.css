@@ -1,0 +1,386 @@
+/* reset css */
+html {
+  width: 390px;
+  margin: 0 auto;
+  scroll-behavior: smooth;
+}
+body {
+  font-size: 10px;
+  background-color: #f2f2f2;
+}
+body, h1, h2, h3, h4, h5, h6, p, a, button, ul, li {
+  padding: 0;
+  margin: 0;
+}
+ul, li {
+  list-style: none;
+}
+button {
+  border: initial;
+  background-color: initial;
+}
+a {
+  text-decoration: none;
+}
+
+.a11y-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
+/* /reset css */
+
+/* header */
+header {
+  background-color: #fff;
+}
+
+.top-nav {
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 16px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.class-info {
+  padding: 16px 31px 28px 27px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+.class-info img {
+  width: 330px;
+  aspect-ratio: 330 / 215;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.class-info a {
+  font-size: 14px;
+  color: #767676;
+}
+.class-info .class-name {
+  font-size: 16px;
+  margin: 4px 0 11px;
+}
+.class-info .class-price {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.top-btn {
+  padding: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #767676;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+.top-btn .like-btn,
+.top-btn .share-btn {
+  font-size: 14px;
+  color: #767676;
+  width: calc(100% / 2);
+  padding-left: 16px;
+}
+.top-btn .like-btn::before {
+  content: "";
+  background: url(../../assets/img/icon-heart.svg);
+  width: 20px;
+  height: 20px;
+  display: block;
+  position: absolute;
+  left: 26px;
+}
+.top-btn .like-btn::after {
+  content: "";
+  width: 1px;
+  height: 35px;
+  display: block;
+  background-color: #767676;
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+.top-btn .share-btn::before {
+  content: "";
+  background: url(../../assets/img/icon-share.svg);
+  width: 20px;
+  height: 20px;
+  display: block;
+  position: absolute;
+  right: 107px;
+}
+
+.bottom-btn .ask-btn {
+  width: 102px;
+  height: 34px;
+  border: 1px solid #dbdbdb;
+  font-size: 14px;
+  color: #767676;
+  padding: 8px;
+  box-sizing: border-box;
+  border-radius: 44px;
+}
+.bottom-btn .reserve-btn {
+  width: 220px;
+  float: right;
+  height: 34px;
+  background-color: #036635;
+  border-radius: 44px;
+  color: #fff;
+}
+/* /header */
+
+/* main */
+main {
+  margin-bottom: 60px;
+}
+main section:not(:last-child) {
+  margin-bottom: 10px;
+}
+/* class-intro */
+.class-intro {
+  background-color: #fff;
+}
+.nav-container {
+  border-bottom: 1px solid #dbdbdb;
+}
+.class-nav {
+  padding: 14px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-around;
+}
+.class-nav a {
+  color: #767676;
+}
+
+.class-wrap {
+  padding: 20px 35px;
+}
+.class-intro p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.class-wrap img {
+  width: 320px;
+  aspect-ratio: 320 / 329;
+  object-fit: cover;
+}
+/* /class-intro */
+
+/* class-location */
+.class-location {
+  background-color: #fff;
+  position: relative;
+}
+.class-location h3 {
+  font-size: 16px;
+  font-weight: normal;
+  margin-bottom: 26px;
+}
+.class-location h3::after {
+  content: "";
+  width: 322px;
+  height: 0.1px;
+  display: block;
+  background-color: #dbdbdb;
+  position: absolute;
+  top: 43px;
+}
+.class-location .map {
+  width: 320px;
+  height: 160px;
+  background-color: #dbdbdb;
+  margin-bottom: 12px;
+}
+.class-location address {
+  font-size: 14px;
+  font-weight: normal;
+  color: #767676;
+}
+/* /class-location */
+
+/* class-review */
+.class-review {
+  background-color: #fff;
+  position: relative;
+}
+.class-review h3 {
+  font-size: 16px;
+  font-weight: normal;
+  margin-bottom: 26px;
+}
+.class-review h3::after {
+  content: "";
+  width: 322px;
+  height: 0.1px;
+  display: block;
+  background-color: #dbdbdb;
+  position: absolute;
+  top: 43px;
+}
+
+.user-profile img {
+  width: 36px;
+  aspect-ratio: 36 / 36;
+  object-fit: cover;
+  margin-right: 9px;
+}
+.user-profile {
+  position: relative;
+  margin-bottom: 9px;
+}
+
+.user-info {
+  position: absolute;
+  top: 0;
+  left: calc(36px + 9px);
+}
+.user-info .user-name {
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+.user-info .write-time {
+  font-size: 12px;
+  color: #767676;
+}
+
+.review-content {
+  display: flex;
+}
+.review-content img {
+  width: 80px;
+  aspect-ratio: 80 / 80;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 12px;
+}
+.review-content .review-write {
+  font-size: 14px;
+}
+/* /class-review */
+
+/* other class */
+#other-class {
+  padding: 18px 0 18px 16px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-bottom: 1px solid #dbdbdb;
+}
+#other-class h2 {
+  font-size: 16px;
+  font-weight: normal;
+  margin-bottom: 16px;
+}
+.mini-class {
+  width: 140px;
+  height: 160px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, .1);
+  border-radius: 5px;
+  background-color: #fff;
+}
+.mini-class img {
+  width: 140px;
+  aspect-ratio: 140 / 90;
+  object-fit: cover;
+  border-radius: 5px 5px 0 0;
+}
+.mini-class p {
+  font-size: 12px;
+  color: #767676;
+  margin: 6px 0 7px 4px;
+}
+
+.mini-class h3 {
+  font-size: 14px;
+  font-weight: normal;
+  margin-left: 4px;
+  color: #000;
+}
+
+.other-class-list {
+  padding: 0 0 10px 0;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+/* /other class */
+
+
+
+/* /main */
+
+/* footer */
+/* 수정할 필요 있음 */
+footer {
+  width: 390px;
+  height: 60px;
+  background-color: #fff;
+  padding: 6px;
+  position: fixed;
+  bottom: 0;
+  box-sizing: border-box;
+}
+
+.bottom-nav {
+  display: flex;
+  box-sizing: border-box;
+}
+
+.bottom-nav li {
+  position: relative;
+}
+
+.bottom-nav a {
+  font-size: 10px;
+  display: inline-block;
+  width: calc((390px - 12px) / 5);
+  height: 48px;
+  line-height: 80px;
+  text-align: center;
+  box-sizing: border-box;
+  color: #767676;
+}
+
+.bottom-nav li::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  display: block;
+  position: absolute;
+  bottom: 16px;
+  left: 34%;
+}
+
+/* .home::before {
+  background: url(../../assets/img/icon-home.svg)no-repeat;
+}
+
+.class::before {
+  background: url(../../assets/img/icon-class-fill.svg)no-repeat;
+}
+
+.chat::before {
+  background: url(../../assets/img/icon-chat.svg);
+}
+
+.edit::before {
+  background: url(../../assets/img/icon-edit.svg);
+}
+
+.user::before {
+  background: url(../../assets/img/icon-user.svg);
+} */
+/* /footer */

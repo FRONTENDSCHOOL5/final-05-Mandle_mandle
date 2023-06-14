@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
-import BasicProfile from '../../assets/img/basic-profile-img.svg';
-import UploadBtnImg from '../../assets/img/img-upload-button.svg';
-import styled from 'styled-components';
+import React, { useRef, useState } from "react";
+import BasicProfile from "../../assets/img/basic-profile-img.svg";
+import UploadBtnImg from "../../assets/img/img-upload-button.svg";
+import styled from "styled-components";
 
 export default function UploadProfile() {
   const fileInputRef = useRef(null);
@@ -26,13 +26,13 @@ export default function UploadProfile() {
 
   return (
     <UploadProfileWrap>
-      <img src={previewImage} alt='' />
-      <ImgUploadBtn type='button' onClick={handleImageUpload}>
-        <img src={UploadBtnImg} alt='' />
+      <img src={previewImage} alt="" />
+      <ImgUploadBtn type="button" onClick={handleImageUpload}>
+        <img src={UploadBtnImg} alt="" />
         <input
-          type='file'
+          type="file"
           ref={fileInputRef}
-          style={{ display: 'none' }}
+          style={{ display: "none" }}
           onChange={handleImageChange}
         />
       </ImgUploadBtn>
@@ -45,7 +45,7 @@ const UploadProfileWrap = styled.div`
   width: 110px;
   height: 110px;
   overflow: hidden;
-
+  margin: auto;
   img {
     width: 100%;
     height: 100%;
