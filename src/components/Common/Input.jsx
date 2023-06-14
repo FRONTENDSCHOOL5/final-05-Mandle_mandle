@@ -39,14 +39,14 @@ export default function Input() {
 export const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 28px;
+  margin-top: 16px; // margin-top 28px -> 16px 수정
 `;
 export const Label = styled.label`
   font-family: var(--font--Bold);
-  margin-bottom: 9px;
-  font-weight: 700;
+  font-weight: 400;
   color: #767676;
   font-size: 12px;
+  /* margin-bottom: 9px; 삭제처리 */
 `;
 
 export const InputBox = styled.input`
@@ -55,6 +55,7 @@ export const InputBox = styled.input`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   box-sizing: border-box;
+  padding: 8px 0;
   // border-radius: 4px;
   &::placeholder {
     color: #dbdbdb;

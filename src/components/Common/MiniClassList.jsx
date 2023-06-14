@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import GlobalStyle from "../../styles/GlobalStyles";
-import ClassImg from "../../assets/img/temp/candleT1.png";
+import React from 'react';
+import styled from 'styled-components';
+import GlobalStyle from '../../styles/GlobalStyles';
+import ClassImg from '../../assets/img/temp/candleT1.png';
 
 function MiniClassList() {
   return (
@@ -9,27 +9,27 @@ function MiniClassList() {
       <Title>판매중인 상품</Title>
       <ClassList>
         <li>
-          <a href="#">
+          <a href='#'>
             <Class>
-              <ClassImage src={ClassImg} alt="양초 수업" />
+              <ClassImage src={ClassImg} alt='양초 수업' />
               <ClassDescription>생활</ClassDescription>
               <ClassTitle>향초 만들기</ClassTitle>
             </Class>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href='#'>
             <Class>
-              <ClassImage src={ClassImg} alt="양초 수업" />
+              <ClassImage src={ClassImg} alt='양초 수업' />
               <ClassDescription>생활</ClassDescription>
               <ClassTitle>향초 만들기</ClassTitle>
             </Class>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href='#'>
             <Class>
-              <ClassImage src={ClassImg} alt="양초 수업" />
+              <ClassImage src={ClassImg} alt='양초 수업' />
               <ClassDescription>생활</ClassDescription>
               <ClassTitle>향초 만들기</ClassTitle>
             </Class>
