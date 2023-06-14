@@ -1,61 +1,52 @@
-import React from "react";
+// import React from "react"; // 사용하지 않아 주석처리 합니다
 import styled from "styled-components";
-import GlobalStyleComponent from "../../styles/GlobalStyles";
 import ClayImg from "../../assets/img/L-button-clay.svg";
+// import GlobalStyleComponent from "../../styles/GlobalStyles"; 사용하지 않아 주석처리 합니다
 
-export const TypeDiv = styled.div`
-  display: flex;
-  gap: 13px;
-  margin: auto;
-  justify-content: center;
-`;
-export const ButtonImg = styled.button`
-  display: block;
-  width: 350px;
-  height: 70px;
-  margin: 17px 0 0 -15px;
-  background: url(${ClayImg}) center / contain no-repeat;
-`;
 export const SignupDiv = styled.div`
-  margin: auto;
-  padding: auto;
-  max-width: 390px;
-`;
-
-export const TypeP = styled.p`
-  font-size: 12px;
-  color: var(--sub-font-color);
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
-export const Wrap = styled.div`
-  width: 322px;
-  margin: auto;
+  width: 390px;
 `;
 
 export const SignupHeader = styled.header`
-  display: flex;
+  text-align: center;
+  margin: 29px auto 40px;
   position: relative;
-  justify-content: center;
-  align-items: center;
-  padding: 33px 34px 40px;
-
   button {
     position: absolute;
     left: 34px;
   }
 `;
 
-export const Label = styled.label`
-  font-family: var(--font--Bold);
-  margin-bottom: 9px;
-  font-weight: 700;
-  color: #767676;
-  font-size: 12px;
+export const Heading1 = styled.h1`
+  font-size: var(--font-xl);
 `;
 
-export const SignupForm = styled.div`
-  width: 322px;
-  margin: auto;
+export const Wrap = styled.div`
+  padding: 0 34px;
 `;
+
+export const TypeP = styled.p`
+  font-size: var(--font-sm);
+  color: var(--sub-font-color);
+  margin-bottom: 10px;
+`;
+
+export const TypeDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Label = styled.label`
+  font-family: var(--font--Bold);
+  font-weight: 400;
+  color: #767676;
+  font-size: var(--font-sm);
+`;
+
+export const ButtonImg = styled.button`
+  margin: 16px 0 0 -14px;
+  background: url(${ClayImg}) center / contain no-repeat;
+`;
+
+
+

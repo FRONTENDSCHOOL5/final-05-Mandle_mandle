@@ -1,21 +1,13 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import styled from "styled-components";
+// import axios from "axios"; 사용하지 않아 주석처리 합니다
+// import styled from "styled-components"; // 사용하지 않아 주석처리 합니다
 import ArrowImg from "../../assets/img/icon-arrow-left.svg";
-import ClayDisabledButton from "../../assets/img/L-Disabled-button(clay).svg";
 import ClayButtonImg from "../../assets/img/L-button-clay.svg";
+// import ClayDisabledButton from "../../assets/img/L-Disabled-button(clay).svg"; // input에 값이 모두 입력되기 전에 사용할 버튼 이미지 입니다
 import { InputDiv, Label, InputBox } from "../../components/Common/Input";
 import { ButtonStyle } from "../../components/Common/Button";
-import {
-  TypeDiv,
-  ButtonImg,
-  SignupDiv,
-  TypeP,
-  Wrap,
-  SignupHeader,
-  SignupForm,
-} from "./SignupStyle";
+import { TypeDiv, SignupDiv, TypeP, Wrap, SignupHeader, Heading1, ButtonImg } from "./SignupStyle";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -27,12 +19,9 @@ export default function Signup() {
     event.preventDefault();
 
     const state = {
-      // username: "",
       email: email,
       password: password,
       accountname: type,
-      // intro: "",
-      // image: "",
     };
     console.log(state);
     navigate("/set_profile", { state });
@@ -51,7 +40,7 @@ export default function Signup() {
         <button>
           <img src={ArrowImg} alt="" />
         </button>
-        <h1>이메일로 회원가입하기</h1>
+        <Heading1>이메일로 회원가입하기</Heading1>
       </SignupHeader>
 
       <Wrap>
@@ -67,7 +56,6 @@ export default function Signup() {
             border="1.5px solid #036635"
             color={type === "Student" ? "#fff" : "#036635"}
             onClick={handleStudentBtnClick}
-            // onClick={() => setType("Student")}
           >
             일반 회원(수강생)
           </ButtonStyle>
@@ -80,19 +68,15 @@ export default function Signup() {
             border="1.5px solid #036635"
             color={type === "Teacher" ? "#fff" : "#036635"}
             onClick={handleTeacherBtnClick}
-            // onClick={() => setType("Teacher")}
           >
             강사 회원
           </ButtonStyle>
         </TypeDiv>
 
-        <SignupForm onSubmit={handleSignupSubmit}>
+        <form onSubmit={handleSignupSubmit}>
           <InputDiv>
             <Label>이메일</Label>
             <InputBox
-              width="322px"
-              height="48px"
-              padding="15px"
               onChange={(e) => {
                 setEmail(e.target.value.trim());
                 // console.log(e.target.value);
@@ -103,8 +87,6 @@ export default function Signup() {
           <InputDiv>
             <Label>비밀번호</Label>
             <InputBox
-              width="322px"
-              height="48px"
               onChange={(e) => {
                 setPassword(e.target.value.trim());
                 // console.log(e.target.value);
@@ -113,10 +95,10 @@ export default function Signup() {
               placeholder="비밀번호를 입력하세요"
             />
           </InputDiv>
-          <button type="submit" onClick={handleSignupSubmit}>
+          <ButtonImg type="submit" onClick={handleSignupSubmit}>
             <img src={ClayButtonImg} alt="" />
-          </button>
-        </SignupForm>
+          </ButtonImg>
+        </form>
       </Wrap>
     </SignupDiv>
   );
