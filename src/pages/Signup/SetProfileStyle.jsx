@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import ClayImg from "../../assets/img/L-button-clay.svg";
+import styled from 'styled-components';
+import ClayImg from '../../assets/img/L-button(clay).svg';
 
 export const SignupDiv = styled.div`
   width: 390px;
@@ -34,7 +34,7 @@ export const SetProfileDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
-  ${(props) => props.first && "margin-top: 30px;"}
+  ${(props) => props.first && 'margin-top: 30px;'}
 `;
 
 export const SetProfileLabel = styled.label`
