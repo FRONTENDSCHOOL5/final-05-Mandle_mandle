@@ -1,6 +1,12 @@
-//파일 생성
 import React from "react";
+import { Header, Main, Footer } from "./ClassStyle";
 
 export default function Class() {
-  return <div>class</div>;
+  return (
+    <>
+      <Header />
+      <Main />
+      <Footer />
+    </>
+  )
 }
