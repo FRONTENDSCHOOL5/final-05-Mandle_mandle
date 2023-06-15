@@ -27,11 +27,13 @@ function App() {
           <Route path='/home' element={<Home to='/home/search' />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/set_profile' element={<SetProfile />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='/home/search' element={<Search />} />
-          <Route path='/home/postdetail' element={<PostDetail />} />
-          {/* <Route path="/home" element={<Home to="/home/search" />} />
-          <Route path="/home/search" element={<Search />} /> */}
-          {/* <Route path="/home/postdetail" element={<PostDetail />} /> */}
+          <Route path='/home/post_detail' element={<PostDetail />} />
+          <Route path='/home/class' element={<Class />} />
+          <Route path='/home/chat' element={<Chatting />} />
+          <Route path='/home/posting' element={<Posting />} />
         </Routes>
       </Router>
     </Wrap>
