@@ -82,7 +82,7 @@ const SetProfile = () => {
       if (response.data.status === 200) {
         console.log("회원가입 성공");
         console.log(response);
-        navigate("/home", { state: location.state });
+        navigate("/login", { state: location.state });
       } else {
         console.log("회원가입 실패");
         console.log(response);
