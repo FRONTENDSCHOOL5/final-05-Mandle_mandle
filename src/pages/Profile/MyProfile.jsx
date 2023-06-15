@@ -17,7 +17,7 @@ export default function Profile() {
   return (
     <div>
       <MoreNavigation />
-      <TeacherProfile />
+      <TeacherSelfProfile />
       <MiniClassList />
       <PostList />
     </div>
@@ -33,6 +33,32 @@ function MoreNavigation() {
         <img src={MoreIcon} alt="더보기 아이콘" />
       </button>
     </TopNavWrap>
+  );
+}
+function TeacherSelfProfile() {
+  return (
+    <ProfileSection>
+      <Wrap>
+        <div className="follow">
+          <p>2950</p>
+          <p className="followNum">followers</p>
+        </div>
+        <img src={BasicProfile} alt="프로필 이미지" />
+        <div className="follow">
+          <p>198</p>
+          <p className="followNum">followings</p>
+        </div>
+      </Wrap>
+      <p id="NickName">
+        위니브 메이드 공방<span></span>
+      </p>
+      <p id="MandleId">@ weniv_Atelier</p>
+      <p id="Introduce">비누 만들기 전문 클래스 입니다~</p>
+      <WrapBtn>
+        <button className="profileBtn">프로필 수정</button>
+        <button className="profileBtn">클래스 등록</button>
+      </WrapBtn>
+    </ProfileSection>
   );
 }
 function TeacherProfile() {
@@ -62,6 +88,29 @@ function TeacherProfile() {
         <button className="ShareBtn">
           <img src={ShareImg} alt="공유 아이콘 이미지" />
         </button>
+      </WrapBtn>
+    </ProfileSection>
+  );
+}
+function StudentSelfProfile() {
+  return (
+    <ProfileSection>
+      <Wrap>
+        <div className="follow">
+          <p>2950</p>
+          <p className="followNum">followers</p>
+        </div>
+        <img src={BasicProfile} alt="프로필 이미지" />
+        <div className="follow">
+          <p>198</p>
+          <p className="followNum">followings</p>
+        </div>
+      </Wrap>
+      <p id="NickName">위니브 메이드 공방</p>
+      <p id="MandleId">@ weniv_Atelier</p>
+      <p id="Introduce">비누 만들기 전문 클래스 입니다~</p>
+      <WrapBtn>
+        <button className="profileBtn">프로필 수정</button>
       </WrapBtn>
     </ProfileSection>
   );
