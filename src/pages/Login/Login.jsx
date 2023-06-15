@@ -22,6 +22,14 @@ export default function Login() {
   }; // 이후 리팩토링 시 공통 컴포넌트로 분리 예정
 
   //input 값이 있을때 or 없을때 달라지는 버튼 색 변경함수
+  const handleActiveButton = () => {
+    if (email !== "" && password !== "") {
+      setButtonImg(ButtonImg);
+    } else {
+      setButtonImg(DisabledButtonImg);
+    }
+  };
+
   // 입력란 값 변경 시 실행되는 함수
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -92,6 +100,14 @@ export default function Login() {
       } else if (response.data.user) {
         setToken(response.data.user.token);
         navigate("/home");
+        
+      console.log(response);
+
+      if (response.data.status === 200) {
+        console.log("로그인 성공");
+        // navigate("/home");
+      } else {
+        setLoginErrorMessage("*이메일  또는 비밀번호가 일치하지 않습니다.");
       }
     } catch (error) {
       console.error(error);
