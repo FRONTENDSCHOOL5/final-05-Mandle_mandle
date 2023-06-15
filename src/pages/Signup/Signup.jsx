@@ -1,10 +1,9 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios"; 사용하지 않아 주석처리 합니다
-import styled from "styled-components"; // 사용하지 않아 주석처리 합니다
 import ArrowImg from "../../assets/img/icon-arrow-left.svg";
 import ClayButtonImg from "../../assets/img/L-button(clay).svg";
-import ClayDisabledButton from "../../assets/img/L-Next-Disabled-button(clay).svg"; // input에 값이 모두 입력되기 전에 사용할 버튼 이미지 입니다
+import ClayDisabledButton from "../../assets/img/L-Next-Disabled-button(clay).svg";
 import { InputDiv, Label, InputBox } from "../../components/Common/Input";
 import { ButtonStyle } from "../../components/Common/Button";
 import {
@@ -28,27 +27,22 @@ export default function Signup() {
   const [buttonImg, setButtonImg] = useState(ClayDisabledButton);
   const navigate = useNavigate();
 
-  //이전 페이지 이동
   const goBack = () => {
     navigate(-1);
   };
 
-  // 입력란 값 변경 시 실행되는 함수
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    // 입력란 값 변경
     if (name === "email") {
-      setEmail(e.target.value.trim());
+      setEmail(value.trim());
     } else if (name === "password") {
-      setPassword(e.target.value.trim());
+      setPassword(value.trim());
     }
 
-    // 두 입력란에 값이 모두 존재할 경우 버튼 활성화 함수 실행
     handleActiveButton();
   };
 
-  //input 값이 있을때 or 없을때 달라지는 버튼 색 변경함수
   const handleActiveButton = () => {
     if (email !== "" && password !== "") {
       setButtonImg(ClayButtonImg);
@@ -57,46 +51,75 @@ export default function Signup() {
     }
   };
 
-  //유효성 검사
-  const checkEmailIsValid = () => {
-    if (email === "dayanne@lion.comcom") {
-      setEmailErrorMessage("이 이메일은 이미 등록된 이메일입니다.");
-      setEmailIsValid(false);
-    } else {
-      setEmailErrorMessage("사용 가능한 이메일입니다.");
-      setEmailIsValid(true);
-    }
-  };
+  // const checkEmailIsValid = () => {
+  //   const emailPattern = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+  //   if (!emailPattern.test(email)) {
+  //     setEmailErrorMessage("*유효한 이메일 형식을 입력해주세요");
+  //     setEmailIsValid(false);
+  //   } else {
+  //     setEmailErrorMessage("");
+  //     setEmailIsValid(true);
+  //   }
+  // };
 
-  const handleSignupSubmit = (event) => {
+  const handleSignupSubmit = async (event) => {
     event.preventDefault();
-    const emailPattern = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    if (!emailPattern.test(email)) {
-      // setEmailErrorMessage("*올바른 이메일 양식을 입력해주세요");
-      // setEmailIsValid(false);
-      // return;
-    }
-    const passwordPattern =
-      /^(?=.*[!@#$%^&()_+=-])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-    if (!passwordPattern.test(password)) {
-      // setPwErrorMessage(
-      //   "*비밀번호는 8자 이상 특수문자와 대문자를 포함해야 합니다!"
-      // );
-      // setPasswordIsValid(false);
+    if (buttonImg === ClayDisabledButton) {
+      return; // 버튼 비활성화일 때 기능 막기
     }
 
-    const state = {
-      email: email,
-      password: password,
-      accountname: type,
-    };
-    console.log(state);
-    navigate("/set_profile", { state });
+    try {
+      const data = {
+        user: {
+          email: email,
+        },
+      };
+      console.log(data);
+      const response = await axios.post(
+        "https://api.mandarin.weniv.co.kr/user/emailvalid",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+      if (response.data.message === "사용 가능한 이메일 입니다.") {
+        navigate("/set_profile");
+      } else if (response.data.message === "이미 가입된 이메일 주소 입니다.") {
+      }
+
+      //  else if (response.data.message === "필수 입력사항을 입력해주세요.") {
+      //   setEmailErrorMessage("필수 입력사항을 입력해주세요.");
+      //   setEmailIsValid(false);
+      // } else if (
+      //   response.data.message === "비밀번호는 6자 이상이어야 합니다."
+      // ) {
+      //   setEmailErrorMessage("비밀번호는 6자 이상이어야 합니다.");
+      //   setEmailIsValid(false);
+      // } else if (response.data.message === "잘못된 이메일 형식입니다.") {
+      //   setEmailErrorMessage("잘못된 이메일 형식입니다.");
+      //   setEmailIsValid(false);
+      // } else if (response.data.message === "이미 사용중인 계정 ID입니다.") {
+      //   setEmailErrorMessage("이미 사용중인 계정 ID입니다.");
+      //   setEmailIsValid(false);
+      // } else {
+      //   console.log("회원가입 성공");
+
+      // }
+    } catch (error) {
+      // '이메일 형식을 확인해주세요'라는 글을 담은 태그를 보이도록 함
+      console.error(error);
+
+      setEmailIsValid(false);
+    }
   };
 
   const handleStudentBtnClick = () => {
     setType("Student");
   };
+
   const handleTeacherBtnClick = () => {
     setType("Teacher");
   };
@@ -107,11 +130,10 @@ export default function Signup() {
         <button onClick={goBack}>
           <img src={ArrowImg} alt="" />
         </button>
-        <Heading1>이메일로 회원가입하기</Heading1>
+        <Heading1>이메일로 가입하기</Heading1>
       </SignupHeader>
       <Wrap>
-        <TypeP>회원구분</TypeP>
-
+        <TypeP>회원 분류</TypeP>
         <TypeDiv>
           <ButtonStyle
             type="button"
@@ -123,7 +145,7 @@ export default function Signup() {
             color={type === "Student" ? "#fff" : "#036635"}
             onClick={handleStudentBtnClick}
           >
-            일반 회원(수강생)
+            일반 회원 (수강생)
           </ButtonStyle>
           <ButtonStyle
             type="button"
@@ -139,30 +161,28 @@ export default function Signup() {
           </ButtonStyle>
         </TypeDiv>
 
-        <form onSubmit={handleSignupSubmit}>
-          <InputDiv>
-            <Label>이메일</Label>
-            <InputBox
-              name="email"
-              onChange={handleInputChange}
-              // onBlur={checkEmailIsValid} // 가입한 이메일인지 비교하는 속성 onBlur
-              placeholder="이메일을 입력해주세요"
-            />
-            {/* {emailErrorMessage && <span>{emailErrorMessage}</span>} */}
-          </InputDiv>
-          <InputDiv>
-            <Label>비밀번호</Label>
-            <InputBox
-              name="password"
-              onChange={handleInputChange}
-              type="password"
-              placeholder="비밀번호를 입력하세요"
-            />
-          </InputDiv>
-          <ButtonImg type="submit">
-            <img src={buttonImg} alt="" />
-          </ButtonImg>
-        </form>
+        <InputDiv>
+          <Label>이메일</Label>
+          <InputBox
+            name="email"
+            onChange={handleInputChange}
+            placeholder="이메일을 입력해주세요"
+          />
+          {emailErrorMessage && <span>{emailErrorMessage}</span>}
+        </InputDiv>
+        <InputDiv>
+          <Label>비밀번호</Label>
+          <InputBox
+            name="password"
+            onChange={handleInputChange}
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          {pwErrorMessage && <span>{pwErrorMessage}</span>}
+        </InputDiv>
+        <ButtonImg type="submit" onClick={handleSignupSubmit}>
+          <img src={buttonImg} alt="" />
+        </ButtonImg>
       </Wrap>
     </SignupDiv>
   );

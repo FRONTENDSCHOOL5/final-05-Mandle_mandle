@@ -63,6 +63,9 @@ const SetProfile = () => {
 
   const handleSetProfileSubmit = async (event) => {
     event.preventDefault();
+    if (buttonImg === DisabledButtonImg) {
+      return; // 버튼 비활성화일 때 기능 막기
+    }
     console.log(location.state);
     try {
       const modifiedAccountname = `${location.state.accountname}${accountname}`;
