@@ -19,12 +19,18 @@ import {
 // import { ButtonStyle } from "../../components/Common/Button"; ButtonStyle import하고 사용하지 않아 주석처리합니다
 
 const SetProfile = () => {
+  const url = "https://api.mandarin.weniv.co.kr/";
   const location = useLocation();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [accountname, setAccountname] = useState("");
   const [intro, setIntro] = useState("");
   const [buttonImg, setButtonImg] = useState(DisabledButtonImg);
+  const [image, setImage] = useState("");
+
+  const handleProfileImageResponse = (fileName) => {
+    setImage(fileName);
+  };
 
   //이전 페이지 이동
   const goBack = () => {
@@ -59,7 +65,7 @@ const SetProfile = () => {
     event.preventDefault();
     console.log(location.state);
     try {
-      const modifiedAccountname = `${location.state.accountname}-${accountname}`;
+      const modifiedAccountname = `${location.state.accountname}${accountname}`;
       const data = {
         user: {
           username: username,
@@ -67,28 +73,25 @@ const SetProfile = () => {
           password: location.state.password,
           accountname: modifiedAccountname,
           intro: intro,
-          image: "image",
+          image: url + image,
         },
       };
       console.log(data);
 
-      const response = await axios.post(
-        "https://api.mandarin.weniv.co.kr/user",
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post(url + "user", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       console.log(response);
 
-      if (response.data.status === 200) {
+      if (response.data.message === "회원가입 성공") {
         console.log("회원가입 성공");
         console.log(response);
         navigate("/login", { state: location.state });
       } else {
+        //여기에 message 조건들 넣어 유효성검사 해주기
         console.log("회원가입 실패");
         console.log(response);
       }
@@ -108,7 +111,7 @@ const SetProfile = () => {
 
       <Wrap>
         <P>나중에 언제든지 변경할 수 있습니다.</P>
-        <UploadProfile />
+        <UploadProfile onResponse={handleProfileImageResponse} />
 
         <SetProfileDiv first>
           <SetProfileLabel>사용자 이름</SetProfileLabel>
