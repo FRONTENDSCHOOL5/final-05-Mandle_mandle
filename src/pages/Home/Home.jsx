@@ -6,7 +6,11 @@ import MenuBar from '../../components/Common/MenuBar';
 import ButtonStyle from '../../components/Common/Button';
 import { HomeNav } from '../../components/Common/TopNav';
 import PostList from '../../components/Common/PostList/PostList';
+import { tokenState } from '../../Store/userInfoAtoms';
+import { useRecoilState } from 'recoil';
 export default function Home({ to }) {
+  const token = useRecoilState(tokenState);
+  console.log(token);
   return (
     <HomeWrap>
       <HomeNav title='홈' to={to}></HomeNav>
