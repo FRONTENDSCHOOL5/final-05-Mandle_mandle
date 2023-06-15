@@ -26,6 +26,11 @@ const SetProfile = () => {
   const [intro, setIntro] = useState("");
   const [buttonImg, setButtonImg] = useState(DisabledButtonImg);
 
+  //이전 페이지 이동
+  const goBack = () => {
+    navigate(-1);
+  };
+
   const handleActiveButton = () => {
     if (username !== "" && accountname !== "" && intro !== "") {
       setButtonImg(ClayButtonImg);
@@ -95,7 +100,7 @@ const SetProfile = () => {
   return (
     <SignupDiv>
       <SignupHeader>
-        <button>
+        <button onClick={goBack}>
           <img src={ArrowImg} alt="" />
         </button>
         <Heading1>프로필 설정</Heading1>
