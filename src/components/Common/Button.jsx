@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ButtonStyle = styled.button`
   width: ${(props) => props.width};
@@ -8,5 +8,6 @@ export const ButtonStyle = styled.button`
   text-align: center;
   background-color: ${(props) => props.bg};
   border-radius: ${(props) => props.br};
+  border: ${(props) => props.border};
 `;
 export default ButtonStyle;
