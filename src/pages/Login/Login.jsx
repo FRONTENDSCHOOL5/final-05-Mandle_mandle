@@ -66,14 +66,6 @@ export default function Login() {
     }
   };
 
-  const handleActiveButton = () => {
-    if (email !== "" && password !== "") {
-      setButtonImg(ButtonImg);
-    } else {
-      setButtonImg(DisabledButtonImg);
-    }
-  };
-
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
 
@@ -96,18 +88,18 @@ export default function Login() {
       );
 
       if (response.data.status === 422) {
-        setLoginErrorMessage("*이메일  또는 비밀번호가 일치하지 않습니다.");
+        setLoginErrorMessage("*이메일 또는 비밀번호가 일치하지 않습니다.");
       } else if (response.data.user) {
         setToken(response.data.user.token);
         navigate("/home");
-        
+      }
       console.log(response);
 
       if (response.data.status === 200) {
         console.log("로그인 성공");
-        // navigate("/home");
+        navigate("/home");
       } else {
-        setLoginErrorMessage("*이메일  또는 비밀번호가 일치하지 않습니다.");
+        setLoginErrorMessage("*이메일 또는 비밀번호가 일치하지 않습니다.");
       }
     } catch (error) {
       console.error(error);
