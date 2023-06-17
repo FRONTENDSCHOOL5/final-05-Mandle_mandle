@@ -1,14 +1,16 @@
-import axios from "axios";
 import styled from "styled-components";
-import { React, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { tokenState } from "../../Store/userInfoAtoms";
+import { UserAtom } from "../../Store/userInfoAtoms";
 import ArrowImg from "../../assets/img/icon-arrow-left.svg";
 import DisabledButtonImg from "../../assets/img/L-Disabled-button(clay).svg";
 import ButtonImg from "../../assets/img/L-button(clay).svg";
+import PostLogin from "../../api/PostLogin";
+
 export default function Login() {
-  const [token, setToken] = useRecoilState(tokenState);
+  const [userValue, setUserValue] = useRecoilState(UserAtom);
+  const [valid, setValid] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
@@ -19,21 +21,17 @@ export default function Login() {
 
   const goBack = () => {
     navigate(-1);
-  }; // 이후 리팩토링 시 공통 컴포넌트로 분리 예정
-
-  //input 값이 있을때 or 없을때 달라지는 버튼 색 변경함수
-  const handleActiveButton = () => {
-    if (email !== "" && password !== "") {
-      setButtonImg(ButtonImg);
-    } else {
-      setButtonImg(DisabledButtonImg);
-    }
   };
 
-  // 입력란 값 변경 시 실행되는 함수
+  const handleActiveButton = () => {
+    setButtonImg(
+      email !== "" && password !== "" ? ButtonImg : DisabledButtonImg
+    );
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // 입력란 값 변경
+
     if (name === "email") {
       setEmail(value.trim());
     } else if (name === "password") {
@@ -41,11 +39,11 @@ export default function Login() {
     }
 
     handleActiveButton();
-    // 두 입력란에 값이 모두 존재할 경우 버튼 활성화 함수 실행
   };
 
-  const handleEmailBlur = () => {
-    const emailPattern = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+  const handleEmailInput = () => {
+    const emailPattern = /^\S+@\S+\.\S+$/;
+
     if (!emailPattern.test(email)) {
       setEmailErrorMessage("*올바른 이메일 양식을 입력해주세요");
     } else {
@@ -53,64 +51,36 @@ export default function Login() {
     }
   };
 
-  const handlePwordBlur = () => {
-    const passwordPattern =
-      /^(?=.*[!@#$%^&()_+=-])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-    if (!passwordPattern.test(password)) {
-      setPwErrorMessage(
-        "*비밀번호는 8자 이상 특수문자와 대문자를 포함해야 합니다!"
-      );
-      return;
-    } else {
+  const handlePasswordInput = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    if (value.length >= 6) {
       setPwErrorMessage("");
-    }
-  };
 
-  const handleActiveButton = () => {
-    if (email !== "" && password !== "") {
-      setButtonImg(ButtonImg);
+      handleActiveButton();
     } else {
-      setButtonImg(DisabledButtonImg);
+      setPwErrorMessage("비밀번호는 6자 이상이어야 합니다.");
     }
   };
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      const data = {
-        user: {
-          email: email,
-          password: password,
-        },
-      };
-      console.log(data);
-      const response = await axios.post(
-        "https://api.mandarin.weniv.co.kr/user/login",
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.data.status === 422) {
-        setLoginErrorMessage("*이메일  또는 비밀번호가 일치하지 않습니다.");
-      } else if (response.data.user) {
-        setToken(response.data.user.token);
-        navigate("/home");
-        
-      console.log(response);
-
-      if (response.data.status === 200) {
-        console.log("로그인 성공");
-        // navigate("/home");
-      } else {
-        setLoginErrorMessage("*이메일  또는 비밀번호가 일치하지 않습니다.");
-      }
-    } catch (error) {
-      console.error(error);
+    const loginInfo = await PostLogin(email, password);
+    //로그인 실패시
+    if (loginInfo.status === 422) {
+      setValid(false);
+      setLoginErrorMessage(loginInfo.message);
+      setEmail("");
+      setPassword("");
+      //성공시
+    } else {
+      setUserValue(loginInfo.user);
+      setValid(true);
+      setLoginErrorMessage("");
+      setEmail("");
+      setPassword("");
+      navigate("/home");
     }
   };
 
@@ -127,37 +97,33 @@ export default function Login() {
           <Label>이메일</Label>
           <InputBox
             className="email-input"
-            name="email" // 입력란 식별을 위해 name 속성 추가
+            name="email"
             width="322px"
             height="48px"
             padding="15px"
             onChange={handleInputChange}
-            onBlur={handleEmailBlur} // 수정: onBlur 이벤트 핸들러 추가
+            onBlur={handleEmailInput}
             placeholder="이메일을 입력해주세요"
             brColor={emailErrorMessage ? "var(--error-color)" : "#dbdbdb"}
           />
         </InputDiv>
-
         {emailErrorMessage && <ErrorMessage>{emailErrorMessage}</ErrorMessage>}
-
         <InputDiv>
           <Label>비밀번호</Label>
           <InputBox
             className="pw-input"
-            name="password" // 입력란 식별을 위해 name 속성 추가
+            name="password"
             width="322px"
             height="48px"
             onChange={handleInputChange}
             type="password"
-            onBlur={handlePwordBlur}
             placeholder="비밀번호를 입력하세요"
-            brColor={pwErrorMessage ? "red" : "#dbdbdb"}
+            onBlur={handlePasswordInput}
+            brColor={pwErrorMessage ? "var(--error-color)" : "#dbdbdb"}
           />
         </InputDiv>
-        {(pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>) ||
-          (loginErrorMessage && (
-            <ErrorMessage>{loginErrorMessage}</ErrorMessage>
-          ))}
+        {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
+        {loginErrorMessage && <ErrorMessage>{loginErrorMessage}</ErrorMessage>}
         <button type="submit">
           <img src={buttonImg} alt="" />
         </button>
