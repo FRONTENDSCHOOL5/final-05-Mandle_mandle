@@ -1,15 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import HomeLogo from '../../assets/img/home-logo.svg';
-import MenuBar from '../../components/Common/MenuBar';
-import ButtonStyle from '../../components/Common/Button';
-import { HomeNav } from '../../components/Common/TopNav';
-import PostList from '../../components/Common/PostList/PostList';
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import HomeLogo from "../../assets/img/home-logo.svg";
+import MenuBar from "../../components/Common/MenuBar";
+import ButtonStyle from "../../components/Common/Button";
+import { HomeNav } from "../../components/Common/TopNav";
+import PostList from "../../components/Common/PostList/PostList";
+import { UserAtom } from "../../Store/userInfoAtoms";
+import { useRecoilState } from "recoil";
 export default function Home({ to }) {
+  const token = useRecoilState(UserAtom);
+  console.log(token);
   return (
     <HomeWrap>
-      <HomeNav title='홈' to={to}></HomeNav>
+      <HomeNav title="홈" to={to}></HomeNav>
       <MainWrap>
         {/* <img src={HomeLogo} alt='' />
         <p>유저를 검색해 팔로우 해보세요!</p>

@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
+import axios from "axios";
 import BasicProfile from "../../assets/img/basic-profile-img.svg";
 import UploadBtnImg from "../../assets/img/img-upload-button.svg";
 import styled from "styled-components";
 
-export default function UploadProfile() {
+export default function UploadProfile({ onResponse }) {
   const fileInputRef = useRef(null);
   const [previewImage, setPreviewImage] = useState(BasicProfile);
 
@@ -11,8 +12,27 @@ export default function UploadProfile() {
     fileInputRef.current.click();
   };
 
-  const handleImageChange = (event) => {
-    const selectedFile = event.target.files[0];
+  const handleImageChange = async (event) => {
+    const url = "https://api.mandarin.weniv.co.kr/";
+    const selectedFile = await event.target.files[0];
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    try {
+      const response = await axios.post(url + "image/uploadfile", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      // 응답 처리
+      console.log(response.data);
+      onResponse(response.data.filename);
+    } catch (error) {
+      // 오류 처리
+      console.error(error);
+    }
+
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -61,4 +81,5 @@ const ImgUploadBtn = styled.button`
   img {
     width: 36px;
   }
+};
 `;
