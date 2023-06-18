@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import { useSetRecoilState } from "recoil";
+
+import { SignUpAtom } from "../../Store/AtomSignupState";
 import { useNavigate } from "react-router-dom";
 import ArrowImg from "../../assets/img/icon-arrow-left.svg";
 import ClayButtonImg from "../../assets/img/L-button(clay).svg";
 import ClayDisabledButton from "../../assets/img/L-Next-Disabled-button(clay).svg";
 import { InputDiv, Label, InputBox } from "../../components/Common/Input";
 import { ButtonStyle } from "../../components/Common/Button";
+import PostEmailValid from "../../api/PostEmailVaild";
+
 import {
   TypeDiv,
   SignupDiv,
@@ -22,97 +27,66 @@ export default function Signup() {
   const [type, setType] = useState("Student");
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [pwErrorMessage, setPwErrorMessage] = useState("");
-  const [emailIsValid, setEmailIsValid] = useState(false);
-  const [passwordIsValid, setPasswordIsValid] = useState(false);
+  const [emailValid, setEmailValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
   const [buttonImg, setButtonImg] = useState(ClayDisabledButton);
+  //회원가입 정보를 상태관리 할 setSignup
+  const setSignup = useSetRecoilState(SignUpAtom);
   const navigate = useNavigate();
-
   const goBack = () => {
     navigate(-1);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     if (name === "email") {
       setEmail(value.trim());
     } else if (name === "password") {
-      setPassword(value.trim());
+      setPassword(value);
+      if (value.length >= 6) {
+        setPwErrorMessage("");
+        setPasswordValid(true);
+      } else {
+        setPwErrorMessage("비밀번호는 6자 이상이어야 합니다.");
+        setPasswordValid(false);
+      }
     }
-
     handleActiveButton();
   };
-
   const handleActiveButton = () => {
-    if (email !== "" && password !== "") {
-      setButtonImg(ClayButtonImg);
+    setButtonImg(
+      email !== "" && password !== "" ? ClayButtonImg : ClayDisabledButton
+    );
+  };
+
+  const handleEmailvalid = async (e) => {
+    const email = e.target.value;
+    const emailPattern = /^\S+@\S+\.\S+$/;
+
+    if (!emailPattern.test(email)) {
+      setEmailErrorMessage("*올바른 이메일 형식을 입력하세요");
     } else {
-      setButtonImg(ClayDisabledButton);
+      const Msg = await PostEmailValid(email);
+      setEmailErrorMessage(Msg);
+      Msg === "사용 가능한 이메일 입니다."
+        ? setEmailValid(true)
+        : setEmailValid(false);
     }
   };
 
-  // const checkEmailIsValid = () => {
-  //   const emailPattern = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-  //   if (!emailPattern.test(email)) {
-  //     setEmailErrorMessage("*유효한 이메일 형식을 입력해주세요");
-  //     setEmailIsValid(false);
-  //   } else {
-  //     setEmailErrorMessage("");
-  //     setEmailIsValid(true);
-  //   }
-  // };
+  const handleSignupSubmit = (e) => {
+    e.preventDefault();
 
-  const handleSignupSubmit = async (event) => {
-    event.preventDefault();
     if (buttonImg === ClayDisabledButton) {
       return; // 버튼 비활성화일 때 기능 막기
     }
-
-    try {
-      const data = {
-        user: {
-          email: email,
-        },
-      };
-      console.log(data);
-      const response = await axios.post(
-        "https://api.mandarin.weniv.co.kr/user/emailvalid",
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(response);
-      if (response.data.message === "사용 가능한 이메일 입니다.") {
-        navigate("/set_profile");
-      } else if (response.data.message === "이미 가입된 이메일 주소 입니다.") {
-      }
-
-      //  else if (response.data.message === "필수 입력사항을 입력해주세요.") {
-      //   setEmailErrorMessage("필수 입력사항을 입력해주세요.");
-      //   setEmailIsValid(false);
-      // } else if (
-      //   response.data.message === "비밀번호는 6자 이상이어야 합니다."
-      // ) {
-      //   setEmailErrorMessage("비밀번호는 6자 이상이어야 합니다.");
-      //   setEmailIsValid(false);
-      // } else if (response.data.message === "잘못된 이메일 형식입니다.") {
-      //   setEmailErrorMessage("잘못된 이메일 형식입니다.");
-      //   setEmailIsValid(false);
-      // } else if (response.data.message === "이미 사용중인 계정 ID입니다.") {
-      //   setEmailErrorMessage("이미 사용중인 계정 ID입니다.");
-      //   setEmailIsValid(false);
-      // } else {
-      //   console.log("회원가입 성공");
-
-      // }
-    } catch (error) {
-      // '이메일 형식을 확인해주세요'라는 글을 담은 태그를 보이도록 함
-      console.error(error);
-
-      setEmailIsValid(false);
+    if (email && password && emailValid && passwordValid) {
+      console.log("Email:", email);
+      console.log("Password:", password);
+      setSignup({ email, password });
+      navigate("/set_profile");
+    } else {
+      setSignup(false);
     }
   };
 
@@ -165,8 +139,10 @@ export default function Signup() {
           <Label>이메일</Label>
           <InputBox
             name="email"
-            onChange={handleInputChange}
+            type="email"
             placeholder="이메일을 입력해주세요"
+            onChange={handleInputChange}
+            onBlur={handleEmailvalid}
           />
           {emailErrorMessage && <span>{emailErrorMessage}</span>}
         </InputDiv>
@@ -174,8 +150,8 @@ export default function Signup() {
           <Label>비밀번호</Label>
           <InputBox
             name="password"
-            onChange={handleInputChange}
             type="password"
+            onChange={handleInputChange}
             placeholder="비밀번호를 입력해주세요"
           />
           {pwErrorMessage && <span>{pwErrorMessage}</span>}

@@ -2,9 +2,10 @@ import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
-// 로그인된 유저 정보 저장
-export const UserAtom = atom({
-  key: "UserAtom",
+
+//회원가입 토큰 정보
+export const SignUpAtom = atom({
+  key: "SignUpAtom",
   default: {},
   effects_UNSTABLE: [persistAtom],
 });
