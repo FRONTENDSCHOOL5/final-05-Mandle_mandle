@@ -6,10 +6,7 @@ import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilState } from 'recoil';
 import PostList from '../../components/Common/PostList/PostList';
 import GetFollowPost from '../../api/GetFollowPost';
-import { Link } from 'react-router-dom';
-import HomeLogo from '../../assets/img/home-logo.svg';
-import ButtonStyle from '../../components/Common/Button';
-
+import PostBlank from './PostBlank/PostBlank';
 export default function Home({ to }) {
   const [userValue] = useRecoilState(UserAtom); // UserAtom값 불러오기
   const token = userValue.token; // token값 추출
@@ -34,26 +31,9 @@ export default function Home({ to }) {
       <HomeNav title='홈' to={to}></HomeNav>
       <MainWrap>
         {postData === null || postData.length === 0 ? (
-          <>
-            <img src={HomeLogo} alt='' />
-            <p>유저를 검색해 팔로우 해보세요!</p>
-            <Link to={to}>
-              <ButtonStyle
-                width='120px'
-                height='44px'
-                color='#fff'
-                bg='#036635'
-                br='44px'
-              >
-                검색하기
-              </ButtonStyle>
-            </Link>
-          </>
+          <PostBlank to={to} />
         ) : (
-          <ul>
-            <PostList />
-            <PostList />
-          </ul>
+          <PostList />
         )}
       </MainWrap>
       <MenuBar />
@@ -78,15 +58,4 @@ const MainWrap = styled.main`
   width: 100%;
   height: calc(100% - 48px - 60px);
   padding: 0 16px;
-
-  ul {
-    overflow-y: scroll;
-  }
-  ul::-webkit-scrollbar {
-    display: none;
-  }
-  /* p {
-    padding: 10px 0 20px;
-    color: var(--sub-font-color);
-  } */
 `;
