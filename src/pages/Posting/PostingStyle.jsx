@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfileImg from "../../assets/img/mini-basic-progile-img.svg";
 import ImgUploadBtn from "../../assets/img/img-upload-button.svg";
 import { ButtonStyle } from "../../components/Common/Button";
