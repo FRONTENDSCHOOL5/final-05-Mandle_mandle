@@ -101,7 +101,7 @@ export function ProfileBox() {
   </ProfileContainer>;
 }
 
-export function DisabledUploadBtnNav({ buttonStyle }) {
+export function DisabledUploadBtnNav({ handleUploadImage, buttonStyle }) {
   return (
     <TopNavWrap>
       <button className="go-back">
@@ -116,6 +116,7 @@ export function DisabledUploadBtnNav({ buttonStyle }) {
         color="#ffffff"
         fontsize="14px"
         margin="0 16px 0 0"
+        onClick={handleUploadImage}
       >
         업로드
       </ButtonStyle>
@@ -125,17 +126,17 @@ export function DisabledUploadBtnNav({ buttonStyle }) {
 
 {
   /* <ButtonStyle
-type="button"
-bg="#036635"
-width="90px"
-height="32px"
-br="32px"
-color="#ffffff"
-fontsize="14px"
-margin="0 16px 0 0"
->
-업로드
-</ButtonStyle> */
+  type="button"
+  bg="#036635"
+  width="90px"
+  height="32px"
+  br="32px"
+  color="#ffffff"
+  fontsize="14px"
+  margin="0 16px 0 0"
+  >
+  업로드
+  </ButtonStyle> */
 }
 export function FileUploadButton({ handleImageChange }) {
   return (
@@ -165,12 +166,27 @@ export function FileUploadButton({ handleImageChange }) {
 // };
 
 export const UserImg = ({ selectedImages }) => {
+  useEffect(() => {
+    console.log(selectedImages);
+  }, [selectedImages]);
+  const [images, setImages] = useState(selectedImages);
+
+  const handleDeleteImage = (index) => {
+    const updatedImages = [...images];
+    updatedImages.splice(index, 1);
+    setImages(updatedImages);
+    console.log(images);
+  };
+
   return (
     <ImgWrapStyle>
       {selectedImages.map((image, index) => (
         <PreviewImgWrapStyle key={index}>
           <ImagePreview src={image} alt={`상품 이미지 ${index + 1}`} />
-          <DeleteImgBtn type="button" />
+          <DeleteImgBtn
+            onClick={() => handleDeleteImage(index)}
+            type="button"
+          />
         </PreviewImgWrapStyle>
       ))}
     </ImgWrapStyle>
