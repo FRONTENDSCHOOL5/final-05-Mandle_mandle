@@ -20,7 +20,6 @@ import Home from '../src/pages/Home/Home';
 import Search from '../src/pages/Home/Search/Search';
 import PostDetail from '../src/pages/Home/PostDetail/PostDetail';
 import NotFound from '../src/pages/NotFound/NotFound';
-import Modal from '../src/components/Common/Modal';
 
 function App() {
   return (
