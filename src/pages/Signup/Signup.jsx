@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // import axios from "axios";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState } from 'recoil';
 
-import { SignUpAtom } from "../../Store/AtomSignupState";
-import { useNavigate } from "react-router-dom";
-import ArrowImg from "../../assets/img/icon-arrow-left.svg";
-import ClayButtonImg from "../../assets/img/L-button(clay).svg";
-import ClayDisabledButton from "../../assets/img/L-Next-Disabled-button(clay).svg";
-import { InputDiv, Label, InputBox } from "../../components/Common/Input";
-import { ButtonStyle } from "../../components/Common/Button";
-import PostEmailValid from "../../api/PostEmailVaild";
+import { SignUpAtom } from '../../Store/AtomSignupState';
+import { useNavigate } from 'react-router-dom';
+import ArrowImg from '../../assets/img/icon-arrow-left.svg';
+import ClayButtonImg from '../../assets/img/L-button(clay).svg';
+import ClayDisabledButton from '../../assets/img/L-Next-Disabled-button(clay).svg';
+import { InputDiv, Label, InputBox } from '../../components/Common/Input';
+import { ButtonStyle } from '../../components/Common/Button';
+import PostEmailValid from '../../api/PostEmailVaild';
 
 import {
   TypeDiv,
@@ -19,14 +19,14 @@ import {
   SignupHeader,
   Heading1,
   ButtonImg,
-} from "./SignupStyle";
+} from './SignupStyle';
 
 export default function Signup() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [type, setType] = useState("Student");
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
-  const [pwErrorMessage, setPwErrorMessage] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [type, setType] = useState('Student');
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [pwErrorMessage, setPwErrorMessage] = useState('');
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
   const [buttonImg, setButtonImg] = useState(ClayDisabledButton);
@@ -39,15 +39,15 @@ export default function Signup() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "email") {
+    if (name === 'email') {
       setEmail(value.trim());
-    } else if (name === "password") {
+    } else if (name === 'password') {
       setPassword(value);
       if (value.length >= 6) {
-        setPwErrorMessage("");
+        setPwErrorMessage('');
         setPasswordValid(true);
       } else {
-        setPwErrorMessage("비밀번호는 6자 이상이어야 합니다.");
+        setPwErrorMessage('비밀번호는 6자 이상이어야 합니다.');
         setPasswordValid(false);
       }
     }
@@ -55,7 +55,7 @@ export default function Signup() {
   };
   const handleActiveButton = () => {
     setButtonImg(
-      email !== "" && password !== "" ? ClayButtonImg : ClayDisabledButton
+      email !== '' && password !== '' ? ClayButtonImg : ClayDisabledButton,
     );
   };
 
@@ -64,11 +64,11 @@ export default function Signup() {
     const emailPattern = /^\S+@\S+\.\S+$/;
 
     if (!emailPattern.test(email)) {
-      setEmailErrorMessage("*올바른 이메일 형식을 입력하세요");
+      setEmailErrorMessage('*올바른 이메일 형식을 입력하세요');
     } else {
       const Msg = await PostEmailValid(email);
       setEmailErrorMessage(Msg);
-      Msg === "사용 가능한 이메일 입니다."
+      Msg === '사용 가능한 이메일 입니다.'
         ? setEmailValid(true)
         : setEmailValid(false);
     }
@@ -81,28 +81,28 @@ export default function Signup() {
       return; // 버튼 비활성화일 때 기능 막기
     }
     if (email && password && emailValid && passwordValid) {
-      console.log("Email:", email);
-      console.log("Password:", password);
+      console.log('Email:', email);
+      console.log('Password:', password);
       setSignup({ email, password });
-      navigate("/set_profile");
+      navigate('/account/set_profile/');
     } else {
       setSignup(false);
     }
   };
 
   const handleStudentBtnClick = () => {
-    setType("Student");
+    setType('Student');
   };
 
   const handleTeacherBtnClick = () => {
-    setType("Teacher");
+    setType('Teacher');
   };
 
   return (
     <SignupDiv>
       <SignupHeader>
         <button onClick={goBack}>
-          <img src={ArrowImg} alt="" />
+          <img src={ArrowImg} alt='' />
         </button>
         <Heading1>이메일로 가입하기</Heading1>
       </SignupHeader>
@@ -110,25 +110,25 @@ export default function Signup() {
         <TypeP>회원 분류</TypeP>
         <TypeDiv>
           <ButtonStyle
-            type="button"
-            bg={type === "Student" ? "#036635" : "#fff"}
-            width="154.31px"
-            height="30px"
-            br="20px"
-            border="1.5px solid #036635"
-            color={type === "Student" ? "#fff" : "#036635"}
+            type='button'
+            bg={type === 'Student' ? '#036635' : '#fff'}
+            width='154.31px'
+            height='30px'
+            br='20px'
+            border='1.5px solid #036635'
+            color={type === 'Student' ? '#fff' : '#036635'}
             onClick={handleStudentBtnClick}
           >
             일반 회원 (수강생)
           </ButtonStyle>
           <ButtonStyle
-            type="button"
-            bg={type === "Teacher" ? "#036635" : "#fff"}
-            width="154.31px"
-            height="30px"
-            br="20px"
-            border="1.5px solid #036635"
-            color={type === "Teacher" ? "#fff" : "#036635"}
+            type='button'
+            bg={type === 'Teacher' ? '#036635' : '#fff'}
+            width='154.31px'
+            height='30px'
+            br='20px'
+            border='1.5px solid #036635'
+            color={type === 'Teacher' ? '#fff' : '#036635'}
             onClick={handleTeacherBtnClick}
           >
             강사 회원
@@ -138,9 +138,9 @@ export default function Signup() {
         <InputDiv>
           <Label>이메일</Label>
           <InputBox
-            name="email"
-            type="email"
-            placeholder="이메일을 입력해주세요"
+            name='email'
+            type='email'
+            placeholder='이메일을 입력해주세요'
             onChange={handleInputChange}
             onBlur={handleEmailvalid}
           />
@@ -149,15 +149,15 @@ export default function Signup() {
         <InputDiv>
           <Label>비밀번호</Label>
           <InputBox
-            name="password"
-            type="password"
+            name='password'
+            type='password'
             onChange={handleInputChange}
-            placeholder="비밀번호를 입력해주세요"
+            placeholder='비밀번호를 입력해주세요'
           />
           {pwErrorMessage && <span>{pwErrorMessage}</span>}
         </InputDiv>
-        <ButtonImg type="submit" onClick={handleSignupSubmit}>
-          <img src={buttonImg} alt="" />
+        <ButtonImg type='submit' onClick={handleSignupSubmit}>
+          <img src={buttonImg} alt='' />
         </ButtonImg>
       </Wrap>
     </SignupDiv>
