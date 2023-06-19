@@ -32,7 +32,7 @@ function App() {
           <Route path='/account/' element={<Outlet />}>
             <Route path='login/' element={<Login />} />
             <Route path='signup/' element={<Signup />} />
-            <Route path='signup/set_profile' element={<SetProfile />} />
+            <Route path='set_profile/' element={<SetProfile />} />
           </Route>
           <Route path='/home/' element={<Outlet />}>
             <Route path='' element={<Home to='search' />} />
