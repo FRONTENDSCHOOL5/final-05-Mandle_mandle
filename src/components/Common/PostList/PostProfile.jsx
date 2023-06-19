@@ -2,13 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import ProfileImg from '../../../assets/img/basic-profile-img.svg';
 import MoreBtn from '../../../assets/img/s-icon-more-vertical.svg';
-
-export default function PostProfile() {
+import { UserAtom } from '../../../Store/userInfoAtoms';
+import { useRecoilState } from 'recoil';
+export default function PostProfile({ author }) {
   return (
     // ProfileWrap 현재 a태그 속성(href)으로 설정해 놨으나 추후 Link(to)로 수정할 것
-    <ProfileWrap href=''>
+    <PostProfileWrap to={`/profile`}>
       <img src={ProfileImg} alt='' />
-      <ProfileInfo>
+      <PostProfileInfo>
         <div>
           <p>위니브 메이드 공방</p>
           <button>
@@ -16,12 +17,24 @@ export default function PostProfile() {
           </button>
         </div>
         <p>@ mandleee</p>
-      </ProfileInfo>
-    </ProfileWrap>
+      </PostProfileInfo>
+      {/* <PostProfileWrap to={`/profile/${author.accountname}`}>
+        <img src={author.image} alt='프로필 이미지' />
+      <PostProfileInfo>
+        <div>
+          <p>{author.username}</p>
+          <button>
+            <img src={MoreBtn} alt='' />
+          </button>
+        </div>
+        <p>{author.accountname}</p>
+      </PostProfileInfo>
+      </PostProfileWrap> */}
+    </PostProfileWrap>
   );
 }
 
-const ProfileWrap = styled.a`
+const PostProfileWrap = styled.a`
   width: 100%;
   height: 42px;
   display: flex;
@@ -31,10 +44,11 @@ const ProfileWrap = styled.a`
   img {
     width: 42px;
     height: 42px;
+    border-radius: 50%;
   }
 `;
 
-const ProfileInfo = styled.div`
+const PostProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

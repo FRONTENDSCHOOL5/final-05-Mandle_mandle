@@ -8,18 +8,19 @@ export default function Modal(props) {
     setIsVisible(false);
   };
 
+  const handleOverlayClick = (event) => {
+    if (event.target === event.currentTarget) {
+      setIsVisible(false);
+    }
+  };
+
   return (
     <>
       {isVisible && (
-        <ModalOverlay>
+        <ModalOverlay onClick={handleOverlayClick}>
           <ModalWrap>
-            <p>{props.text} 삭제할까요?</p>
-            <div>
-              <button type='button' onClick={handleCancel}>
-                취소
-              </button>
-              <button type='button'>삭제</button>
-            </div>
+            <div></div>
+            <ul></ul>
           </ModalWrap>
         </ModalOverlay>
       )}
@@ -28,6 +29,7 @@ export default function Modal(props) {
 }
 
 const ModalOverlay = styled.div`
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -35,42 +37,49 @@ const ModalOverlay = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  z-index: 9999; /* 모달의 z-index 값을 설정 */
 `;
 
 const ModalWrap = styled.div`
-  width: 252px;
+  width: 100%;
   height: 110px;
-  border-radius: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 10px 10px 0 0;
   background-color: #fff;
-  text-align: center;
 
   p {
     font-size: var(--font-lg);
     padding: 24px 0;
     border-bottom: 1px solid var(--border-color);
   }
-
   div {
-    display: flex;
-    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    padding: 16px 0;
+  }
 
-    button {
-      font-size: var(--font-md);
-      flex-grow: 1;
-      padding: 16px 0;
-      border-radius: 0 0 0px 10px;
-    }
+  div::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 4px;
+    background: #dbdbdb;
+    border-radius: 5px;
+  }
 
-    button + button {
-      color: var(--main-color);
-      border-left: 1px solid var(--border-color);
-      border-radius: 0 0 10px 0px;
-    }
-
-    button:hover {
-      color: #fff;
-      background-color: var(--main-color);
-    }
+  ul {
+    width: 100%;
+  }
+  li {
+    width: 100%;
+    height: 46px;
+    padding-left: 26px;
   }
 `;
