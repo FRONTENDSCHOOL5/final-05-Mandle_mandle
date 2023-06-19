@@ -1,21 +1,21 @@
-import styled from "styled-components";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { UserAtom } from "../../Store/userInfoAtoms";
-import ArrowImg from "../../assets/img/icon-arrow-left.svg";
-import DisabledButtonImg from "../../assets/img/L-Disabled-button(clay).svg";
-import ButtonImg from "../../assets/img/L-button(clay).svg";
-import PostLogin from "../../api/PostLogin";
+import styled from 'styled-components';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { UserAtom } from '../../Store/userInfoAtoms';
+import ArrowImg from '../../assets/img/icon-arrow-left.svg';
+import DisabledButtonImg from '../../assets/img/L-Disabled-button(clay).svg';
+import ButtonImg from '../../assets/img/L-button(clay).svg';
+import PostLogin from '../../api/PostLogin';
 
 export default function Login() {
   const [userValue, setUserValue] = useRecoilState(UserAtom);
   const [valid, setValid] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
-  const [pwErrorMessage, setPwErrorMessage] = useState("");
-  const [loginErrorMessage, setLoginErrorMessage] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [pwErrorMessage, setPwErrorMessage] = useState('');
+  const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const [buttonImg, setButtonImg] = useState(DisabledButtonImg);
   const navigate = useNavigate();
 
@@ -25,16 +25,16 @@ export default function Login() {
 
   const handleActiveButton = () => {
     setButtonImg(
-      email !== "" && password !== "" ? ButtonImg : DisabledButtonImg
+      email !== '' && password !== '' ? ButtonImg : DisabledButtonImg,
     );
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "email") {
+    if (name === 'email') {
       setEmail(value.trim());
-    } else if (name === "password") {
+    } else if (name === 'password') {
       setPassword(value.trim());
     }
 
@@ -45,9 +45,9 @@ export default function Login() {
     const emailPattern = /^\S+@\S+\.\S+$/;
 
     if (!emailPattern.test(email)) {
-      setEmailErrorMessage("*올바른 이메일 양식을 입력해주세요");
+      setEmailErrorMessage('*올바른 이메일 양식을 입력해주세요');
     } else {
-      setEmailErrorMessage("");
+      setEmailErrorMessage('');
     }
   };
 
@@ -55,11 +55,11 @@ export default function Login() {
     const value = e.target.value;
     setPassword(value);
     if (value.length >= 6) {
-      setPwErrorMessage("");
+      setPwErrorMessage('');
 
       handleActiveButton();
     } else {
-      setPwErrorMessage("비밀번호는 6자 이상이어야 합니다.");
+      setPwErrorMessage('비밀번호는 6자 이상이어야 합니다.');
     }
   };
 
@@ -71,16 +71,16 @@ export default function Login() {
     if (loginInfo.status === 422) {
       setValid(false);
       setLoginErrorMessage(loginInfo.message);
-      setEmail("");
-      setPassword("");
+      setEmail('');
+      setPassword('');
       //성공시
     } else {
       setUserValue(loginInfo.user);
       setValid(true);
-      setLoginErrorMessage("");
-      setEmail("");
-      setPassword("");
-      navigate("/home");
+      setLoginErrorMessage('');
+      setEmail('');
+      setPassword('');
+      navigate('/home');
     }
   };
 
@@ -88,7 +88,7 @@ export default function Login() {
     <LoginWrap>
       <LoginHeader>
         <button onClick={goBack}>
-          <img src={ArrowImg} alt="" />
+          <img src={ArrowImg} alt='' />
         </button>
         <h1>로그인</h1>
       </LoginHeader>
@@ -96,39 +96,39 @@ export default function Login() {
         <InputDiv>
           <Label>이메일</Label>
           <InputBox
-            className="email-input"
-            name="email"
-            width="322px"
-            height="48px"
-            padding="15px"
+            className='email-input'
+            name='email'
+            width='322px'
+            height='48px'
+            padding='15px'
             onChange={handleInputChange}
             onBlur={handleEmailInput}
-            placeholder="이메일을 입력해주세요"
-            brColor={emailErrorMessage ? "var(--error-color)" : "#dbdbdb"}
+            placeholder='이메일을 입력해주세요'
+            brColor={emailErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
           />
         </InputDiv>
         {emailErrorMessage && <ErrorMessage>{emailErrorMessage}</ErrorMessage>}
         <InputDiv>
           <Label>비밀번호</Label>
           <InputBox
-            className="pw-input"
-            name="password"
-            width="322px"
-            height="48px"
+            className='pw-input'
+            name='password'
+            width='322px'
+            height='48px'
             onChange={handleInputChange}
-            type="password"
-            placeholder="비밀번호를 입력하세요"
+            type='password'
+            placeholder='비밀번호를 입력하세요'
             onBlur={handlePasswordInput}
-            brColor={pwErrorMessage ? "var(--error-color)" : "#dbdbdb"}
+            brColor={pwErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
           />
         </InputDiv>
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
         {loginErrorMessage && <ErrorMessage>{loginErrorMessage}</ErrorMessage>}
-        <button type="submit">
-          <img src={buttonImg} alt="" />
+        <button type='submit'>
+          <img src={buttonImg} alt='' />
         </button>
       </LoginForm>
-      <MoveSingUp to="/signup">이메일로 회원가입</MoveSingUp>
+      <MoveSingUp to='/account/signup/'>이메일로 회원가입</MoveSingUp>
     </LoginWrap>
   );
 }
