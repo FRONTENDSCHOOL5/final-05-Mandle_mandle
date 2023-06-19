@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ProfileIcon from "../../assets/img/mini-basic-progile-img.svg";
 import {
@@ -16,15 +16,19 @@ import {
 
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
-  const [inptValue, setInptValue] = useState("");
-  const correctForm = /(.*?)\.(jpg|gif|png|jpeg|bmp|tif|heic|)$/;
+  const [inputValue, setInputValue] = useState("");
+  const correctForm = /(.*?)\.(jpg|gif|png|jpeg|bmp|tf|heic|)$/;
   const [buttonStyle, setButtonStyle] = useState(false);
+
+  useEffect(() => {
+    console.log(selectedImages);
+  }, [selectedImages]);
 
   //입력되는 텍스트 값들 받아오기 & 값이 있으면 업로드 버튼 색 활성화 변경해주기
   const handleTextareaChange = (event) => {
-    const inputValue = event.target.value;
-    setInptValue(inputValue);
-    if (inputValue) {
+    const textAreaValue = event.target.value;
+    setInputValue(textAreaValue);
+    if (textAreaValue) {
       setButtonStyle(true);
     } else {
       setButtonStyle(false);
@@ -70,6 +74,7 @@ export default function Posting() {
       };
 
       reader.readAsDataURL(file);
+      console.log(selectedImages);
     }
     //업로드된  이미지가 화면에 있으면 버튼색 변경
     if (selectedImages) {
@@ -89,7 +94,7 @@ export default function Posting() {
         <TextInputContainer
           placeholder="게시글 입력하기..."
           onChange={handleTextareaChange}
-          style={{ height: calculateTextareaHeight(inptValue) }}
+          style={{ height: calculateTextareaHeight(inputValue) }}
         ></TextInputContainer>
         <UserImg selectedImages={selectedImages} />
         {/* <ImgInput></ImgInput> */}
