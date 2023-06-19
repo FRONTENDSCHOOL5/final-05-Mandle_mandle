@@ -2,10 +2,10 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../../assets/img/icon-search.svg';
-import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 import MoreIcon from '../../assets/img/icon- more-vertical.svg';
 import { ButtonStyle } from './Button';
 import GoBackButton from './GoBackButton';
+import Modal from './Modal';
 // home
 export function HomeNav({ title, to }) {
   return (
@@ -19,11 +19,17 @@ export function HomeNav({ title, to }) {
 }
 
 // 검색, input있는 버전
-export function SearchNav() {
+export function SearchNav({ onChange, value }) {
   return (
     <TopNavWrap>
       <GoBackButton />
-      <input id='search-input' type='text' placeholder='계정 검색' />
+      <input
+        id='search-input'
+        type='text'
+        onChange={onChange}
+        value={value}
+        placeholder='계정 검색'
+      />
     </TopNavWrap>
   );
 }
