@@ -13,15 +13,19 @@ import {
   // ImagePreview,
   PostFormStyle,
 } from "./PostingStyle";
-
+import { PostUpload } from "../../api/PostUpload";
+import { useRecoilValue } from "recoil";
+import { UserAtom } from "../../Store/userInfoAtoms";
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const correctForm = /(.*?)\.(jpg|gif|png|jpeg|bmp|tf|heic|)$/;
   const [buttonStyle, setButtonStyle] = useState(false);
+  //토큰 저장
+  const token = useRecoilValue(UserAtom);
 
   useEffect(() => {
-    console.log(selectedImages);
+    // console.log(selectedImages);
   }, [selectedImages]);
 
   const handleTextareaChange = (event) => {
@@ -71,7 +75,7 @@ export default function Posting() {
       };
 
       reader.readAsDataURL(file);
-      console.log(selectedImages);
+      // console.log(selectedImages);
     }
 
     if (selectedImages.length > 0) {
@@ -81,15 +85,44 @@ export default function Posting() {
     }
   };
 
+  //이미지 삭제 함수
   const handleDeleteImage = (index) => {
     const updatedImages = [...selectedImages];
     updatedImages.splice(index, 1);
     setSelectedImages(updatedImages);
   };
 
+  const handleUploadImage = async () => {
+    const submitIamges = selectedImages;
+    console.log(submitIamges);
+    try {
+      const response = await fetch(URL + "/post", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          post: {
+            content: inputValue,
+            image: submitIamges,
+          },
+        }),
+      });
+      const res = await response.json();
+      // textarea.current.value = "";
+      setSelectedImages([]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
-      <DisabledUploadBtnNav buttonStyle={buttonStyle} />
+      <DisabledUploadBtnNav
+        handleUploadImage={handleUploadImage}
+        buttonStyle={buttonStyle}
+      />
       <ProfileContainer>
         <ProfileImage src={ProfileIcon} alt="User Profile Image" />
       </ProfileContainer>
