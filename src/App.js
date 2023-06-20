@@ -35,7 +35,7 @@ function App() {
             <Route path='set_profile/' element={<SetProfile />} />
           </Route>
           <Route path='/home/' element={<Outlet />}>
-            <Route path='' element={<Home to='search' />} />
+            <Route path='' element={<Home />} />
             <Route path='search' element={<Search />} />
           </Route>
           <Route path='/class/' element={<Outlet />}>
@@ -58,7 +58,7 @@ function App() {
             <Route path='following/' element={<Following />} />
             <Route path='edit/' element={<EditProfile />} /> */}
           </Route>
-          <Route path='/*' element={<NotFound />} />
+          {/* <Route path='/*' element={<NotFound />} /> */}
         </Routes>
       </Router>
     </Wrap>
