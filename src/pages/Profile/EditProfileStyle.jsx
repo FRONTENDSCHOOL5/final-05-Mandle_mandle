@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ClayImg from "../../assets/img/L-button-clay.svg";
+import GlobalStyle from "../../styles/GlobalStyles";
 
 export const SignupDiv = styled.div`
   width: 390px;
@@ -21,6 +21,23 @@ export const Heading1 = styled.h1`
 
 export const Wrap = styled.form`
   padding: 0 34px;
+
+  #submitBtn {
+    display: block;
+    width: 90px;
+    height: 32px;
+    background-color: var(--sub-color);
+    color: rgb(255 255 255);
+    border-radius: 32px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  #submitBtn.active {
+    background-color: var(--main-color);
+  }
 `;
 
 export const P = styled.p`
@@ -57,9 +74,4 @@ export const SetProfileInputBox = styled.input`
   &:focus {
     border-color: #036635;
   }
-`;
-
-export const ButtonImg = styled.button`
-  margin: 0 0 0 -14px;
-  background: url(${ClayImg}) center / contain no-repeat;
 `;

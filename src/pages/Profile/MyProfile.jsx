@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MiniClassList from "../../components/Common/MiniClassList";
 import ArrowIcon from "../../assets/img/icon-arrow-left.svg";
 import MoreIcon from "../../assets/img/icon- more-vertical.svg";
@@ -6,14 +6,24 @@ import BasicProfile from "../../assets/img/basic-profile-img.svg";
 import ChatImg from "../../assets/img/icon-chat-mini.svg";
 import ShareImg from "../../assets/img/icon-share.svg";
 import PostList from "../../components/Common/PostList/PostList";
-import {
-  WrapBtn,
-  Wrap,
-  ProfileSection,
-  TopNavWrap,
-} from "../../pages/Profile/ProfileStyle";
+import { UserAtom } from "../../Store/userInfoAtoms";
+import { useRecoilValue } from "recoil";
+import axios from "axios";
+import { WrapBtn, Wrap, ProfileSection, TopNavWrap } from "./ProfileStyle";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+// import { ProfileData } from "../../api/GetProfile";
 
 export default function Profile() {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+  const userInfo = useRecoilValue(UserAtom);
+  const userAccountname = userInfo.accountname;
+  const userToken = userInfo.token;
+  ProfileData([userAccountname, userToken]);
+
   return (
     <div>
       <MoreNavigation />
@@ -36,17 +46,22 @@ function MoreNavigation() {
   );
 }
 function TeacherSelfProfile() {
+  const location = useLocation();
   return (
     <ProfileSection>
       <Wrap>
         <div className="follow">
-          <p>2950</p>
-          <p className="followNum">followers</p>
+          <Link to="/my_profile/follower">
+            <p>2950</p>
+            <p className="followNum">followers</p>
+          </Link>
         </div>
         <img src={BasicProfile} alt="프로필 이미지" />
         <div className="follow">
-          <p>198</p>
-          <p className="followNum">followings</p>
+          <Link to="/my_profile/following">
+            <p>80</p>
+            <p className="followNum">followings</p>
+          </Link>
         </div>
       </Wrap>
       <p id="NickName">
@@ -55,7 +70,9 @@ function TeacherSelfProfile() {
       <p id="MandleId">@ weniv_Atelier</p>
       <p id="Introduce">비누 만들기 전문 클래스 입니다~</p>
       <WrapBtn>
-        <button className="profileBtn">프로필 수정</button>
+        <Link to="/my_profile/edit_profile">
+          <button className="profileBtn">프로필 수정</button>
+        </Link>
         <button className="profileBtn">클래스 등록</button>
       </WrapBtn>
     </ProfileSection>
@@ -143,4 +160,28 @@ function StudentProfile() {
       </WrapBtn>
     </ProfileSection>
   );
+}
+
+function ProfileData([accountname, token]) {
+  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}`;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios(url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return console.log(Response.data);
 }
