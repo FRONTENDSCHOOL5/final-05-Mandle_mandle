@@ -1,54 +1,44 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import ProfileIcon from "../../assets/img/mini-basic-progile-img.svg";
 import {
   DisabledUploadBtnNav,
   ProfileContainer,
   ProfileImage,
-  // TextInputContainer,
   FileUploadButton,
   ImgWrapStyle,
   PreviewImgWrapStyle,
   DeleteImgBtn,
-  // ImagePreview,
   PostFormStyle,
 } from "./PostingStyle";
-import { PostUpload } from "../../api/PostUpload";
 import { useRecoilValue } from "recoil";
 import { UserAtom } from "../../Store/userInfoAtoms";
+import { PostUpload } from "../../api/PostUpload";
+
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const correctForm = /(.*?)\.(jpg|gif|png|jpeg|bmp|tf|heic|)$/;
   const [buttonStyle, setButtonStyle] = useState(false);
-  //토큰 저장
   const token = useRecoilValue(UserAtom);
-
+  // console.log(token);
   useEffect(() => {
-    // console.log(selectedImages);
-  }, [selectedImages]);
-
-  const handleTextareaChange = (event) => {
-    const textAreaValue = event.target.value;
-    setInputValue(textAreaValue);
-    if (textAreaValue) {
+    if (inputValue || selectedImages.length > 0) {
       setButtonStyle(true);
     } else {
       setButtonStyle(false);
     }
+  }, [inputValue, selectedImages]);
+
+  const handleTextareaChange = (event) => {
+    setInputValue(event.target.value);
   };
 
-  const calculateTextareaHeight = (value) => {
-    const lineHeight = 20;
-    const lines = value.split("\n").length;
-    return `${lineHeight * lines}px`;
-  };
-
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const files = event.target.files;
     let imagesArray = [...selectedImages];
     if (imagesArray.length + files.length > 3) {
-      alert("이미지 파일은 3장 까지만 업로드 가능합니다.");
+      alert("이미지는 최대 3개까지 업로드가 가능합니다.");
       return;
     }
 
@@ -56,36 +46,20 @@ export default function Posting() {
       const file = files[i];
 
       if (file.size > 1024 * 1024 * 10) {
-        alert("10MB 미만의 이미지 파일만 업로드가 가능합니다.");
+        alert("10MB 이상의 이미지는 업로드 할 수 없습니다.");
         return;
       }
-      if (!file.name.match(correctForm)) {
-        alert(
-          "이미지 파일만 업로드가 가능합니다. (*.jpg, *.gif, *.png, *.jpeg, *.bmp, *.tif, *.heic)"
-        );
+      if (!file.name.match(/\.(jpg|gif|png|jpeg|bmp|tif|heic)$/i)) {
+        alert("이미지 파일만 업로드가 가능합니다.");
         return;
       }
 
-      const reader = new FileReader();
-      reader.onload = () => {
-        imagesArray.push(reader.result);
-        if (imagesArray.length === selectedImages.length + files.length) {
-          setSelectedImages(imagesArray);
-        }
-      };
-
-      reader.readAsDataURL(file);
-      // console.log(selectedImages);
+      imagesArray.push(file);
     }
 
-    if (selectedImages.length > 0) {
-      setButtonStyle(true);
-    } else {
-      setButtonStyle(false);
-    }
+    setSelectedImages(imagesArray);
   };
 
-  //이미지 삭제 함수
   const handleDeleteImage = (index) => {
     const updatedImages = [...selectedImages];
     updatedImages.splice(index, 1);
@@ -93,27 +67,33 @@ export default function Posting() {
   };
 
   const handleUploadImage = async () => {
-    const submitIamges = selectedImages;
-    console.log(submitIamges);
+    const images = await PostUpload(selectedImages);
+    console.log("업로드될 이미지 파일 이름 :", images);
+    const data = {
+      post: {
+        content: inputValue,
+        image: images,
+      },
+    };
+
     try {
-      const response = await fetch(URL + "/post", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          post: {
-            content: inputValue,
-            image: submitIamges,
+      const response = await axios.post(
+        "https://api.mandarin.weniv.co.kr/post",
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
-        }),
-      });
-      const res = await response.json();
-      // textarea.current.value = "";
+        }
+      );
+
+      console.log("게시물 등록 성공!! :", response.data);
+
+      setInputValue("");
       setSelectedImages([]);
     } catch (error) {
-      console.error(error);
+      console.error("게시물 등록 실패!!:", error);
     }
   };
 
@@ -130,12 +110,15 @@ export default function Posting() {
         <TextInputContainer
           placeholder="게시글 입력..."
           onChange={handleTextareaChange}
-          style={{ height: calculateTextareaHeight(inputValue) }}
+          // style={{ height: calculateTextareaHeight(inputValue) }}
         ></TextInputContainer>
         <ImgWrapStyle>
           {selectedImages.map((image, index) => (
             <PreviewImgWrapStyle key={index}>
-              <ImagePreview src={image} alt={`게시글 이미지 ${index + 1}`} />
+              <ImagePreview
+                src={URL.createObjectURL(image)}
+                alt={`게시글 이미지 ${index + 1}`}
+              />
               <DeleteImgBtn
                 onClick={() => handleDeleteImage(index)}
                 type="button"
@@ -157,18 +140,13 @@ export const ImagePreview = styled.img`
 `;
 
 export const TextInputContainer = styled.textarea`
+  margin-top: 30px;
   width: 390px;
   overflow-y: hidden;
   display: block;
   min-height: 130px;
   padding-left: 71px;
-  padding-top: 32px;
-  font-size: 14px;
-  border-radius: 1px;
   resize: none;
+  outline: none;
   border: none;
-
-  &:focus {
-    outline: none;
-  }
 `;
