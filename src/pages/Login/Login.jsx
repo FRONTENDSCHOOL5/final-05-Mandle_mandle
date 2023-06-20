@@ -70,6 +70,7 @@ export default function Login() {
 
     const loginInfo = await PostLogin(email, password);
     if (!isLogin) {
+      //로그인 실패
       if (loginInfo.status === 422) {
         setValid(false);
         setLoginErrorMessage(loginInfo.message);
@@ -77,6 +78,7 @@ export default function Login() {
         setPassword("");
         //성공시
       } else {
+        //로그인 성공
         const userInfo = loginInfo.user;
         setUserValue({
           ...userValue,
