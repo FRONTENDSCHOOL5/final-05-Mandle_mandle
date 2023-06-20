@@ -81,5 +81,4 @@ const ImgUploadBtn = styled.button`
   img {
     width: 36px;
   }
-};
 `;
