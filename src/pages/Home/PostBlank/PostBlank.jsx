@@ -8,7 +8,7 @@ export default function PostBlank({ to }) {
     <>
       <img src={HomeLogo} alt='' />
       <p>유저를 검색해 팔로우 해보세요!</p>
-      <Link to={to}>
+      <Link to='/home/search'>
         <ButtonStyle
           width='120px'
           height='44px'
