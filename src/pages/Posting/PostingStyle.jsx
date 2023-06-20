@@ -41,7 +41,7 @@ export const ProfileImage = styled.img`
 
 export const UploadButton = styled.div`
   position: absolute;
-  top: 828px;
+  top: 768px;
   left: 324px;
 `;
 
