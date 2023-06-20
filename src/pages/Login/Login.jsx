@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { UserAtom } from "../../Store/userInfoAtoms";
+import { UserAtom, IsLogin } from "../../Store/userInfoAtoms";
 import ArrowImg from "../../assets/img/icon-arrow-left.svg";
 import DisabledButtonImg from "../../assets/img/L-Disabled-button(clay).svg";
 import ButtonImg from "../../assets/img/L-button(clay).svg";
@@ -10,6 +10,7 @@ import PostLogin from "../../api/PostLogin";
 
 export default function Login() {
   const [userValue, setUserValue] = useRecoilState(UserAtom);
+  const [isLogin, setIsLogin] = useRecoilState(IsLogin);
   const [valid, setValid] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +18,7 @@ export default function Login() {
   const [pwErrorMessage, setPwErrorMessage] = useState("");
   const [loginErrorMessage, setLoginErrorMessage] = useState("");
   const [buttonImg, setButtonImg] = useState(DisabledButtonImg);
+
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -67,20 +69,31 @@ export default function Login() {
     event.preventDefault();
 
     const loginInfo = await PostLogin(email, password);
-    //로그인 실패시
-    if (loginInfo.status === 422) {
-      setValid(false);
-      setLoginErrorMessage(loginInfo.message);
-      setEmail("");
-      setPassword("");
-      //성공시
-    } else {
-      setUserValue(loginInfo.user);
-      setValid(true);
-      setLoginErrorMessage("");
-      setEmail("");
-      setPassword("");
-      navigate("/home");
+    if (!isLogin) {
+      //로그인 실패
+      if (loginInfo.status === 422) {
+        setValid(false);
+        setLoginErrorMessage(loginInfo.message);
+        setEmail("");
+        setPassword("");
+        //성공시
+      } else {
+        //로그인 성공
+        const userInfo = loginInfo.user;
+        setUserValue({
+          ...userValue,
+          accountname: userInfo.accountname,
+          token: userInfo.token,
+          refreshToken: userInfo.refreshToken,
+          image: userInfo.image,
+        });
+        setValid(true);
+        setIsLogin(true);
+        setLoginErrorMessage("");
+        setEmail("");
+        setPassword("");
+        navigate("/home");
+      }
     }
   };
 
@@ -128,7 +141,7 @@ export default function Login() {
           <img src={buttonImg} alt="" />
         </button>
       </LoginForm>
-      <MoveSingUp to="/signup">이메일로 회원가입</MoveSingUp>
+      <MoveSingUp to="/account/signup/">이메일로 회원가입</MoveSingUp>
     </LoginWrap>
   );
 }
