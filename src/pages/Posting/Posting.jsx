@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import ProfileIcon from "../../assets/img/mini-basic-progile-img.svg";
@@ -20,8 +20,10 @@ export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [buttonStyle, setButtonStyle] = useState(false);
-  const token = useRecoilValue(UserAtom);
-  // console.log(token);
+  const textarea = useRef();
+  const userInfo = useRecoilValue(UserAtom);
+  const token = userInfo.token;
+  console.log(token);
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
       setButtonStyle(true);
@@ -30,8 +32,14 @@ export default function Posting() {
     }
   }, [inputValue, selectedImages]);
 
+  const handleResizeHeight = () => {
+    textarea.current.style.height = "auto";
+    textarea.current.style.height = textarea.current.scrollHeight + "px";
+  };
+
   const handleTextareaChange = (event) => {
     setInputValue(event.target.value);
+    handleResizeHeight();
   };
 
   const handleImageChange = async (event) => {
@@ -110,6 +118,7 @@ export default function Posting() {
         <TextInputContainer
           placeholder="게시글 입력..."
           onChange={handleTextareaChange}
+          ref={textarea}
           // style={{ height: calculateTextareaHeight(inputValue) }}
         ></TextInputContainer>
         <ImgWrapStyle>
@@ -134,14 +143,14 @@ export default function Posting() {
 
 export const ImagePreview = styled.img`
   width: 100%;
-  height: auto;
+  border-radius: 30px;
   max-height: 300px;
   object-fit: cover;
 `;
 
 export const TextInputContainer = styled.textarea`
   margin-top: 30px;
-  width: 390px;
+  /* width: 390px; */
   overflow-y: hidden;
   display: block;
   min-height: 130px;
