@@ -19,7 +19,7 @@ export default function Intro() {
       <LoginChooseList>
         <ul>
           <li>
-            <LoginLink to='/login' imgsrc={EmailIcon}>
+            <LoginLink to='/account/login/' imgsrc={EmailIcon}>
               이메일로 로그인
             </LoginLink>
           </li>
@@ -37,7 +37,7 @@ export default function Intro() {
             </LoginLink>
           </li>
         </ul>
-        <SignUpLink to='/signup'>회원가입</SignUpLink>
+        <SignUpLink to='/account/signup'>회원가입</SignUpLink>
       </LoginChooseList>
     </IntroWrap>
   );
