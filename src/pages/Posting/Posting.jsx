@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import styled from "styled-components";
-import ProfileIcon from "../../assets/img/mini-basic-progile-img.svg";
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+
 import {
   DisabledUploadBtnNav,
   ProfileContainer,
@@ -11,19 +11,43 @@ import {
   PreviewImgWrapStyle,
   DeleteImgBtn,
   PostFormStyle,
-} from "./PostingStyle";
-import { useRecoilValue } from "recoil";
-import { UserAtom } from "../../Store/userInfoAtoms";
-import { PostUpload } from "../../api/PostUpload";
+} from './PostingStyle';
+import { useRecoilValue } from 'recoil';
+import { UserAtom } from '../../Store/userInfoAtoms';
+import { PostUpload } from '../../api/PostUpload';
 
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
+  const [userImage, setUserImage] = useState('');
   const textarea = useRef();
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
+
   console.log(token);
+
+  useEffect(() => {
+    const loadMyProfileImage = async () => {
+      try {
+        const response = await axios.get(
+          'https://api.mandarin.weniv.co.kr/user/myinfo',
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setUserImage(response.data.user.image);
+      } catch (error) {
+        console.error('Failed to load profile image!', error);
+      }
+    };
+
+    loadMyProfileImage();
+    console.log(loadMyProfileImage());
+  }, [token]);
+
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
       setButtonStyle(true);
@@ -33,8 +57,8 @@ export default function Posting() {
   }, [inputValue, selectedImages]);
 
   const handleResizeHeight = () => {
-    textarea.current.style.height = "auto";
-    textarea.current.style.height = textarea.current.scrollHeight + "px";
+    textarea.current.style.height = 'auto';
+    textarea.current.style.height = textarea.current.scrollHeight + 'px';
   };
 
   const handleTextareaChange = (event) => {
@@ -46,7 +70,7 @@ export default function Posting() {
     const files = event.target.files;
     let imagesArray = [...selectedImages];
     if (imagesArray.length + files.length > 3) {
-      alert("이미지는 최대 3개까지 업로드가 가능합니다.");
+      alert('이미지는 최대 3개까지 업로드가 가능합니다.');
       return;
     }
 
@@ -54,11 +78,11 @@ export default function Posting() {
       const file = files[i];
 
       if (file.size > 1024 * 1024 * 10) {
-        alert("10MB 이상의 이미지는 업로드 할 수 없습니다.");
+        alert('10MB 이상의 이미지는 업로드 할 수 없습니다.');
         return;
       }
       if (!file.name.match(/\.(jpg|gif|png|jpeg|bmp|tif|heic)$/i)) {
-        alert("이미지 파일만 업로드가 가능합니다.");
+        alert('이미지 파일만 업로드가 가능합니다.');
         return;
       }
 
@@ -76,7 +100,7 @@ export default function Posting() {
 
   const handleUploadImage = async () => {
     const images = await PostUpload(selectedImages);
-    console.log("업로드될 이미지 파일 이름 :", images);
+    console.log('업로드될 이미지 파일 이름 :', images);
     const data = {
       post: {
         content: inputValue,
@@ -86,22 +110,22 @@ export default function Posting() {
 
     try {
       const response = await axios.post(
-        "https://api.mandarin.weniv.co.kr/post",
+        'https://api.mandarin.weniv.co.kr/post',
         data,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
 
-      console.log("게시물 등록 성공!! :", response.data);
+      console.log('게시물 등록 성공!! :', response.data);
 
-      setInputValue("");
+      setInputValue('');
       setSelectedImages([]);
     } catch (error) {
-      console.error("게시물 등록 실패!!:", error);
+      console.error('게시물 등록 실패!!:', error);
     }
   };
 
@@ -112,11 +136,11 @@ export default function Posting() {
         buttonStyle={buttonStyle}
       />
       <ProfileContainer>
-        <ProfileImage src={ProfileIcon} alt="User Profile Image" />
+        <ProfileImage src={userImage} alt='User Profile Image' />
       </ProfileContainer>
       <PostFormStyle>
         <TextInputContainer
-          placeholder="게시글 입력..."
+          placeholder='게시글 입력...'
           onChange={handleTextareaChange}
           ref={textarea}
           // style={{ height: calculateTextareaHeight(inputValue) }}
@@ -130,7 +154,7 @@ export default function Posting() {
               />
               <DeleteImgBtn
                 onClick={() => handleDeleteImage(index)}
-                type="button"
+                type='button'
               />
             </PreviewImgWrapStyle>
           ))}
@@ -142,18 +166,22 @@ export default function Posting() {
 }
 
 export const ImagePreview = styled.img`
-  width: 100%;
-  border-radius: 30px;
-  max-height: 300px;
+  max-width: 304px;
+  border-radius: 20px;
+  height: 228px;
   object-fit: cover;
+
+  top: 20px;
+  left: 50px;
 `;
 
 export const TextInputContainer = styled.textarea`
   margin-top: 30px;
   /* width: 390px; */
+  width: 100%;
   overflow-y: hidden;
   display: block;
-  min-height: 130px;
+  min-height: 80px;
   padding-left: 71px;
   resize: none;
   outline: none;
