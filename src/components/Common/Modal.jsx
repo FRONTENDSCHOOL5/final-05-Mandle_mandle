@@ -2,21 +2,17 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 export default function Modal(props) {
-  const [isVisible, setIsVisible] = useState(true);
-
-  const handleCancel = () => {
-    setIsVisible(false);
-  };
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOverlayClick = (event) => {
     if (event.target === event.currentTarget) {
-      setIsVisible(false);
+      setModalOpen(false);
     }
   };
 
   return (
     <>
-      {isVisible && (
+      {isModalOpen && (
         <ModalOverlay onClick={handleOverlayClick}>
           <ModalWrap>
             <div></div>
