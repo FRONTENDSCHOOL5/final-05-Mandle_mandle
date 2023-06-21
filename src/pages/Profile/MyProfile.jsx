@@ -82,7 +82,7 @@ export default function Profile() {
       </ProfileSection>
       <MiniClassList classData={classData} />
       <div>
-        {PostList.map((post) => (
+        {postData.map((post) => (
           <PostList post={post} />
         ))}
       </div>
