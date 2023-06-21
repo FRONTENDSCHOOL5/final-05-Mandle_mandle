@@ -1,29 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import ProfileImg from '../../../assets/img/basic-profile-img.svg';
 import MoreBtn from '../../../assets/img/s-icon-more-vertical.svg';
+import { UserAtom } from '../../../Store/userInfoAtoms';
+import { useRecoilValue } from 'recoil';
 import MoreButton from '../MoreButton';
-export default function PostProfile({ author }) {
+import PostReportModal from '../../Modal/PostReportModal';
+import PostModal from '../../Modal/PostModal';
+export default function PostProfile({ post }) {
+  const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
+
+  const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   const handlePostClick = () => {
-    navigate(`/profile/${author.accountname}`, { state: author.accountname });
+    navigate(`/profile/${post.author.accountname}`, {
+      state: post.author.accountname,
+    });
+  };
+
+  const handleClick = () => {
+    setModalOpen(true);
+    console.log(isModalOpen);
   };
 
   return (
     <PostProfileWrap>
       <button onClick={handlePostClick}>
         <div>
-          <PostProfileImg src={author.image} alt='프로필 이미지' />
+          <PostProfileImg src={post.author.image} alt='프로필 이미지' />
         </div>
         <PostProfileInfo>
           <div>
-            <p>{author.username}</p>
+            <p>{post.author.username}</p>
           </div>
-          <p>{author.accountname}</p>
+          <p>{post.author.accountname}</p>
         </PostProfileInfo>
       </button>
-      <MoreButton />
+      <MoreButton onClick={handleClick} post={post} userInfo={userInfo} />
+      {isModalOpen &&
+        (post.author.accountname === userInfo.accountname ? (
+          <PostModal data={post} setModalOpen={setModalOpen} />
+        ) : (
+          <PostReportModal
+            data={post}
+            setModalOpen={setModalOpen}
+            category={'게시글'}
+          />
+        ))}
     </PostProfileWrap>
   );
 }

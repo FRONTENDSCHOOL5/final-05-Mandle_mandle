@@ -5,7 +5,7 @@ import SearchIcon from '../../assets/img/icon-search.svg';
 import MoreIcon from '../../assets/img/icon- more-vertical.svg';
 import { ButtonStyle } from './Button';
 import GoBackButton from './GoBackButton';
-import Modal from './Modal';
+
 // home
 export function HomeNav({ title, to }) {
   return (
