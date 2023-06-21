@@ -6,8 +6,8 @@ import MoreBtn from '../../../assets/img/s-icon-more-vertical.svg';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import MoreButton from '../MoreButton';
-import PostReportModal from '../../Modal/PostReportModal';
-import PostModal from '../../Modal/PostModal';
+import PostReportModal from '../../Common/Modal/PostReportModal';
+import PostModal from '../../Common/Modal/PostModal';
 export default function PostProfile({ post }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
 

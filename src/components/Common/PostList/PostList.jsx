@@ -8,26 +8,17 @@ import PostContent from './PostContent';
 import PostProfile from './PostProfile';
 export default function PostList({ post }) {
   return (
-    <PostUlStyle>
-      <li key={post.id}>
-        <PostProfile author={post.author} />
-        <PostContent postId={post.id} post={post} />
-      </li>
-    </PostUlStyle>
+    <PostLiStyle key={post.id}>
+      <PostProfile post={post} />
+      <PostContent postId={post.id} post={post} />
+    </PostLiStyle>
   );
 }
-const PostUlStyle = styled.ul`
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  li {
-    display: flex;
-    flex-direction: column;
-    font-size: var(--font-md);
-    padding-bottom: 20px;
-    gap: 16px;
-    margin-top: 20px;
-  }
+const PostLiStyle = styled.li`
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-md);
+  padding-bottom: 20px;
+  gap: 16px;
+  margin-top: 20px;
 `;
