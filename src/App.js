@@ -35,7 +35,7 @@ function App() {
             <Route path='set_profile/' element={<SetProfile />} />
           </Route>
           <Route path='/home/' element={<Outlet />}>
-            <Route path='' element={<Home to='search' />} />
+            <Route path='' element={<Home />} />
             <Route path='search' element={<Search />} />
           </Route>
           <Route path='/class/' element={<Outlet />}>

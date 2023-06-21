@@ -39,7 +39,7 @@ export default function PostContent({ post }) {
       </PostIconWrap>
       <PostDate>
         {postDate(
-          post.createdAt !== post.updatedAt ? post.updatedAt : post.createdAt
+          post.createdAt !== post.updatedAt ? post.updatedAt : post.createdAt,
         )}
       </PostDate>
     </PostContentWrap>
