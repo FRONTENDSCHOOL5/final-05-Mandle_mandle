@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import GlobalStyle from '../../styles/GlobalStyles';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 import User from '../../components/Common/User';
-import {} from '../../pages/Profile/FollowListStyle';
+import {} from './FollowListStyle';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { followingList } from '../../api/FollowingList';
 
 export default function FollowingList() {
   const navigate = useNavigate();
