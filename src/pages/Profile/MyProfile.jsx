@@ -81,7 +81,11 @@ export default function Profile() {
         </WrapBtn>
       </ProfileSection>
       <MiniClassList classData={classData} />
-      <PostList postData={postData} />
+      <div>
+        {PostList.map((post) => (
+          <PostList post={post} />
+        ))}
+      </div>
     </div>
   );
 }
