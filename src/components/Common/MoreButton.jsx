@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import MoreIcon from '../../assets/img/icon- more-vertical.svg';
-
-export default function MoreButton({ setModalOpen }) {
-  const handleClick = () => {
-    setModalOpen(true);
-  };
-
+import PostReportModal from '../Modal/PostReportModal';
+import PostModal from '../Modal/PostModal';
+export default function MoreButton({ onClick }) {
   return (
-    <button onClick={handleClick}>
+    <button onClick={onClick}>
       <MoreIconStyle src={MoreIcon} alt='더보기 아이콘' />
     </button>
   );
