@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GoBackNav } from '../../../components/Common/TopNav';
 import PostList from '../../../components/Common/PostList/PostList';
-import CommentList from '../../../components/Common/CommentList/CommentList';
-import Comment from '../../../components/Common/CommentList/Comment';
+import CommentList from '../../../components/Common/Comment/CommentList';
+import CommentInput from '../../../components/Common/Comment/CommentInput';
 import GetPostDetail from '../../../api/GetPostDetail';
 import GetCommentList from '../../../api/GetCommentList';
 import { useRecoilValue } from 'recoil';
@@ -19,21 +19,17 @@ export default function PostDetail() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const postResult = await GetPostDetail(postId, token);
-        setPost(postResult);
+      const postResult = await GetPostDetail(postId, token);
+      setPost(postResult);
 
-        const commentResult = await GetCommentList(postId, token);
-        setComments(commentResult);
-      } catch (error) {
-        console.log('Error fetching data:', error);
-      }
+      const commentResult = await GetCommentList(postId, token);
+      setComments(commentResult);
     };
 
     fetchData();
   }, [postId, token]);
 
-  console.log(post, postId, token, comments);
+  console.log(comments);
 
   return (
     <PostDetailWrap>
@@ -41,10 +37,12 @@ export default function PostDetail() {
       <MainWrap>
         {post && <PostList post={post} />}
         <CommentUl>
-          <CommentList />
+          {comments.map((comment) => (
+            <CommentList comment={comment} />
+          ))}
         </CommentUl>
       </MainWrap>
-      <Comment />
+      <CommentInput />
     </PostDetailWrap>
   );
 }
@@ -68,7 +66,7 @@ const MainWrap = styled.main`
 `;
 
 const CommentUl = styled.ul`
-  padding: 12px 16px;
+  padding-top: 12px;
   width: 100%;
   border-top: 1px solid var(--border-color);
   gap: 12px;
