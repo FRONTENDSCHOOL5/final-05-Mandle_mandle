@@ -1,54 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 import HeartIcon from '../../../assets/img/icon-heart.svg';
 import HeartedIcon from '../../../assets/img/icon-heart-clicked.svg';
 import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
-import { UserAtom } from '../../../Store/userInfoAtoms';
-import { useRecoilState } from 'recoil';
-export default function PostContent(post) {
-  const postDate =
-    post.createdAt !== post.updateAt ? post.updateAt : post.createdAt;
 
+export default function PostContent({ post }) {
+  const [isHearted, setIsHearted] = useState(post.hearted);
+  const [heartCount, setHeartCount] = useState(post.heartCount);
+
+  const postDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ko-KR', options); // '2023년 6월 20일' 형식으로 변환
+  };
+
+  const navigate = useNavigate();
+  const handlePostClick = () => {
+    navigate(`/post/${post.id}`, { state: post.id });
+  };
   return (
-    <PostContentWrap to={`/post/${post.id}`}>
-      {/* <p>{post.content}</p>
-      <img src={post.image} alt='' />
+    <PostContentWrap>
+      <button onClick={handlePostClick}>
+        <p>{post.content}</p>
+        <img src={`https://api.mandarin.weniv.co.kr/${post.image}`} alt='' />
+      </button>
       <PostIconWrap>
         <button>
-          <img src={post.hearted ? HeartedIcon : HeartIcon } alt='좋아요 버튼' />
+          <img src={post.hearted ? HeartedIcon : HeartIcon} alt='좋아요 버튼' />
           <p>{post.heartCount}</p>
         </button>
 
-        <Link to={`/post/${post.id}`}>
+        <button onClick={handlePostClick}>
           <img src={ChatIcon} alt='댓글 버튼' />
           <p>{post.commentCount}</p>
-        </Link>
-      </PostIconWrap>
-      <Date>{postDate}</Date> */}
-      <p>
-        옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여, 뿐이다.
-        이상의 청춘의 뼈 따뜻한 그들의 그와 약동하다. 대고, 못할 넣는 풍부하게
-        뛰노는 인생의 힘있다.
-      </p>
-      <img src='' alt='' />
-      <PostIconWrap>
-        <button>
-          <img src={HeartIcon} alt='' />
-          <p>42</p>
         </button>
-
-        <Link to=''>
-          <img src={ChatIcon} alt='' />
-          <p>17</p>
-        </Link>
       </PostIconWrap>
-      <Date>2020년 10월 20일</Date>
+      <PostDate>
+        {postDate(
+          post.createdAt !== post.updatedAt ? post.updatedAt : post.createdAt,
+        )}
+      </PostDate>
     </PostContentWrap>
   );
 }
 
-const PostContentWrap = styled.a`
+const PostContentWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -74,7 +72,7 @@ const PostIconWrap = styled.div`
   }
 `;
 
-const Date = styled.p`
+const PostDate = styled.p`
   font-size: var(--font-sm);
   color: var(--sub-font-color);
 `;
