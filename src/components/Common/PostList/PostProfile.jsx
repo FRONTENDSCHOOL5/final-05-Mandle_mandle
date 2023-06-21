@@ -1,67 +1,56 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import ProfileImg from '../../../assets/img/basic-profile-img.svg';
 import MoreBtn from '../../../assets/img/s-icon-more-vertical.svg';
-import { UserAtom } from '../../../Store/userInfoAtoms';
-import { useRecoilState } from 'recoil';
+import MoreButton from '../MoreButton';
 export default function PostProfile({ author }) {
+  const navigate = useNavigate();
+  const handlePostClick = () => {
+    navigate(`/profile/${author.accountname}`, { state: author.accountname });
+  };
+
   return (
-    // ProfileWrap 현재 a태그 속성(href)으로 설정해 놨으나 추후 Link(to)로 수정할 것
-    <PostProfileWrap to={`/profile`}>
-      <img src={ProfileImg} alt='' />
-      <PostProfileInfo>
+    <PostProfileWrap>
+      <button onClick={handlePostClick}>
         <div>
-          <p>위니브 메이드 공방</p>
-          <button>
-            <img src={MoreBtn} alt='' />
-          </button>
+          <PostProfileImg src={author.image} alt='프로필 이미지' />
         </div>
-        <p>@ mandleee</p>
-      </PostProfileInfo>
-      {/* <PostProfileWrap to={`/profile/${author.accountname}`}>
-        <img src={author.image} alt='프로필 이미지' />
-      <PostProfileInfo>
-        <div>
-          <p>{author.username}</p>
-          <button>
-            <img src={MoreBtn} alt='' />
-          </button>
-        </div>
-        <p>{author.accountname}</p>
-      </PostProfileInfo>
-      </PostProfileWrap> */}
+        <PostProfileInfo>
+          <div>
+            <p>{author.username}</p>
+          </div>
+          <p>{author.accountname}</p>
+        </PostProfileInfo>
+      </button>
+      <MoreButton />
     </PostProfileWrap>
   );
 }
 
-const PostProfileWrap = styled.a`
+const PostProfileWrap = styled.div`
   width: 100%;
   height: 42px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
 
-  img {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
+  button {
+    display: flex;
+    gap: 12px;
+    align-items: center;
   }
 `;
 
+const PostProfileImg = styled.img`
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+`;
+
 const PostProfileInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-
   div {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  img {
-    width: 18px;
-    height: 20px;
+    margin-bottom: 6px;
   }
 
   div + p {
