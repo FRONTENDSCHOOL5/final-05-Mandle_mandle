@@ -1,22 +1,7 @@
-import styled from "styled-components";
-import BasicProfile from "../../assets/img/basic-profile-img.svg";
-import React from "react";
-import { Link } from "react-router-dom";
-
-export default function User() {
-  return (
-    <UserWrap>
-      <Link to="/other_profile">
-        <img src={BasicProfile} alt="" />
-      </Link>
-      <div>
-        <p>위니브 메이드 공방</p>
-        <p>비누 만들기 전문 클래스 입니다~</p>
-      </div>
-      <button>팔로우</button>
-    </UserWrap>
-  );
-}
+import styled from 'styled-components';
+import BasicProfile from '../../assets/img/basic-profile-img.svg';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const UserWrap = styled.a`
   display: block;
@@ -31,8 +16,9 @@ const UserWrap = styled.a`
 
   img {
     width: 50px;
-    object-fit: contain;
-    border-radius: 5px 5px 0 0;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50px;
   }
 
   p {
@@ -60,3 +46,27 @@ const UserWrap = styled.a`
     color: var(--main-color);
   }
 `;
+
+export default function User(props) {
+  const {
+    username,
+    accountname,
+    intro,
+    image,
+    isfollow,
+    followerCount,
+    followingCount,
+  } = props.user;
+
+  return (
+    <UserWrap as={Link} to='/other_profile'>
+      <img src={image} alt='' />
+      <div>
+        <p>{username}</p>
+        <p>{accountname}</p>
+        <p>{intro}</p>
+      </div>
+      <button>{isfollow ? '언팔로우' : '팔로우'}</button>
+    </UserWrap>
+  );
+}

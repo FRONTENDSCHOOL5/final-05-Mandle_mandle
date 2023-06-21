@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import GlobalStyle from '../../styles/GlobalStyles';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
@@ -6,6 +6,11 @@ import User from '../../components/Common/User';
 import {} from './FollowListStyle';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { followingList } from '../../api/FollowingList';
+import { UserAtom } from '../../Store/userInfoAtoms';
+import { useRecoilValue } from 'recoil';
+import axios from 'axios';
+
+const UserList = styled.ul``;
 
 export default function FollowingList() {
   const navigate = useNavigate();
@@ -17,51 +22,49 @@ export default function FollowingList() {
 
   const userInfo = useRecoilValue(UserAtom);
   const userAccountname = userInfo.accountname;
-  const userToken = userInfo.token;
-  const userProfileData = ProfileData([userAccountname, userToken]);
-  console.log(FollowingData);
-  // const [followingList, setFollowingList] = useState([
-  //   ...followingList,
-  //   followingList,
-  // ]);
+  const token = userInfo.token;
+  const [followingData, setFollowingData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userFollowingData = await FollowingData(userAccountname, token);
+      setFollowingData(userFollowingData);
+    };
+    fetchData();
+  }, [userAccountname, token]);
+
+  if (followingData === null) {
+    return null; // Rendering is still waiting
+  }
+
+  console.log(followingData);
   return (
     <div>
       <button onClick={goBack}>
         <img src={ArrowIcon} alt='' />
       </button>
       <h1>Followings</h1>
-      <userList>
-        <User></User>
-        <User></User>
-        <User></User>
-        <User></User>
-      </userList>
+      <UserList>
+        {followingData &&
+          followingData.map((user) => <User key={user._id} user={user} />)}
+      </UserList>
     </div>
   );
 }
 
-export const userList = styled.ul``;
-
-function FollowingData([accountname, token]) {
+async function FollowingData(accountname, token) {
   const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}/following`;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios(url, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return console.log(Response.data);
+  try {
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 }

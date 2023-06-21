@@ -20,6 +20,9 @@ import Home from '../src/pages/Home/Home';
 import Search from '../src/pages/Home/Search/Search';
 import PostDetail from '../src/pages/Home/PostDetail/PostDetail';
 import NotFound from '../src/pages/NotFound/NotFound';
+import EditProfile from '../src/pages/Profile/EditProfile';
+import Follower from '../src/pages/Profile/FollowerList';
+import Following from '../src/pages/Profile/FollowingList';
 
 function App() {
   return (
@@ -54,9 +57,9 @@ function App() {
 
           <Route path='/my_profile/' element={<Outlet />}>
             <Route path='' element={<Profile />} />
-            {/* <Route path='follower/' element={<Follower />} />
+            <Route path='follower/' element={<Follower />} />
             <Route path='following/' element={<Following />} />
-            <Route path='edit/' element={<EditProfile />} /> */}
+            <Route path='edit_profile/' element={<EditProfile />} />
           </Route>
           {/* <Route path='/other_profile/:accountname/' element={<Outlet />}>
             <Route path='' element={<Profile />} />

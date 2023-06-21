@@ -41,6 +41,8 @@ export default function Profile() {
   if (!profileData && !classData) {
     return <div>Loading...</div>;
   }
+  console.log(postData);
+
   return (
     <div>
       <MoreNavigation />
@@ -81,7 +83,14 @@ export default function Profile() {
         </WrapBtn>
       </ProfileSection>
       <MiniClassList classData={classData} />
-      <PostList postData={postData} />
+      <div>
+        {/* {postData.post.map((post) => (
+          <PostList post={post} />
+        ))} */}
+        {postData.post.map((post) => (
+          <PostList post={post} />
+        ))}
+      </div>
     </div>
   );
 }

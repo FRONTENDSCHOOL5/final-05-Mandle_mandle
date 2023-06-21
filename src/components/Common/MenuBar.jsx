@@ -59,7 +59,7 @@ function MenuBar() {
         </li>
         <li>
           <LinkWrap
-            to='/profile/:accountname/'
+            to='/my_profile'
             active={(location.pathname.startsWith === '/profile/').toString()}
           >
             <div>
