@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-export default async function PutPostEdit(postId, token, post) {
+export default async function PutPostEdit(token, postId) {
   try {
     const response = await axios.put(
       `https://api.mandarin.weniv.co.kr/post/${postId}`,
       {
         post: {
-          content: String,
-          image: String,
+          content: postId.content,
+          image: postId.image,
         },
       },
       {
@@ -15,7 +15,7 @@ export default async function PutPostEdit(postId, token, post) {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      },
+      }
     );
 
     return response.data;
