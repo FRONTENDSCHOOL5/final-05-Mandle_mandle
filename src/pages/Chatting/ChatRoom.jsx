@@ -34,7 +34,7 @@ export default function ChatRoom() {
       <ChattingLayout>
         <ChatContentLayout>
           <UserImage src={profileimg} />
-          <ChatContent bgColor='white' radius='0 22px 22px 22px'>
+          <ChatContent bgColor='white' radius='3px 15px 15px 15px'>
             옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여, 뿐이다.
             이상의 청춘의 뼈 따뜻한 그들의 그와 약동하다. 대고, 못할 넣는
             풍부하게 뛰노는 인생의 힘있다.
@@ -43,7 +43,7 @@ export default function ChatRoom() {
         </ChatContentLayout>
         <ChatContentLayout>
           <UserImage src={profileimg} />
-          <ChatContent bgColor='white' radius='0 15px 15px 15px'>
+          <ChatContent bgColor='white' radius='3px 15px 15px 15px'>
             안녕하세요. 수강하고 싶어요!
           </ChatContent>
           <ChatTime>12:39</ChatTime>
@@ -54,7 +54,7 @@ export default function ChatRoom() {
             <ChatTime>{`${hours}:${minutes}`}</ChatTime>
             <ChatContent
               style={{ backgroundColor: 'var(--main-color)', color: 'white' }}
-              radius='22px 0 22px 22px'
+              radius='15px 3px 15px 15px'
             >
               {value}
             </ChatContent>
@@ -110,9 +110,9 @@ const ChatContent = styled.p`
   border: 1px solid var(--border-color);
   padding: 12px;
   box-sizing: border-box;
-  background-color: ${(props) => props.bgColor || 'var(--primary)'};
+  background-color: #ffffff;
   color: ${(props) => props.color};
-  font-size: var(--sm);
+  font-size: var(--font-md);
 
   line-height: 18px;
   border-radius: ${(props) => props.radius};
@@ -136,12 +136,12 @@ const ChatInputDiv = styled.div`
   margin: auto;
   padding: 0 16px;
 
-  position: fixed;
+  position: absolute;
   right: 0px;
   left: 0;
-  bottom: 5px;
+  bottom: 0px;
   background-color: white;
-  border: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
   border-top: 0.5px solid var(--border-color);
 `;
 
@@ -159,5 +159,5 @@ const SendButton = styled.button`
   width: 33px;
   height: 33px;
   color: ${(props) =>
-    props.inputValue ? 'var(--primary)' : 'var(--light-gray)'};
+    props.inputValue ? 'var(--main-color)' : 'var(--border-color)'};
 `;
