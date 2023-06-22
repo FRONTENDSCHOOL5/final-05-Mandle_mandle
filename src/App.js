@@ -23,13 +23,8 @@ import NotFound from '../src/pages/NotFound/NotFound';
 import EditProfile from '../src/pages/Profile/EditProfile';
 import Follower from '../src/pages/Profile/FollowerList';
 import Following from '../src/pages/Profile/FollowingList';
-<<<<<<< HEAD
-import EditPost from './pages/Posting/EditPost';
-
-=======
 import ChatRoom from '../src/pages/Chatting/ChatRoom';
 import ChatModal from './pages/Chatting/ChatModal';
->>>>>>> 294d8c54610f7866f8dc0a388ff617f201bffa64
 function App() {
   return (
     <Wrap>
