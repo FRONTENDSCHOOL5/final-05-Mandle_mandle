@@ -15,16 +15,19 @@ import {
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { PostUpload } from '../../api/PostUpload';
+import { useNavigate } from 'react-router-dom';
 
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
+  const [postId, setPostId] = useState(null);
   const textarea = useRef();
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
 
+  const navigate = useNavigate();
   console.log(token);
 
   useEffect(() => {
@@ -121,9 +124,16 @@ export default function Posting() {
       );
 
       console.log('게시물 등록 성공!! :', response.data);
-
       setInputValue('');
       setSelectedImages([]);
+      const postId = response.data.post.id;
+      console.log(postId);
+      setPostId(postId);
+
+      //postId가 있어야만 넘어갈 수 있게
+      if (postId) {
+        navigate(`/post/${postId}`, { state: postId });
+      }
     } catch (error) {
       console.error('게시물 등록 실패!!:', error);
     }
