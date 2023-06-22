@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import { ModalOverlay, ModalWrap } from './ModalStyle';
 import ModalAlert from './ModalAlert/ModalAlert';
 import { useNavigate } from 'react-router-dom';
-export default function Modal({ post, setModalOpen, setAlertModalOpen }) {
+export default function Modal({
+  post,
+  postId,
+  setModalOpen,
+  setAlertModalOpen,
+}) {
   const handleOverlayClick = (event) => {
     if (event.target === event.currentTarget) {
       setModalOpen(false);
@@ -16,7 +21,7 @@ export default function Modal({ post, setModalOpen, setAlertModalOpen }) {
 
   const navigate = useNavigate();
   const handleMovePostEdit = () => {
-    navigate(`/post/${post.id}/edit`, { state: post });
+    navigate(`/post/${post.id}/edit`, { state: postId });
   };
   return (
     <ModalOverlay onClick={handleOverlayClick}>
