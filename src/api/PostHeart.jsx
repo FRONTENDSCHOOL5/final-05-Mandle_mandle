@@ -4,6 +4,7 @@ export default async function PostHeart(postId, token) {
   try {
     const response = await axios.post(
       `https://api.mandarin.weniv.co.kr/post/${postId}/heart`,
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -11,8 +12,7 @@ export default async function PostHeart(postId, token) {
         },
       },
     );
-
-    return response.data;
+    return response.data.post;
   } catch (error) {
     console.error(error);
   }

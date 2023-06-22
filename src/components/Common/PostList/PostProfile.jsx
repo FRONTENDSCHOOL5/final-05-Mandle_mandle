@@ -8,11 +8,13 @@ import { useRecoilValue } from 'recoil';
 import MoreButton from '../MoreButton';
 import PostReportModal from '../../Common/Modal/PostReportModal';
 import PostModal from '../../Common/Modal/PostModal';
+import MadalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
 export default function PostProfile({ post }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
-
   const [isModalOpen, setModalOpen] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
   const navigate = useNavigate();
+
   const handlePostClick = () => {
     navigate(`/profile/${post.author.accountname}`, {
       state: post.author.accountname,
@@ -40,7 +42,11 @@ export default function PostProfile({ post }) {
       <MoreButton onClick={handleClick} post={post} userInfo={userInfo} />
       {isModalOpen &&
         (post.author.accountname === userInfo.accountname ? (
-          <PostModal data={post} setModalOpen={setModalOpen} />
+          <PostModal
+            post={post}
+            setModalOpen={setModalOpen}
+            setAlertModalOpen={setAlertModalOpen}
+          />
         ) : (
           <PostReportModal
             data={post}
@@ -48,6 +54,13 @@ export default function PostProfile({ post }) {
             category={'게시글'}
           />
         ))}
+      {alertModalOpen && (
+        <MadalAlert
+          post={post}
+          userInfo={userInfo}
+          setAlertModalOpen={setAlertModalOpen}
+        />
+      )}
     </PostProfileWrap>
   );
 }
