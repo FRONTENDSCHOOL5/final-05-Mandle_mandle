@@ -23,15 +23,21 @@ export default function FollowingList() {
   const userInfo = useRecoilValue(UserAtom);
   const userAccountname = userInfo.accountname;
   const token = userInfo.token;
+  const followingCount = userInfo.followerCount;
+
   const [followingData, setFollowingData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const userFollowingData = await FollowingData(userAccountname, token);
+      const userFollowingData = await FollowingData(
+        userAccountname,
+        token,
+        followingCount
+      );
       setFollowingData(userFollowingData);
     };
     fetchData();
-  }, [userAccountname, token]);
+  }, [userAccountname, token, followingCount]);
 
   if (followingData === null) {
     return null; // Rendering is still waiting
@@ -52,8 +58,8 @@ export default function FollowingList() {
   );
 }
 
-async function FollowingData(accountname, token) {
-  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}/following`;
+async function FollowingData(accountname, token, followingCount) {
+  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}/following?limit=${followingCount}&skip=${followingCount}`;
 
   try {
     const res = await axios.get(url, {

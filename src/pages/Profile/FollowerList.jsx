@@ -6,6 +6,11 @@ import User from '../../components/Common/User';
 import {} from './FollowListStyle';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { followingList } from '../../api/FollowingList';
+import { UserAtom } from '../../Store/userInfoAtoms';
+import { useRecoilValue } from 'recoil';
+import axios from 'axios';
+
+const UserList = styled.ul``;
 
 export default function FollowingList() {
   const navigate = useNavigate();
@@ -14,20 +19,53 @@ export default function FollowingList() {
   const goBack = () => {
     navigate(-1);
   };
+
+  const userInfo = useRecoilValue(UserAtom);
+  const userAccountname = userInfo.accountname;
+  const token = userInfo.token;
+  const followerCount = userInfo.followerCount;
+  const [followerData, setFollowerData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userFollowerData = await FollowerData(userAccountname, token);
+      setFollowerData(userFollowerData);
+    };
+    fetchData();
+  }, [userAccountname, token, followerCount]);
+
+  if (followerData === null) {
+    return null; // Rendering is still waiting
+  }
+
+  console.log(followerData);
   return (
     <div>
       <button onClick={goBack}>
         <img src={ArrowIcon} alt='' />
       </button>
-      <h1>Followers</h1>
-      <userList>
-        <User></User>
-        <User></User>
-        <User></User>
-        <User></User>
-      </userList>
+      <h1>Followings</h1>
+      <UserList>
+        {followerData &&
+          followerData.map((user) => <User key={user._id} user={user} />)}
+      </UserList>
     </div>
   );
 }
 
-export const userList = styled.ul``;
+async function FollowerData(accountname, token, followerCount) {
+  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}/follower?limit=${followerCount}&skip=${followerCount}`;
+
+  try {
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
