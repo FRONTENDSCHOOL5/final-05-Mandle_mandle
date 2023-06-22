@@ -79,7 +79,9 @@ export default function Profile() {
           <Link to='/my_profile/edit_profile'>
             <button className='profileBtn'>프로필 수정</button>
           </Link>
-          <button className='profileBtn'>클래스 등록</button>
+          <Link to='/registration'>
+            <button className='profileBtn'>클래스 등록</button>
+          </Link>
         </WrapBtn>
       </ProfileSection>
       <MiniClassList classData={classData} />
