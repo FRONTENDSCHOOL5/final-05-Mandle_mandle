@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import MoreIcon from '../../assets/img/icon- more-vertical.svg';
-import PostReportModal from '../Modal/PostReportModal';
-import PostModal from '../Modal/PostModal';
+
 export default function MoreButton({ onClick }) {
   return (
     <button onClick={onClick}>

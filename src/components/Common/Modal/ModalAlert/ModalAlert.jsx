@@ -1,28 +1,35 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
-export default function Modal(props) {
-  const [isVisible, setIsVisible] = useState(true);
-
+import DeletePost from '../../../../api/DeletePost';
+export default function Modal({ post, userInfo, setAlertModalOpen }) {
+  const postId = post.id;
+  const token = userInfo.token;
   const handleCancel = () => {
-    setIsVisible(false);
+    setAlertModalOpen(false);
+  };
+
+  const handleReportSubmit = async () => {
+    const response = await DeletePost(postId, token); // Call the API component
+    if (response) {
+      alert(`해당 게시글이 삭제되었습니다.`);
+    }
   };
 
   return (
     <>
-      {isVisible && (
-        <AlertModalOverlay>
-          <AlertModalWrap>
-            <p>{props.text} 삭제할까요?</p>
-            <div>
-              <button type='button' onClick={handleCancel}>
-                취소
-              </button>
-              <button type='button'>삭제</button>
-            </div>
-          </AlertModalWrap>
-        </AlertModalOverlay>
-      )}
+      <AlertModalOverlay>
+        <AlertModalWrap>
+          <p> 삭제할까요?</p>
+          <div>
+            <button type='button' onClick={handleCancel}>
+              취소
+            </button>
+            <button onClick={handleReportSubmit} type='button'>
+              삭제
+            </button>
+          </div>
+        </AlertModalWrap>
+      </AlertModalOverlay>
     </>
   );
 }
@@ -66,6 +73,8 @@ const AlertModalWrap = styled.div`
       flex-grow: 1;
       padding: 16px 0;
       border-radius: 0 0 0px 10px;
+      display: flex;
+      justify-content: center;
     }
 
     button + button {
