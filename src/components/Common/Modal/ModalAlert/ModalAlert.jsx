@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import DeletePost from '../../../../api/DeletePost';
-export default function Modal({ post, userInfo, setAlertModalOpen }) {
+import { useNavigate } from 'react-router-dom';
+
+export default function ModalAlert({ post, userInfo, setAlertModalOpen }) {
+  const navigate = useNavigate();
   const postId = post.id;
   const token = userInfo.token;
   const handleCancel = () => {
@@ -11,7 +14,14 @@ export default function Modal({ post, userInfo, setAlertModalOpen }) {
   const handleReportSubmit = async () => {
     const response = await DeletePost(postId, token); // Call the API component
     if (response) {
+      setAlertModalOpen(false);
       alert(`해당 게시글이 삭제되었습니다.`);
+      const currentURL = window.location.href;
+      if (currentURL.startsWith('http://localhost:3000/post/')) {
+        navigate(-1); // 이전 페이지로 이동
+      } else {
+        window.location.reload(); // 새로고침
+      }
     }
   };
 
