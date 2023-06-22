@@ -23,6 +23,7 @@ import NotFound from '../src/pages/NotFound/NotFound';
 import EditProfile from '../src/pages/Profile/EditProfile';
 import Follower from '../src/pages/Profile/FollowerList';
 import Following from '../src/pages/Profile/FollowingList';
+import EditPost from './pages/Posting/EditPost';
 
 function App() {
   return (
@@ -47,7 +48,8 @@ function App() {
           </Route>
           <Route path='/post/' element={<Outlet />}>
             <Route path=':post_id/' element={<PostDetail />} />
-            {/* <Route path=':post_id/edit' element={<EditPost />} /> */}
+            {/* post수정 경로 수정 */}
+            <Route path=':postId/edit' element={<EditPost />} />
             <Route path='upload/' element={<Posting />} />
           </Route>
           <Route path='/chatlist/' element={<Outlet />}>
