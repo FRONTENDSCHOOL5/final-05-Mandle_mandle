@@ -53,7 +53,6 @@ const MainWrap = styled.main`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 16px;
   width: 100%;
@@ -61,6 +60,7 @@ const MainWrap = styled.main`
   padding: 0 16px;
 `;
 const PostUlStyle = styled.ul`
+  width: 100%;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
