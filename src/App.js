@@ -23,7 +23,8 @@ import NotFound from '../src/pages/NotFound/NotFound';
 import EditProfile from '../src/pages/Profile/EditProfile';
 import Follower from '../src/pages/Profile/FollowerList';
 import Following from '../src/pages/Profile/FollowingList';
-
+import ChatRoom from '../src/pages/Chatting/ChatRoom';
+import ChatModal from './pages/Chatting/ChatModal';
 function App() {
   return (
     <Wrap>
@@ -52,7 +53,8 @@ function App() {
           </Route>
           <Route path='/chatlist/' element={<Outlet />}>
             <Route path='' element={<Chatting />} />
-            {/* <Route path='/chatroom' element={<ChatRoom />} /> */}
+            <Route path='chatroom' element={<ChatRoom />} />
+            <Route path='chatmodal' element={<ChatModal />} />
           </Route>
 
           <Route path='/my_profile/' element={<Outlet />}>

@@ -1,14 +1,14 @@
-import { React, useState, useEffect } from "react";
-import styled from "styled-components";
-import { useRecoilState } from "recoil";
-import { SignUpAtom } from "../../Store/AtomSignupState";
-import ArrowImg from "../../assets/img/icon-arrow-left.svg";
-import UploadProfile from "../../components/Common/UploadProfile";
-import { useLocation, useNavigate } from "react-router-dom";
-import DisabledButtonImg from "../../assets/img/L-Start-Disabled-button(clay).svg";
-import ClayButtonImg from "../../assets/img/L-start-button(clay).svg";
-import PostIdValid from "../../api/PostIdValid";
-import PostSignUp from "../../api/PostSignup";
+import { React, useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { SignUpAtom } from '../../Store/AtomSignupState';
+import ArrowImg from '../../assets/img/icon-arrow-left.svg';
+import UploadProfile from '../../components/Common/UploadProfile';
+import { useLocation, useNavigate } from 'react-router-dom';
+import DisabledButtonImg from '../../assets/img/L-Start-Disabled-button(clay).svg';
+import ClayButtonImg from '../../assets/img/L-start-button(clay).svg';
+import PostIdValid from '../../api/PostIdValid';
+import PostSignUp from '../../api/PostSignup';
 import {
   SignupHeader,
   Heading1,
@@ -19,26 +19,26 @@ import {
   SetProfileInputBox,
   P,
   Wrap,
-} from "./SetProfileStyle";
+} from './SetProfileStyle';
 
 const SetProfile = () => {
-  const url = "https://api.mandarin.weniv.co.kr/";
+  const url = 'https://api.mandarin.weniv.co.kr/';
   // const location = useLocation();
   const navigate = useNavigate();
   //회원가입한 유저 정보 상태관리
   const [userInfo, setUserInfo] = useRecoilState(SignUpAtom);
-  const [username, setUsername] = useState("");
-  const [accountname, setAccountname] = useState("");
-  const [intro, setIntro] = useState("");
+  const [username, setUsername] = useState('');
+  const [accountname, setAccountname] = useState('');
+  const [intro, setIntro] = useState('');
   const [buttonImg, setButtonImg] = useState(DisabledButtonImg);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState('');
   //유저 아이디 유효성검사
-  const [id, setId] = useState("");
+  const [id, setId] = useState('');
   const [idValid, setIdValid] = useState(true);
-  const [idAlertMsg, setIdAlertMsg] = useState("");
+  const [idAlertMsg, setIdAlertMsg] = useState('');
   //유저 이름 유효성검사
   const [usernameValid, setUsernameValid] = useState(true);
-  const [usernameAlertMsg, setUsernameAlertMsg] = useState("");
+  const [usernameAlertMsg, setUsernameAlertMsg] = useState('');
 
   const handleProfileImageResponse = (fileName) => {
     setImage(fileName);
@@ -56,11 +56,11 @@ const SetProfile = () => {
     if (pattern.test(id)) {
       const Msg = await PostIdValid(id);
       setIdAlertMsg(Msg);
-      Msg === "사용 가능한 계정ID 입니다."
+      Msg === '사용 가능한 계정ID 입니다.'
         ? setIdValid(true)
         : setIdValid(false);
     } else {
-      setIdAlertMsg("*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.");
+      setIdAlertMsg('*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.');
       setIdValid(false);
     }
   };
@@ -69,17 +69,17 @@ const SetProfile = () => {
   const handleUsernameValid = (event) => {
     const value = event.target.value;
     if (value.length >= 2 && value.length <= 10) {
-      setUsernameAlertMsg("");
+      setUsernameAlertMsg('');
       setUsernameValid(true);
     } else {
-      setUsernameAlertMsg("사용자 이름은 2~10자 이내여야 합니다.");
+      setUsernameAlertMsg('사용자 이름은 2~10자 이내여야 합니다.');
       setUsernameValid(false);
     }
     setUsername(value);
   };
 
   const handleActiveButton = () => {
-    if (username !== "" && accountname !== "" && intro !== "") {
+    if (username !== '' && accountname !== '' && intro !== '') {
       setButtonImg(ClayButtonImg);
     } else {
       setButtonImg(DisabledButtonImg);
@@ -90,11 +90,11 @@ const SetProfile = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     // 입력란 값 변경
-    if (name === "username") {
+    if (name === 'username') {
       setUsername(value.trim());
-    } else if (name === "accountname") {
+    } else if (name === 'accountname') {
       setAccountname(value.trim());
-    } else if (name === "intro") {
+    } else if (name === 'intro') {
       setIntro(value.trim());
     }
 
@@ -108,15 +108,17 @@ const SetProfile = () => {
       return; // 버튼 비활성화일 때 기능 막기
     }
     if (username && id && usernameValid && idValid) {
+      const updatedAccountname = `${userInfo.type}${id}`;
       setUserInfo((prevValue) => {
         return {
           ...prevValue,
           username: username,
-          accountname: id,
+          accountname: updatedAccountname,
           intro: intro,
           image: url + image,
         };
       });
+      navigate('/account/login');
     }
   };
 
@@ -130,7 +132,7 @@ const SetProfile = () => {
     <SignupDiv>
       <SignupHeader>
         <button onClick={goBack}>
-          <img src={ArrowImg} alt="" />
+          <img src={ArrowImg} alt='' />
         </button>
         <Heading1>프로필 설정</Heading1>
       </SignupHeader>
@@ -142,9 +144,9 @@ const SetProfile = () => {
         <SetProfileDiv first>
           <SetProfileLabel>사용자 이름</SetProfileLabel>
           <SetProfileInputBox
-            name="username"
+            name='username'
             onChange={handleInputChange}
-            placeholder="2-10자 이내 여야 합니다"
+            placeholder='2-10자 이내 여야 합니다'
             onBlur={handleUsernameValid}
           />
         </SetProfileDiv>
@@ -152,24 +154,24 @@ const SetProfile = () => {
         <SetProfileDiv>
           <SetProfileLabel>계정 ID</SetProfileLabel>
           <SetProfileInputBox
-            name="accountname"
+            name='accountname'
             onChange={handleInputChange}
             onBlur={handleIdValid}
-            placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
+            placeholder='영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.'
           />
         </SetProfileDiv>
         {idAlertMsg && <ErrorMessage>{idAlertMsg}</ErrorMessage>}
         <SetProfileDiv>
           <SetProfileLabel>소개</SetProfileLabel>
           <SetProfileInputBox
-            name="intro"
+            name='intro'
             onChange={handleInputChange}
-            placeholder="자신과 판매할 상품에 대해 소개해 주세요!"
+            placeholder='자신과 판매할 상품에 대해 소개해 주세요!'
           />
         </SetProfileDiv>
 
-        <ButtonImg type="submit" onClick={handleSetProfileSubmit}>
-          <img src={buttonImg} alt="" />
+        <ButtonImg type='submit' onClick={handleSetProfileSubmit}>
+          <img src={buttonImg} alt='' />
         </ButtonImg>
       </Wrap>
     </SignupDiv>
