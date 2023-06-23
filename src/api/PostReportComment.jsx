@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-export default async function DeleteComment(postId, commentId, token) {
+export default async function PostReportComment(postId, commentId, token) {
   try {
-    const response = await axios.delete(
-      `https://api.mandarin.weniv.co.kr/post/${postId}/comments/${commentId}`,
+    const response = await axios.post(
+      `https://api.mandarin.weniv.co.kr/post/${postId}/comments/${commentId}/report`,
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -11,7 +12,7 @@ export default async function DeleteComment(postId, commentId, token) {
         },
       },
     );
-
+    console.log(response);
     return response.data;
   } catch (error) {
     console.error(error);

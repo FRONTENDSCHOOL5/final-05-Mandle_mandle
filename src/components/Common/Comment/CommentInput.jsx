@@ -1,20 +1,55 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { UserAtom } from '../../../Store/userInfoAtoms';
 import ProfileImg from '../../../assets/img/basic-profile-img.svg';
+import PostComment from '../../../api/PostComment';
 
-export default function Comment() {
-  const [inputValue, setInputValue] = useState('');
+export default function CommentInput({
+  postId,
+  token,
+  setComments,
+  setCommentUpdated,
+  inputComment,
+  setInputComment,
+}) {
+  const userInfo = useRecoilValue(UserAtom);
+  const userImage = userInfo.image;
 
   const handleInputChange = (e) => {
-    setInputValue(e.target.value);
+    setInputComment(e.target.value);
+  };
+
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
+    const response = await PostComment(postId, token, inputComment);
+    setComments((prevComments) => [...prevComments, response]);
+    setCommentUpdated(true);
+    setInputComment('');
   };
 
   return (
     <CommentWrap>
-      <img src={ProfileImg} alt='' />
-      <form>
-        <input type='text' value={inputValue} onChange={handleInputChange} />
-        <ButtonStyle type='button' inputValue={inputValue}>
+      <div>
+        <img
+          src={
+            userImage
+              ? userImage === 'http://146.56.183.55:5050/Ellipse.png'
+                ? ProfileImg
+                : ProfileImg
+              : ProfileImg
+          }
+          alt=''
+        />
+      </div>
+      <form onSubmit={handleCommentSubmit}>
+        <input
+          type='text'
+          value={inputComment}
+          onChange={handleInputChange}
+          placeholder='댓글 입력하기...'
+        />
+        <ButtonStyle type='submit' inputValue={inputComment}>
           게시
         </ButtonStyle>
       </form>
@@ -36,6 +71,9 @@ const CommentWrap = styled.footer`
 
   img {
     width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: 50%;
   }
 
   form {
