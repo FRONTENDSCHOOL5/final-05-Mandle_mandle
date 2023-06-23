@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import BasicProfile from '../../assets/img/basic-profile-img.svg';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const UserWrap = styled.a`
   display: block;
@@ -30,24 +30,27 @@ const UserWrap = styled.a`
     font-size: var(--font-md);
     color: var(--font-color);
   }
+`;
 
-  button {
-    width: 56px;
-    height: 28px;
-    color: white;
-    margin-left: 30px;
-    border-radius: 28px;
-    background-color: var(--main-color);
-    text-align: center;
-  }
+const FollowBtn = styled.button`
+  width: 56px;
+  height: 28px;
+  color: white;
+  margin-left: 30px;
+  border-radius: 28px;
+  background-color: var(--main-color);
+  text-align: center;
 
-  .following {
+  &.following {
     background-color: white;
-    color: var(--main-color);
+    color: var(--sub-font-color);
+    border: 1px solid var(--sub-font-color);
   }
 `;
 
 export default function User(props) {
+  const location = useLocation();
+  const navigate = useNavigate();
   const {
     username,
     accountname,
@@ -57,16 +60,32 @@ export default function User(props) {
     followerCount,
     followingCount,
   } = props.user;
-
+  function handleClick(accountname) {
+    navigate(`/other_profile/${accountname}`, {
+      state: {
+        accountname: accountname,
+      },
+    });
+  }
   return (
-    <UserWrap as={Link} to='/other_profile'>
-      <img src={image} alt='' />
-      <div>
-        <p>{username}</p>
-        <p>{accountname}</p>
-        <p>{intro}</p>
-      </div>
-      <button>{isfollow ? '언팔로우' : '팔로우'}</button>
-    </UserWrap>
+    <div>
+      <UserWrap onClick={() => handleClick(accountname)}>
+        {/* <UserWrap
+        to={{
+          pathname: `/other_profile/${accountname}`,
+          state: { accountname },
+        }}
+      > */}
+        <img src={image} alt='' />
+        <div>
+          <p>{username}</p>
+          {/* <p>{accountname}</p> */}
+          <p>{intro}</p>
+        </div>
+      </UserWrap>
+      <FollowBtn className={isfollow ? 'following' : ''}>
+        {isfollow ? '취소' : '팔로우'}
+      </FollowBtn>
+    </div>
   );
 }

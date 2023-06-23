@@ -10,7 +10,7 @@ import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import { WrapBtn, Wrap, ProfileSection, TopNavWrap } from './ProfileStyle';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 // import { ProfileData } from "../../api/GetProfile";
 
 export default function Profile() {
@@ -25,7 +25,7 @@ export default function Profile() {
   const [profileData, setProfileData] = useState(null);
   const [classData, setClassData] = useState(null);
   const [postData, setPostData] = useState(null);
-
+  const [postUpdated, setPostUpdated] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const userProfileData = await ProfileData(userAccountname, token);
@@ -34,15 +34,23 @@ export default function Profile() {
       setPostData(userPostData);
       setProfileData(userProfileData);
       setClassData(userClassData);
+      setPostUpdated(false);
     };
     fetchData();
-  }, [userAccountname, token]);
+  }, [userAccountname, postUpdated, token]);
 
   if (!profileData && !classData) {
     return <div>Loading...</div>;
   }
-  console.log(postData);
-
+  // console.log(postData);
+  function handleClick(profileData) {
+    navigate(`edit/${profileData.accountname}`, {
+      state: {
+        profileData: profileData,
+      },
+    });
+  }
+  console.log(profileData);
   return (
     <div>
       <MoreNavigation />
@@ -76,10 +84,17 @@ export default function Profile() {
         </p>
         <p id='Introduce'>{profileData.intro}</p>
         <WrapBtn>
-          <Link to='/my_profile/edit_profile'>
-            <button className='profileBtn'>프로필 수정</button>
+          {/* <Link to='/my_profile/edit'> */}
+          <button
+            className='profileBtn'
+            onClick={() => handleClick(profileData)}
+          >
+            프로필 수정
+          </button>
+          {/* </Link> */}
+          <Link to='/registration'>
+            <button className='profileBtn'>클래스 등록</button>
           </Link>
-          <button className='profileBtn'>클래스 등록</button>
         </WrapBtn>
       </ProfileSection>
       <MiniClassList classData={classData} />
@@ -88,7 +103,7 @@ export default function Profile() {
           <PostList post={post} />
         ))} */}
         {postData.post.map((post) => (
-          <PostList post={post} />
+          <PostList setPostUpdated={setPostUpdated} post={post} />
         ))}
       </div>
     </div>

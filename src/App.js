@@ -3,14 +3,19 @@ import {
   Routes,
   Route,
   Outlet,
+  useParams,
 } from 'react-router-dom';
 import React from 'react';
 import GlobalStyle from './styles/GlobalStyles';
 import styled from 'styled-components';
 import Class from '../src/pages/Class/Class';
+import ClassDetail from "../src/pages/Class/ClassDetail"
+import ClassRegistration from "../src/pages/Class/ClassRegistration"
+import ClassReservation from "../src/pages/Class/ClassReservation"
 import Chatting from '../src/pages/Chatting/Chatting';
 import Posting from '../src/pages/Posting/Posting';
 import Profile from '../src/pages/Profile/MyProfile';
+import OtherProfile from '../src/pages/Profile/OtherProfile';
 import SetProfile from './pages/Signup/SetProfile';
 import Signup from './pages/Signup/Signup';
 import Login from '../src/pages/Login/Login';
@@ -28,6 +33,8 @@ import ChatModal from './pages/Chatting/ChatModal';
 import EditPost from './pages/Posting/EditPost';
 import ChatList from './pages/Chatting/ChatList';
 function App() {
+  const params = useParams();
+  const { accountname } = params;
   return (
     <Wrap>
       <GlobalStyle />
@@ -45,9 +52,12 @@ function App() {
             <Route path='search' element={<Search />} />
           </Route>
           <Route path='/class/' element={<Outlet />}>
-            <Route path='' element={<Class />} />
-            {/* <Route path='detail/:class_id/' element={<ClassDetail />} /> */}
+          <Route path='' element={<Class />} />
+            <Route path='detail/:class_id' element={<ClassDetail />} />
           </Route>
+          <Route path='registration' element={<ClassRegistration />} />
+            <Route path='reservation' element={<ClassReservation />} />
+
           <Route path='/post/' element={<Outlet />}>
             <Route path=':post_id/' element={<PostDetail />} />
             {/* post수정 경로 수정 */}
@@ -66,13 +76,13 @@ function App() {
             <Route path='' element={<Profile />} />
             <Route path='follower/' element={<Follower />} />
             <Route path='following/' element={<Following />} />
-            <Route path='edit_profile/' element={<EditProfile />} />
+            <Route path='edit/:accountname' element={<EditProfile />} />
           </Route>
-          {/* <Route path='/other_profile/:accountname/' element={<Outlet />}>
-            <Route path='' element={<Profile />} />
+          <Route path='/other_profile/:accountname/' element={<OtherProfile />}>
+            <Route path='' element={<OtherProfile />} />
             <Route path='follower/' element={<Follower />} />
             <Route path='following/' element={<Following />} />
-          </Route> */}
+          </Route>
           {/* <Route path='/*' element={<NotFound />} /> */}
         </Routes>
       </Router>
