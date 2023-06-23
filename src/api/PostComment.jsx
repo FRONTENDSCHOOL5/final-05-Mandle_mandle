@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-export default async function PostComment({ id, token, comment }) {
+export default async function PostComment(postId, token, inputComment) {
   try {
     const response = await axios.post(
-      `https://api.mandarin.weniv.co.kr//post/${id}/comments`,
+      `https://api.mandarin.weniv.co.kr/post/${postId}/comments`,
       {
         comment: {
-          content: comment,
+          content: `${inputComment}`,
         },
       },
       {
@@ -16,8 +16,7 @@ export default async function PostComment({ id, token, comment }) {
         },
       },
     );
-
-    return response.data;
+    return response.data.comment;
   } catch (error) {
     console.error(error);
   }
