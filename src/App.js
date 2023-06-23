@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   Outlet,
+  useParams,
 } from 'react-router-dom';
 import React from 'react';
 import GlobalStyle from './styles/GlobalStyles';
@@ -11,6 +12,7 @@ import Class from '../src/pages/Class/Class';
 import Chatting from '../src/pages/Chatting/Chatting';
 import Posting from '../src/pages/Posting/Posting';
 import Profile from '../src/pages/Profile/MyProfile';
+import OtherProfile from '../src/pages/Profile/OtherProfile';
 import SetProfile from './pages/Signup/SetProfile';
 import Signup from './pages/Signup/Signup';
 import Login from '../src/pages/Login/Login';
@@ -25,6 +27,8 @@ import Follower from '../src/pages/Profile/FollowerList';
 import Following from '../src/pages/Profile/FollowingList';
 
 function App() {
+  const params = useParams();
+  const { accountname } = params;
   return (
     <Wrap>
       <GlobalStyle />
@@ -59,13 +63,14 @@ function App() {
             <Route path='' element={<Profile />} />
             <Route path='follower/' element={<Follower />} />
             <Route path='following/' element={<Following />} />
-            <Route path='edit_profile/' element={<EditProfile />} />
+            <Route path='edit/' element={<EditProfile />} />
           </Route>
-          {/* <Route path='/other_profile/:accountname/' element={<Outlet />}>
-            <Route path='' element={<Profile />} />
-            <Route path='follower/' element={<Follower />} />
-            <Route path='following/' element={<Following />} />
-          </Route> */}
+          <Route path='/other_profile/:accountname' element={<OtherProfile />}>
+            <Route path='' element={<OtherProfile />} />
+            <Route path='follower' element={<Follower />} />
+            <Route path='following' element={<Following />} />
+          </Route>
+
           {/* <Route path='/*' element={<NotFound />} /> */}
         </Routes>
       </Router>

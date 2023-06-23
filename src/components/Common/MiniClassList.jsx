@@ -8,17 +8,18 @@ function MiniClassList({ classData }) {
     <ClassSection>
       <Title>판매중인 상품</Title>
       <ClassList>
-        {classData.product.map((item) => (
-          <li key={item.id}>
-            <a href={item.link}>
-              <Class>
-                <ClassImage src={item.itemImage} alt={item.itemName} />
-                <ClassDescription>{item.author.intro}</ClassDescription>
-                <ClassTitle>{item.itemName}</ClassTitle>
-              </Class>
-            </a>
-          </li>
-        ))}
+        {classData.product &&
+          classData.product.map((item) => (
+            <li key={item.id}>
+              <a href={item.link}>
+                <Class>
+                  <ClassImage src={item.itemImage} alt={item.itemName} />
+                  <ClassDescription>{item.author.intro}</ClassDescription>
+                  <ClassTitle>{item.itemName}</ClassTitle>
+                </Class>
+              </a>
+            </li>
+          ))}
       </ClassList>
     </ClassSection>
   );

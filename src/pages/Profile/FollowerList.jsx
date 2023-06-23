@@ -4,7 +4,7 @@ import GlobalStyle from '../../styles/GlobalStyles';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 import User from '../../components/Common/User';
 import {} from './FollowListStyle';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { followingList } from '../../api/FollowingList';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
@@ -12,7 +12,7 @@ import axios from 'axios';
 
 const UserList = styled.ul``;
 
-export default function FollowingList() {
+export default function FollowerList() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,10 +20,13 @@ export default function FollowingList() {
     navigate(-1);
   };
 
+  const { accountname } = useParams();
   const userInfo = useRecoilValue(UserAtom);
-  const userAccountname = userInfo.accountname;
+  const isMyProfile = location.pathname === '/my_profile/follower'; // Check if it's my profile
+  const userAccountname = isMyProfile ? userInfo.accountname : location.state;
+  // const userAccountname = userInfo.accountname;
   const token = userInfo.token;
-  const followerCount = userInfo.followerCount;
+  // const followerCount = userInfo.followerCount;
   const [followerData, setFollowerData] = useState([]);
 
   useEffect(() => {
@@ -32,29 +35,38 @@ export default function FollowingList() {
       setFollowerData(userFollowerData);
     };
     fetchData();
-  }, [userAccountname, token, followerCount]);
-
+  }, [userAccountname, token]);
+  const fetchDataFromAPI = async (apiFunction, ...params) => {
+    try {
+      const data = await apiFunction(...params);
+      return data;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+  console.log(isMyProfile);
   if (followerData === null) {
     return null; // Rendering is still waiting
   }
-
-  console.log(followerData);
   return (
     <div>
       <button onClick={goBack}>
         <img src={ArrowIcon} alt='' />
       </button>
-      <h1>Followings</h1>
+      <h1>Followers</h1>
       <UserList>
         {followerData &&
-          followerData.map((user) => <User key={user._id} user={user} />)}
+          followerData.map((user) => (
+            <User key={user._id} user={user} accountname={user.accountname} />
+          ))}
       </UserList>
     </div>
   );
 }
 
 async function FollowerData(accountname, token, followerCount) {
-  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}/follower?limit=${followerCount}&skip=${followerCount}`;
+  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}/follower`;
 
   try {
     const res = await axios.get(url, {
