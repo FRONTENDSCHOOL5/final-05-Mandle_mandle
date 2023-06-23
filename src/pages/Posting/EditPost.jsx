@@ -4,60 +4,41 @@ import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
-import { TextInputContainer, ImagePreview } from './Posting'; // Posting.jsx에서 공유된 컴포넌트들을 가져옵니다.
-import { PostUpload } from '../../api/PostUpload'; // PostUpload.jsx에서 게시물 업로드 함수를 가져옵니다.
+import { TextInputContainer, ImagePreview } from './Posting'; // Import shared components from Posting.jsx.
+import { PostImagesUpload } from '../../api/PostImagesUpload'; // Import the post upload function from PostUpload.jsx.
 import PutPostEdit from '../../api/PutPostEdit';
+import ProfileImg from '../../assets/img/mini-basic-progile-img.svg';
 
-// import {
-//   DisabledUploadBtnNav,
-//   ProfileContainer,
-//   ProfileImage,
-//   FileUploadButton,
-//   ImgWrapStyle,
-//   PreviewImgWrapStyle,
-//   DeleteImgBtn,
-//   PostFormStyle,
-// } from './PostingStyle';
+import { useLocation } from 'react-router-dom';
+import {
+  DisabledUploadBtnNav,
+  ProfileContainer,
+  ProfileImage,
+  FileUploadButton,
+  ImgWrapStyle,
+  PreviewImgWrapStyle,
+  DeleteImgBtn,
+  PostFormStyle,
+} from './PostingStyle';
+
 export default function EditPost() {
-  const { postId } = useParams(); // URL 파라미터에서 postId에 접근합니다.
+  const location = useLocation();
+  const post = location.state;
+  const postId = post.id;
   const [selectedImages, setSelectedImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const textarea = useRef();
   const navigate = useNavigate();
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
+
   useEffect(() => {
-    // 기존 게시물 데이터를 가져와서 폼을 채웁니다.
-    const fetchPostData = async () => {
-      try {
-        const response = await axios.put(
-          `https://api.mandarin.weniv.co.kr/post/${postId}`,
-          {
-            post: {
-              content: postId.content,
-              image: postId.image,
-            },
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        // const postData = response.data.post;
-        const postData = response.data;
-        setInputValue(postData.content);
-        // 기존 게시물이 이미지 URL의 배열을 가지고 있다고 가정합니다.
-        setSelectedImages(postData.images);
-      } catch (error) {
-        console.error('기존 게시물 데이터를 불러오는 데 실패했습니다!', error);
-      }
-    };
-
-    fetchPostData();
-  }, [postId]);
+    setSelectedImages(post.image.split(','));
+    setPreviewImages(post.image.split(','));
+    setInputValue(post.content);
+  }, [post.image]);
 
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -78,62 +59,115 @@ export default function EditPost() {
   };
 
   const handleImageChange = async (event) => {
-    // 이미지 선택과 유효성 검사를 처리합니다.
-    // Posting.jsx와 유사한 구현 방식입니다.
-  };
+    const url = 'https://api.mandarin.weniv.co.kr/';
+    const files = await event.target.files[0];
 
-  const handleDeleteImage = (index) => {
-    // 이미지 삭제를 처리합니다.
-    // Posting.jsx와 유사한 구현 방식입니다.
-  };
-
-  const handleUpdatePost = async () => {
-    const images = await PostUpload(selectedImages);
-    console.log('업로드된 이미지 파일 이름:', images);
-    const data = {
-      post: {
-        content: inputValue,
-        image: images,
-      },
-    };
+    const formData = new FormData();
+    formData.append('image', files);
 
     try {
-      const response = await axios.put(
-        `https://api.mandarin.weniv.co.kr/post/${postId}`,
-        data
-      );
+      const response = await axios.post(url + 'image/uploadfile', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-      console.log('게시물이 성공적으로 업데이트되었습니다!', response.data);
+      // 응답 처리
+      console.log('이미지 성공');
+      setSelectedImages([
+        ...selectedImages,
+        `https://api.mandarin.weniv.co.kr/${response.data.filename}`,
+      ]);
+    } catch (error) {
+      // 오류 처리
+      console.error(error);
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setPreviewImages([...previewImages, reader.result]);
+    };
+
+    // if (imagesArray.length + files.length > 3) {
+    //   alert('Up to 3 images can be uploaded.');
+    //   return;
+    // }
+
+    // for (let i = 0; i < files.length; i++) {
+    //   const file = files[i];
+
+    //   if (file.size > 1024 * 1024 * 10) {
+    //     alert('You cannot upload images larger than 10MB.');
+    //     return;
+    //   }
+    //   if (!file.name.match(/\.(jpg|gif|png|jpeg|bmp|tif|heic)$/i)) {
+    //     alert('이미지 파일만 업로드 할 수 있습니다.');
+    //     return;
+    //   }
+  };
+
+  console.log('담긴 값 확인', selectedImages);
+
+  const handleDeleteImage = (index) => {
+    const updatedImages = [...selectedImages];
+    updatedImages.splice(index, 1);
+    setSelectedImages(updatedImages);
+  };
+
+  const handleUploadPost = async () => {
+    console.log('함수 테스트', selectedImages);
+    const editedPost = await PutPostEdit(
+      postId,
+      token,
+      inputValue,
+      selectedImages.join(',')
+    );
+    console.log('reponse값 테스트 :', editedPost);
+    if (editedPost) {
+      console.log('성공 제발');
       setInputValue('');
       setSelectedImages([]);
-
-      navigate(`/post/${postId}`);
-    } catch (error) {
-      console.error('게시물 업데이트에 실패했습니다:', error);
+      navigate(`/post/${postId}`, {
+        state: postId,
+      });
     }
   };
 
   return (
     <div>
-      <button onClick={() => navigate(`/post/${postId}`)}>뒤로 가기</button>
-      <TextInputContainer
-        placeholder='게시글 입력...'
-        onChange={handleTextareaChange}
-        ref={textarea}
-      ></TextInputContainer>
-      <div>
-        {/* {selectedImages.map((image, index) => (
-          <ImagePreview
-            key={index}
-            src={image}
-            alt={`게시글 이미지 ${index + 1}`}
-          />
-        ))} */}
-      </div>
-      <input type='file' multiple onChange={handleImageChange} />
-      <button onClick={handleUpdatePost} disabled={!buttonStyle}>
-        게시물 업데이트
-      </button>
+      <DisabledUploadBtnNav
+        handleUploadPost={handleUploadPost}
+        buttonStyle={buttonStyle}
+      />
+      <ProfileContainer>
+        <ProfileImage src={ProfileImg} alt='User Profile Image' />
+      </ProfileContainer>
+      <PostFormStyle>
+        <TextInputContainer
+          placeholder='Enter post...'
+          onChange={handleTextareaChange}
+          ref={textarea}
+          value={inputValue}
+        ></TextInputContainer>
+        <ImgWrapStyle>
+          {selectedImages.map((image, index) => (
+            <PreviewImgWrapStyle key={index}>
+              <ImagePreview
+                src={
+                  typeof image === 'string' ? image : URL.createObjectURL(image)
+                }
+                alt={`post image ${index + 1}`}
+              />
+              <DeleteImgBtn
+                onClick={() => handleDeleteImage(index)}
+                type='button'
+              />
+            </PreviewImgWrapStyle>
+          ))}
+        </ImgWrapStyle>
+        <FileUploadButton handleImageChange={handleImageChange} />
+      </PostFormStyle>
     </div>
   );
 }
