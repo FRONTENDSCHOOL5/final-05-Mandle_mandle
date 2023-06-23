@@ -5,7 +5,7 @@ import ImgUploadBtn from '../../assets/img/img-upload-button.svg';
 import { ButtonStyle } from '../../components/Common/Button';
 import { TopNavWrap } from '../../components/Common/TopNav';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
-
+import { useNavigate } from 'react-router-dom';
 import DeletBtn from '../../assets/img/icon-x.svg';
 
 export const ProfileContainer = styled.div`
@@ -76,10 +76,15 @@ export function ProfileBox() {
   </ProfileContainer>;
 }
 
-export function DisabledUploadBtnNav({ handleUploadImage, buttonStyle }) {
+export function DisabledUploadBtnNav({ handleUploadPost, buttonStyle }) {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
   return (
     <TopNavWrap>
-      <button className='go-back'>
+      <button onClick={goBack} className='go-back'>
         <img src={ArrowIcon} alt='뒤로가기 아이콘' />
       </button>
       <ButtonStyle
@@ -91,7 +96,7 @@ export function DisabledUploadBtnNav({ handleUploadImage, buttonStyle }) {
         color='#ffffff'
         fontsize='14px'
         margin='0 16px 0 0'
-        onClick={handleUploadImage}
+        onClick={handleUploadPost}
       >
         업로드
       </ButtonStyle>
