@@ -30,7 +30,7 @@ export default function PostContent({ post }) {
           >
             {postImages.map((postImage) => (
               <img
-                src={`https://api.mandarin.weniv.co.kr/${postImage}`}
+                src={postImage}
                 width={postImages.length > 1 ? '168px' : '304px'}
                 height={postImages.length > 1 ? '126px' : '228px'}
                 alt=''
