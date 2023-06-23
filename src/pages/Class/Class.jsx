@@ -1,6 +1,13 @@
-//파일 생성
-import React from "react";
+import React from 'react';
+import { Header, Main, Footer } from './ClassStyle';
 
+// Class로 변환 완료
 export default function Class() {
-  return <div>class</div>;
+  return (
+    <>
+      <Header />
+      <Main />
+      <Footer />
+    </>
+  );
 }
