@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
-import axios from "axios";
-import BasicProfile from "../../assets/img/basic-profile-img.svg";
-import UploadBtnImg from "../../assets/img/img-upload-button.svg";
-import styled from "styled-components";
+import React, { useRef, useState } from 'react';
+import axios from 'axios';
+import BasicProfile from '../../assets/img/basic-profile-img.svg';
+import UploadBtnImg from '../../assets/img/img-upload-button.svg';
+import styled from 'styled-components';
 
 export default function UploadProfile({ onResponse }) {
   const fileInputRef = useRef(null);
@@ -13,15 +13,15 @@ export default function UploadProfile({ onResponse }) {
   };
 
   const handleImageChange = async (event) => {
-    const url = "https://api.mandarin.weniv.co.kr/";
+    const url = 'https://api.mandarin.weniv.co.kr/';
     const selectedFile = await event.target.files[0];
     const formData = new FormData();
-    formData.append("image", selectedFile);
+    formData.append('image', selectedFile);
 
     try {
-      const response = await axios.post(url + "image/uploadfile", formData, {
+      const response = await axios.post(url + 'image/uploadfile', formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
 
@@ -46,13 +46,13 @@ export default function UploadProfile({ onResponse }) {
 
   return (
     <UploadProfileWrap>
-      <img src={previewImage} alt="" />
-      <ImgUploadBtn type="button" onClick={handleImageUpload}>
-        <img src={UploadBtnImg} alt="" />
+      <img src={previewImage} alt='' />
+      <ImgUploadBtn type='button' onClick={handleImageUpload}>
+        <img src={UploadBtnImg} alt='' />
         <input
-          type="file"
+          type='file'
           ref={fileInputRef}
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           onChange={handleImageChange}
         />
       </ImgUploadBtn>
