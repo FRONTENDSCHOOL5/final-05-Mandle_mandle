@@ -17,6 +17,7 @@ import { UserAtom } from '../../Store/userInfoAtoms';
 import { PostImagesUpload } from '../../api/PostImagesUpload';
 import { useNavigate } from 'react-router-dom';
 import PostUploadPost from '../../api/PostUploadPost';
+import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -31,26 +32,8 @@ export default function Posting() {
   console.log(token);
 
   useEffect(() => {
-    const loadMyProfileImage = async () => {
-      try {
-        const response = await axios.get(
-          'https://api.mandarin.weniv.co.kr/user/myinfo',
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUserImage(response.data.user.image);
-      } catch (error) {
-        console.error('Failed to load profile image!', error);
-      }
-    };
-
-    loadMyProfileImage();
-    // console.log(loadMyProfileImage());
+    GetUserProfileImage(token, setUserImage);
   }, [token]);
-
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
       setButtonStyle(true);
