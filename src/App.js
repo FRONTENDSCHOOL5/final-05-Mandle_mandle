@@ -25,6 +25,7 @@ import Follower from '../src/pages/Profile/FollowerList';
 import Following from '../src/pages/Profile/FollowingList';
 import ChatRoom from '../src/pages/Chatting/ChatRoom';
 import ChatModal from './pages/Chatting/ChatModal';
+import EditPost from './pages/Posting/EditPost';
 function App() {
   return (
     <Wrap>
@@ -49,7 +50,7 @@ function App() {
           <Route path='/post/' element={<Outlet />}>
             <Route path=':post_id/' element={<PostDetail />} />
             {/* post수정 경로 수정 */}
-            <Route path=':postId/edit' element={<EditPost />} />
+            <Route path=':post_id/edit' element={<EditPost />} />
             <Route path='upload/' element={<Posting />} />
           </Route>
           <Route path='/chatlist/' element={<Outlet />}>
