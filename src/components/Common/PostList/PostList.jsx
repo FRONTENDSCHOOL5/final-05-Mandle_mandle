@@ -8,9 +8,9 @@ import PostContent from './PostContent';
 import PostProfile from './PostProfile';
 export default function PostList({ post }) {
   return (
-    <PostLiStyle key={post.id}>
+    <PostLiStyle>
       <PostProfile post={post} />
-      <PostContent postId={post.id} post={post} />
+      <PostContent post={post} />
     </PostLiStyle>
   );
 }
