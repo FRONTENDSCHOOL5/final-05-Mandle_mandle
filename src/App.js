@@ -26,6 +26,7 @@ import Following from '../src/pages/Profile/FollowingList';
 import ChatRoom from '../src/pages/Chatting/ChatRoom';
 import ChatModal from './pages/Chatting/ChatModal';
 import EditPost from './pages/Posting/EditPost';
+import ChatList from './pages/Chatting/ChatList';
 function App() {
   return (
     <Wrap>
@@ -55,6 +56,8 @@ function App() {
           </Route>
           <Route path='/chatlist/' element={<Outlet />}>
             <Route path='' element={<Chatting />} />
+            {/* 라우트 추가 부분 */}
+            <Route path='chatlist' element={<ChatList />} />
             <Route path='chatroom' element={<ChatRoom />} />
             <Route path='chatmodal' element={<ChatModal />} />
           </Route>
