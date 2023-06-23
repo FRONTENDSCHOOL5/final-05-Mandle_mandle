@@ -6,9 +6,11 @@ import CommentList from '../../../components/Common/Comment/CommentList';
 import CommentInput from '../../../components/Common/Comment/CommentInput';
 import GetPostDetail from '../../../api/GetPostDetail';
 import GetCommentList from '../../../api/GetCommentList';
+import PostComment from '../../../api/PostComment';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useLocation } from 'react-router-dom';
+
 export default function PostDetail() {
   const location = useLocation();
   const postId = location.state;
@@ -16,7 +18,8 @@ export default function PostDetail() {
   const token = usetInfo.token;
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
-
+  const [inputComment, setInputComment] = useState('');
+  const [commentUpdated, setCommentUpdated] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const postResult = await GetPostDetail(postId, token);
@@ -24,12 +27,11 @@ export default function PostDetail() {
 
       const commentResult = await GetCommentList(postId, token);
       setComments(commentResult);
+      setCommentUpdated(false);
     };
 
     fetchData();
-  }, [postId, token]);
-
-  console.log(comments);
+  }, [postId, commentUpdated, token]);
 
   return (
     <PostDetailWrap>
@@ -37,12 +39,25 @@ export default function PostDetail() {
       <MainWrap>
         {post && <PostList post={post} />}
         <CommentUl>
-          {comments.map((comment) => (
-            <CommentList comment={comment} />
-          ))}
+          {comments &&
+            comments.map((comment) => (
+              <CommentList
+                key={comment.id}
+                postId={postId}
+                comment={comment}
+                setCommentUpdated={setCommentUpdated}
+              />
+            ))}
         </CommentUl>
       </MainWrap>
-      <CommentInput />
+      <CommentInput
+        postId={postId}
+        token={token}
+        setComments={setComments}
+        setCommentUpdated={setCommentUpdated}
+        inputComment={inputComment}
+        setInputComment={setInputComment}
+      />
     </PostDetailWrap>
   );
 }
