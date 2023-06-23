@@ -28,7 +28,7 @@ export default function PostContent({ post }) {
           <PostImageWrap
             className={postImages.length > 1 ? 'postImgscroll' : ''}
           >
-            {postImages.map((postImage) => (
+            {postImages.map((postImage, index) => (
               <img
                 src={postImage}
                 width={postImages.length > 1 ? '168px' : '304px'}

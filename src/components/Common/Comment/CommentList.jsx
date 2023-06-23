@@ -1,43 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ProfileImg from '../../../assets/img/basic-profile-img.svg';
 import MoreBtn from '../../../assets/img/s-icon-more-vertical.svg';
 import MoreButton from '../MoreButton';
-export default function CommentList(comment) {
-  function getTimeAgo(timestamp) {
-    const now = new Date(); // 현재 시간
-    const time = new Date(timestamp); // 주어진 시간
+import CalTimeAgo from '../CalTimeAgo';
+import { UserAtom } from '../../../Store/userInfoAtoms';
+import { useRecoilValue } from 'recoil';
+import ModalAlert from '../Modal/ModalAlert/ModalAlert';
+import CommentModal from '../../Common/Modal/CommentModal';
+import ReportModal from '../../Common/Modal/ReportModal';
+import PostReportComment from '../../../api/PostReportComment';
+import DeleteComment from '../../../api/DeleteComment';
+export default function CommentList({ postId, comment, setCommentUpdated }) {
+  const userInfo = useRecoilValue(UserAtom);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
 
-    const diff = Math.round((now - time) / 1000); // 현재 시간과 주어진 시간의 차이를 초 단위로 계산
+  const handleClick = () => {
+    setModalOpen(true);
+  };
 
-    if (diff < 60) {
-      return `${diff}분 전`;
-    } else if (diff < 3600) {
-      const minutes = Math.floor(diff / 60);
-      return `${minutes}분 전`;
-    } else if (diff < 86400) {
-      const hours = Math.floor(diff / 3600);
-      return `${hours}시간 전`;
-    } else {
-      const days = Math.floor(diff / 86400);
-      return `${days}일 전`;
+  // 댓글 신고 API 전송
+  const handleReportSubmit = async () => {
+    const response = await PostReportComment(
+      postId,
+      comment.id,
+      userInfo.token,
+    );
+    if (response) {
+      alert(`해당 댓글이 신고되었습니다.`);
     }
-  }
+  };
 
-  console.log(comment, comment.author);
+  // 댓글 삭제 API 전송
+  const handleDeleteSubmit = async () => {
+    const response = await DeleteComment(postId, comment.id, userInfo.token); // Call the API component
+    if (response) {
+      alert(`해당 댓글이 삭제되었습니다.`);
+      setAlertModalOpen(false);
+      setCommentUpdated(true);
+    }
+  };
+
   return (
     <CommentListWrap>
       <ProfileWrap>
         <ProfileInfo>
-          <ProfileImgStyle src={ProfileImg} alt='' />
+          <ProfileImgwrap>
+            <img src={comment.author.image || ProfileImg} alt='' />
+          </ProfileImgwrap>
+
           <div>
-            <p>{comment.comment.author.username}</p>
-            <p>{getTimeAgo(comment.comment.createdAt)}</p>
+            <p>{comment.author.username}</p>
+            <p>{CalTimeAgo(comment.createdAt)}</p>
           </div>
         </ProfileInfo>
-        <MoreButton />
+        <MoreButton onClick={handleClick} />
       </ProfileWrap>
-      <CommentContent>{comment.comment.content}</CommentContent>
+      <CommentContent>{comment.content}</CommentContent>
+      {isModalOpen &&
+        (comment.author.accountname === userInfo.accountname ? (
+          <CommentModal
+            setModalOpen={setModalOpen}
+            setAlertModalOpen={setAlertModalOpen}
+          />
+        ) : (
+          <ReportModal
+            setModalOpen={setModalOpen}
+            onClick={handleReportSubmit}
+            category={'게시글'}
+          />
+        ))}
+      {alertModalOpen && (
+        <ModalAlert
+          setAlertModalOpen={setAlertModalOpen}
+          onClick={handleDeleteSubmit}
+        />
+      )}
     </CommentListWrap>
   );
 }
@@ -81,9 +120,16 @@ const ProfileInfo = styled.button`
   }
 `;
 
-const ProfileImgStyle = styled.img`
-  width: 42px;
-  height: 42px;
+const ProfileImgwrap = styled.div`
+  width: 36px;
+  height: 36px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 `;
 
 const CommentContent = styled.p`

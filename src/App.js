@@ -79,7 +79,7 @@ function App() {
 
 const Wrap = styled.div`
   width: 390px;
-  height: 844px;
+  height: 100vh;
   position: relative;
   margin: 0 auto;
   border: 1px solid var(--border-color);
