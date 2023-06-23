@@ -28,9 +28,10 @@ export default function PostContent({ post }) {
           <PostImageWrap
             className={postImages.length > 1 ? 'postImgscroll' : ''}
           >
-            {postImages.map((postImage) => (
+            {postImages.map((postImage, index) => (
               <img
-                src={`https://api.mandarin.weniv.co.kr/${postImage}`}
+                key={index}
+                src={`${postImage}`}
                 width={postImages.length > 1 ? '168px' : '304px'}
                 height={postImages.length > 1 ? '126px' : '228px'}
                 alt=''
@@ -48,7 +49,7 @@ export default function PostContent({ post }) {
       </PostIconWrap>
       <PostDate>
         {postDate(
-          post.createdAt !== post.updatedAt ? post.updatedAt : post.createdAt
+          post.createdAt !== post.updatedAt ? post.updatedAt : post.createdAt,
         )}
       </PostDate>
     </PostContentWrap>
