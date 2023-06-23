@@ -12,7 +12,6 @@ export default async function GetPostDetail(postId, token) {
       },
     );
     // data 객체 중 post 객체 받아오기
-    console.log(response);
     return response.data.post;
   } catch (error) {
     console.error(error);
