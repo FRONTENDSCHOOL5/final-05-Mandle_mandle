@@ -59,7 +59,7 @@ function MenuBar() {
         </li>
         <li>
           <LinkWrap
-            to='/profile/:accountname/'
+            to='/my_profile'
             active={(location.pathname.startsWith === '/profile/').toString()}
           >
             <div>
@@ -89,6 +89,7 @@ const MenuBarWrap = styled.footer`
     justify-content: space-around;
 
     li {
+      width: 50px;
       list-style: none;
     }
 

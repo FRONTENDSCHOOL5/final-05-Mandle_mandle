@@ -55,7 +55,7 @@ export default function Signup() {
   };
   const handleActiveButton = () => {
     setButtonImg(
-      email !== '' && password !== '' ? ClayButtonImg : ClayDisabledButton,
+      email !== '' && password !== '' ? ClayButtonImg : ClayDisabledButton
     );
   };
 
@@ -83,7 +83,7 @@ export default function Signup() {
     if (email && password && emailValid && passwordValid) {
       console.log('Email:', email);
       console.log('Password:', password);
-      setSignup({ email, password });
+      setSignup({ email, password, type });
       navigate('/account/set_profile/');
     } else {
       setSignup(false);

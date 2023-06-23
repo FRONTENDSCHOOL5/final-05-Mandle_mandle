@@ -3,7 +3,7 @@ import axios from 'axios';
 export default async function DeleteHeart(postId, token) {
   try {
     const response = await axios.delete(
-      `https://api.mandarin.weniv.co.kr/post/${postId}/heart`,
+      `https://api.mandarin.weniv.co.kr/post/${postId}/unheart`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -11,7 +11,6 @@ export default async function DeleteHeart(postId, token) {
         },
       },
     );
-
     return response.data;
   } catch (error) {
     console.error(error);

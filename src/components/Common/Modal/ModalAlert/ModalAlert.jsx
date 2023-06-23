@@ -1,28 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-export default function Modal(props) {
-  const [isVisible, setIsVisible] = useState(true);
-
+export default function ModalAlert({ setAlertModalOpen, onClick }) {
   const handleCancel = () => {
-    setIsVisible(false);
+    setAlertModalOpen(false);
   };
 
   return (
     <>
-      {isVisible && (
-        <AlertModalOverlay>
-          <AlertModalWrap>
-            <p>{props.text} 삭제할까요?</p>
-            <div>
-              <button type='button' onClick={handleCancel}>
-                취소
-              </button>
-              <button type='button'>삭제</button>
-            </div>
-          </AlertModalWrap>
-        </AlertModalOverlay>
-      )}
+      <AlertModalOverlay>
+        <AlertModalWrap>
+          <p> 삭제할까요?</p>
+          <div>
+            <button type='button' onClick={handleCancel}>
+              취소
+            </button>
+            <button onClick={onClick} type='button'>
+              삭제
+            </button>
+          </div>
+        </AlertModalWrap>
+      </AlertModalOverlay>
     </>
   );
 }
@@ -66,6 +64,8 @@ const AlertModalWrap = styled.div`
       flex-grow: 1;
       padding: 16px 0;
       border-radius: 0 0 0px 10px;
+      display: flex;
+      justify-content: center;
     }
 
     button + button {
