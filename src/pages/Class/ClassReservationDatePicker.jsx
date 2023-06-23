@@ -104,8 +104,7 @@ export function DatePicker() {
 }
 
 export const ReservationSection = styled.section`
-  padding: 30px;
-  margin-top: 48px;
+  padding: 0 30px 30px;
 `;
 
 export const StyledCalendar = styled(Calendar)`
@@ -196,7 +195,7 @@ export const StyledCalendar = styled(Calendar)`
   }
 `;
 export const SelectedDate = styled.p`
-  margin-top: 36px;
+  margin-top: 20px;
   padding: 16px 12px;
   border: 0.5px solid #767676;
   border-radius: 8px;

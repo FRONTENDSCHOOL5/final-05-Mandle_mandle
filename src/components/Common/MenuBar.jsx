@@ -27,7 +27,7 @@ function MenuBar() {
         <li>
           <LinkWrap
             to='/class/'
-            active={(location.pathname === '/class/').toString()}
+            active={(location.pathname.startsWith('/class/')).toString()}
           >
             <div>
               <img src={ClassIcon} alt='클래스 버튼'></img>

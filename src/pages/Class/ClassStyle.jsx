@@ -101,26 +101,29 @@ export function Main() {
 
 export const MainWrap = styled.main`
   background-color: #f2f2f2;
-  padding: 0 0 80px 0;
-  height: 100vh;
   box-sizing: border-box;
   overflow-y: scroll;
+  height: calc(844px - 60px);
   &::-webkit-scrollbar {
     display: none;
   }
   `;
 
 export const MiniSection = styled.section`
-  padding: 68px 0 0 16px;
+  padding: 20px 0 0 16px;
   height: 190px;
   `
 
 export const ClassSection = styled.section`
   box-sizing: border-box;
-  padding: 0 10px 0 10px;
-  margin-top: 76px;
+  padding: 0 10px 60px;
+  margin-top: 30px;
   background-color: #f2f2f2;
-`;
+  overflow-y: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  `;
 
 export const Title = styled.h3`
   font-size: 14px;
@@ -134,7 +137,7 @@ export const MiniList = styled.ul`
   gap: 10px;
   overflow-x: auto;
   overflow-y: hidden;
-`
+  `
 
 export const ClassList = styled.ul`
   display: grid;

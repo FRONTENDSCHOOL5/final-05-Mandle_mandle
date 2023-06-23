@@ -282,8 +282,7 @@ export const ReverseBtn = styled.button`
 
 export const MainWrap = styled.main`
   background-color: #f2f2f2;
-  padding: 48px 0 60px;
-  height: 100vh;
+  height: calc(844px - 60px);
   overflow-y: scroll;
   box-sizing: border-box;
   &::-webkit-scrollbar {
@@ -545,6 +544,7 @@ export function OtherClass() {
 }
 export const MiniSection = styled.section`
   padding: 20px 0 0 16px;
+  margin-bottom: 50px;
   height: 208px;
   background-color: #fff;
   `
