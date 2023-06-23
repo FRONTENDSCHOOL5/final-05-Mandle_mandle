@@ -1,18 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import DeletePost from '../../../../api/DeletePost';
-export default function Modal({ post, userInfo, setAlertModalOpen }) {
-  const postId = post.id;
-  const token = userInfo.token;
+
+export default function ModalAlert({ setAlertModalOpen, onClick }) {
   const handleCancel = () => {
     setAlertModalOpen(false);
-  };
-
-  const handleReportSubmit = async () => {
-    const response = await DeletePost(postId, token); // Call the API component
-    if (response) {
-      alert(`해당 게시글이 삭제되었습니다.`);
-    }
   };
 
   return (
@@ -24,7 +15,7 @@ export default function Modal({ post, userInfo, setAlertModalOpen }) {
             <button type='button' onClick={handleCancel}>
               취소
             </button>
-            <button onClick={handleReportSubmit} type='button'>
+            <button onClick={onClick} type='button'>
               삭제
             </button>
           </div>

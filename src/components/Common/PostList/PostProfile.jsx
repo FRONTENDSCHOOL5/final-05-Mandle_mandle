@@ -6,9 +6,11 @@ import MoreBtn from '../../../assets/img/s-icon-more-vertical.svg';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import MoreButton from '../MoreButton';
-import PostReportModal from '../../Common/Modal/PostReportModal';
-import PostModal from '../../Common/Modal/PostModal';
-import MadalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
+import ReportModal from '../../Common/Modal/ReportModal';
+import PostModal from '../Modal/PostModal';
+import PostReportPost from '../../../api/PostReportPost';
+import DeletePost from '../../../api/DeletePost';
+import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
 export default function PostProfile({ post }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
   const [isModalOpen, setModalOpen] = useState(false);
@@ -23,15 +25,35 @@ export default function PostProfile({ post }) {
 
   const handleClick = () => {
     setModalOpen(true);
-    console.log(isModalOpen);
+  };
+
+  const handleReportSubmit = async () => {
+    const response = await PostReportPost(post.id, userInfo.token); // Call the API component
+    if (response) {
+      alert(`해당 게시글이 신고되었습니다.`);
+    }
+  };
+
+  const handleDeleteSubmit = async () => {
+    const response = await DeletePost(post.id, userInfo.token); // Call the API component
+    if (response) {
+      setAlertModalOpen(false);
+      alert(`해당 게시글이 삭제되었습니다.`);
+      const currentURL = window.location.pathname;
+      if (currentURL.startsWith('/post')) {
+        navigate(-1); // 이전 페이지로 이동
+      } else {
+        window.location.reload(); // 새로고침(상태변경으로 바꿀 예정)
+      }
+    }
   };
 
   return (
     <PostProfileWrap>
       <button onClick={handlePostClick}>
-        <div>
-          <PostProfileImg src={post.author.image} alt='프로필 이미지' />
-        </div>
+        <PostProfileImgWrap>
+          <img src={post.author.image} alt='프로필 이미지' />
+        </PostProfileImgWrap>
         <PostProfileInfo>
           <div>
             <p>{post.author.username}</p>
@@ -39,7 +61,7 @@ export default function PostProfile({ post }) {
           <p>{post.author.accountname}</p>
         </PostProfileInfo>
       </button>
-      <MoreButton onClick={handleClick} post={post} userInfo={userInfo} />
+      <MoreButton onClick={handleClick} />
       {isModalOpen &&
         (post.author.accountname === userInfo.accountname ? (
           <PostModal
@@ -48,17 +70,15 @@ export default function PostProfile({ post }) {
             setAlertModalOpen={setAlertModalOpen}
           />
         ) : (
-          <PostReportModal
-            data={post}
+          <ReportModal
+            onClick={handleReportSubmit}
             setModalOpen={setModalOpen}
-            category={'게시글'}
           />
         ))}
       {alertModalOpen && (
-        <MadalAlert
-          post={post}
-          userInfo={userInfo}
+        <ModalAlert
           setAlertModalOpen={setAlertModalOpen}
+          onClick={handleDeleteSubmit}
         />
       )}
     </PostProfileWrap>
@@ -79,10 +99,16 @@ const PostProfileWrap = styled.div`
   }
 `;
 
-const PostProfileImg = styled.img`
+const PostProfileImgWrap = styled.div`
   width: 42px;
   height: 42px;
-  border-radius: 50%;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
 `;
 
 const PostProfileInfo = styled.div`
