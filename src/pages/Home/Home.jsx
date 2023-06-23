@@ -11,7 +11,7 @@ import PostBlank from './PostBlank/PostBlank';
 export default function Home({ to }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
   const token = userInfo.token; // token값 바인딩
-  const [postList, setpostList] = useState(null);
+  const [postList, setpostList] = useState([]);
   const [postCount, setPostCount] = useState(5);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function Home({ to }) {
         ) : (
           <PostUlStyle>
             {postList.map((post) => (
-              <PostList post={post} />
+              <PostList key={post.id} post={post} />
             ))}
           </PostUlStyle>
         )}
