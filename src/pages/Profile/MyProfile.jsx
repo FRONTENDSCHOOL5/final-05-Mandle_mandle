@@ -25,7 +25,7 @@ export default function Profile() {
   const [profileData, setProfileData] = useState(null);
   const [classData, setClassData] = useState(null);
   const [postData, setPostData] = useState(null);
-
+  const [postUpdated, setPostUpdated] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const userProfileData = await ProfileData(userAccountname, token);
@@ -34,9 +34,10 @@ export default function Profile() {
       setPostData(userPostData);
       setProfileData(userProfileData);
       setClassData(userClassData);
+      setPostUpdated(false);
     };
     fetchData();
-  }, [userAccountname, token]);
+  }, [userAccountname, postUpdated, token]);
 
   if (!profileData && !classData) {
     return <div>Loading...</div>;
@@ -102,7 +103,7 @@ export default function Profile() {
           <PostList post={post} />
         ))} */}
         {postData.post.map((post) => (
-          <PostList post={post} />
+          <PostList setPostUpdated={setPostUpdated} post={post} />
         ))}
       </div>
     </div>
