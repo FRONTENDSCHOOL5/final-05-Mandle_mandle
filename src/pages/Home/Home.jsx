@@ -4,14 +4,14 @@ import MenuBar from '../../components/Common/MenuBar';
 import { HomeNav } from '../../components/Common/TopNav';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { FollowPostAtom } from '../../Store/FollowPostAtom';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import PostList from '../../components/Common/PostList/PostList';
 import GetFollowPost from '../../api/GetFollowPost';
 import PostBlank from './PostBlank/PostBlank';
 export default function Home({ to }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
   const token = userInfo.token; // token값 바인딩
-  const [postList, setpostList] = useState(null);
+  const [postList, setpostList] = useState([]);
   const [postCount, setPostCount] = useState(5);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function Home({ to }) {
         ) : (
           <PostUlStyle>
             {postList.map((post) => (
-              <PostList post={post} />
+              <PostList key={post.id} post={post} />
             ))}
           </PostUlStyle>
         )}
@@ -50,10 +50,8 @@ const HomeWrap = styled.div`
 `;
 
 const MainWrap = styled.main`
-  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 16px;
   width: 100%;
@@ -61,6 +59,7 @@ const MainWrap = styled.main`
   padding: 0 16px;
 `;
 const PostUlStyle = styled.ul`
+  width: 100%;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

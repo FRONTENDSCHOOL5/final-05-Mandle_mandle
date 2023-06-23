@@ -89,6 +89,7 @@ const MenuBarWrap = styled.footer`
     justify-content: space-around;
 
     li {
+      width: 50px;
       list-style: none;
     }
 

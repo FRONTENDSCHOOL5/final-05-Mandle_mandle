@@ -5,7 +5,7 @@ import SearchIcon from '../../assets/img/icon-search.svg';
 import MoreIcon from '../../assets/img/icon- more-vertical.svg';
 import { ButtonStyle } from './Button';
 import GoBackButton from './GoBackButton';
-import Modal from './Modal';
+
 // home
 export function HomeNav({ title, to }) {
   return (
@@ -98,7 +98,7 @@ function DisabledUploadBtnNav() {
 
 export const TopNavWrap = styled.header`
   display: flex;
-  width: 390px;
+  width: 100%;
   height: 48px;
   background-color: #ffffff;
   border-bottom: 1px solid #dbdbdb;

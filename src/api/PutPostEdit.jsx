@@ -1,18 +1,24 @@
 import axios from 'axios';
 
-export default async function GetPostDetail(postId, token) {
+export default async function PutPostEdit(postId, token, content, images) {
   try {
-    const response = await axios.get(
+    const response = await axios.put(
       `https://api.mandarin.weniv.co.kr/post/${postId}`,
+      {
+        post: {
+          content: content,
+          image: images,
+        },
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      },
+      }
     );
-    // data 객체 중 post 객체 받아오기
-    return response.data.post;
+
+    return response.data;
   } catch (error) {
     console.error(error);
     throw error;

@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
-
 import HeartIcon from '../../../assets/img/icon-heart.svg';
 import HeartedIcon from '../../../assets/img/icon-heart-clicked.svg';
 import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
+import HeartButton from '../HeartButton';
 
 export default function PostContent({ post }) {
-  const [isHearted, setIsHearted] = useState(post.hearted);
-  const [heartCount, setHeartCount] = useState(post.heartCount);
-
   const postDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateString);
@@ -17,8 +14,6 @@ export default function PostContent({ post }) {
   };
 
   const postImages = post.image.split(',');
-
-  console.log(postImages[0], postImages.length);
   const navigate = useNavigate();
   const handlePostClick = () => {
     navigate(`/post/${post.id}`, { state: post.id });
@@ -33,9 +28,9 @@ export default function PostContent({ post }) {
           <PostImageWrap
             className={postImages.length > 1 ? 'postImgscroll' : ''}
           >
-            {postImages.map((postImage) => (
+            {postImages.map((postImage, index) => (
               <img
-                src={`https://api.mandarin.weniv.co.kr/${postImage}`}
+                src={postImage}
                 width={postImages.length > 1 ? '168px' : '304px'}
                 height={postImages.length > 1 ? '126px' : '228px'}
                 alt=''
@@ -45,11 +40,7 @@ export default function PostContent({ post }) {
         )}
       </MovePostDetail>
       <PostIconWrap>
-        <button>
-          <img src={post.hearted ? HeartedIcon : HeartIcon} alt='좋아요 버튼' />
-          <p>{post.heartCount}</p>
-        </button>
-
+        <HeartButton post={post} />
         <button onClick={handlePostClick}>
           <img src={ChatIcon} alt='댓글 버튼' />
           <p>{post.commentCount}</p>

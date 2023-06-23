@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default async function DeleteHeart({ postId, commentId, token }) {
+export default async function DeleteComment(postId, commentId, token) {
   try {
     const response = await axios.delete(
       `https://api.mandarin.weniv.co.kr/post/${postId}/comments/${commentId}`,

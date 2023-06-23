@@ -25,7 +25,10 @@ import NotFound from '../src/pages/NotFound/NotFound';
 import EditProfile from '../src/pages/Profile/EditProfile';
 import Follower from '../src/pages/Profile/FollowerList';
 import Following from '../src/pages/Profile/FollowingList';
-
+import ChatRoom from '../src/pages/Chatting/ChatRoom';
+import ChatModal from './pages/Chatting/ChatModal';
+import EditPost from './pages/Posting/EditPost';
+import ChatList from './pages/Chatting/ChatList';
 function App() {
   const params = useParams();
   const { accountname } = params;
@@ -51,12 +54,16 @@ function App() {
           </Route>
           <Route path='/post/' element={<Outlet />}>
             <Route path=':post_id/' element={<PostDetail />} />
-            {/* <Route path=':post_id/edit' element={<EditPost />} /> */}
+            {/* post수정 경로 수정 */}
+            <Route path=':post_id/edit' element={<EditPost />} />
             <Route path='upload/' element={<Posting />} />
           </Route>
           <Route path='/chatlist/' element={<Outlet />}>
             <Route path='' element={<Chatting />} />
-            {/* <Route path='/chatroom' element={<ChatRoom />} /> */}
+            {/* 라우트 추가 부분 */}
+            <Route path='chatlist' element={<ChatList />} />
+            <Route path='chatroom' element={<ChatRoom />} />
+            <Route path='chatmodal' element={<ChatModal />} />
           </Route>
 
           <Route path='/my_profile/' element={<Outlet />}>
@@ -79,7 +86,7 @@ function App() {
 
 const Wrap = styled.div`
   width: 390px;
-  height: 844px;
+  height: 100vh;
   position: relative;
   margin: 0 auto;
   border: 1px solid var(--border-color);

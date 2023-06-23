@@ -12,7 +12,7 @@ export default async function GetCommentList(postId, token) {
       },
     );
 
-    return response.data;
+    return response.data.comments;
   } catch (error) {
     console.error(error);
   }

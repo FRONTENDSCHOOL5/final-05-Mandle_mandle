@@ -12,26 +12,17 @@ export default function PostList({ post }) {
     return <div>Loading...</div>;
   }
   return (
-    <PostUlStyle>
-      <li key={post.id}>
-        <PostProfile author={post.author} />
-        <PostContent postId={post.id} post={post} />
-      </li>
-    </PostUlStyle>
+    <PostLiStyle>
+      <PostProfile post={post} />
+      <PostContent post={post} />
+    </PostLiStyle>
   );
 }
-const PostUlStyle = styled.ul`
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  li {
-    display: flex;
-    flex-direction: column;
-    font-size: var(--font-md);
-    padding-bottom: 20px;
-    gap: 16px;
-    margin-top: 20px;
-  }
+const PostLiStyle = styled.li`
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-md);
+  padding-bottom: 20px;
+  gap: 16px;
+  margin-top: 20px;
 `;
