@@ -9,6 +9,9 @@ import React from 'react';
 import GlobalStyle from './styles/GlobalStyles';
 import styled from 'styled-components';
 import Class from '../src/pages/Class/Class';
+import ClassDetail from "../src/pages/Class/ClassDetail"
+import ClassRegistration from "../src/pages/Class/ClassRegistration"
+import ClassReservation from "../src/pages/Class/ClassReservation"
 import Chatting from '../src/pages/Chatting/Chatting';
 import Posting from '../src/pages/Posting/Posting';
 import Profile from '../src/pages/Profile/MyProfile';
@@ -49,9 +52,12 @@ function App() {
             <Route path='search' element={<Search />} />
           </Route>
           <Route path='/class/' element={<Outlet />}>
-            <Route path='' element={<Class />} />
-            {/* <Route path='detail/:class_id/' element={<ClassDetail />} /> */}
+          <Route path='' element={<Class />} />
+            <Route path='detail/:class_id' element={<ClassDetail />} />
           </Route>
+          <Route path='registration' element={<ClassRegistration />} />
+            <Route path='reservation' element={<ClassReservation />} />
+
           <Route path='/post/' element={<Outlet />}>
             <Route path=':post_id/' element={<PostDetail />} />
             {/* post수정 경로 수정 */}

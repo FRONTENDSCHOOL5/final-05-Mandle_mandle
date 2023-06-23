@@ -1,5 +1,5 @@
-import React from 'react'
-import { Header, Main, Footer } from './ClassDetailStyle'
+import React from 'react';
+import { Header, Main, Footer } from './ClassDetailStyle';
 
 // 분리 완료
 export default function ClassDetail() {
@@ -9,5 +9,5 @@ export default function ClassDetail() {
       <Main />
       <Footer />
     </>
-  )
+  );
 }
