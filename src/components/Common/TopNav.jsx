@@ -2,9 +2,9 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../../assets/img/icon-search.svg';
-import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 import MoreIcon from '../../assets/img/icon- more-vertical.svg';
 import { ButtonStyle } from './Button';
+import GoBackButton from './GoBackButton';
 
 // home
 export function HomeNav({ title, to }) {
@@ -19,38 +19,26 @@ export function HomeNav({ title, to }) {
 }
 
 // 검색, input있는 버전
-export function SearchNav() {
-  const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate(-1);
-  };
-
+export function SearchNav({ onChange, value }) {
   return (
     <TopNavWrap>
-      <button onClick={goBack}>
-        <img src={ArrowIcon} alt='뒤로가기 아이콘' />
-      </button>
-      {/* <label htmlFor='search-input' /> */}
-      <input id='search-input' type='text' placeholder='계정 검색' />
+      <GoBackButton />
+      <input
+        id='search-input'
+        type='text'
+        onChange={onChange}
+        value={value}
+        placeholder='계정 검색'
+      />
     </TopNavWrap>
   );
 }
 
 // 뒤로가기 + 더보기
 export function MoreNav() {
-  const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate(-1);
-  };
-
   return (
     <TopNavWrap>
-      <button onClick={goBack}>
-        <img src={ArrowIcon} alt='뒤로가기 아이콘' />
-      </button>
-
+      <GoBackButton />
       <button className='more-icon'>
         <img src={MoreIcon} alt='더보기 아이콘' />
       </button>
@@ -60,37 +48,21 @@ export function MoreNav() {
 
 // 뒤로가기만 있는 버전
 export function GoBackNav() {
-  const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate(-1);
-  };
-
   return (
     <TopNavWrap>
-      <button onClick={goBack}>
-        <img src={ArrowIcon} alt='뒤로가기 아이콘' />
-      </button>
+      <GoBackButton />
     </TopNavWrap>
   );
 }
 
 // 뒤로가기 + 업로드 버튼
 function UploadBtnNav() {
-  const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate(-1);
-  };
-
   return (
     <TopNavWrap>
-      <button onClick={goBack}>
-        <img src={ArrowIcon} alt='뒤로가기 아이콘' />
-      </button>
+      <GoBackButton />
       <ButtonStyle
         type='button'
-        bg='#036635'
+        bg='var(--main-color)'
         width='90px'
         height='32px'
         br='32px'
@@ -105,17 +77,9 @@ function UploadBtnNav() {
 }
 
 function DisabledUploadBtnNav() {
-  const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate(-1);
-  };
-
   return (
     <TopNavWrap>
-      <button onClick={goBack}>
-        <img src={ArrowIcon} alt='뒤로가기 아이콘' />
-      </button>
+      <GoBackButton />
       <ButtonStyle
         type='button'
         bg='#b1d4c3'
@@ -134,7 +98,7 @@ function DisabledUploadBtnNav() {
 
 export const TopNavWrap = styled.header`
   display: flex;
-  width: 390px;
+  width: 100%;
   height: 48px;
   background-color: #ffffff;
   border-bottom: 1px solid #dbdbdb;

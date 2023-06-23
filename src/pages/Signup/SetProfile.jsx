@@ -1,72 +1,137 @@
-import { React, useState } from 'react';
-import axios from 'axios';
+import { React, useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { SignUpAtom } from '../../Store/AtomSignupState';
 import ArrowImg from '../../assets/img/icon-arrow-left.svg';
 import UploadProfile from '../../components/Common/UploadProfile';
 import { useLocation, useNavigate } from 'react-router-dom';
-import ClayButtonImg from '../../assets/img/L-button(clay).svg';
+import DisabledButtonImg from '../../assets/img/L-Start-Disabled-button(clay).svg';
+import ClayButtonImg from '../../assets/img/L-start-button(clay).svg';
+import PostIdValid from '../../api/PostIdValid';
+import PostSignUp from '../../api/PostSignup';
 import {
   SignupHeader,
   Heading1,
   SignupDiv,
+  ButtonImg,
   SetProfileDiv,
   SetProfileLabel,
   SetProfileInputBox,
-  ButtonImg,
   P,
   Wrap,
 } from './SetProfileStyle';
-// import { ButtonStyle } from "../../components/Common/Button"; ButtonStyle import하고 사용하지 않아 주석처리합니다
 
 const SetProfile = () => {
-  const location = useLocation();
+  const url = 'https://api.mandarin.weniv.co.kr/';
+  // const location = useLocation();
   const navigate = useNavigate();
+  //회원가입한 유저 정보 상태관리
+  const [userInfo, setUserInfo] = useRecoilState(SignUpAtom);
   const [username, setUsername] = useState('');
   const [accountname, setAccountname] = useState('');
   const [intro, setIntro] = useState('');
+  const [buttonImg, setButtonImg] = useState(DisabledButtonImg);
+  const [image, setImage] = useState('');
+  //유저 아이디 유효성검사
+  const [id, setId] = useState('');
+  const [idValid, setIdValid] = useState(true);
+  const [idAlertMsg, setIdAlertMsg] = useState('');
+  //유저 이름 유효성검사
+  const [usernameValid, setUsernameValid] = useState(true);
+  const [usernameAlertMsg, setUsernameAlertMsg] = useState('');
+
+  const handleProfileImageResponse = (fileName) => {
+    setImage(fileName);
+  };
+
+  //이전 페이지 이동
+  const goBack = () => {
+    navigate(-1);
+  };
+
+  //아이디 유효성 검사
+  const handleIdValid = async (e) => {
+    setId(e.target.value);
+    const pattern = /^[A-Za-z0-9_.]+$/;
+    if (pattern.test(id)) {
+      const Msg = await PostIdValid(id);
+      setIdAlertMsg(Msg);
+      Msg === '사용 가능한 계정ID 입니다.'
+        ? setIdValid(true)
+        : setIdValid(false);
+    } else {
+      setIdAlertMsg('*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.');
+      setIdValid(false);
+    }
+  };
+
+  ////유저 이름 유효성 검사
+  const handleUsernameValid = (event) => {
+    const value = event.target.value;
+    if (value.length >= 2 && value.length <= 10) {
+      setUsernameAlertMsg('');
+      setUsernameValid(true);
+    } else {
+      setUsernameAlertMsg('사용자 이름은 2~10자 이내여야 합니다.');
+      setUsernameValid(false);
+    }
+    setUsername(value);
+  };
+
+  const handleActiveButton = () => {
+    if (username !== '' && accountname !== '' && intro !== '') {
+      setButtonImg(ClayButtonImg);
+    } else {
+      setButtonImg(DisabledButtonImg);
+    }
+  };
+
+  // 입력란 값 변경 시 실행되는 함수x
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    // 입력란 값 변경
+    if (name === 'username') {
+      setUsername(value.trim());
+    } else if (name === 'accountname') {
+      setAccountname(value.trim());
+    } else if (name === 'intro') {
+      setIntro(value.trim());
+    }
+
+    handleActiveButton();
+    // 두 입력란에 값이 모두 존재할 경우 버튼 활성화 함수 실행
+  };
 
   const handleSetProfileSubmit = async (event) => {
     event.preventDefault();
-    console.log(location.state);
-    try {
-      const modifiedAccountname = `${location.state.accountname}-${accountname}`;
-      const data = {
-        ...location.state,
-        username: username,
-        accountname: modifiedAccountname,
-        intro: intro,
-        image: 'image',
-      };
-      console.log(data);
-
-      const response = await axios.post(
-        'https://api.mandarin.weniv.co.kr/user',
-        data,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-
-      console.log(response);
-
-      if (response.data.status === 200) {
-        console.log('회원가입 성공');
-        console.log(response);
-        navigate('/home', { state: location.state });
-      } else {
-        console.log('회원가입 실패');
-        console.log(response);
-      }
-    } catch (error) {
-      console.error(error);
+    if (buttonImg === DisabledButtonImg) {
+      return; // 버튼 비활성화일 때 기능 막기
+    }
+    if (username && id && usernameValid && idValid) {
+      const updatedAccountname = `${userInfo.type}${id}`;
+      setUserInfo((prevValue) => {
+        return {
+          ...prevValue,
+          username: username,
+          accountname: updatedAccountname,
+          intro: intro,
+          image: url + image,
+        };
+      });
+      navigate('/account/login');
     }
   };
+
+  useEffect(() => {
+    if (username && id && usernameValid && idValid) {
+      PostSignUp(userInfo);
+    }
+  }, [userInfo]);
 
   return (
     <SignupDiv>
       <SignupHeader>
-        <button>
+        <button onClick={goBack}>
           <img src={ArrowImg} alt='' />
         </button>
         <Heading1>프로필 설정</Heading1>
@@ -74,37 +139,39 @@ const SetProfile = () => {
 
       <Wrap>
         <P>나중에 언제든지 변경할 수 있습니다.</P>
-        <UploadProfile />
+        <UploadProfile onResponse={handleProfileImageResponse} />
 
         <SetProfileDiv first>
           <SetProfileLabel>사용자 이름</SetProfileLabel>
           <SetProfileInputBox
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            name='username'
+            onChange={handleInputChange}
             placeholder='2-10자 이내 여야 합니다'
+            onBlur={handleUsernameValid}
           />
         </SetProfileDiv>
-
+        {usernameAlertMsg && <ErrorMessage>{usernameAlertMsg}</ErrorMessage>}
         <SetProfileDiv>
           <SetProfileLabel>계정 ID</SetProfileLabel>
           <SetProfileInputBox
-            value={accountname}
-            onChange={(event) => setAccountname(event.target.value)}
+            name='accountname'
+            onChange={handleInputChange}
+            onBlur={handleIdValid}
             placeholder='영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.'
           />
         </SetProfileDiv>
-
+        {idAlertMsg && <ErrorMessage>{idAlertMsg}</ErrorMessage>}
         <SetProfileDiv>
           <SetProfileLabel>소개</SetProfileLabel>
           <SetProfileInputBox
-            value={intro}
-            onChange={(event) => setIntro(event.target.value)}
+            name='intro'
+            onChange={handleInputChange}
             placeholder='자신과 판매할 상품에 대해 소개해 주세요!'
           />
         </SetProfileDiv>
 
         <ButtonImg type='submit' onClick={handleSetProfileSubmit}>
-          <img src={ClayButtonImg} alt='' />
+          <img src={buttonImg} alt='' />
         </ButtonImg>
       </Wrap>
     </SignupDiv>
@@ -112,3 +179,10 @@ const SetProfile = () => {
 };
 
 export default SetProfile;
+
+const ErrorMessage = styled.div`
+  padding-left: 34px;
+  align-self: stretch;
+  color: var(--error-color);
+  font-size: var(--font-sm);
+`;
