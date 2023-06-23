@@ -14,15 +14,15 @@ import {
 } from './PostingStyle';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
-import { PostUpload } from '../../api/PostUpload';
+import { PostImagesUpload } from '../../api/PostImagesUpload';
 import { useNavigate } from 'react-router-dom';
+import PostUploadPost from '../../api/PostUploadPost';
 
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
-  const [postId, setPostId] = useState(null);
   const textarea = useRef();
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
@@ -48,7 +48,7 @@ export default function Posting() {
     };
 
     loadMyProfileImage();
-    console.log(loadMyProfileImage());
+    // console.log(loadMyProfileImage());
   }, [token]);
 
   useEffect(() => {
@@ -100,49 +100,29 @@ export default function Posting() {
     updatedImages.splice(index, 1);
     setSelectedImages(updatedImages);
   };
-
-  const handleUploadImage = async () => {
-    const images = await PostUpload(selectedImages);
+  console.log(selectedImages);
+  const handleUploadPost = async () => {
+    const images = await PostImagesUpload(selectedImages);
     console.log('업로드될 이미지 파일 이름 :', images);
-    const data = {
-      post: {
-        content: inputValue,
-        image: images,
-      },
-    };
-
-    try {
-      const response = await axios.post(
-        'https://api.mandarin.weniv.co.kr/post',
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      console.log('게시물 등록 성공!! :', response.data);
+    const response = await PostUploadPost(token, inputValue, images);
+    console.log(response);
+    if (response) {
       setInputValue('');
       setSelectedImages([]);
-      const postId = response.data.post.id;
-      console.log(postId);
-      setPostId(postId);
-
-      //postId가 있어야만 넘어갈 수 있게
-      if (postId) {
-        navigate(`/post/${postId}`, { state: postId });
-      }
-    } catch (error) {
-      console.error('게시물 등록 실패!!:', error);
+      navigate(`/post/${response.post.id}`, {
+        state: response.post.id,
+      });
     }
   };
+
+  // 기존 이미지 값은 http가 감싸져 있는 상태로 받아온다.
+  // 새로 업로드한 이미지는 그대로 image로 태그가 보여지게 한다 Object어쩌고 URL 사용하지 않을 것
+  // POstUploadPostㄹ API에서 보내줄 떄 이미지 각각 https를 감싸서 보내지게 한다
 
   return (
     <div>
       <DisabledUploadBtnNav
-        handleUploadImage={handleUploadImage}
+        handleUploadPost={handleUploadPost}
         buttonStyle={buttonStyle}
       />
       <ProfileContainer>
