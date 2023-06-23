@@ -56,7 +56,7 @@ function App() {
             <Route path='detail/:class_id' element={<ClassDetail />} />
           </Route>
           <Route path='registration' element={<ClassRegistration />} />
-            <Route path='reservation' element={<ClassReservation />} />
+          <Route path='reservation' element={<ClassReservation />} />
 
           <Route path='/post/' element={<Outlet />}>
             <Route path=':post_id/' element={<PostDetail />} />
@@ -92,7 +92,7 @@ function App() {
 
 const Wrap = styled.div`
   width: 390px;
-  height: 100vh;
+  height: 844px;
   position: relative;
   margin: 0 auto;
   border: 1px solid var(--border-color);
