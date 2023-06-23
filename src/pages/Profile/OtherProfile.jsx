@@ -68,13 +68,13 @@ export default function Profile() {
   // console.log(profileData);
   // console.log(postData);
   const navigateToFollowers = () => {
-    console.log('Navigate to followers');
-    console.log(`${accountname}`);
-    navigate(`/other_profile/${accountname}/follower`);
+    // console.log('Navigate to followers');
+    // console.log(`${accountname}`);
+    navigate(`/other_profile/${accountname}/follower/`);
   };
 
   const navigateToFollowing = () => {
-    navigate(`/other_profile/${accountname}/following`);
+    navigate(`/other_profile/${accountname}/following/`);
   };
   return (
     <div>

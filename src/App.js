@@ -63,14 +63,13 @@ function App() {
             <Route path='' element={<Profile />} />
             <Route path='follower/' element={<Follower />} />
             <Route path='following/' element={<Following />} />
-            <Route path='edit/' element={<EditProfile />} />
+            <Route path='edit/:accountname' element={<EditProfile />} />
           </Route>
-          <Route path='/other_profile/:accountname' element={<OtherProfile />}>
+          <Route path='/other_profile/:accountname/' element={<OtherProfile />}>
             <Route path='' element={<OtherProfile />} />
-            <Route path='follower' element={<Follower />} />
-            <Route path='following' element={<Following />} />
+            <Route path='follower/' element={<Follower />} />
+            <Route path='following/' element={<Following />} />
           </Route>
-
           {/* <Route path='/*' element={<NotFound />} /> */}
         </Routes>
       </Router>

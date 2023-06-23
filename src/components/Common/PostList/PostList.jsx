@@ -7,6 +7,10 @@ import { useRecoilValue } from 'recoil';
 import PostContent from './PostContent';
 import PostProfile from './PostProfile';
 export default function PostList({ post }) {
+  if (!post) {
+    // post가 undefined인 경우 로딩 상태 등을 처리할 수 있습니다.
+    return <div>Loading...</div>;
+  }
   return (
     <PostUlStyle>
       <li key={post.id}>
