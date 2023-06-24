@@ -7,7 +7,7 @@ import CalTimeAgo from '../CalTimeAgo';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import ModalAlert from '../Modal/ModalAlert/ModalAlert';
-import CommentModal from '../../Common/Modal/CommentModal';
+import Modal from '../../Common/Modal/Modal';
 import ReportModal from '../../Common/Modal/ReportModal';
 import PostReportComment from '../../../api/PostReportComment';
 import DeleteComment from '../../../api/DeleteComment';
@@ -60,9 +60,10 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
       <CommentContent>{comment.content}</CommentContent>
       {isModalOpen &&
         (comment.author.accountname === userInfo.accountname ? (
-          <CommentModal
+          <Modal
             setModalOpen={setModalOpen}
             setAlertModalOpen={setAlertModalOpen}
+            type='comment'
           />
         ) : (
           <ReportModal

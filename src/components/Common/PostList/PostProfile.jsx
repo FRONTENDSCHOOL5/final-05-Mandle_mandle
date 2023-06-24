@@ -7,7 +7,7 @@ import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import MoreButton from '../MoreButton';
 import ReportModal from '../../Common/Modal/ReportModal';
-import PostModal from '../Modal/PostModal';
+import Modal from '../Modal/Modal';
 import PostReportPost from '../../../api/PostReportPost';
 import DeletePost from '../../../api/DeletePost';
 import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
@@ -25,6 +25,10 @@ export default function PostProfile({ post, setPostUpdated }) {
 
   const handleClick = () => {
     setModalOpen(true);
+  };
+
+  const handleMovePostEdit = () => {
+    navigate(`/post/${post.id}/edit`, { state: post });
   };
 
   const handleReportSubmit = async () => {
@@ -64,10 +68,11 @@ export default function PostProfile({ post, setPostUpdated }) {
       <MoreButton onClick={handleClick} />
       {isModalOpen &&
         (post.author.accountname === userInfo.accountname ? (
-          <PostModal
-            post={post}
+          <Modal
             setModalOpen={setModalOpen}
             setAlertModalOpen={setAlertModalOpen}
+            onClick={handleMovePostEdit}
+            type='post'
           />
         ) : (
           <ReportModal
