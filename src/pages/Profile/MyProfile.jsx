@@ -1,24 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import MiniClassList from '../../components/Common/MiniClassList';
-import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
-import MoreIcon from '../../assets/img/icon- more-vertical.svg';
-import BasicProfile from '../../assets/img/basic-profile-img.svg';
-import ChatImg from '../../assets/img/icon-chat-mini.svg';
-import ShareImg from '../../assets/img/icon-share.svg';
+import { MoreNav } from '../../components/Common/TopNav';
 import PostList from '../../components/Common/PostList/PostList';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-import { WrapBtn, Wrap, ProfileSection, TopNavWrap } from './ProfileStyle';
+import { WrapBtn, Wrap, ProfileSection } from './ProfileStyle';
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
-// import { ProfileData } from "../../api/GetProfile";
 
 export default function Profile() {
   const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate(-1);
-  };
   const userInfo = useRecoilValue(UserAtom);
   const userAccountname = userInfo.accountname;
   const token = userInfo.token;
@@ -42,7 +33,7 @@ export default function Profile() {
   if (!profileData && !classData) {
     return <div>Loading...</div>;
   }
-  // console.log(postData);
+  //프로필 수정페이지 이동
   function handleClick(profileData) {
     navigate(`edit/${profileData.accountname}`, {
       state: {
@@ -50,11 +41,9 @@ export default function Profile() {
       },
     });
   }
-  console.log(profileData);
   return (
     <div>
-      <MoreNavigation />
-      {/* <TeacherSelfProfile /> */}
+      <MoreNav />
       <ProfileSection>
         <Wrap>
           <div className='follow'>
@@ -63,7 +52,7 @@ export default function Profile() {
               <p className='followNum'>followers</p>
             </Link>
           </div>
-          <img src={profileData.image} alt='프로필 이미지' />
+          <img src={profileData.image} id='profileImg' alt='프로필 이미지' />
           <div className='follow'>
             <Link to='/my_profile/following'>
               <p>{profileData.followingCount}</p>
@@ -71,10 +60,14 @@ export default function Profile() {
             </Link>
           </div>
         </Wrap>
-        <p id='NickName'>
-          {profileData.username}
-          <span></span>
-        </p>
+        <div id='usernameWrap'>
+          <p id='NickName'>{profileData.username}</p>{' '}
+          <span
+            className={
+              profileData.accountname.includes('Teacher') ? '' : 'a11y-hidden'
+            }
+          ></span>
+        </div>
         <p id='MandleId'>
           @
           {profileData.accountname.includes('Teacher') ||
@@ -84,41 +77,34 @@ export default function Profile() {
         </p>
         <p id='Introduce'>{profileData.intro}</p>
         <WrapBtn>
-          {/* <Link to='/my_profile/edit'> */}
           <button
             className='profileBtn'
             onClick={() => handleClick(profileData)}
           >
             프로필 수정
           </button>
-          {/* </Link> */}
           <Link to='/registration'>
-            <button className='profileBtn'>클래스 등록</button>
+            <button
+              className={
+                profileData.accountname.includes('Teacher')
+                  ? 'profileBtn'
+                  : 'a11y-hidden'
+              }
+            >
+              클래스 등록
+            </button>
           </Link>
         </WrapBtn>
       </ProfileSection>
-      <MiniClassList classData={classData} />
+      {profileData.accountname.includes('Teacher') && (
+        <MiniClassList classData={classData} />
+      )}
       <div>
-        {/* {postData.post.map((post) => (
-          <PostList post={post} />
-        ))} */}
         {postData.post.map((post) => (
           <PostList setPostUpdated={setPostUpdated} post={post} />
         ))}
       </div>
     </div>
-  );
-}
-function MoreNavigation() {
-  return (
-    <TopNavWrap>
-      <button className='go-back'>
-        <img src={ArrowIcon} alt='뒤로가기 아이콘' />
-      </button>
-      <button className='more-icon'>
-        <img src={MoreIcon} alt='더보기 아이콘' />
-      </button>
-    </TopNavWrap>
   );
 }
 // function TeacherSelfProfile() {

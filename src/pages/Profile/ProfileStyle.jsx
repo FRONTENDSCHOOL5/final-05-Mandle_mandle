@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import GlobalStyle from "../../styles/GlobalStyles";
-import Teacher from "../../assets/img/icon-teacher.svg";
+import React from 'react';
+import styled from 'styled-components';
+import GlobalStyle from '../../styles/GlobalStyles';
+import Teacher from '../../assets/img/icon-teacher.svg';
 
 const TopNavWrap = styled.div`
   display: flex;
-  width: 390px;
+  width: 100%;
   height: 48px;
   background-color: #ffffff;
   border-bottom: 1px solid #dbdbdb;
@@ -35,18 +35,19 @@ const ProfileSection = styled.section`
   width: 390px;
   text-align: center;
   margin: 10px auto;
-
+  #usernameWrap {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
   #NickName {
     font-size: var(--font-lg);
     position: relative;
   }
-  & #NickName span {
+  & #NickName + span {
     display: block;
     width: 14px;
     height: 14px;
-    position: absolute;
-    right: 116px;
-    top: 0;
     background-image: url(${Teacher});
   }
   #MandleId {
@@ -58,6 +59,13 @@ const ProfileSection = styled.section`
     font-size: var(--font-md);
     color: var(--sub-font-color);
     margin-bottom: 24px;
+  }
+  #profileImg {
+    width: 110px;
+    height: 110px;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: cover;
   }
 `;
 const Wrap = styled.div`

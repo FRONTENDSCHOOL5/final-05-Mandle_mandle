@@ -20,7 +20,9 @@ const UserWrap = styled.a`
     object-fit: cover;
     border-radius: 50px;
   }
-
+  #textWrap {
+    flex-direction: column;
+  }
   p {
     color: var(--sub-font-color);
     font-size: var(--font-sm);
@@ -68,7 +70,7 @@ export default function User(props) {
     });
   }
   return (
-    <div>
+    <div id='userDiv'>
       <UserWrap onClick={() => handleClick(accountname)}>
         {/* <UserWrap
         to={{
@@ -77,7 +79,7 @@ export default function User(props) {
         }}
       > */}
         <img src={image} alt='' />
-        <div>
+        <div id='textWrap'>
           <p>{username}</p>
           {/* <p>{accountname}</p> */}
           <p>{intro}</p>
