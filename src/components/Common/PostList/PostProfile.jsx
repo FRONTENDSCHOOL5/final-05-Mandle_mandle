@@ -11,7 +11,7 @@ import PostModal from '../Modal/PostModal';
 import PostReportPost from '../../../api/PostReportPost';
 import DeletePost from '../../../api/DeletePost';
 import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
-export default function PostProfile({ post }) {
+export default function PostProfile({ post, setPostUpdated }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
   const [isModalOpen, setModalOpen] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(false);
@@ -43,7 +43,7 @@ export default function PostProfile({ post }) {
       if (currentURL.startsWith('/post')) {
         navigate(-1); // 이전 페이지로 이동
       } else {
-        window.location.reload(); // 새로고침(상태변경으로 바꿀 예정)
+        setPostUpdated(true); // 새로고침(상태변경으로 바꿀 예정)
       }
     }
   };
