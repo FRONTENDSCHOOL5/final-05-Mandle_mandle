@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import GlobalStyle from "../../styles/GlobalStyles";
+import styled from 'styled-components';
+import GlobalStyle from '../../styles/GlobalStyles';
 
 export const SignupDiv = styled.div`
   width: 390px;
@@ -24,15 +24,13 @@ export const Wrap = styled.form`
 
   #submitBtn {
     display: block;
-    width: 90px;
+    width: 160px;
     height: 32px;
     background-color: var(--sub-color);
     color: rgb(255 255 255);
     border-radius: 32px;
     text-align: center;
-    position: absolute;
-    top: 0;
-    right: 0;
+    margin: auto;
   }
 
   #submitBtn.active {
@@ -51,7 +49,7 @@ export const SetProfileDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
-  ${(props) => props.first && "margin-top: 30px;"}
+  ${(props) => props.first && 'margin-top: 30px;'}
 `;
 
 export const SetProfileLabel = styled.label`

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import MiniClassList from '../../components/Common/MiniClassList';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 import MoreIcon from '../../assets/img/icon- more-vertical.svg';
-import BasicProfile from '../../assets/img/basic-profile-img.svg';
 import ChatImg from '../../assets/img/icon-chat-mini.svg';
 import ShareImg from '../../assets/img/icon-share.svg';
 import PostList from '../../components/Common/PostList/PostList';
@@ -64,12 +63,8 @@ export default function Profile() {
       return null;
     }
   };
-  // console.log(accountname);
-  // console.log(profileData);
-  // console.log(postData);
+
   const navigateToFollowers = () => {
-    // console.log('Navigate to followers');
-    // console.log(`${accountname}`);
     navigate(`/other_profile/${accountname}/follower/`);
   };
 
@@ -79,7 +74,6 @@ export default function Profile() {
   return (
     <div>
       <MoreNavigation />
-      {/* <TeacherSelfProfile /> */}
       <ProfileSection>
         <Wrap>
           <div className='follow'>
@@ -88,7 +82,7 @@ export default function Profile() {
               <p className='followNum'>followers</p>
             </button>
           </div>
-          <img src={profileData.image} alt='프로필 이미지' />
+          <img src={profileData.image} id='profileImg' alt='프로필 이미지' />
           <div className='follow'>
             <Link to={`/other_profile/${accountname}/following`}>
               <p>{profileData.followingCount}</p>
@@ -98,7 +92,14 @@ export default function Profile() {
         </Wrap>
         <p id='NickName'>
           {profileData.username}
-          <span></span>
+          <span
+            className={
+              profileData.accountname &&
+              profileData.accountname.includes('Teacher')
+                ? ''
+                : 'a11y-hidden'
+            }
+          ></span>
         </p>
         <p id='MandleId'>
           @
@@ -122,7 +123,10 @@ export default function Profile() {
           </button>
         </WrapBtn>
       </ProfileSection>
-      <MiniClassList classData={classData} />
+      {profileData.accountname &&
+        profileData.accountname.includes('Teacher') && (
+          <MiniClassList classData={classData} />
+        )}
       <div>
         {postData.post && postData.post.length > 0 ? (
           postData.post.map((post) => <PostList post={post} key={post.id} />)
