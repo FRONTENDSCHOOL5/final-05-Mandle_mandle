@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import MenuBar from '../../../components/Common/MenuBar';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { SearchNav } from '../../../components/Common/TopNav';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-import { useRecoilState } from 'recoil';
+import MenuBar from '../../../components/Common/MenuBar';
 import GetSearchUser from '../../../api/GetSearchUser';
 import BasicProfileImg from '../../../assets/img/basic-profile-img.svg';
+import { MainWrap, ProfileWrap, ProfileInfo } from './SearchStyle';
 export default function Search() {
   const [userValue] = useRecoilState(UserAtom); // UserAtom값 불러오기
   const [accountData, setAccountData] = useState(null);
@@ -20,6 +20,11 @@ export default function Search() {
     console.log(keyword, response);
   };
 
+  const navigate = useNavigate();
+  const handleMoveProfile = () => {
+    navigate(`/other_profile/${accountData.account}/`);
+  };
+
   return (
     <>
       <SearchNav token={token} onChange={handleKeywordChange}></SearchNav>
@@ -28,7 +33,7 @@ export default function Search() {
           {accountData
             ? accountData.map((account) => (
                 <li key={account._id}>
-                  <ProfileWrap to={`/profile/${account.accountname}`}>
+                  <ProfileWrap onClick={handleMoveProfile}>
                     <div>
                       <img
                         src={
@@ -53,59 +58,6 @@ export default function Search() {
         </ul>
       </MainWrap>
       <MenuBar />
-      cc
     </>
   );
 }
-const MainWrap = styled.main`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: calc(100% - 60px - 48px);
-
-  ul {
-    padding: 20px 16px;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  ul::-webkit-scrollbar {
-    display: none;
-  }
-`;
-const ProfileWrap = styled.a`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  img {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-`;
-
-const ProfileInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  gap: 6px;
-  div {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  img {
-    width: 18px;
-    height: 20px;
-  }
-
-  div + p {
-    font-size: var(--font-sm);
-    color: var(--sub-font-color);
-  }
-`;
