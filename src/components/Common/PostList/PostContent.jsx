@@ -12,8 +12,7 @@ export default function PostContent({ post }) {
     const date = new Date(dateString);
     return date.toLocaleDateString('ko-KR', options); // '2023년 6월 20일' 형식으로 변환
   };
-
-  const postImages = post.image.split(',');
+  const postImages = post.image ? post.image.split(',') : '';
   const navigate = useNavigate();
   const handlePostClick = () => {
     navigate(`/post/${post.id}`, { state: post.id });
@@ -21,21 +20,23 @@ export default function PostContent({ post }) {
   return (
     <PostContentWrap>
       <MovePostDetail onClick={handlePostClick}>
-        <p>{post.content}</p>
+        {post.content && <p>{post.content}</p>}
         {postImages[0] === '' ? (
           ''
         ) : (
           <PostImageWrap
             className={postImages.length > 1 ? 'postImgscroll' : ''}
           >
-            {postImages.map((postImage, index) => (
-              <img
-                src={postImage}
-                width={postImages.length > 1 ? '168px' : '304px'}
-                height={postImages.length > 1 ? '126px' : '228px'}
-                alt=''
-              /> // comment객체가 'comment'라는 이름으로 또 감싸져 있어 안의 요소들로 바로 접근하기 위함
-            ))}
+            {postImages &&
+              postImages.map((postImage, index) => (
+                <img
+                  key={index}
+                  src={`${postImage}`}
+                  width={postImages.length > 1 ? '168px' : '304px'}
+                  height={postImages.length > 1 ? '126px' : '228px'}
+                  alt=''
+                /> // comment객체가 'comment'라는 이름으로 또 감싸져 있어 안의 요소들로 바로 접근하기 위함
+              ))}
           </PostImageWrap>
         )}
       </MovePostDetail>
@@ -48,7 +49,7 @@ export default function PostContent({ post }) {
       </PostIconWrap>
       <PostDate>
         {postDate(
-          post.createdAt !== post.updatedAt ? post.updatedAt : post.createdAt
+          post.createdAt !== post.updatedAt ? post.updatedAt : post.createdAt,
         )}
       </PostDate>
     </PostContentWrap>
