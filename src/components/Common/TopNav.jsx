@@ -98,6 +98,7 @@ function DisabledUploadBtnNav() {
 
 export const TopNavWrap = styled.header`
   display: flex;
+  gap: 20px;
   width: 100%;
   height: 48px;
   background-color: #ffffff;
