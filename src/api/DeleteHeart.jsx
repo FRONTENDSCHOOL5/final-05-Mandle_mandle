@@ -11,7 +11,8 @@ export default async function DeleteHeart(postId, token) {
         },
       },
     );
-    return response.data;
+
+    return response.data.post;
   } catch (error) {
     console.error(error);
   }
