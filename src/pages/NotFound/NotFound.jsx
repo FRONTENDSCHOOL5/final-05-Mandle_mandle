@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import ButtonStyle from '../../../components/Common/Button';
-import NotFoundLogo from '../../../assets/img/home-logo.svg';
+import ButtonStyle from '../../components/Common/Button';
+import NotFoundLogo from '../../assets/img/home-logo.svg';
 import { NotFoundWrap } from './NotFoundStyle';
 export default function PostBlank() {
   const navigate = useNavigate();

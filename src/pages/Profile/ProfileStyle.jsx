@@ -146,6 +146,17 @@ const PostWrap = styled.div`
       display: none;
     }
   }
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+  }
+
+  .image-grid img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+  }
 `;
 
 export { WrapBtn, Wrap, ProfileSection, TopNavWrap, ProfilePage, PostWrap };
