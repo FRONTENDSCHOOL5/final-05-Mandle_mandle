@@ -3,42 +3,28 @@ import styled from 'styled-components';
 import GlobalStyle from '../../styles/GlobalStyles';
 import ClassImg from '../../assets/img/temp/candleT1.png';
 
-function MiniClassList() {
+function MiniClassList({ classData }) {
   return (
     <ClassSection>
       <Title>판매중인 상품</Title>
       <ClassList>
-        <li>
-          <a href='#'>
-            <Class>
-              <ClassImage src={ClassImg} alt='양초 수업' />
-              <ClassDescription>생활</ClassDescription>
-              <ClassTitle>향초 만들기</ClassTitle>
-            </Class>
-          </a>
-        </li>
-        <li>
-          <a href='#'>
-            <Class>
-              <ClassImage src={ClassImg} alt='양초 수업' />
-              <ClassDescription>생활</ClassDescription>
-              <ClassTitle>향초 만들기</ClassTitle>
-            </Class>
-          </a>
-        </li>
-        <li>
-          <a href='#'>
-            <Class>
-              <ClassImage src={ClassImg} alt='양초 수업' />
-              <ClassDescription>생활</ClassDescription>
-              <ClassTitle>향초 만들기</ClassTitle>
-            </Class>
-          </a>
-        </li>
+        {classData.product &&
+          classData.product.map((item) => (
+            <li key={item.id}>
+              <a href={item.link}>
+                <Class>
+                  <ClassImage src={item.itemImage} alt={item.itemName} />
+                  <ClassDescription>{item.author.intro}</ClassDescription>
+                  <ClassTitle>{item.itemName}</ClassTitle>
+                </Class>
+              </a>
+            </li>
+          ))}
       </ClassList>
     </ClassSection>
   );
 }
+
 export default MiniClassList;
 
 const ClassSection = styled.section`

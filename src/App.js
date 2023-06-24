@@ -1,11 +1,21 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+  useParams,
+} from 'react-router-dom';
 import React from 'react';
 import GlobalStyle from './styles/GlobalStyles';
 import styled from 'styled-components';
 import Class from '../src/pages/Class/Class';
+import ClassDetail from "../src/pages/Class/ClassDetail"
+import ClassRegistration from "../src/pages/Class/ClassRegistration"
+import ClassReservation from "../src/pages/Class/ClassReservation"
 import Chatting from '../src/pages/Chatting/Chatting';
 import Posting from '../src/pages/Posting/Posting';
-import Profile from '../src/pages/Profile/Profile';
+import Profile from '../src/pages/Profile/MyProfile';
+import OtherProfile from '../src/pages/Profile/OtherProfile';
 import SetProfile from './pages/Signup/SetProfile';
 import Signup from './pages/Signup/Signup';
 import Login from '../src/pages/Login/Login';
@@ -14,24 +24,66 @@ import Intro from '../src/pages/Intro/Intro';
 import Home from '../src/pages/Home/Home';
 import Search from '../src/pages/Home/Search/Search';
 import PostDetail from '../src/pages/Home/PostDetail/PostDetail';
-
+import NotFound from '../src/pages/NotFound/NotFound';
+import EditProfile from '../src/pages/Profile/EditProfile';
+import Follower from '../src/pages/Profile/FollowerList';
+import Following from '../src/pages/Profile/FollowingList';
+import ChatRoom from '../src/pages/Chatting/ChatRoom';
+import ChatModal from './pages/Chatting/ChatModal';
+import EditPost from './pages/Posting/EditPost';
+import ChatList from './pages/Chatting/ChatList';
 function App() {
+  const params = useParams();
+  const { accountname } = params;
   return (
     <Wrap>
       <GlobalStyle />
-      {/* <Login /> */}
       <Router>
         <Routes>
           <Route path='/' element={<Loading />} />
           <Route path='/intro' element={<Intro />} />
-          <Route path='/home' element={<Home to='/home/search' />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/home/search' element={<Search />} />
-          <Route path='/home/postdetail' element={<PostDetail />} />
-          {/* <Route path="/home" element={<Home to="/home/search" />} />
-          <Route path="/home/search" element={<Search />} /> */}
-          {/* <Route path="/home/postdetail" element={<PostDetail />} /> */}
+          <Route path='/account/' element={<Outlet />}>
+            <Route path='login/' element={<Login />} />
+            <Route path='signup/' element={<Signup />} />
+            <Route path='set_profile/' element={<SetProfile />} />
+          </Route>
+          <Route path='/home/' element={<Outlet />}>
+            <Route path='' element={<Home />} />
+            <Route path='search' element={<Search />} />
+          </Route>
+          <Route path='/class/' element={<Outlet />}>
+          <Route path='' element={<Class />} />
+            <Route path='detail/:class_id' element={<ClassDetail />} />
+          </Route>
+          <Route path='registration' element={<ClassRegistration />} />
+            <Route path='reservation' element={<ClassReservation />} />
+
+          <Route path='/post/' element={<Outlet />}>
+            <Route path=':post_id/' element={<PostDetail />} />
+            {/* post수정 경로 수정 */}
+            <Route path=':post_id/edit' element={<EditPost />} />
+            <Route path='upload/' element={<Posting />} />
+          </Route>
+          <Route path='/chatlist/' element={<Outlet />}>
+            <Route path='' element={<Chatting />} />
+            {/* 라우트 추가 부분 */}
+            <Route path='chatlist' element={<ChatList />} />
+            <Route path='chatroom' element={<ChatRoom />} />
+            <Route path='chatmodal' element={<ChatModal />} />
+          </Route>
+
+          <Route path='/my_profile/' element={<Outlet />}>
+            <Route path='' element={<Profile />} />
+            <Route path='follower/' element={<Follower />} />
+            <Route path='following/' element={<Following />} />
+            <Route path='edit/:accountname' element={<EditProfile />} />
+          </Route>
+          <Route path='/other_profile/:accountname/' element={<OtherProfile />}>
+            <Route path='' element={<OtherProfile />} />
+            <Route path='follower/' element={<Follower />} />
+            <Route path='following/' element={<Following />} />
+          </Route>
+          {/* <Route path='/*' element={<NotFound />} /> */}
         </Routes>
       </Router>
     </Wrap>
@@ -40,7 +92,10 @@ function App() {
 
 const Wrap = styled.div`
   width: 390px;
-  height: 844px;
+  height: 100vh;
   position: relative;
+  margin: 0 auto;
+  border: 1px solid var(--border-color);
 `;
+
 export default App;

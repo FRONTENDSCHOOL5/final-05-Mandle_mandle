@@ -1,35 +1,41 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import HomeLogo from '../../assets/img/home-logo.svg';
 import MenuBar from '../../components/Common/MenuBar';
-import ButtonStyle from '../../components/Common/Button';
 import { HomeNav } from '../../components/Common/TopNav';
+import { UserAtom } from '../../Store/userInfoAtoms';
+import { FollowPostAtom } from '../../Store/FollowPostAtom';
+import { useRecoilValue } from 'recoil';
 import PostList from '../../components/Common/PostList/PostList';
+import GetFollowPost from '../../api/GetFollowPost';
+import PostBlank from './PostBlank/PostBlank';
 export default function Home({ to }) {
+  const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
+  const token = userInfo.token; // token값 바인딩
+  const [postList, setpostList] = useState([]);
+  const [postCount, setPostCount] = useState(5);
+
+  useEffect(() => {
+    const response = async () => {
+      const data = await GetFollowPost(postCount, token);
+      setpostList(data);
+    };
+
+    response();
+  }, [postCount, token]);
+
   return (
     <HomeWrap>
-      <HomeNav title='홈' to={to}></HomeNav>
+      <HomeNav title='홈' to='/home/search'></HomeNav>
       <MainWrap>
-        {/* <img src={HomeLogo} alt='' />
-        <p>유저를 검색해 팔로우 해보세요!</p>
-        <Link to={to}>
-          <ButtonStyle
-            width='120px'
-            height='44px'
-            color='#fff'
-            bg='#036635'
-            br='44px'
-          >
-            검색하기
-          </ButtonStyle>
-        </Link> */}
-        {
-          <ul>
-            <PostList />
-            <PostList />
-          </ul>
-        }
+        {postList === null || postList.length === 0 ? (
+          <PostBlank />
+        ) : (
+          <PostUlStyle>
+            {postList.map((post) => (
+              <PostList key={post.id} post={post} />
+            ))}
+          </PostUlStyle>
+        )}
       </MainWrap>
       <MenuBar />
     </HomeWrap>
@@ -44,23 +50,19 @@ const HomeWrap = styled.div`
 `;
 
 const MainWrap = styled.main`
-  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  gap: 16px;
   width: 100%;
   height: calc(100% - 48px - 60px);
   padding: 0 16px;
+`;
+const PostUlStyle = styled.ul`
+  width: 100%;
+  overflow-y: scroll;
 
-  ul {
-    overflow-y: scroll;
-  }
-  ul::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
-  /* p {
-    padding: 10px 0 20px;
-    color: var(--sub-font-color);
-  } */
 `;
