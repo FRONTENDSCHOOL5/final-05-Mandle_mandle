@@ -7,13 +7,6 @@ export default function ReportModal({ setModalOpen, onClick }) {
     }
   };
 
-  //   const handleReportSubmit = async () => {
-  //     const response = await PostReportPost(postId, token); // Call the API component
-  //     if (response) {
-  //       alert(`해당 ${category}이 신고되었습니다.`);
-  //     }
-  //   };
-
   return (
     <ModalOverlay onClick={handleOverlayClick}>
       <ModalWrap>
