@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import GlobalStyle from '../../styles/GlobalStyles';
-import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
+import { GoBackNav } from '../../components/Common/TopNav';
 import User from '../../components/Common/User';
-import {} from './FollowListStyle';
+import { FollowWrap } from './FollowListStyle';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { followingList } from '../../api/FollowingList';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-
-const UserList = styled.ul``;
 
 export default function FollowingList() {
   const navigate = useNavigate();
@@ -39,16 +37,14 @@ export default function FollowingList() {
     return null; // Rendering is still waiting
   }
   return (
-    <div>
-      <button onClick={goBack}>
-        <img src={ArrowIcon} alt='' />
-      </button>
-      <h1>Followings</h1>
-      <UserList>
+    <FollowWrap>
+      <GoBackNav />
+      <h1>Followers</h1>
+      <ul>
         {followingData &&
           followingData.map((user) => <User key={user._id} user={user} />)}
-      </UserList>
-    </div>
+      </ul>
+    </FollowWrap>
   );
 }
 

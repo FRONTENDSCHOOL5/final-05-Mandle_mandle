@@ -94,7 +94,10 @@ export default function Profile() {
           {profileData.username}
           <span
             className={
-              profileData.accountname.includes('Teacher') ? '' : 'a11y-hidden'
+              profileData.accountname &&
+              profileData.accountname.includes('Teacher')
+                ? ''
+                : 'a11y-hidden'
             }
           ></span>
         </p>
@@ -120,9 +123,10 @@ export default function Profile() {
           </button>
         </WrapBtn>
       </ProfileSection>
-      {profileData.accountname.includes('Teacher') && (
-        <MiniClassList classData={classData} />
-      )}
+      {profileData.accountname &&
+        profileData.accountname.includes('Teacher') && (
+          <MiniClassList classData={classData} />
+        )}
       <div>
         {postData.post && postData.post.length > 0 ? (
           postData.post.map((post) => <PostList post={post} key={post.id} />)

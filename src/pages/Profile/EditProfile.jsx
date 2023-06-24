@@ -1,7 +1,5 @@
 import { React, useState, useEffect } from 'react';
 import styled from 'styled-components';
-
-import { SignUpAtom } from '../../Store/AtomSignupState';
 import ArrowImg from '../../assets/img/icon-arrow-left.svg';
 import UploadProfile from '../../components/Common/UploadProfile';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import GlobalStyle from '../../styles/GlobalStyles';
 import { GoBackNav } from '../../components/Common/TopNav';
 import User from '../../components/Common/User';
-import {} from './FollowListStyle';
+import { FollowWrap } from './FollowListStyle';
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
@@ -40,16 +40,16 @@ export default function FollowerList() {
     return null;
   }
   return (
-    <div>
+    <FollowWrap>
       <GoBackNav />
       <h1>Followers</h1>
-      <UserList>
+      <ul>
         {followerData &&
           followerData.map((user) => (
             <User key={user._id} user={user} accountname={user.accountname} />
           ))}
-      </UserList>
-    </div>
+      </ul>
+    </FollowWrap>
   );
 }
 
@@ -69,10 +69,3 @@ async function FollowerData(accountname, token, followerCount) {
     return null;
   }
 }
-
-const UserList = styled.ul`
-  #userDiv {
-    display: flex;
-    justify-content: flex-start;
-  }
-`;

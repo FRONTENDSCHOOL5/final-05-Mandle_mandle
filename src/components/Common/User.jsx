@@ -35,7 +35,7 @@ const UserWrap = styled.a`
 `;
 
 const FollowBtn = styled.button`
-  width: 56px;
+  width: 100px;
   height: 28px;
   color: white;
   margin-left: 30px;
@@ -72,16 +72,9 @@ export default function User(props) {
   return (
     <div id='userDiv'>
       <UserWrap onClick={() => handleClick(accountname)}>
-        {/* <UserWrap
-        to={{
-          pathname: `/other_profile/${accountname}`,
-          state: { accountname },
-        }}
-      > */}
         <img src={image} alt='' />
         <div id='textWrap'>
           <p>{username}</p>
-          {/* <p>{accountname}</p> */}
           <p>{intro}</p>
         </div>
       </UserWrap>

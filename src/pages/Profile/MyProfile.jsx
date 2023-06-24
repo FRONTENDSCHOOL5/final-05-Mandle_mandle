@@ -5,8 +5,18 @@ import PostList from '../../components/Common/PostList/PostList';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-import { WrapBtn, Wrap, ProfileSection } from './ProfileStyle';
+import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
+
+import {
+  WrapBtn,
+  Wrap,
+  ProfileSection,
+  ProfilePage,
+  PostWrap,
+} from './ProfileStyle';
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
+import PostListBtn from '../../assets/img/icon-post-list-on.svg';
+import PostAlbumBtn from '../../assets/img/icon-post-album-off.svg';
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -42,7 +52,7 @@ export default function Profile() {
     });
   }
   return (
-    <div>
+    <ProfilePage>
       <MoreNav />
       <ProfileSection>
         <Wrap>
@@ -64,21 +74,26 @@ export default function Profile() {
           <p id='NickName'>{profileData.username}</p>{' '}
           <span
             className={
-              profileData.accountname.includes('Teacher') ? '' : 'a11y-hidden'
+              profileData.accountname &&
+              profileData.accountname.includes('Teacher')
+                ? ''
+                : 'a11y-hidden'
             }
           ></span>
         </div>
         <p id='MandleId'>
           @
-          {profileData.accountname.includes('Teacher') ||
-          profileData.accountname.includes('Student')
+          {(profileData.accountname &&
+            profileData.accountname.includes('Teacher')) ||
+          (profileData.accountname &&
+            profileData.accountname.includes('Student'))
             ? profileData.accountname.substr(7)
             : profileData.accountname}
         </p>
         <p id='Introduce'>{profileData.intro}</p>
         <WrapBtn>
           <button
-            className='profileBtn'
+            className='profileEditBtn'
             onClick={() => handleClick(profileData)}
           >
             프로필 수정
@@ -86,6 +101,7 @@ export default function Profile() {
           <Link to='/registration'>
             <button
               className={
+                profileData.accountname &&
                 profileData.accountname.includes('Teacher')
                   ? 'profileBtn'
                   : 'a11y-hidden'
@@ -99,131 +115,22 @@ export default function Profile() {
       {profileData.accountname.includes('Teacher') && (
         <MiniClassList classData={classData} />
       )}
-      <div>
+      <PostWrap>
+        <div id='PostBtnWrap'>
+          <button id='ListBtn'>
+            <img src={PostListBtn} alt='포스트리스트 버튼' />
+          </button>
+          <button id='ImgListBtn'>
+            <img src={PostAlbumBtn} alt='포스트 앨범 버튼' />
+          </button>
+        </div>
         {postData.post.map((post) => (
           <PostList setPostUpdated={setPostUpdated} post={post} />
         ))}
-      </div>
-    </div>
+      </PostWrap>
+    </ProfilePage>
   );
 }
-// function TeacherSelfProfile() {
-//   const location = useLocation();
-//   return (
-//     <ProfileSection>
-//       <Wrap>
-//         <div className='follow'>
-//           <Link to='/my_profile/follower'>
-//             <p>2950</p>
-//             <p className='followNum'>followers</p>
-//           </Link>
-//         </div>
-//         <img src={BasicProfile} alt='프로필 이미지' />
-//         <div className='follow'>
-//           <Link to='/my_profile/following'>
-//             <p>80</p>
-//             <p className='followNum'>followings</p>
-//           </Link>
-//         </div>
-//       </Wrap>
-//       <p id='NickName'>
-//         {userProfileData.accountname.substr(7)}
-//         <span></span>
-//       </p>
-//       <p id='MandleId'>@ weniv_Atelier</p>
-//       <p id='Introduce'>비누 만들기 전문 클래스 입니다~</p>
-//       <WrapBtn>
-//         <Link to='/my_profile/edit_profile'>
-//           <button className='profileBtn'>프로필 수정</button>
-//         </Link>
-//         <button className='profileBtn'>클래스 등록</button>
-//       </WrapBtn>
-//     </ProfileSection>
-//   );
-// }
-// function TeacherProfile() {
-//   return (
-//     <ProfileSection>
-//       <Wrap>
-//         <div className='follow'>
-//           <p>2950</p>
-//           <p className='followNum'>followers</p>
-//         </div>
-//         <img src={BasicProfile} alt='프로필 이미지' />
-//         <div className='follow'>
-//           <p>198</p>
-//           <p className='followNum'>followings</p>
-//         </div>
-//       </Wrap>
-//       <p id='NickName'>
-//         위니브 메이드 공방<span></span>
-//       </p>
-//       <p id='MandleId'>@ weniv_Atelier</p>
-//       <p id='Introduce'>비누 만들기 전문 클래스 입니다~</p>
-//       <WrapBtn>
-//         <button className='ChatBtn'>
-//           <img src={ChatImg} alt='채팅 아이콘 이미지' />
-//         </button>
-//         <button className='FollowBtn'>팔로우하기</button>
-//         <button className='ShareBtn'>
-//           <img src={ShareImg} alt='공유 아이콘 이미지' />
-//         </button>
-//       </WrapBtn>
-//     </ProfileSection>
-//   );
-// }
-// function StudentSelfProfile() {
-//   return (
-//     <ProfileSection>
-//       <Wrap>
-//         <div className='follow'>
-//           <p>2950</p>
-//           <p className='followNum'>followers</p>
-//         </div>
-//         <img src={BasicProfile} alt='프로필 이미지' />
-//         <div className='follow'>
-//           <p>198</p>
-//           <p className='followNum'>followings</p>
-//         </div>
-//       </Wrap>
-//       <p id='NickName'>위니브 메이드 공방</p>
-//       <p id='MandleId'>@ weniv_Atelier</p>
-//       <p id='Introduce'>비누 만들기 전문 클래스 입니다~</p>
-//       <WrapBtn>
-//         <button className='profileBtn'>프로필 수정</button>
-//       </WrapBtn>
-//     </ProfileSection>
-//   );
-// }
-// function StudentProfile() {
-//   return (
-//     <ProfileSection>
-//       <Wrap>
-//         <div className='follow'>
-//           <p>2950</p>
-//           <p className='followNum'>followers</p>
-//         </div>
-//         <img src={BasicProfile} alt='프로필 이미지' />
-//         <div className='follow'>
-//           <p>198</p>
-//           <p className='followNum'>followings</p>
-//         </div>
-//       </Wrap>
-//       <p id='NickName'>위니브 메이드 공방</p>
-//       <p id='MandleId'>@ weniv_Atelier</p>
-//       <p id='Introduce'>비누 만들기 전문 클래스 입니다~</p>
-//       <WrapBtn>
-//         <button className='ChatBtn'>
-//           <img src={ChatImg} alt='채팅 아이콘 이미지' />
-//         </button>
-//         <button className='FollowBtn'>팔로우하기</button>
-//         <button className='ShareBtn'>
-//           <img src={ShareImg} alt='공유 아이콘 이미지' />
-//         </button>
-//       </WrapBtn>
-//     </ProfileSection>
-//   );
-// }
 
 async function ProfileData(accountname, token) {
   const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}`;
