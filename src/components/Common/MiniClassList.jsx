@@ -4,9 +4,10 @@ import GlobalStyle from '../../styles/GlobalStyles';
 import ClassImg from '../../assets/img/temp/candleT1.png';
 
 function MiniClassList({ classData }) {
+  console.log(classData);
   return (
     <ClassSection>
-      <Title>판매중인 상품</Title>
+      <Title>클래스 리스트</Title>
       <ClassList>
         {classData.product &&
           classData.product.map((item) => (
@@ -14,7 +15,7 @@ function MiniClassList({ classData }) {
               <a href={item.link}>
                 <Class>
                   <ClassImage src={item.itemImage} alt={item.itemName} />
-                  <ClassDescription>{item.author.intro}</ClassDescription>
+                  <ClassDescription>{item.link}</ClassDescription>
                   <ClassTitle>{item.itemName}</ClassTitle>
                 </Class>
               </a>
@@ -38,8 +39,8 @@ const Title = styled.h2`
 `;
 
 const Class = styled.article`
-  width: 140px;
-  height: 136px;
+  width: 100%;
+  height: 100%;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   background-color: #fff;
@@ -61,8 +62,12 @@ const ClassDescription = styled.p`
 const ClassTitle = styled.h3`
   font-size: var(--font-md);
   font-weight: normal;
-  margin-left: 4px;
   color: #000;
+  width: 120px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 6px 0 7px 4px;
 `;
 
 const ClassList = styled.ul`
