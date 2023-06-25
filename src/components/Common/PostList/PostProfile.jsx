@@ -62,7 +62,7 @@ export default function PostProfile({ post, setPostUpdated }) {
           <div>
             <p>{post.author.username}</p>
           </div>
-          <p>{post.author.accountname}</p>
+          <p>{post.author.accountname.substr(7)}</p>
         </PostProfileInfo>
       </button>
       <MoreButton onClick={handleClick} />
