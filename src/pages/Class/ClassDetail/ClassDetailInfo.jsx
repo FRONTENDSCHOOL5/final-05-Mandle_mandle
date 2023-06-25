@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ClassInfoSection, ClassImage, ClassName, ClassPrice, TopBtn, LikeBtn, LikeNum, ShareBtn, BottomBtn, AskBtn, ReverseBtn } from './ClassDetailInfoStyle';
-import ClassDetailInfoData from '../../../api/ClassDetailInfoData';
+import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData'
 
 
 export default function ClassDetailInfo() {
@@ -25,7 +25,7 @@ export function ClassInfo({ liked, onLike }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await ClassDetailInfoData(id, token);
+        const data = await GetClassDetailInfoData(id, token);
         setNewClass(data);
       } catch (error) {
         console.log("Error", error);
