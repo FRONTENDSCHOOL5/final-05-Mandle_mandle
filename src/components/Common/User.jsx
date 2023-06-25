@@ -20,7 +20,9 @@ const UserWrap = styled.a`
     object-fit: cover;
     border-radius: 50px;
   }
-
+  #textWrap {
+    flex-direction: column;
+  }
   p {
     color: var(--sub-font-color);
     font-size: var(--font-sm);
@@ -33,7 +35,7 @@ const UserWrap = styled.a`
 `;
 
 const FollowBtn = styled.button`
-  width: 56px;
+  width: 100px;
   height: 28px;
   color: white;
   margin-left: 30px;
@@ -68,18 +70,11 @@ export default function User(props) {
     });
   }
   return (
-    <div>
+    <div id='userDiv'>
       <UserWrap onClick={() => handleClick(accountname)}>
-        {/* <UserWrap
-        to={{
-          pathname: `/other_profile/${accountname}`,
-          state: { accountname },
-        }}
-      > */}
         <img src={image} alt='' />
-        <div>
+        <div id='textWrap'>
           <p>{username}</p>
-          {/* <p>{accountname}</p> */}
           <p>{intro}</p>
         </div>
       </UserWrap>

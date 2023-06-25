@@ -1,11 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import GlobalStyle from "../../styles/GlobalStyles";
-import Teacher from "../../assets/img/icon-teacher.svg";
+import React from 'react';
+import styled from 'styled-components';
+import GlobalStyle from '../../styles/GlobalStyles';
+import Teacher from '../../assets/img/icon-teacher.svg';
 
+const ProfilePage = styled.div`
+  background: var(--border-color);
+`;
 const TopNavWrap = styled.div`
   display: flex;
-  width: 390px;
+  width: 100%;
   height: 48px;
   background-color: #ffffff;
   border-bottom: 1px solid #dbdbdb;
@@ -32,21 +35,23 @@ const TopNavWrap = styled.div`
 `;
 
 const ProfileSection = styled.section`
-  width: 390px;
+  width: 100%;
   text-align: center;
-  margin: 10px auto;
-
+  padding: 10px auto;
+  background: white;
+  #usernameWrap {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
   #NickName {
     font-size: var(--font-lg);
     position: relative;
   }
-  & #NickName span {
+  & #NickName + span {
     display: block;
     width: 14px;
     height: 14px;
-    position: absolute;
-    right: 116px;
-    top: 0;
     background-image: url(${Teacher});
   }
   #MandleId {
@@ -59,11 +64,17 @@ const ProfileSection = styled.section`
     color: var(--sub-font-color);
     margin-bottom: 24px;
   }
+  #profileImg {
+    width: 110px;
+    height: 110px;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 `;
 const Wrap = styled.div`
   display: flex;
   justify-content: space-around;
-  margin-top: 24px;
   img {
     width: 110px;
     margin: 30px 0 16px 0;
@@ -86,8 +97,7 @@ const WrapBtn = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
-  margin-bottom: 26px;
-  .profileBtn {
+  .profileEditBtn {
     border: 1px solid var(--border-color);
     border-radius: 30px;
     width: 120px;
@@ -95,6 +105,7 @@ const WrapBtn = styled.div`
     text-align: center;
     color: var(--sub-font-color);
     font-size: var(--font-md);
+    margin-bottom: 26px;
   }
   .ChatBtn,
   .ShareBtn {
@@ -110,5 +121,31 @@ const WrapBtn = styled.div`
     height: 34px;
   }
 `;
+const PostWrap = styled.div`
+  padding: 10px;
+  background: white;
 
-export { WrapBtn, Wrap, ProfileSection, TopNavWrap };
+  #PostBtnWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background: white;
+    gap: 5px;
+    button {
+      width: 26px;
+      height: 26px;
+    }
+    img {
+      width: 100%;
+    }
+  }
+  ul {
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+`;
+
+export { WrapBtn, Wrap, ProfileSection, TopNavWrap, ProfilePage, PostWrap };
