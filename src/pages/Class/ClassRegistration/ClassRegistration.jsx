@@ -7,7 +7,7 @@ import UploadImgBtn from '../../../assets/img/img-upload-button(gray).svg';
 import ImgNon from '../../../assets/img/class-Img.svg';
 import { ClassRegistrationForm, ImgBox, StyledImg, ImgBtn, ClassInput, AddBtn } from './ClassRegistrationStyle';
 import { PostImagesUpload } from '../../../api/PostImagesUpload';
-import ClassAdd from '../../../api/ClassAdd';
+import PostClassAdd from '../../../api/PostClassAdd';
 
 
 
@@ -59,7 +59,7 @@ export function Main() {
     console.log(requestBody)
     
     try {
-      await ClassAdd({ token, navigate, requestBody });
+      await PostClassAdd({ token, navigate, requestBody });
     } catch (error) {
       console.log('Error:', error);
     }

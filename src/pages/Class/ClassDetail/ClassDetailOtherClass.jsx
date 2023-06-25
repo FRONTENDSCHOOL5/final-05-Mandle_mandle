@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { MiniSection, Title, MiniList } from './ClassDetailOtherClassStyle';
 import { ClassPostMini } from '../../../components/Common/ClassPost';
-import ClassData from '../../../api/ClassData';
+import GetClassData from '../../../api/GetClassData';
 
 // Other Class
 
@@ -15,7 +15,7 @@ export default function ClassDetailOtherClass() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await ClassData(token);
+        const data = await GetClassData(token);
         setNewClass(data.product);
       } catch (error) {
         console.log("Error", error);

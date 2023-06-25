@@ -6,7 +6,7 @@ import { ClassPost, ClassPostMini } from '../../components/Common/ClassPost';
 import MenuBar from '../../components/Common/MenuBar';
 import { Link } from 'react-router-dom';
 import { HiddenContext, MainWrap, MiniSection, ClassSection, Title, MiniList, ClassList } from './ClassStyle';
-import ClassData from '../../api/ClassData';
+import GetClassData from '../../api/GetClassData'
 
 
 export default function Class() {
@@ -39,7 +39,7 @@ export function Main() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await ClassData(token);
+        const data = await GetClassData(token);
         setNewClass(data.product);
       } catch (error) {
         console.log("Error", error);
