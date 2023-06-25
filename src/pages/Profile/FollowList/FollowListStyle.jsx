@@ -1,7 +1,4 @@
-import React from 'react';
 import styled from 'styled-components';
-import GlobalStyle from '../../styles/GlobalStyles';
-import { GoBackNav } from '../../components/Common/TopNav';
 
 export const FollowWrap = styled.div`
   ul {
