@@ -2,7 +2,18 @@ import styled from 'styled-components';
 import Teacher from '../../assets/img/icon-teacher.svg';
 
 const ProfilePage = styled.div`
-  background: var(--border-color);
+  width: 100%;
+  height: 100%;
+`;
+const MainWrap = styled.main`
+  background-color: var(--background-color);
+  const PostListUl = styled.ul
+  width: 100%;
+  height: calc(100% - 48px - 60px);
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const TopNavWrap = styled.div`
   display: flex;
@@ -95,7 +106,8 @@ const WrapBtn = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
-  .profileEditBtn {
+  .profileEditBtn,
+  .profileBtn {
     border: 1px solid var(--border-color);
     border-radius: 30px;
     width: 120px;
@@ -119,10 +131,9 @@ const WrapBtn = styled.div`
     height: 34px;
   }
 `;
-const PostWrap = styled.div`
+const PostSection = styled.section`
   padding: 10px;
   background: white;
-
   #PostBtnWrap {
     display: flex;
     flex-direction: row;
@@ -137,13 +148,6 @@ const PostWrap = styled.div`
       width: 100%;
     }
   }
-  ul {
-    overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
   .image-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -156,17 +160,18 @@ const PostWrap = styled.div`
     object-fit: cover;
   }
 `;
-
 const ClassSection = styled.section`
+  width: 100%;
   box-sizing: border-box;
   padding: 10px;
   background-color: #fff;
 `;
 const ClassListUl = styled.ul`
   padding: 0 0 10px 0;
+
   display: flex;
   gap: 10px;
-  overflow-x: auto;
+  overflow-x: scroll;
 
   &::-webkit-scrollbar {
     padding-top: 5px;
@@ -186,14 +191,24 @@ const Title = styled.p`
   margin-bottom: 16px;
 `;
 
+const PostListUl = styled.ul`
+  width: 100%;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 export {
   WrapBtn,
   Wrap,
   ProfileSection,
   TopNavWrap,
   ProfilePage,
-  PostWrap,
+  PostSection,
   ClassSection,
   ClassListUl,
   Title,
+  MainWrap,
+  PostListUl,
 };
