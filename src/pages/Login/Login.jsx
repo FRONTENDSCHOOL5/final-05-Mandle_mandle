@@ -4,43 +4,30 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { UserAtom, IsLogin } from '../../Store/userInfoAtoms';
 import ArrowImg from '../../assets/img/icon-arrow-left.svg';
-import DisabledButtonImg from '../../assets/img/L-Disabled-button(clay).svg';
-import ButtonImg from '../../assets/img/L-button(clay).svg';
-import PostLogin from '../../api/PostLogin';
 
+import PostLogin from '../../api/PostLogin';
+import UserInfoInput from '../../Hooks/UserInfoInput';
 export default function Login() {
   const [userValue, setUserValue] = useRecoilState(UserAtom);
   const [isLogin, setIsLogin] = useRecoilState(IsLogin);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [pwErrorMessage, setPwErrorMessage] = useState('');
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
-  const [buttonImg, setButtonImg] = useState(DisabledButtonImg);
 
   const navigate = useNavigate();
 
   const goBack = () => {
     navigate(-1);
   };
-
-  const handleActiveButton = () => {
-    setButtonImg(
-      email !== '' && password !== '' ? ButtonImg : DisabledButtonImg,
-    );
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === 'email') {
-      setEmail(value.trim());
-    } else if (name === 'password') {
-      setPassword(value.trim());
-    }
-
-    handleActiveButton();
-  };
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    buttonImg,
+    handleInputChange,
+  } = UserInfoInput();
 
   const handleEmailValid = () => {
     const emailPattern = /^\S+@\S+\.\S+$/;
@@ -54,8 +41,6 @@ export default function Login() {
   const handlePasswordValid = () => {
     if (password.length >= 6) {
       setPwErrorMessage('');
-
-      handleActiveButton();
     } else {
       setPwErrorMessage('비밀번호는 6자 이상이어야 합니다.');
     }
@@ -69,6 +54,7 @@ export default function Login() {
       //로그인 실패
       if (loginInfo.status === 422) {
         setLoginErrorMessage(loginInfo.message);
+        alert(loginErrorMessage);
         setEmail('');
         setPassword('');
         //성공시
@@ -76,7 +62,6 @@ export default function Login() {
         //로그인 성공
         const { accountname, token, refreshToken, image } = loginInfo.user;
         setUserValue({ accountname, token, refreshToken, image });
-
         setIsLogin(true);
         setLoginErrorMessage('');
         setEmail('');
