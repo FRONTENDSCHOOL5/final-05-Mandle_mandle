@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import HomeLogo from '../../../assets/img/home-logo.svg';
 import ButtonStyle from '../../../components/Common/Button';
