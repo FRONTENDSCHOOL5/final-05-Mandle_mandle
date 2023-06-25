@@ -6,13 +6,16 @@ import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
-
+import styled from 'styled-components';
 import {
   WrapBtn,
   Wrap,
   ProfileSection,
   ProfilePage,
   PostWrap,
+  ClassSection,
+  ClassListUl,
+  Title,
 } from './ProfileStyle';
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
@@ -31,6 +34,7 @@ export default function Profile() {
   const [postUpdated, setPostUpdated] = useState(false);
   const [isListBtnActive, setListBtnActive] = useState(true);
   const [isImgListBtnActive, setImgListBtnActive] = useState(false);
+  const [classUpdated, setClassUpdated] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const userProfileData = await ProfileData(userAccountname, token);
@@ -40,9 +44,10 @@ export default function Profile() {
       setProfileData(userProfileData);
       setClassData(userClassData);
       setPostUpdated(false);
+      setClassUpdated(false);
     };
     fetchData();
-  }, [userAccountname, postUpdated, token]);
+  }, [userAccountname, postUpdated, classUpdated, token]);
 
   if (!profileData && !classData) {
     return <div>Loading...</div>;
@@ -126,9 +131,23 @@ export default function Profile() {
           </Link>
         </WrapBtn>
       </ProfileSection>
-      {profileData.accountname.includes('Teacher') && (
-        <MiniClassList classData={classData} />
-      )}
+      <ClassSection>
+        <Title>클래스 리스트</Title>
+        <ClassListUl>
+          {profileData.accountname.includes('Teacher') &&
+            classData.product &&
+            classData.product.map((classItem, index) => (
+              <MiniClassList
+                key={classItem.id}
+                token={token}
+                classItem={classItem}
+                page='profile'
+                setClassUpdated={setClassUpdated}
+              />
+            ))}
+        </ClassListUl>
+      </ClassSection>
+
       <PostWrap>
         <div id='PostBtnWrap'>
           <button
