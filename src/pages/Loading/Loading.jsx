@@ -9,6 +9,7 @@ import { UserAtom } from '../../Store/userInfoAtoms';
 import { LoadingWrap } from './LoadingStyle';
 export default function Loading() {
   const userInfo = useRecoilValue(UserAtom);
+
   const [isLoaded, setIsLoaded] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -22,7 +23,7 @@ export default function Loading() {
   useEffect(() => {
     if (isLoaded) {
       const introTimer = setTimeout(() => {
-        if (userInfo) {
+        if (userInfo.length) {
           navigate('/home');
         } else {
           navigate('/intro');
@@ -51,7 +52,7 @@ export default function Loading() {
       <h1>
         <img
           src={LogoImg}
-          className={isLoaded && 'twist'}
+          className={isLoaded ? 'twist' : ''}
           alt='만들만들 로딩완료 캐릭터 로고'
         />
       </h1>
