@@ -5,10 +5,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { TextInputContainer, ImagePreview } from './Posting'; // Import shared components from Posting.jsx.
-import { PostImagesUpload } from '../../api/PostImagesUpload'; // Import the post upload function from PostUpload.jsx.
+// import { PostImagesUpload } from '../../api/PostImagesUpload';
 import PutPostEdit from '../../api/PutPostEdit';
 import ProfileImg from '../../assets/img/mini-basic-progile-img.svg';
-
+import ImageHandleHook from '../../CustomHook/ImageHandleHook';
 import { useLocation } from 'react-router-dom';
 import {
   DisabledUploadBtnNav,
@@ -25,7 +25,8 @@ export default function EditPost() {
   const location = useLocation();
   const post = location.state;
   const postId = post.id;
-  const [selectedImages, setSelectedImages] = useState([]);
+  // const [selectedImages, setSelectedImages] = useState([]);
+
   const [previewImages, setPreviewImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
@@ -39,6 +40,9 @@ export default function EditPost() {
     setPreviewImages(post.image.split(','));
     setInputValue(post.content);
   }, [post.image]);
+
+  const { selectedImages, setSelectedImages, handleDeleteImage } =
+    ImageHandleHook();
 
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -60,10 +64,10 @@ export default function EditPost() {
 
   const handleImageChange = async (event) => {
     const url = 'https://api.mandarin.weniv.co.kr/';
-    const files = await event.target.files[0];
+    const file = event.target.files[0];
 
     const formData = new FormData();
-    formData.append('image', files);
+    formData.append('image', file);
 
     try {
       const response = await axios.post(url + 'image/uploadfile', formData, {
@@ -72,48 +76,24 @@ export default function EditPost() {
         },
       });
 
-      // 응답 처리
-      console.log('이미지 성공');
-      setSelectedImages([
-        ...selectedImages,
-        `https://api.mandarin.weniv.co.kr/${response.data.filename}`,
-      ]);
+      const imageUrl = `https://api.mandarin.weniv.co.kr/${response.data.filename}`;
+      //함수형 업데이트를 사용해 상태 업데이트 관리
+      setSelectedImages((prevImages) => [...prevImages, imageUrl]);
     } catch (error) {
-      // 오류 처리
       console.error(error);
     }
 
     const reader = new FileReader();
 
     reader.onload = () => {
-      setPreviewImages([...previewImages, reader.result]);
+      //함수형 업데이트를 사용해 상태 업데이트 관리
+      setPreviewImages((prevImages) => [...prevImages, reader.result]);
     };
 
-    // if (imagesArray.length + files.length > 3) {
-    //   alert('Up to 3 images can be uploaded.');
-    //   return;
-    // }
-
-    // for (let i = 0; i < files.length; i++) {
-    //   const file = files[i];
-
-    //   if (file.size > 1024 * 1024 * 10) {
-    //     alert('You cannot upload images larger than 10MB.');
-    //     return;
-    //   }
-    //   if (!file.name.match(/\.(jpg|gif|png|jpeg|bmp|tif|heic)$/i)) {
-    //     alert('이미지 파일만 업로드 할 수 있습니다.');
-    //     return;
-    //   }
+    reader.readAsDataURL(file);
   };
 
   console.log('담긴 값 확인', selectedImages);
-
-  const handleDeleteImage = (index) => {
-    const updatedImages = [...selectedImages];
-    updatedImages.splice(index, 1);
-    setSelectedImages(updatedImages);
-  };
 
   const handleUploadPost = async () => {
     console.log('함수 테스트', selectedImages);

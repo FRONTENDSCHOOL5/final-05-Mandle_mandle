@@ -18,9 +18,9 @@ import { PostImagesUpload } from '../../api/PostImagesUpload';
 import { useNavigate } from 'react-router-dom';
 import PostUploadPost from '../../api/PostUploadPost';
 import { GetUserProfileImage } from '../../api/GetUserProfileImage';
+import ImageHandleHook from '../../CustomHook/ImageHandleHook';
 
 export default function Posting() {
-  const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
@@ -34,6 +34,14 @@ export default function Posting() {
   useEffect(() => {
     GetUserProfileImage(token, setUserImage);
   }, [token]);
+
+  const {
+    selectedImages,
+    setSelectedImages,
+    handleImageChange,
+    handleDeleteImage,
+  } = ImageHandleHook();
+
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
       setButtonStyle(true);
@@ -52,38 +60,6 @@ export default function Posting() {
     handleResizeHeight();
   };
 
-  const handleImageChange = async (event) => {
-    const files = event.target.files;
-    let imagesArray = [...selectedImages];
-    if (imagesArray.length + files.length > 3) {
-      alert('이미지는 최대 3개까지 업로드가 가능합니다.');
-      return;
-    }
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-
-      if (file.size > 1024 * 1024 * 10) {
-        alert('10MB 이상의 이미지는 업로드 할 수 없습니다.');
-        return;
-      }
-      if (!file.name.match(/\.(jpg|gif|png|jpeg|bmp|tif|heic)$/i)) {
-        alert('이미지 파일만 업로드가 가능합니다.');
-        return;
-      }
-
-      imagesArray.push(file);
-    }
-
-    setSelectedImages(imagesArray);
-  };
-
-  const handleDeleteImage = (index) => {
-    const updatedImages = [...selectedImages];
-    updatedImages.splice(index, 1);
-    setSelectedImages(updatedImages);
-  };
-  console.log(selectedImages);
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
     console.log('업로드될 이미지 파일 이름 :', images);
@@ -97,10 +73,6 @@ export default function Posting() {
       });
     }
   };
-
-  // 기존 이미지 값은 http가 감싸져 있는 상태로 받아온다.
-  // 새로 업로드한 이미지는 그대로 image로 태그가 보여지게 한다 Object어쩌고 URL 사용하지 않을 것
-  // POstUploadPostㄹ API에서 보내줄 떄 이미지 각각 https를 감싸서 보내지게 한다
 
   return (
     <div>
@@ -116,7 +88,6 @@ export default function Posting() {
           placeholder='게시글 입력...'
           onChange={handleTextareaChange}
           ref={textarea}
-          // style={{ height: calculateTextareaHeight(inputValue) }}
         ></TextInputContainer>
         <ImgWrapStyle>
           {selectedImages.map((image, index) => (
@@ -150,7 +121,6 @@ export const ImagePreview = styled.img`
 
 export const TextInputContainer = styled.textarea`
   margin-top: 30px;
-  /* width: 390px; */
   width: 100%;
   overflow-y: hidden;
   display: block;
