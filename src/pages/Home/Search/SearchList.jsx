@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProfileWrap, ProfileInfo } from './SearchStyle';
 import BasicProfileImg from '../../../assets/img/basic-profile-img.svg';
-import useNormalizeImage from '../../../Hooks/useNormalizeImage';
+import HandleNormalizeImage from '../../../Hooks/HandleNormalizeImage';
 export default function SearchList({ account }) {
   const navigate = useNavigate();
   const handleMoveProfile = () => {
@@ -14,7 +14,7 @@ export default function SearchList({ account }) {
       <ProfileWrap onClick={handleMoveProfile}>
         <div>
           <img
-            src={useNormalizeImage(account.image, BasicProfileImg)}
+            src={HandleNormalizeImage(account.image, BasicProfileImg)}
             alt='프로필 이미지'
           />
         </div>
