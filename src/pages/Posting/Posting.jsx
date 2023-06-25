@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+
 import styled from 'styled-components';
 
 import {
@@ -18,13 +18,13 @@ import { PostImagesUpload } from '../../api/PostImagesUpload';
 import { useNavigate } from 'react-router-dom';
 import PostUploadPost from '../../api/PostUploadPost';
 import { GetUserProfileImage } from '../../api/GetUserProfileImage';
-import ImageHandleHook from '../../CustomHook/ImageHandleHook';
-
+import ImageHandleHook from '../../Hooks/ImageHandleHook';
+import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 export default function Posting() {
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
-  const textarea = useRef();
+
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
 
@@ -42,6 +42,11 @@ export default function Posting() {
     handleDeleteImage,
   } = ImageHandleHook();
 
+  const { textarea, handleTextareaChange } = useTextareaResize(
+    inputValue,
+    setInputValue
+  );
+
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
       setButtonStyle(true);
@@ -49,16 +54,6 @@ export default function Posting() {
       setButtonStyle(false);
     }
   }, [inputValue, selectedImages]);
-
-  const handleResizeHeight = () => {
-    textarea.current.style.height = 'auto';
-    textarea.current.style.height = textarea.current.scrollHeight + 'px';
-  };
-
-  const handleTextareaChange = (event) => {
-    setInputValue(event.target.value);
-    handleResizeHeight();
-  };
 
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
@@ -110,9 +105,9 @@ export default function Posting() {
 }
 
 export const ImagePreview = styled.img`
-  max-width: 304px;
+  width: 304px;
   border-radius: 20px;
-  height: 228px;
+  max-height: 228px;
   object-fit: cover;
 
   top: 20px;
@@ -124,7 +119,8 @@ export const TextInputContainer = styled.textarea`
   width: 100%;
   overflow-y: hidden;
   display: block;
-  min-height: 80px;
+  /* min-height: 80px; */
+  height: 100%;
   padding-left: 71px;
   resize: none;
   outline: none;

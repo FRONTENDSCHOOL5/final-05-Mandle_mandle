@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
@@ -8,9 +6,10 @@ import { TextInputContainer, ImagePreview } from './Posting'; // Import shared c
 // import { PostImagesUpload } from '../../api/PostImagesUpload';
 import PutPostEdit from '../../api/PutPostEdit';
 import ProfileImg from '../../assets/img/mini-basic-progile-img.svg';
-import ImageHandleHook from '../../CustomHook/ImageHandleHook';
+import ImageHandleHook from '../../Hooks/ImageHandleHook';
 import { useLocation } from 'react-router-dom';
 import { PostEditIImagesUpload } from '../../api/PostEditIImagesUpload';
+import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import {
   DisabledUploadBtnNav,
   ProfileContainer,
@@ -26,12 +25,11 @@ export default function EditPost() {
   const location = useLocation();
   const post = location.state;
   const postId = post.id;
-  // const [selectedImages, setSelectedImages] = useState([]);
 
   const [previewImages, setPreviewImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
-  const textarea = useRef();
+
   const navigate = useNavigate();
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
@@ -45,6 +43,10 @@ export default function EditPost() {
   const { selectedImages, setSelectedImages, handleDeleteImage } =
     ImageHandleHook();
 
+  const { textarea, handleTextareaChange } = useTextareaResize(
+    inputValue,
+    setInputValue
+  );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
       setButtonStyle(true);
@@ -52,16 +54,6 @@ export default function EditPost() {
       setButtonStyle(false);
     }
   }, [inputValue, selectedImages]);
-
-  const handleResizeHeight = () => {
-    textarea.current.style.height = 'auto';
-    textarea.current.style.height = textarea.current.scrollHeight + 'px';
-  };
-
-  const handleTextareaChange = (event) => {
-    setInputValue(event.target.value);
-    handleResizeHeight();
-  };
 
   const handleImageChange = async (event) => {
     const files = await event.target.files[0];
