@@ -11,7 +11,6 @@ import PostLogin from '../../api/PostLogin';
 export default function Login() {
   const [userValue, setUserValue] = useRecoilState(UserAtom);
   const [isLogin, setIsLogin] = useRecoilState(IsLogin);
-  const [valid, setValid] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
@@ -27,7 +26,7 @@ export default function Login() {
 
   const handleActiveButton = () => {
     setButtonImg(
-      email !== '' && password !== '' ? ButtonImg : DisabledButtonImg,
+      email !== '' && password !== '' ? ButtonImg : DisabledButtonImg
     );
   };
 
@@ -43,20 +42,17 @@ export default function Login() {
     handleActiveButton();
   };
 
-  const handleEmailInput = () => {
+  const handleEmailValid = () => {
     const emailPattern = /^\S+@\S+\.\S+$/;
-
     if (!emailPattern.test(email)) {
-      setEmailErrorMessage('*올바른 이메일 양식을 입력해주세요');
+      setEmailErrorMessage('*올바른 이메일 형식을 입력해주세요');
     } else {
       setEmailErrorMessage('');
     }
   };
 
-  const handlePasswordInput = (e) => {
-    const value = e.target.value;
-    setPassword(value);
-    if (value.length >= 6) {
+  const handlePasswordValid = () => {
+    if (password.length >= 6) {
       setPwErrorMessage('');
 
       handleActiveButton();
@@ -72,22 +68,15 @@ export default function Login() {
     if (!isLogin) {
       //로그인 실패
       if (loginInfo.status === 422) {
-        setValid(false);
         setLoginErrorMessage(loginInfo.message);
         setEmail('');
         setPassword('');
         //성공시
       } else {
         //로그인 성공
-        const userInfo = loginInfo.user;
-        setUserValue({
-          ...userValue,
-          accountname: userInfo.accountname,
-          token: userInfo.token,
-          refreshToken: userInfo.refreshToken,
-          image: userInfo.image,
-        });
-        setValid(true);
+        const { accountname, token, refreshToken, image } = loginInfo.user;
+        setUserValue({ accountname, token, refreshToken, image });
+
         setIsLogin(true);
         setLoginErrorMessage('');
         setEmail('');
@@ -115,7 +104,7 @@ export default function Login() {
             height='48px'
             padding='15px'
             onChange={handleInputChange}
-            onBlur={handleEmailInput}
+            onBlur={handleEmailValid}
             placeholder='이메일을 입력해주세요'
             brColor={emailErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
           />
@@ -131,7 +120,7 @@ export default function Login() {
             onChange={handleInputChange}
             type='password'
             placeholder='비밀번호를 입력하세요'
-            onBlur={handlePasswordInput}
+            onBlur={handlePasswordValid}
             brColor={pwErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
           />
         </InputDiv>
