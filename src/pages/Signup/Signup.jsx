@@ -5,12 +5,11 @@ import { useSetRecoilState } from 'recoil';
 import { SignUpAtom } from '../../Store/AtomSignupState';
 import { useNavigate } from 'react-router-dom';
 import ArrowImg from '../../assets/img/icon-arrow-left.svg';
-import ClayButtonImg from '../../assets/img/L-button(clay).svg';
 import ClayDisabledButton from '../../assets/img/L-Next-Disabled-button(clay).svg';
 import { InputDiv, Label, InputBox } from '../../components/Common/Input';
 import { ButtonStyle } from '../../components/Common/Button';
 import PostEmailValid from '../../api/PostEmailVaild';
-
+import UserInfoInput from '../../Hooks/UserInfoInput';
 import {
   TypeDiv,
   SignupDiv,
@@ -22,38 +21,27 @@ import {
 } from './SignupStyle';
 
 export default function Signup() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [type, setType] = useState('Student');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [pwErrorMessage, setPwErrorMessage] = useState('');
   const [emailValid, setEmailValid] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
-  const [buttonImg, setButtonImg] = useState(ClayDisabledButton);
+
   //회원가입 정보를 상태관리 할 setSignup
   const setSignup = useSetRecoilState(SignUpAtom);
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
   };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === 'email') {
-      setEmail(value.trim());
-    } else if (name === 'password') {
-      setPassword(value.trim());
-    }
-
-    handleActiveButton();
-  };
-
-  const handleActiveButton = () => {
-    setButtonImg(
-      email !== '' && password !== '' ? ClayButtonImg : ClayDisabledButton,
-    );
-  };
+  //커스텀훅
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    buttonImg,
+    handleInputChange,
+  } = UserInfoInput();
 
   const handleEmailValid = async () => {
     const emailPattern = /^\S+@\S+\.\S+$/;
@@ -72,8 +60,6 @@ export default function Signup() {
   const handlePasswordValid = () => {
     if (password.length >= 6) {
       setPwErrorMessage('');
-
-      handleActiveButton();
     } else {
       setPwErrorMessage('비밀번호는 6자 이상이어야 합니다.');
     }
