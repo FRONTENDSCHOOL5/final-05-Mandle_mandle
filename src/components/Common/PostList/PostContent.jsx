@@ -7,6 +7,7 @@ import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
 import HeartButton from '../HeartButton';
 
 export default function PostContent({ post }) {
+  console.log(post);
   const postDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateString);
@@ -47,11 +48,7 @@ export default function PostContent({ post }) {
           <p>{post.commentCount}</p>
         </button>
       </PostIconWrap>
-      <PostDate>
-        {postDate(
-          post.createdAt !== post.updatedAt ? post.updatedAt : post.createdAt,
-        )}
-      </PostDate>
+      <PostDate>{postDate(post.createdAt)}</PostDate>
     </PostContentWrap>
   );
 }
