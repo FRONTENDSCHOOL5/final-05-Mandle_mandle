@@ -1,8 +1,13 @@
 import axios from 'axios';
 export const PostImagesUpload = async (files) => {
+  
   const formData = new FormData();
-  for (let i = 0; i < files.length; i++) {
-    formData.append('image', files[i]);
+  if (files.length) {
+    for (let i = 0; i < files.length; i++) {
+      formData.append('image', files[i]);
+    }
+  } else {
+    formData.append('image', files);
   }
 
   try {
@@ -15,13 +20,13 @@ export const PostImagesUpload = async (files) => {
         },
       }
     );
+    console.log(response)
     //여기에 http url감싸기
-    const filenames = response.data.map(
+    const filenames = response.length > 1 ? response.data.map (
       (image) => `https://api.mandarin.weniv.co.kr/${image.filename}`
-    );
-    const mergedFilenames = filenames.join(',');
+    ).join(',') : `https://api.mandarin.weniv.co.kr/${response.data[0].filename}`
 
-    return mergedFilenames;
+    return filenames;
   } catch (error) {
     console.error('이미지 업로드 실패:', error);
     throw error;
