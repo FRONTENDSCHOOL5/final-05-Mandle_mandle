@@ -53,9 +53,9 @@ export default function UploadProfile({ onResponse, image }) {
 
   return (
     <UploadProfileWrap>
-      <img src={previewImage} alt='' />
+      <img src={previewImage} alt='기본 사용자 프로필 사진 ' />
       <ImgUploadBtn type='button' onClick={handleImageUpload}>
-        <img src={UploadBtnImg} alt='' />
+        <img src={UploadBtnImg} alt='이미지 업로드 버튼' />
         <input
           type='file'
           ref={fileInputRef}

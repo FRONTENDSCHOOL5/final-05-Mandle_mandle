@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import GlobalStyle from '../../styles/GlobalStyles';
 
 export const SignupDiv = styled.div`
   width: 390px;

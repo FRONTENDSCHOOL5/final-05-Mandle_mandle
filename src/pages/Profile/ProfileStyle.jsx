@@ -1,6 +1,4 @@
-import React from 'react';
 import styled from 'styled-components';
-import GlobalStyle from '../../styles/GlobalStyles';
 import Teacher from '../../assets/img/icon-teacher.svg';
 
 const ProfilePage = styled.div`
@@ -146,6 +144,56 @@ const PostWrap = styled.div`
       display: none;
     }
   }
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+  }
+
+  .image-grid img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+  }
 `;
 
-export { WrapBtn, Wrap, ProfileSection, TopNavWrap, ProfilePage, PostWrap };
+const ClassSection = styled.section`
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: #fff;
+`;
+const ClassListUl = styled.ul`
+  padding: 0 0 10px 0;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    padding-top: 5px;
+    background-color: white;
+
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid white;
+  }
+`;
+const Title = styled.p`
+  font-size: var(--font-md);
+  margin-bottom: 16px;
+`;
+
+export {
+  WrapBtn,
+  Wrap,
+  ProfileSection,
+  TopNavWrap,
+  ProfilePage,
+  PostWrap,
+  ClassSection,
+  ClassListUl,
+  Title,
+};

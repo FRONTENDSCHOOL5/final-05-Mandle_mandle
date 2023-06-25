@@ -1,20 +1,17 @@
 import axios from 'axios';
 
-export default async function PostSignUp(value) {
+export default async function GetClassData(token) {
   try {
-    const response = await axios.post(
-      'https://api.mandarin.weniv.co.kr/user',
-      {
-        user: value,
-      },
+    const response = await axios.get(
+      'https://api.mandarin.weniv.co.kr/product/?limit=Number&skip=Number',
       {
         headers: {
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       },
     );
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

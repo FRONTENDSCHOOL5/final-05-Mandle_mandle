@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import GlobalStyle from '../../styles/GlobalStyles';
-import { GoBackNav } from '../../components/Common/TopNav';
-import User from '../../components/Common/User';
+import GlobalStyle from '../../../styles/GlobalStyles';
+import { GoBackNav } from '../../../components/Common/TopNav';
+import User from '../../../components/Common/User';
 import { FollowWrap } from './FollowListStyle';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { followingList } from '../../api/FollowingList';
-import { UserAtom } from '../../Store/userInfoAtoms';
+import { GetFollowingList } from '../../../api/GetFollowingList';
+import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 

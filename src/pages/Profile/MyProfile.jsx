@@ -6,17 +6,22 @@ import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
-
+import styled from 'styled-components';
 import {
   WrapBtn,
   Wrap,
   ProfileSection,
   ProfilePage,
   PostWrap,
+  ClassSection,
+  ClassListUl,
+  Title,
 } from './ProfileStyle';
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
-import PostListBtn from '../../assets/img/icon-post-list-on.svg';
-import PostAlbumBtn from '../../assets/img/icon-post-album-off.svg';
+import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
+import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
+import PostAlbumBtnOn from '../../assets/img/icon-post-album-on.svg';
+import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -27,6 +32,9 @@ export default function Profile() {
   const [classData, setClassData] = useState(null);
   const [postData, setPostData] = useState(null);
   const [postUpdated, setPostUpdated] = useState(false);
+  const [isListBtnActive, setListBtnActive] = useState(true);
+  const [isImgListBtnActive, setImgListBtnActive] = useState(false);
+  const [classUpdated, setClassUpdated] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const userProfileData = await ProfileData(userAccountname, token);
@@ -36,9 +44,10 @@ export default function Profile() {
       setProfileData(userProfileData);
       setClassData(userClassData);
       setPostUpdated(false);
+      setClassUpdated(false);
     };
     fetchData();
-  }, [userAccountname, postUpdated, token]);
+  }, [userAccountname, postUpdated, classUpdated, token]);
 
   if (!profileData && !classData) {
     return <div>Loading...</div>;
@@ -51,6 +60,16 @@ export default function Profile() {
       },
     });
   }
+  const handleButtonClick = (btnName) => {
+    if (btnName === 'listBtn') {
+      setListBtnActive(true);
+      setImgListBtnActive(false);
+    } else if (btnName === 'imgListBtn') {
+      setListBtnActive(false);
+      setImgListBtnActive(true);
+    }
+  };
+
   return (
     <ProfilePage>
       <MoreNav />
@@ -112,28 +131,69 @@ export default function Profile() {
           </Link>
         </WrapBtn>
       </ProfileSection>
-      {profileData.accountname.includes('Teacher') && (
-        <MiniClassList classData={classData} />
-      )}
+      <ClassSection>
+        <Title>클래스 리스트</Title>
+        <ClassListUl>
+          {profileData.accountname.includes('Teacher') &&
+            classData.product &&
+            classData.product.map((classItem, index) => (
+              <MiniClassList
+                key={classItem.id}
+                token={token}
+                classItem={classItem}
+                page='profile'
+                setClassUpdated={setClassUpdated}
+              />
+            ))}
+        </ClassListUl>
+      </ClassSection>
+
       <PostWrap>
         <div id='PostBtnWrap'>
-          <button id='ListBtn'>
-            <img src={PostListBtn} alt='포스트리스트 버튼' />
+          <button
+            id='ListBtn'
+            onClick={() => handleButtonClick('listBtn')}
+            className={isListBtnActive ? 'active' : ''}
+          >
+            <img
+              src={isListBtnActive ? PostListBtnOn : PostListBtnOff}
+              alt='포스트리스트 버튼'
+            />
           </button>
-          <button id='ImgListBtn'>
-            <img src={PostAlbumBtn} alt='포스트 앨범 버튼' />
+          <button
+            id='ImgListBtn'
+            onClick={() => handleButtonClick('imgListBtn')}
+            className={isImgListBtnActive ? 'active' : ''}
+          >
+            <img
+              src={isImgListBtnActive ? PostAlbumBtnOn : PostAlbumBtnOff}
+              alt='포스트 앨범 버튼'
+            />
           </button>
         </div>
-        {postData.post.map((post) => (
-          <PostList setPostUpdated={setPostUpdated} post={post} />
-        ))}
+        {isListBtnActive &&
+          postData &&
+          postData.post &&
+          postData.post.map((post) => (
+            <PostList
+              key={post.id}
+              setPostUpdated={setPostUpdated}
+              post={post}
+            />
+          ))}
+        {isImgListBtnActive && postData && postData.post && (
+          <div className='image-grid'>
+            {postData.post.map((post) => (
+              <img key={post.id} src={post.image} alt='포스트 이미지' />
+            ))}
+          </div>
+        )}
       </PostWrap>
     </ProfilePage>
   );
 }
-
 async function ProfileData(accountname, token) {
-  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}`;
+  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}`;
 
   try {
     const res = await axios.get(url, {
@@ -144,12 +204,12 @@ async function ProfileData(accountname, token) {
     });
     return res.data.profile;
   } catch (err) {
-    console.log(err);
-    return null;
+    console.error(err);
   }
+  return null;
 }
 async function ClassData(accountname, token) {
-  const url = `https://mandarin.api.weniv.co.kr/product/${accountname}`;
+  const url = `https://api.mandarin.weniv.co.kr/product/${accountname}`;
 
   try {
     const res = await axios.get(url, {
@@ -165,7 +225,7 @@ async function ClassData(accountname, token) {
   }
 }
 async function PostData(accountname, token) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${accountname}/userpost`;
+  const url = `https://api.mandarin.weniv.co.kr/post/${accountname}/userpost`;
 
   try {
     const res = await axios.get(url, {

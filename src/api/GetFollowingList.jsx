@@ -1,11 +1,11 @@
-import { UserAtom } from '../../src/Store/userInfoAtoms';
+import { UserAtom } from '../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import React from 'react';
 
-const FollowingList = async ([accountname, token]) => {
+export const GetFollowingList = async (accountname, token) => {
   const userInfo = useRecoilValue(UserAtom);
-  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}/following`;
+  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}/following`;
   try {
     const res = await axios(url, {
       method: 'GET',

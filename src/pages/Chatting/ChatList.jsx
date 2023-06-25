@@ -13,10 +13,10 @@ export default function ChatList() {
       <ChatListStyle>
         <ChatContainerStyle
           onClick={() => {
-            navigate('/chatlist/chatroom');
+            navigate('/chat/chatroom');
           }}
         >
-          <img src={profileimg} confirm={true} />
+          <img src={profileimg} alt='유저 프로필 이미지' confirm={true} />
           <div className='text'>
             <span>위니브 메이드 공방</span>
             <div className='chatInfo'>
@@ -27,10 +27,10 @@ export default function ChatList() {
         </ChatContainerStyle>
         <ChatContainerStyle
           onClick={() => {
-            navigate('/chatlist/chatroom');
+            navigate('/chat/chatroom');
           }}
         >
-          <img src={profileimg} />
+          <img src={profileimg} alt='유저 프로필 이미지' />
           <div className='text'>
             <span>만들러버</span>
             <div className='chatInfo'>
@@ -41,10 +41,10 @@ export default function ChatList() {
         </ChatContainerStyle>
         <ChatContainerStyle
           onClick={() => {
-            navigate('/chatlist/chatroom');
+            navigate('/chat/chatroom');
           }}
         >
-          <img src={profileimg} />
+          <img src={profileimg} alt='유저 프로필 이미지' />
           <div className='text'>
             <span>금손이 되고싶어</span>
             <div className='chatInfo'>

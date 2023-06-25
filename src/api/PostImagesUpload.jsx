@@ -1,6 +1,5 @@
 import axios from 'axios';
 export const PostImagesUpload = async (files) => {
-  
   const formData = new FormData();
   if (files.length) {
     for (let i = 0; i < files.length; i++) {
@@ -18,18 +17,22 @@ export const PostImagesUpload = async (files) => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      }
+      },
     );
-    console.log(response)
+    console.log(response);
     //여기에 http url감싸기
-    const filenames = response.length > 1 ? response.data.map (
-      (image) => `https://api.mandarin.weniv.co.kr/${image.filename}`
-    ).join(',') : `https://api.mandarin.weniv.co.kr/${response.data[0].filename}`
+    const filenames =
+      response.length > 1
+        ? response.data
+            .map(
+              (image) => `https://api.mandarin.weniv.co.kr/${image.filename}`,
+            )
+            .join(',')
+        : `https://api.mandarin.weniv.co.kr/${response.data[0].filename}`;
 
     return filenames;
   } catch (error) {
     console.error('이미지 업로드 실패:', error);
-    throw error;
   }
 };
 

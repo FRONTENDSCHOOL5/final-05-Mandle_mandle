@@ -15,12 +15,11 @@ export default async function PutPostEdit(postId, token, content, images) {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      }
+      },
     );
 
     return response.data;
   } catch (error) {
     console.error(error);
-    throw error;
   }
 }

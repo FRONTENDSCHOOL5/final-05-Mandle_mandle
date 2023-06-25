@@ -32,7 +32,7 @@ export default function PostContent({ post }) {
               postImages.map((postImage, index) => (
                 <img
                   key={index}
-                  src={`${postImage}`}
+                  src={postImage}
                   width={postImages.length > 1 ? '168px' : '304px'}
                   height={postImages.length > 1 ? '126px' : '228px'}
                   alt=''
