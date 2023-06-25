@@ -60,7 +60,7 @@ function MenuBar() {
         <li>
           <LinkWrap
             to='/my_profile'
-            active={(location.pathname.startsWith === '/profile/').toString()}
+            active={(location.pathname === '/my_profile').toString()}
           >
             <div>
               <img src={ProfileIcon} alt='프로필 버튼'></img>
