@@ -39,50 +39,53 @@ export default function Signup() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
     if (name === 'email') {
       setEmail(value.trim());
     } else if (name === 'password') {
-      setPassword(value);
-      if (value.length >= 6) {
-        setPwErrorMessage('');
-        setPasswordValid(true);
-      } else {
-        setPwErrorMessage('비밀번호는 6자 이상이어야 합니다.');
-        setPasswordValid(false);
-      }
+      setPassword(value.trim());
     }
+
     handleActiveButton();
   };
+
   const handleActiveButton = () => {
     setButtonImg(
       email !== '' && password !== '' ? ClayButtonImg : ClayDisabledButton
     );
   };
 
-  const handleEmailvalid = async (e) => {
-    const email = e.target.value;
+  const handleEmailValid = async () => {
     const emailPattern = /^\S+@\S+\.\S+$/;
 
     if (!emailPattern.test(email)) {
       setEmailErrorMessage('*올바른 이메일 형식을 입력하세요');
     } else {
-      const Msg = await PostEmailValid(email);
-      setEmailErrorMessage(Msg);
-      Msg === '사용 가능한 이메일 입니다.'
+      const validMessage = await PostEmailValid(email);
+      setEmailErrorMessage(validMessage);
+      validMessage === '사용 가능한 이메일 입니다.'
         ? setEmailValid(true)
         : setEmailValid(false);
     }
   };
 
-  const handleSignupSubmit = (e) => {
-    e.preventDefault();
+  const handlePasswordValid = () => {
+    if (password.length >= 6) {
+      setPwErrorMessage('');
+
+      handleActiveButton();
+    } else {
+      setPwErrorMessage('비밀번호는 6자 이상이어야 합니다.');
+    }
+  };
+
+  const handleSignupSubmit = (event) => {
+    event.preventDefault();
 
     if (buttonImg === ClayDisabledButton) {
       return; // 버튼 비활성화일 때 기능 막기
     }
     if (email && password && emailValid && passwordValid) {
-      console.log('Email:', email);
-      console.log('Password:', password);
       setSignup({ email, password, type });
       navigate('/account/set_profile/');
     } else {
@@ -142,7 +145,7 @@ export default function Signup() {
             type='email'
             placeholder='이메일을 입력해주세요'
             onChange={handleInputChange}
-            onBlur={handleEmailvalid}
+            onBlur={handleEmailValid}
           />
           {emailErrorMessage && <span>{emailErrorMessage}</span>}
         </InputDiv>
@@ -152,6 +155,7 @@ export default function Signup() {
             name='password'
             type='password'
             onChange={handleInputChange}
+            onBlur={handlePasswordValid}
             placeholder='비밀번호를 입력해주세요'
           />
           {pwErrorMessage && <span>{pwErrorMessage}</span>}
