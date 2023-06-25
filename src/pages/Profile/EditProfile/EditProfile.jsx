@@ -1,11 +1,11 @@
 import { React, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ArrowImg from '../../assets/img/icon-arrow-left.svg';
-import UploadProfile from '../../components/Common/UploadProfile';
+import ArrowImg from '../../../assets/img/icon-arrow-left.svg';
+import UploadProfile from '../../../components/Common/UploadProfile';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import PostIdValid from '../../api/PostIdValid';
-import PutProfileUpdate from '../../api/PutProfileUpdate';
-import { UserAtom } from '../../Store/userInfoAtoms';
+import PostIdValid from '../../../api/PostIdValid';
+import PutProfileUpdate from '../../../api/PutProfileUpdate';
+import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import {
   SignupHeader,
