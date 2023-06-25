@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MiniClassList from '../../components/Common/MiniClassList';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
-import MoreIcon from '../../assets/img/icon- more-vertical.svg';
+import MoreIcon from '../../assets/img/icon-more-vertical.svg';
 import ChatImg from '../../assets/img/icon-chat-mini.svg';
 import ShareImg from '../../assets/img/icon-share.svg';
 import PostList from '../../components/Common/PostList/PostList';
@@ -28,20 +28,16 @@ export default function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userProfileData = await fetchDataFromAPI(
-          ProfileData,
-          accountname,
-          token
-        );
+        const userProfileData = await ProfileData(accountname, token);
         const userClassData = await fetchDataFromAPI(
           ClassData,
           accountname,
-          token
+          token,
         );
         const userPostData = await fetchDataFromAPI(
           PostData,
           accountname,
-          token
+          token,
         );
         setProfileData(userProfileData);
         setClassData(userClassData);
@@ -65,11 +61,11 @@ export default function Profile() {
   };
 
   const navigateToFollowers = () => {
-    navigate(`/other_profile/${accountname}/follower/`);
+    navigate(`/other_profile/${accountname}/follower`);
   };
 
   const navigateToFollowing = () => {
-    navigate(`/other_profile/${accountname}/following/`);
+    navigate(`/other_profile/${accountname}/following`);
   };
   return (
     <div>
@@ -152,7 +148,7 @@ function MoreNavigation() {
 }
 
 async function ProfileData(accountname, token) {
-  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}`;
+  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}`;
 
   try {
     const res = await axios.get(url, {
@@ -168,7 +164,7 @@ async function ProfileData(accountname, token) {
   }
 }
 async function ClassData(accountname, token) {
-  const url = `https://mandarin.api.weniv.co.kr/product/${accountname}`;
+  const url = `https://api.mandarin.weniv.co.kr/product/${accountname}`;
 
   try {
     const res = await axios.get(url, {
@@ -184,7 +180,7 @@ async function ClassData(accountname, token) {
   }
 }
 async function PostData(accountname, token) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${accountname}/userpost`;
+  const url = `https://api.mandarin.weniv.co.kr/post/${accountname}/userpost`;
 
   try {
     const res = await axios.get(url, {

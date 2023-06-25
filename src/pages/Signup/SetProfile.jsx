@@ -129,7 +129,7 @@ const SetProfile = () => {
     <SignupDiv>
       <SignupHeader>
         <button onClick={goBack}>
-          <img src={ArrowImg} alt='' />
+          <img src={ArrowImg} alt='뒤로가기 아이콘' />
         </button>
         <Heading1>프로필 설정</Heading1>
       </SignupHeader>
@@ -168,7 +168,7 @@ const SetProfile = () => {
         </SetProfileDiv>
 
         <ButtonImg type='submit' onClick={handleSetProfileSubmit}>
-          <img src={buttonImg} alt='' />
+          <img src={buttonImg} alt='프로필 설정 완료 버튼' />
         </ButtonImg>
       </Wrap>
     </SignupDiv>

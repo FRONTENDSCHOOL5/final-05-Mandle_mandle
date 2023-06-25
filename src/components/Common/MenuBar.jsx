@@ -15,8 +15,8 @@ function MenuBar() {
       <ul>
         <li>
           <LinkWrap
-            to='/home/'
-            active={location.pathname.startsWith('/home/').toString()}
+            to='/home'
+            active={location.pathname.startsWith('/home').toString()}
           >
             <div>
               <img src={HomeIcon} alt='홈 버튼'></img>
@@ -26,8 +26,8 @@ function MenuBar() {
         </li>
         <li>
           <LinkWrap
-            to='/class/'
-            active={(location.pathname.startsWith('/class/')).toString()}
+            to='/class'
+            active={location.pathname.startsWith('/class').toString()}
           >
             <div>
               <img src={ClassIcon} alt='클래스 버튼'></img>
@@ -37,8 +37,8 @@ function MenuBar() {
         </li>
         <li>
           <LinkWrap
-            to='/chatlist/'
-            active={(location.pathname === '/chatlist/').toString()}
+            to='/chat/chatList'
+            active={location.pathname.startsWith('/chat').toString()}
           >
             <div>
               <img src={ChattingIcon} alt='채팅 버튼'></img>
@@ -49,7 +49,7 @@ function MenuBar() {
         <li>
           <LinkWrap
             to='/post/upload'
-            active={(location.pathname === '/post/').toString()}
+            active={(location.pathname === '/post').toString()}
           >
             <div>
               <img src={PostingIcon} alt='게시물 작성 버튼'></img>

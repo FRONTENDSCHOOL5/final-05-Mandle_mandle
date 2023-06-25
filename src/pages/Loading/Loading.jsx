@@ -36,12 +36,24 @@ export default function Loading() {
   return (
     <LoadingWrap>
       {isLoaded ? (
-        <img src={LoadedImg} className='twist' alt='Loaded' />
+        <img
+          src={LoadedImg}
+          className='twist'
+          alt='만들만들 로딩 캐릭터 로고 '
+        />
       ) : (
-        <img src={LoadingImg} className='bounce' alt='Loading' />
+        <img
+          src={LoadingImg}
+          className='bounce'
+          alt='만들만들 로딩완료 캐릭터 로고'
+        />
       )}
       <h1>
-        <img src={LogoImg} className={isLoaded && 'twist'} alt='' />
+        <img
+          src={LogoImg}
+          className={isLoaded && 'twist'}
+          alt='만들만들 로딩완료 캐릭터 로고'
+        />
       </h1>
     </LoadingWrap>
   );

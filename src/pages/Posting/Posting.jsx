@@ -44,7 +44,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function Posting() {
 
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
-    console.log('업로드될 이미지 파일 이름 :', images);
+
     const response = await PostUploadPost(token, inputValue, images);
     console.log(response);
     if (response) {

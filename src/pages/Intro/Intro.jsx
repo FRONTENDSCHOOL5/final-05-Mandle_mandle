@@ -11,33 +11,55 @@ export default function Intro() {
   return (
     <IntroWrap>
       <Header>
-        <img src={IntroImg} alt='Loading' />
+        <img src={IntroImg} alt='만들만들 인트로 캐릭터 로고' />
         <h1>
-          <img src={LogoImg} alt='Logo' />
+          <img src={LogoImg} alt='만들만들 폰트 로고' />
         </h1>
       </Header>
       <LoginChooseList>
         <ul>
           <li>
-            <LoginLink to='/account/login/' imgsrc={EmailIcon}>
+            <LoginLink
+              to='/account/login/'
+              imgsrc={EmailIcon}
+              alt='이메일로 로그인하기 버튼'
+            >
               이메일로 로그인
             </LoginLink>
           </li>
           <li>
-            <LoginLink imgsrc={GoogleIcon}>구글 계정으로 로그인</LoginLink>
+            <LoginLink
+              imgsrc={GoogleIcon}
+              alt='구글로 로그인하기 버튼'
+              style={{ opacity: 0.5, cursor: 'not-allowed' }}
+            >
+              구글 계정으로 로그인
+            </LoginLink>
           </li>
           <li>
-            <LoginLink bc='#F2C94C' imgsrc={KaKaoIcon}>
+            <LoginLink
+              bc='#F2C94C'
+              imgsrc={KaKaoIcon}
+              alt='카카오로 로그인하기 버튼'
+              style={{ opacity: 0.5, cursor: 'not-allowed' }}
+            >
               카카오톡 계정으로 로그인
             </LoginLink>
           </li>
           <li>
-            <LoginLink bc='#2D9CDB' imgsrc={FaceBookIcon}>
+            <LoginLink
+              bc='#2D9CDB'
+              imgsrc={FaceBookIcon}
+              alt='페이스북으로 로그인하기 버튼'
+              style={{ opacity: 0.5, cursor: 'not-allowed' }}
+            >
               페이스북 계정으로 로그인
             </LoginLink>
           </li>
         </ul>
-        <SignUpLink to='/account/signup'>회원가입</SignUpLink>
+        <SignUpLink to='/account/signup' alt='회원가입 버튼'>
+          회원가입
+        </SignUpLink>
       </LoginChooseList>
     </IntroWrap>
   );

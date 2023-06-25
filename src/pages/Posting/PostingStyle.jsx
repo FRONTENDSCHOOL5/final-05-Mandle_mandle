@@ -8,6 +8,7 @@ import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 import { useNavigate } from 'react-router-dom';
 import DeletBtn from '../../assets/img/icon-x.svg';
 import { ImagePreview } from './Posting';
+
 export const ProfileContainer = styled.div`
   position: relative;
 `;
@@ -37,8 +38,6 @@ export const UploadImg = styled.img``;
 
 export const PostFormStyle = styled.form`
   width: 100%;
-  /* height: 100vh; */
-  /* height: 844px; */
 `;
 
 export const ImgWrapStyle = styled.ul`

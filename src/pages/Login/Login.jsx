@@ -26,7 +26,7 @@ export default function Login() {
 
   const handleActiveButton = () => {
     setButtonImg(
-      email !== '' && password !== '' ? ButtonImg : DisabledButtonImg
+      email !== '' && password !== '' ? ButtonImg : DisabledButtonImg,
     );
   };
 
@@ -90,7 +90,7 @@ export default function Login() {
     <LoginWrap>
       <LoginHeader>
         <button onClick={goBack}>
-          <img src={ArrowImg} alt='' />
+          <img src={ArrowImg} alt='뒤로가기 버튼' />
         </button>
         <h1>로그인</h1>
       </LoginHeader>
@@ -127,7 +127,7 @@ export default function Login() {
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
         {loginErrorMessage && <ErrorMessage>{loginErrorMessage}</ErrorMessage>}
         <button type='submit'>
-          <img src={buttonImg} alt='' />
+          <img src={buttonImg} alt='로그인하기 버튼' />
         </button>
       </LoginForm>
       <MoveSingUp to='/account/signup/'>이메일로 회원가입</MoveSingUp>

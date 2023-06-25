@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import MoreIcon from '../../assets/img/icon- more-vertical.svg';
+import MoreIcon from '../../assets/img/icon-more-vertical.svg';
 
 export default function MoreButton({ onClick }) {
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../../assets/img/icon-search.svg';
-import MoreIcon from '../../assets/img/icon- more-vertical.svg';
+import MoreIcon from '../../assets/img/icon-more-vertical.svg';
 import { ButtonStyle } from './Button';
 import GoBackButton from './GoBackButton';
 

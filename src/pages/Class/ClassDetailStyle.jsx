@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
@@ -13,16 +13,14 @@ import ExplainImg from '../../assets/img/temp/soapT5.png';
 import UserIcon from '../../assets/img/basic-profile-img.svg';
 import { ClassPostMini } from '../../components/Common/ClassPost';
 import askIcon from '../../assets/img/icon-chat-mini.svg';
-import location from '../../assets/img/temp/location.png'
+import location from '../../assets/img/temp/location.png';
 
 // Header랑 main도 긴데 이거 파일 나눠야 할까....
 
 // Header
 
 export function Header() {
-  return (
-    <GoBackNav />
-  );
+  return <GoBackNav />;
 }
 
 // /Header
@@ -45,16 +43,15 @@ export function Main() {
 }
 
 export function ClassInfo({ liked, onLike }) {
-
   const location = useLocation();
   const [newClass, setNewClass] = useState([]);
   const UserInfo = useRecoilValue(UserAtom);
   const token = UserInfo.token;
   const params = useParams();
   const id = params.class_id;
-  console.log(params)
-  console.log(id)
-  console.log(token)
+  console.log(params);
+  console.log(id);
+  console.log(token);
 
   useEffect(() => {
     fetchData();
@@ -62,37 +59,38 @@ export function ClassInfo({ liked, onLike }) {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://api.mandarin.weniv.co.kr/product/detail/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-    
-      console.log(response)
+      const response = await axios.get(
+        `https://api.mandarin.weniv.co.kr/product/detail/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      console.log(response);
       const classes = response.data.product;
       setNewClass(classes.product);
-      console.log(classes.id)
+      console.log(classes.id);
 
       const mainImg = classes.itemImage;
       const title = classes.itemName;
-      const tag = classes.link
-      const price = classes.price
-      
-      setClassData({ mainImg, title, tag, price });
+      const tag = classes.link;
+      const price = classes.price;
 
+      setClassData({ mainImg, title, tag, price });
     } catch (error) {
-      console.log("Error", error)
+      console.log('Error', error);
     }
   };
 
-
   const [classData, setClassData] = useState({
-  mainImg: '',
-  title: '',
-  tag: '',
-  price: ''
-  })
+    mainImg: '',
+    title: '',
+    tag: '',
+    price: '',
+  });
 
   return (
     <ClassInfoSection>
@@ -119,13 +117,13 @@ export function BtnContainer({ liked, onLike, price }) {
   };
 
   const handleReservationClick = () => {
-    console.log(price)
+    console.log(price);
     const state = {
-      price: price
-    }
-    console.log(state)
-    navigate('/reservation', {state:state})
-  }
+      price: price,
+    };
+    console.log(state);
+    navigate('/reservation', { state: state });
+  };
 
   return (
     <div>
@@ -140,7 +138,7 @@ export function BtnContainer({ liked, onLike, price }) {
         <Link to='/chatlist'>
           <AskBtn>작가문의</AskBtn>
         </Link>
-          <ReverseBtn onClick={handleReservationClick}>예약하기</ReverseBtn>
+        <ReverseBtn onClick={handleReservationClick}>예약하기</ReverseBtn>
       </BottomBtn>
     </div>
   );
@@ -151,8 +149,8 @@ export const ClassInfoSection = styled.section`
   box-sizing: border-box;
   background-color: #fff;
   p {
-    font-size: 14px;
-    color: #767676;
+    font-size: var(--font-md);
+    color: var(--sub-font-color);
   }
 `;
 
@@ -180,7 +178,7 @@ export const TopBtn = styled.div`
   padding: 8px 0;
   height: 35px;
   border-radius: 8px;
-  border: 1px solid #767676;
+  border: 1px solid var(--sub-font-color);
   display: flex;
   justify-content: space-around;
   position: relative;
@@ -189,14 +187,15 @@ export const TopBtn = styled.div`
 `;
 
 export const LikeBtn = styled.button`
-  font-size: 14px;
-  color: #767676;
+  font-size: var(--font-md);
+  color: var(--sub-font-color);
   width: calc(100% / 2);
   padding-left: 16px;
   text-align: center;
   &::before {
     content: '';
-    background: url(${(props) => props.isClicked ? heartClickedIcon : heartIcon})
+    background: url(${(props) =>
+        props.isClicked ? heartClickedIcon : heartIcon})
       no-repeat;
     width: 20px;
     height: 20px;
@@ -211,7 +210,7 @@ export const LikeBtn = styled.button`
     width: 1px;
     height: 34px;
     display: block;
-    background-color: #767676;
+    background-color: var(--sub-font-color);
     position: absolute;
     top: 0;
     left: 50%;
@@ -219,13 +218,13 @@ export const LikeBtn = styled.button`
 `;
 
 export const LikeNum = styled.span`
-  font-size: 14px;
+  font-size: var(--font-md);
   margin-left: 5px;
 `;
 
 export const ShareBtn = styled.button`
-  font-size: 14px;
-  color: #767676;
+  font-size: var(--font-md);
+  color: var(--sub-font-color);
   width: calc(100% / 2);
   padding-left: 16px;
   text-align: center;
@@ -244,14 +243,14 @@ export const ShareBtn = styled.button`
 export const BottomBtn = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 export const AskBtn = styled.button`
   width: 102px;
   height: 34px;
   border: 1px solid #dbdbdb;
-  font-size: 14px;
-  color: #767676;
+  font-size: var(--font-md);
+  color: var(--sub-font-color);
   padding: 8px 14px 8px 0;
   box-sizing: border-box;
   border-radius: 44px;
@@ -326,7 +325,7 @@ export const ClassIntroSection = styled.section`
 export const ClassNav = styled.ul`
   border-bottom: 1px solid #dbdbdb;
   padding: 14px;
-  font-size: 14px;
+  font-size: var(--font-md);
   display: flex;
   justify-content: space-around;
 `;
@@ -350,7 +349,7 @@ export const ClassWrap = styled.div`
 `;
 
 export const ExplainP = styled.p`
-  font-size: 14px;
+  font-size: var(--font-md);
   margin-bottom: 20px;
 `;
 export const ClassExplainImg = styled.img`
@@ -367,10 +366,8 @@ export function ClassLoc() {
     <ClassLocSection id='class-location'>
       <ClassWrap>
         <h3>장소</h3>
-        <img src={location} alt="" />
-        <LocAddress>
-          서울특별시 관악구 봉천동 911-11 (2층)
-        </LocAddress>
+        <img src={location} alt='' />
+        <LocAddress>서울특별시 관악구 봉천동 911-11 (2층)</LocAddress>
       </ClassWrap>
     </ClassLocSection>
   );
@@ -395,9 +392,9 @@ export const LocImg = styled.div`
 `;
 
 export const LocAddress = styled.address`
-  font-size: 14px;
+  font-size: var(--font-md);
   font-weight: normal;
-  color: #767676;
+  color: var(--sub-font-color);
 `;
 // /ClassLocation
 
@@ -450,12 +447,12 @@ export const UserInfo = styled.div`
   transform: translate(0, -50%);
 `;
 export const UserName = styled.h4`
-  font-size: 14px;
+  font-size: var(--font-md);
   margin-bottom: 2px;
 `;
 export const UserUpload = styled.p`
   font-size: 12px;
-  color: #767676;
+  color: var(--sub-font-color);
 `;
 // /UserProfile part
 
@@ -486,7 +483,7 @@ export const ReviewImg = styled.img`
 `;
 
 export const ReviewP = styled.p`
-  font-size: 14px;
+  font-size: var(--font-md);
 `;
 // /ReviewPart
 // /Classreview
@@ -497,7 +494,7 @@ export function OtherClass() {
   const [newClass, setNewClass] = useState([]);
   const UserInfo = useRecoilValue(UserAtom);
   const token = UserInfo.token;
-  console.log(token)
+  console.log(token);
 
   useEffect(() => {
     fetchData();
@@ -505,41 +502,45 @@ export function OtherClass() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://api.mandarin.weniv.co.kr/product/?limit=Number&skip=Number', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-    
+      const response = await axios.get(
+        'https://api.mandarin.weniv.co.kr/product/?limit=Number&skip=Number',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
       const classes = response.data;
       console.log(classes);
       setNewClass(classes.product);
-
     } catch (error) {
-      console.log("Error", error)
+      console.log('Error', error);
     }
   };
 
-  const teacherClasses = newClass.filter(classItem => String(classItem.author.accountname).includes('Teacher'));
-  console.log(teacherClasses)
+  const teacherClasses = newClass.filter((classItem) =>
+    String(classItem.author.accountname).includes('Teacher'),
+  );
+  console.log(teacherClasses);
   return (
-      <MiniSection>
-        <Title>다른 클래스</Title>
-        <MiniList>
+    <MiniSection>
+      <Title>다른 클래스</Title>
+      <MiniList>
         {teacherClasses.map((classItem) => (
-            <li key={'classItem._id'}>
-              <a href={`/class/detail/${classItem._id}`}>
-                <ClassPostMini
-                  miniImg={classItem.itemImage}
-                  miniName={classItem.itemName}
-                  miniTag={classItem.link}
-                />
-              </a>
-            </li>
-          ))}
-        </MiniList>
-      </MiniSection>
+          <li key={'classItem._id'}>
+            <a href={`/class/detail/${classItem._id}`}>
+              <ClassPostMini
+                miniImg={classItem.itemImage}
+                miniName={classItem.itemName}
+                miniTag={classItem.link}
+              />
+            </a>
+          </li>
+        ))}
+      </MiniList>
+    </MiniSection>
   );
 }
 export const MiniSection = styled.section`
@@ -547,10 +548,10 @@ export const MiniSection = styled.section`
   margin-bottom: 50px;
   height: 208px;
   background-color: #fff;
-  `
+`;
 
 export const Title = styled.h3`
-  font-size: 14px;
+  font-size: var(--font-md);
   font-weight: normal;
   margin-bottom: 16px;
   color: #000;
@@ -562,8 +563,7 @@ export const MiniList = styled.ul`
   overflow-x: auto;
   overflow-y: hidden;
   margin-bottom: 100px;
-
-`
+`;
 
 // /Other Class
 // /Main
