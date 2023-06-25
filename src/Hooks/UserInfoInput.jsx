@@ -30,6 +30,7 @@ export default function UserInfoInput() {
     password,
     setPassword,
     buttonImg,
+    DisabledButtonImg,
     handleInputChange,
   };
 }
