@@ -12,16 +12,15 @@ export default function Home({ to }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
   const token = userInfo.token; // token값 바인딩
   const [postList, setpostList] = useState([]);
-  const [postCount, setPostCount] = useState();
-  const containerRef = useRef(null);
+
   useEffect(() => {
     const response = async () => {
-      const data = await GetFollowPost(postCount, token);
+      const data = await GetFollowPost(5, token);
       setpostList(data);
     };
 
     response();
-  }, [postCount, token]);
+  }, [token]);
 
   return (
     <HomeWrap>
