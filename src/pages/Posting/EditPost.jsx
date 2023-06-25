@@ -10,6 +10,7 @@ import PutPostEdit from '../../api/PutPostEdit';
 import ProfileImg from '../../assets/img/mini-basic-progile-img.svg';
 import ImageHandleHook from '../../CustomHook/ImageHandleHook';
 import { useLocation } from 'react-router-dom';
+import { PostEditIImagesUpload } from '../../api/PostEditIImagesUpload';
 import {
   DisabledUploadBtnNav,
   ProfileContainer,
@@ -63,34 +64,21 @@ export default function EditPost() {
   };
 
   const handleImageChange = async (event) => {
-    const url = 'https://api.mandarin.weniv.co.kr/';
-    const file = event.target.files[0];
-
-    const formData = new FormData();
-    formData.append('image', file);
+    const files = await event.target.files[0];
 
     try {
-      const response = await axios.post(url + 'image/uploadfile', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      const imageUrl = `https://api.mandarin.weniv.co.kr/${response.data.filename}`;
-      //함수형 업데이트를 사용해 상태 업데이트 관리
+      const imageUrl = await PostEditIImagesUpload(files);
       setSelectedImages((prevImages) => [...prevImages, imageUrl]);
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImages([...previewImages, reader.result]);
+      };
+      reader.readAsDataURL(files);
     } catch (error) {
+      // 오류 처리
       console.error(error);
     }
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      //함수형 업데이트를 사용해 상태 업데이트 관리
-      setPreviewImages((prevImages) => [...prevImages, reader.result]);
-    };
-
-    reader.readAsDataURL(file);
   };
 
   console.log('담긴 값 확인', selectedImages);
