@@ -48,7 +48,7 @@ function MenuBar() {
         </li>
         <li>
           <LinkWrap
-            to='/post/'
+            to='/post/upload'
             active={(location.pathname === '/post/').toString()}
           >
             <div>

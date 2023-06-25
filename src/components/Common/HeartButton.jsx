@@ -15,13 +15,13 @@ export default function HeartButton({ post }) {
 
   const handleHeartActive = async () => {
     const response = await PostHeart(postId, token);
-    console.log(response);
     setIsHearted(response.hearted);
     setHeartCount(response.heartCount);
   };
 
   const handleHeartCancel = async () => {
     const response = await DeleteHeart(postId, token);
+
     setIsHearted(response.hearted);
     setHeartCount(response.heartCount);
   };
