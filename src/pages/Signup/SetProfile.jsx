@@ -5,10 +5,10 @@ import { SignUpAtom } from '../../Store/AtomSignupState';
 import ArrowImg from '../../assets/img/icon-arrow-left.svg';
 import UploadProfile from '../../components/Common/UploadProfile';
 import { useNavigate } from 'react-router-dom';
-import DisabledButtonImg from '../../assets/img/L-Start-Disabled-button(clay).svg';
-import ClayButtonImg from '../../assets/img/L-start-button(clay).svg';
+
 import PostIdValid from '../../api/PostIdValid';
 import PostSignUp from '../../api/PostSignup';
+import ProfileInputHook from '../../Hooks/ProfileInputHook';
 import {
   SignupHeader,
   Heading1,
@@ -25,20 +25,14 @@ const SetProfile = () => {
   const url = 'https://api.mandarin.weniv.co.kr/';
 
   const navigate = useNavigate();
-  //회원가입한 유저 정보 상태관리
   const [userInfo, setUserInfo] = useRecoilState(SignUpAtom);
-  const [username, setUsername] = useState('');
-  const [accountname, setAccountname] = useState('');
-  const [intro, setIntro] = useState('');
-  const [buttonImg, setButtonImg] = useState(DisabledButtonImg);
   const [image, setImage] = useState('');
-
   const [accountValid, setAccountValid] = useState(true);
-  const [idAlertMsg, setIdAlertMsg] = useState('');
-  //유저 이름 유효성검사
+  const [accountAlertMsg, setAccountAlertMsg] = useState('');
   const [usernameValid, setUsernameValid] = useState(true);
   const [usernameAlertMsg, setUsernameAlertMsg] = useState('');
-
+  const [inputValues, handleInputChange, buttonImg] = ProfileInputHook();
+  const { username, accountname, intro } = inputValues;
   const handleProfileImageResponse = (fileName) => {
     setImage(fileName);
   };
@@ -46,22 +40,6 @@ const SetProfile = () => {
   //이전 페이지 이동
   const goBack = () => {
     navigate(-1);
-  };
-
-  // 입력란 값 변경 시 실행되는 함수x
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    // 입력란 값 변경
-    if (name === 'username') {
-      setUsername(value.trim());
-    } else if (name === 'accountname') {
-      setAccountname(value.trim());
-    } else if (name === 'intro') {
-      setIntro(value.trim());
-    }
-
-    handleActiveButton();
-    // 두 입력란에 값이 모두 존재할 경우 버튼 활성화 함수 실행
   };
 
   ////유저 이름 유효성 검사
@@ -77,33 +55,25 @@ const SetProfile = () => {
   };
 
   //아이디 유효성 검사
-  const handleIdValid = async () => {
+  const handleAccountNameValid = async () => {
     const pattern = /^[A-Za-z0-9_.]+$/;
     if (pattern.test(accountname)) {
       const validMessage = await PostIdValid(accountname);
-      setIdAlertMsg(validMessage);
+      setAccountAlertMsg(validMessage);
       validMessage === '사용 가능한 계정ID 입니다.'
         ? setAccountValid(true)
         : setAccountValid(false);
     } else {
-      setIdAlertMsg('*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.');
+      setAccountAlertMsg('*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.');
       setAccountValid(false);
-    }
-  };
-
-  const handleActiveButton = () => {
-    if (username !== '' && accountname !== '' && intro !== '') {
-      setButtonImg(ClayButtonImg);
-    } else {
-      setButtonImg(DisabledButtonImg);
     }
   };
 
   const handleSetProfileSubmit = async (event) => {
     event.preventDefault();
-    if (buttonImg === DisabledButtonImg) {
-      return; // 버튼 비활성화일 때 기능 막기
-    }
+    // if (buttonImg === DisabledButtonImg) {
+    //   return; // 버튼 비활성화일 때 기능 막기
+    // }
     if (username && accountname && usernameValid && accountValid) {
       const updatedAccountname = `${userInfo.type}${accountname}`;
       setUserInfo((prevValue) => {
@@ -129,7 +99,7 @@ const SetProfile = () => {
     <SignupDiv>
       <SignupHeader>
         <button onClick={goBack}>
-          <img src={ArrowImg} alt='뒤로가기 아이콘' />
+          <img src={ArrowImg} alt='' />
         </button>
         <Heading1>프로필 설정</Heading1>
       </SignupHeader>
@@ -153,11 +123,11 @@ const SetProfile = () => {
           <SetProfileInputBox
             name='accountname'
             onChange={handleInputChange}
-            onBlur={handleIdValid}
+            onBlur={handleAccountNameValid}
             placeholder='영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.'
           />
         </SetProfileDiv>
-        {idAlertMsg && <ErrorMessage>{idAlertMsg}</ErrorMessage>}
+        {accountAlertMsg && <ErrorMessage>{accountAlertMsg}</ErrorMessage>}
         <SetProfileDiv>
           <SetProfileLabel>소개</SetProfileLabel>
           <SetProfileInputBox
@@ -168,7 +138,7 @@ const SetProfile = () => {
         </SetProfileDiv>
 
         <ButtonImg type='submit' onClick={handleSetProfileSubmit}>
-          <img src={buttonImg} alt='프로필 설정 완료 버튼' />
+          <img src={buttonImg} alt='' />
         </ButtonImg>
       </Wrap>
     </SignupDiv>
