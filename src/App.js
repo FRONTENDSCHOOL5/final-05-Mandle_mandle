@@ -9,9 +9,9 @@ import React from 'react';
 import GlobalStyle from './styles/GlobalStyles';
 import styled from 'styled-components';
 import Class from '../src/pages/Class/Class';
-import ClassDetail from "../src/pages/Class/ClassDetail"
-import ClassRegistration from "../src/pages/Class/ClassRegistration"
-import ClassReservation from "../src/pages/Class/ClassReservation"
+import ClassDetail from "../src/pages/Class/ClassDetail/ClassDetail"
+import ClassRegistration from "../src/pages/Class/ClassRegistration/ClassRegistration"
+import ClassReservation from "../src/pages/Class/ClassReservation/ClassReservation"
 import Chatting from '../src/pages/Chatting/Chatting';
 import Posting from '../src/pages/Posting/Posting';
 import Profile from '../src/pages/Profile/MyProfile';
@@ -92,7 +92,7 @@ function App() {
 
 const Wrap = styled.div`
   width: 390px;
-  height: 844px;
+  height: 100vh;
   position: relative;
   margin: 0 auto;
   border: 1px solid var(--border-color);
