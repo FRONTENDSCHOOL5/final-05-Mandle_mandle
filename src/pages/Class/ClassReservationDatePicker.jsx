@@ -18,7 +18,7 @@ export function DatePicker() {
   const removeYearNavigation = (e) => {
     e.preventDefault();
     const yearNavigation = document.querySelector(
-      '.react-calendar__navigation__arrow'
+      '.react-calendar__navigation__arrow',
     );
     if (yearNavigation) {
       yearNavigation.style.display = 'none';
@@ -128,7 +128,7 @@ export const StyledCalendar = styled(Calendar)`
     flex-direction: row;
     justify-content: space-between;
     abbr {
-      color: #767676;
+      color: var(--sub-font-color);
       font-size: 14px;
       font-weight: normal;
       text-decoration: none;
@@ -153,7 +153,7 @@ export const StyledCalendar = styled(Calendar)`
     }
     abbr[aria-label='Saturday'],
     abbr[aria-label='Sunday'] {
-      color: #767676;
+      color: var(--sub-font-color);
     }
   }
 
@@ -187,7 +187,7 @@ export const StyledCalendar = styled(Calendar)`
     background: #fff;
     outline: none;
   }
-  
+
   /* 날짜 클릭 시 abbr 배경색 및 폰트 색상 변경 */
   .react-calendar__tile--active abbr {
     background-color: #036635;
@@ -197,6 +197,6 @@ export const StyledCalendar = styled(Calendar)`
 export const SelectedDate = styled.p`
   margin-top: 20px;
   padding: 16px 12px;
-  border: 0.5px solid #767676;
+  border: 0.5px solid var(--sub-font-color);
   border-radius: 8px;
 `;

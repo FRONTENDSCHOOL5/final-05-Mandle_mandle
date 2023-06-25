@@ -5,7 +5,7 @@ import { GoBackNav } from '../../components/Common/TopNav';
 import User from '../../components/Common/User';
 import { FollowWrap } from './FollowListStyle';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { followingList } from '../../api/FollowingList';
+import { GetFollowingList } from '../../api/GetFollowingList';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';

@@ -8,7 +8,7 @@ import PutPostEdit from '../../api/PutPostEdit';
 import ProfileImg from '../../assets/img/mini-basic-progile-img.svg';
 import ImageHandleHook from '../../Hooks/ImageHandleHook';
 import { useLocation } from 'react-router-dom';
-import { PostEditIImagesUpload } from '../../api/PostEditIImagesUpload';
+import { PostEditImagesUpload } from '../../api/PostEditImagesUpload';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import {
   DisabledUploadBtnNav,
@@ -45,7 +45,7 @@ export default function EditPost() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -59,7 +59,7 @@ export default function EditPost() {
     const files = await event.target.files[0];
 
     try {
-      const imageUrl = await PostEditIImagesUpload(files);
+      const imageUrl = await PostEditImagesUpload(files);
       setSelectedImages((prevImages) => [...prevImages, imageUrl]);
 
       const reader = new FileReader();
@@ -81,7 +81,7 @@ export default function EditPost() {
       postId,
       token,
       inputValue,
-      selectedImages.join(',')
+      selectedImages.join(','),
     );
     console.log('reponse값 테스트 :', editedPost);
     if (editedPost) {
@@ -101,7 +101,7 @@ export default function EditPost() {
         buttonStyle={buttonStyle}
       />
       <ProfileContainer>
-        <ProfileImage src={ProfileImg} alt='User Profile Image' />
+        <ProfileImage src={ProfileImg} alt='유저 프로필 이미지' />
       </ProfileContainer>
       <PostFormStyle>
         <TextInputContainer
@@ -117,7 +117,7 @@ export default function EditPost() {
                 src={
                   typeof image === 'string' ? image : URL.createObjectURL(image)
                 }
-                alt={`post image ${index + 1}`}
+                alt={`게시물 이미지 ${index + 1}`}
               />
               <DeleteImgBtn
                 onClick={() => handleDeleteImage(index)}

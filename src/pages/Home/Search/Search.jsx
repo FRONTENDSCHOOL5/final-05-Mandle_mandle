@@ -22,7 +22,22 @@ export default function Search() {
 
   const navigate = useNavigate();
   const handleMoveProfile = () => {
-    navigate(`/other_profile/${accountData.account}/`);
+    navigate(`/other_profile/${accountData.account}`);
+  };
+
+  const handleImage = (image) => {
+    const regex = /^\d/;
+    const accountImage = image.replace(
+      'https://mandarin.api.weniv.co.kr/' ||
+        'https://api.mandarin.weniv.co.kr/',
+      '',
+    );
+
+    if (regex.test(accountImage)) {
+      return `https://api.mandarin.weniv.co.kr/${accountImage}`;
+    } else {
+      return BasicProfileImg;
+    }
   };
 
   return (
@@ -36,12 +51,7 @@ export default function Search() {
                   <ProfileWrap onClick={handleMoveProfile}>
                     <div>
                       <img
-                        src={
-                          account.image ===
-                          'http://146.56.183.55:5050/Ellipse.png'
-                            ? BasicProfileImg
-                            : account.image
-                        }
+                        src={handleImage(account.image)}
                         alt='프로필 이미지'
                       />
                     </div>

@@ -17,8 +17,8 @@ export default function PostProfile({ post, setPostUpdated }) {
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handlePostClick = () => {
-    navigate(`/profile/${post.author.accountname}`, {
+  const handleProfileClick = () => {
+    navigate(`/other_profile/${post.author.accountname}`, {
       state: post.author.accountname,
     });
   };
@@ -54,7 +54,7 @@ export default function PostProfile({ post, setPostUpdated }) {
 
   return (
     <PostProfileWrap>
-      <button onClick={handlePostClick}>
+      <button onClick={handleProfileClick}>
         <PostProfileImgWrap>
           <img src={post.author.image} alt='프로필 이미지' />
         </PostProfileImgWrap>

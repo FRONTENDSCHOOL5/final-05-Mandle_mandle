@@ -51,7 +51,7 @@ export default function Signup() {
 
   const handleActiveButton = () => {
     setButtonImg(
-      email !== '' && password !== '' ? ClayButtonImg : ClayDisabledButton
+      email !== '' && password !== '' ? ClayButtonImg : ClayDisabledButton,
     );
   };
 
@@ -105,7 +105,7 @@ export default function Signup() {
     <SignupDiv>
       <SignupHeader>
         <button onClick={goBack}>
-          <img src={ArrowImg} alt='' />
+          <img src={ArrowImg} alt='뒤로가기 아이콘' />
         </button>
         <Heading1>이메일로 가입하기</Heading1>
       </SignupHeader>
@@ -161,7 +161,7 @@ export default function Signup() {
           {pwErrorMessage && <span>{pwErrorMessage}</span>}
         </InputDiv>
         <ButtonImg type='submit' onClick={handleSignupSubmit}>
-          <img src={buttonImg} alt='' />
+          <img src={buttonImg} alt='이메일,비밀번호 등록 버튼' />
         </ButtonImg>
       </Wrap>
     </SignupDiv>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export async function PostEditIImagesUpload(file) {
+export async function PostEditImagesUpload(file) {
   const url = 'https://api.mandarin.weniv.co.kr/';
 
   const formData = new FormData();
@@ -14,11 +14,10 @@ export async function PostEditIImagesUpload(file) {
     });
 
     // 응답 처리
-    console.log('이미지 성공');
+
     return `https://api.mandarin.weniv.co.kr/${response.data.filename}`;
   } catch (error) {
     // 오류 처리
     console.error(error);
-    throw error;
   }
 }

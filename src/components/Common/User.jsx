@@ -72,7 +72,7 @@ export default function User(props) {
   return (
     <div id='userDiv'>
       <UserWrap onClick={() => handleClick(accountname)}>
-        <img src={image} alt='' />
+        <img src={image} alt='사용자 프로필 이미지' />
         <div id='textWrap'>
           <p>{username}</p>
           <p>{intro}</p>

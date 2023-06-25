@@ -174,7 +174,7 @@ export default function Profile() {
   );
 }
 async function ProfileData(accountname, token) {
-  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}`;
+  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}`;
 
   try {
     const res = await axios.get(url, {
@@ -185,12 +185,12 @@ async function ProfileData(accountname, token) {
     });
     return res.data.profile;
   } catch (err) {
-    console.log(err);
-    return null;
+    console.error(err);
   }
+  return null;
 }
 async function ClassData(accountname, token) {
-  const url = `https://mandarin.api.weniv.co.kr/product/${accountname}`;
+  const url = `https://api.mandarin.weniv.co.kr/product/${accountname}`;
 
   try {
     const res = await axios.get(url, {
@@ -206,7 +206,7 @@ async function ClassData(accountname, token) {
   }
 }
 async function PostData(accountname, token) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${accountname}/userpost`;
+  const url = `https://api.mandarin.weniv.co.kr/post/${accountname}/userpost`;
 
   try {
     const res = await axios.get(url, {

@@ -15,6 +15,5 @@ export default async function GetPostDetail(postId, token) {
     return response.data.post;
   } catch (error) {
     console.error(error);
-    throw error;
   }
 }

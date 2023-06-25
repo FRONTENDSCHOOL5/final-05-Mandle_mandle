@@ -13,18 +13,17 @@ export const PostImagesUpload = async (files) => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      }
+      },
     );
     //여기에 http url감싸기
     const filenames = response.data.map(
-      (image) => `https://api.mandarin.weniv.co.kr/${image.filename}`
+      (image) => `https://api.mandarin.weniv.co.kr/${image.filename}`,
     );
     const mergedFilenames = filenames.join(',');
 
     return mergedFilenames;
   } catch (error) {
     console.error('이미지 업로드 실패:', error);
-    throw error;
   }
 };
 

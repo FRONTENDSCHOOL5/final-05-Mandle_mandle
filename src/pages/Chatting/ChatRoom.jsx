@@ -33,7 +33,7 @@ export default function ChatRoom() {
       <MoreNav />
       <ChattingLayout>
         <ChatContentLayout>
-          <UserImage src={profileimg} />
+          <UserImage src={profileimg} alt='유저 프로필 이미지' />
           <ChatContent bgColor='white' radius='3px 15px 15px 15px'>
             옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여, 뿐이다.
             이상의 청춘의 뼈 따뜻한 그들의 그와 약동하다. 대고, 못할 넣는
@@ -42,7 +42,7 @@ export default function ChatRoom() {
           <ChatTime>12:39</ChatTime>
         </ChatContentLayout>
         <ChatContentLayout>
-          <UserImage src={profileimg} />
+          <UserImage src={profileimg} alt='유저 프로필 이미지' />
           <ChatContent bgColor='white' radius='3px 15px 15px 15px'>
             안녕하세요. 수강하고 싶어요!
           </ChatContent>
