@@ -15,8 +15,10 @@ import {
   PostWrap,
 } from './ProfileStyle';
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
-import PostListBtn from '../../assets/img/icon-post-list-on.svg';
-import PostAlbumBtn from '../../assets/img/icon-post-album-off.svg';
+import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
+import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
+import PostAlbumBtnOn from '../../assets/img/icon-post-album-on.svg';
+import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -27,6 +29,8 @@ export default function Profile() {
   const [classData, setClassData] = useState(null);
   const [postData, setPostData] = useState(null);
   const [postUpdated, setPostUpdated] = useState(false);
+  const [isListBtnActive, setListBtnActive] = useState(true);
+  const [isImgListBtnActive, setImgListBtnActive] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const userProfileData = await ProfileData(userAccountname, token);
@@ -51,6 +55,16 @@ export default function Profile() {
       },
     });
   }
+  const handleButtonClick = (btnName) => {
+    if (btnName === 'listBtn') {
+      setListBtnActive(true);
+      setImgListBtnActive(false);
+    } else if (btnName === 'imgListBtn') {
+      setListBtnActive(false);
+      setImgListBtnActive(true);
+    }
+  };
+
   return (
     <ProfilePage>
       <MoreNav />
@@ -117,21 +131,48 @@ export default function Profile() {
       )}
       <PostWrap>
         <div id='PostBtnWrap'>
-          <button id='ListBtn'>
-            <img src={PostListBtn} alt='포스트리스트 버튼' />
+          <button
+            id='ListBtn'
+            onClick={() => handleButtonClick('listBtn')}
+            className={isListBtnActive ? 'active' : ''}
+          >
+            <img
+              src={isListBtnActive ? PostListBtnOn : PostListBtnOff}
+              alt='포스트리스트 버튼'
+            />
           </button>
-          <button id='ImgListBtn'>
-            <img src={PostAlbumBtn} alt='포스트 앨범 버튼' />
+          <button
+            id='ImgListBtn'
+            onClick={() => handleButtonClick('imgListBtn')}
+            className={isImgListBtnActive ? 'active' : ''}
+          >
+            <img
+              src={isImgListBtnActive ? PostAlbumBtnOn : PostAlbumBtnOff}
+              alt='포스트 앨범 버튼'
+            />
           </button>
         </div>
-        {postData.post.map((post) => (
-          <PostList setPostUpdated={setPostUpdated} post={post} />
-        ))}
+        {isListBtnActive &&
+          postData &&
+          postData.post &&
+          postData.post.map((post) => (
+            <PostList
+              key={post.id}
+              setPostUpdated={setPostUpdated}
+              post={post}
+            />
+          ))}
+        {isImgListBtnActive && postData && postData.post && (
+          <div className='image-grid'>
+            {postData.post.map((post) => (
+              <img key={post.id} src={post.image} alt='포스트 이미지' />
+            ))}
+          </div>
+        )}
       </PostWrap>
     </ProfilePage>
   );
 }
-
 async function ProfileData(accountname, token) {
   const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}`;
 
