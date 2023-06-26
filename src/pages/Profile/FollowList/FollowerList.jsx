@@ -26,16 +26,15 @@ export default function FollowerList() {
     };
     fetchData();
   }, [userAccountname, token]);
-  const fetchDataFromAPI = async (apiFunction, ...params) => {
-    try {
-      const data = await apiFunction(...params);
-      return data;
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  };
-
+  // const fetchDataFromAPI = async (apiFunction, ...params) => {
+  //   try {
+  //     const data = await apiFunction(...params);
+  //     return data;
+  //   } catch (error) {
+  //     console.log(error);
+  //     return null;
+  //   }
+  // };
   if (followerData === null) {
     return null;
   }
@@ -53,8 +52,8 @@ export default function FollowerList() {
   );
 }
 
-async function FollowerData(accountname, token, followerCount) {
-  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}/follower`;
+async function FollowerData(accountname, token) {
+  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}/follower`;
 
   try {
     const res = await axios.get(url, {

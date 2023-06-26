@@ -48,8 +48,8 @@ export default function FollowingList() {
   );
 }
 
-async function FollowingData(accountname, token, followingCount) {
-  const url = `https://mandarin.api.weniv.co.kr/profile/${accountname}/following`;
+async function FollowingData(accountname, token) {
+  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}/following`;
 
   try {
     const res = await axios.get(url, {
