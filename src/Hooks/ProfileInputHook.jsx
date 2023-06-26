@@ -31,5 +31,11 @@ export default function ProfileInputHook() {
     }
   };
 
-  return [inputValues, handleInputChange, buttonImg, setButtonImg];
+  return [
+    inputValues,
+    handleInputChange,
+    buttonImg,
+    setButtonImg,
+    DisabledButtonImg,
+  ];
 }

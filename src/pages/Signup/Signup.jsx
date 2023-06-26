@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { SignUpAtom } from '../../Store/AtomSignupState';
 import { useNavigate } from 'react-router-dom';
 import ArrowImg from '../../assets/img/icon-arrow-left.svg';
-import ClayDisabledButton from '../../assets/img/L-Next-Disabled-button(clay).svg';
+
 import { InputDiv, Label, InputBox } from '../../components/Common/Input';
 import { ButtonStyle } from '../../components/Common/Button';
 import PostEmailValid from '../../api/PostEmailVaild';
@@ -40,6 +40,7 @@ export default function Signup() {
     password,
     setPassword,
     buttonImg,
+    DisabledButtonImg,
     handleInputChange,
   } = UserInfoInput();
 
@@ -48,6 +49,7 @@ export default function Signup() {
 
     if (!emailPattern.test(email)) {
       setEmailErrorMessage('*올바른 이메일 형식을 입력하세요');
+      setEmail('');
     } else {
       const validMessage = await PostEmailValid(email);
       setEmailErrorMessage(validMessage);
@@ -62,13 +64,14 @@ export default function Signup() {
       setPwErrorMessage('');
     } else {
       setPwErrorMessage('비밀번호는 6자 이상이어야 합니다.');
+      setPassword('');
     }
   };
 
   const handleSignupSubmit = (event) => {
     event.preventDefault();
 
-    if (buttonImg === ClayDisabledButton) {
+    if (buttonImg === DisabledButtonImg) {
       return; // 버튼 비활성화일 때 기능 막기
     }
     if (email && password && emailValid && passwordValid) {
