@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-export const LoadingWrap = styled.div`
+export const LoadingWrap = styled.main`
+  background-color: #fff;
   width: 100%;
   height: 100%;
   display: flex;
