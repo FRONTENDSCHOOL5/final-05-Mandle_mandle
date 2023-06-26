@@ -6,7 +6,9 @@ export const LoadingWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap:10px;
   justify-content: center;
+
 
   @keyframes bounce {
     from {
@@ -16,37 +18,10 @@ export const LoadingWrap = styled.div`
       transform: translateY(0px);
     }
   }
-  @keyframes twist {
-    20% {
-      transform: rotate(0deg);
-    }
-
-    40% {
-      transform: rotate(-10deg);
-    }
-
-    50% {
-      transform: rotate(10deg);
-    }
-
-    60% {
-      transform: rotate(-10deg);
-    }
-
-    70% {
-      transform: rotate(10deg);
-    }
-
-    80% {
-      transform: rotate(0deg);
-    }
-  }
-
-  .twist {
-    animation: twist 3s infinite alternate;
+ 
   }
 
   .bounce {
-    animation: bounce 0.6s infinite alternate;
+    animation: bounce 0.5s infinite alternate;
   }
 `;
