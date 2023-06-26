@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function UserInfoInput(button, disabledButton) {
   const [email, setEmail] = useState('');
