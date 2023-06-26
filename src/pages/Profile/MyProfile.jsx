@@ -54,9 +54,6 @@ export default function Profile() {
     fetchData();
   }, [userAccountname, postUpdated, classUpdated, token]);
 
-  if (!profileData && !classData) {
-    return <Loading />;
-  }
   //프로필 수정페이지 이동
   function handleClick(profileData) {
     navigate(`edit/${profileData.accountname}`, {
@@ -80,7 +77,7 @@ export default function Profile() {
       <MoreNav />
       <MainWrap>
         {!profileData && !classData ? (
-          Loading
+          <Loading />
         ) : (
           <div>
             <ProfileSection>
