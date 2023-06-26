@@ -17,7 +17,7 @@ export default async function PostIdValid(value) {
     );
 
     const { message } = response.data;
-    console.log(message);
+
     return message;
   } catch (error) {
     console.error(error);

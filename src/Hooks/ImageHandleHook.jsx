@@ -33,7 +33,6 @@ export default function ImageHandleHook() {
     updatedImages.splice(index, 1);
     setSelectedImages(updatedImages);
   };
-  console.log(selectedImages);
 
   return {
     selectedImages,

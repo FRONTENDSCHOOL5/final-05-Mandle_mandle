@@ -1,35 +1,33 @@
-import { React, useState } from "react";
-import styled from "styled-components";
+import { React, useState } from 'react';
+import styled from 'styled-components';
 
 export default function Input() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <>
       <InputDiv>
         <Label>이메일</Label>
         <InputBox
-          width="322px"
-          height="48px"
-          padding="15px"
+          width='322px'
+          height='48px'
+          padding='15px'
           onChange={(e) => {
             setEmail(e.target.value.trim());
-            // console.log(e.target.value);
           }}
-          placeholder="이메일을 입력해주세요"
+          placeholder='이메일을 입력해주세요'
         />
       </InputDiv>
       <InputDiv>
         <Label>비밀번호</Label>
         <InputBox
-          width="322px"
-          height="48px"
+          width='322px'
+          height='48px'
           onChange={(e) => {
             setPassword(e.target.value.trim());
-            // console.log(e.target.value);
           }}
-          type="password"
-          placeholder="비밀번호를 입력하세요"
+          type='password'
+          placeholder='비밀번호를 입력하세요'
         />
       </InputDiv>
     </>

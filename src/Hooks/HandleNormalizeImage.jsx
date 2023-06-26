@@ -5,7 +5,7 @@ export default function HandleNormalizeImage(image, basicImg) {
   const accountImage = image
     .replace('https://mandarin.api.weniv.co.kr/', '')
     .replace('https://api.mandarin.weniv.co.kr/', '');
-  console.log(accountImage);
+
   if (regex.test(accountImage)) {
     return `https://api.mandarin.weniv.co.kr/${accountImage}`;
   } else {

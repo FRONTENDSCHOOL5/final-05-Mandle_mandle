@@ -73,19 +73,15 @@ export default function EditPost() {
     }
   };
 
-  console.log('담긴 값 확인', selectedImages);
-
   const handleUploadPost = async () => {
-    console.log('함수 테스트', selectedImages);
     const editedPost = await PutPostEdit(
       postId,
       token,
       inputValue,
       selectedImages.join(','),
     );
-    console.log('reponse값 테스트 :', editedPost);
+
     if (editedPost) {
-      console.log('성공 제발');
       setInputValue('');
       setSelectedImages([]);
       navigate(`/post/${postId}`, {
