@@ -11,7 +11,7 @@ import { useLocation } from 'react-router-dom';
 import { PostEditImagesUpload } from '../../api/PostEditImagesUpload';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import {
-  DisabledUploadBtnNav,
+  EditUploadBtnNav,
   ProfileContainer,
   ProfileImage,
   FileUploadButton,
@@ -45,7 +45,7 @@ export default function EditPost() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -81,7 +81,7 @@ export default function EditPost() {
       postId,
       token,
       inputValue,
-      selectedImages.join(','),
+      selectedImages.join(',')
     );
     console.log('reponse값 테스트 :', editedPost);
     if (editedPost) {
@@ -96,12 +96,13 @@ export default function EditPost() {
 
   return (
     <div>
-      <DisabledUploadBtnNav
+      <EditUploadBtnNav
         handleUploadPost={handleUploadPost}
         buttonStyle={buttonStyle}
       />
       <ProfileContainer>
         <ProfileImage src={ProfileImg} alt='유저 프로필 이미지' />
+        <FileUploadButton handleImageChange={handleImageChange} />
       </ProfileContainer>
       <PostFormStyle>
         <TextInputContainer
@@ -126,7 +127,7 @@ export default function EditPost() {
             </PreviewImgWrapStyle>
           ))}
         </ImgWrapStyle>
-        <FileUploadButton handleImageChange={handleImageChange} />
+        {/* <FileUploadButton handleImageChange={handleImageChange} /> */}
       </PostFormStyle>
     </div>
   );

@@ -44,7 +44,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
 
   useEffect(() => {
@@ -77,6 +77,7 @@ export default function Posting() {
       />
       <ProfileContainer>
         <ProfileImage src={userImage} alt='User Profile Image' />
+        <FileUploadButton handleImageChange={handleImageChange} />
       </ProfileContainer>
       <PostFormStyle>
         <TextInputContainer
@@ -98,7 +99,7 @@ export default function Posting() {
             </PreviewImgWrapStyle>
           ))}
         </ImgWrapStyle>
-        <FileUploadButton handleImageChange={handleImageChange} />
+        {/* <FileUploadButton handleImageChange={handleImageChange} /> */}
       </PostFormStyle>
     </div>
   );
@@ -109,13 +110,15 @@ export const ImagePreview = styled.img`
   border-radius: 20px;
   max-height: 228px;
   object-fit: cover;
-
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   top: 20px;
   left: 50px;
 `;
 
 export const TextInputContainer = styled.textarea`
-  margin-top: 30px;
+  margin: 30px 0 50px 0;
   width: 100%;
   overflow-y: hidden;
   display: block;

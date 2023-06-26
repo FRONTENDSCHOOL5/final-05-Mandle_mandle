@@ -24,7 +24,7 @@ export const ProfileImage = styled.img`
 
 export const UploadButton = styled.div`
   position: absolute;
-  top: 768px;
+  top: 750px;
   left: 324px;
 `;
 
@@ -44,10 +44,17 @@ export const ImgWrapStyle = styled.ul`
   display: flex;
   overflow-x: scroll;
 
-  -ms-overflow-style: none;
-  scrollbar-width: none;
   &::-webkit-scrollbar {
-    display: none;
+    padding-top: 5px;
+    background-color: white;
+
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid white;
   }
   & > li + li {
     margin-left: 8px;
@@ -102,6 +109,34 @@ export function DisabledUploadBtnNav({ handleUploadPost, buttonStyle }) {
         onClick={handleUploadPost}
       >
         업로드
+      </ButtonStyle>
+    </TopNavWrap>
+  );
+}
+
+export function EditUploadBtnNav({ handleUploadPost, buttonStyle }) {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+  return (
+    <TopNavWrap>
+      <button onClick={goBack} className='go-back'>
+        <img src={ArrowIcon} alt='뒤로가기 아이콘' />
+      </button>
+      <ButtonStyle
+        type='button'
+        bg={buttonStyle ? '#036635' : '#b1d4c3'} // 버튼 색 설정
+        width='90px'
+        height='32px'
+        br='32px'
+        color='#ffffff'
+        fontsize='14px'
+        margin='0 16px 0 0'
+        onClick={handleUploadPost}
+      >
+        수정하기
       </ButtonStyle>
     </TopNavWrap>
   );
