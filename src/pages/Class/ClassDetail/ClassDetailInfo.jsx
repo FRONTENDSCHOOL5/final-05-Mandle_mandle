@@ -45,7 +45,7 @@ export function ClassInfo({ liked, onLike }) {
 
   return (
     <ClassInfoSection>
-      <ClassImage src={newClass.itemImage} alt='' />
+      <ClassImage src={newClass.itemImage} alt='클래스 이미지' />
       <p>{newClass.link}</p>
       <ClassName>{newClass.itemName}</ClassName>
       <ClassPrice>
@@ -60,7 +60,6 @@ export function ClassInfo({ liked, onLike }) {
 export function BtnContainer({ liked, onLike, price }) {
   const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
-  console.log(price);
 
   const handleLikeClick = () => {
     setIsClicked((prevState) => !prevState);
@@ -68,11 +67,9 @@ export function BtnContainer({ liked, onLike, price }) {
   };
 
   const handleReservationClick = () => {
-    console.log(price)
     const state = {
       price: price
     }
-    console.log(state)
     navigate('/reservation', {state:state})
   }
 
@@ -86,7 +83,7 @@ export function BtnContainer({ liked, onLike, price }) {
         <ShareBtn>공유하기</ShareBtn>
       </TopBtn>
       <BottomBtn>
-        <Link to='/chatlist'>
+        <Link to='/chat/chatList'>
           <AskBtn>작가문의</AskBtn>
         </Link>
           <ReverseBtn onClick={handleReservationClick}>예약하기</ReverseBtn>

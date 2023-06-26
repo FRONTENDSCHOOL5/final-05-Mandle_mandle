@@ -15,14 +15,14 @@ export default function ClassDetailOtherClass() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await GetClassData(token);
+        const data = await GetClassData(token, UserInfo.accountname);
         setNewClass(data.product);
       } catch (error) {
         console.log("Error", error);
       }
     };
     fetchData();
-  }, [token]);
+  });
 
   const classList = newClass.filter(classItem => String(classItem.author.accountname).includes('Teacher'));
 
@@ -30,8 +30,8 @@ export default function ClassDetailOtherClass() {
     <MiniSection>
       <Title>다른 클래스</Title>
       <MiniList>
-      {classList.map((classItem) => (
-          <li key={'classItem._id'}>
+        {classList.map(classItem => (
+          <li key={classItem._id}>
             <a href={`/class/detail/${classItem._id}`}>
               <ClassPostMini
                 miniImg={classItem.itemImage}
