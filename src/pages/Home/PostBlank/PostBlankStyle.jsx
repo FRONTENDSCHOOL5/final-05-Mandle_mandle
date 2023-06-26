@@ -8,7 +8,11 @@ export const PostBlankWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  p {
+  div {
     margin-bottom: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 `;
