@@ -24,12 +24,12 @@ const EditProfile = () => {
   const location = useLocation();
   const data = location.state.profileData;
   const userInfo = useRecoilValue(UserAtom);
-  const [userValue, setUserValue] = useRecoilState(UserAtom);
+  const userValue = useRecoilState(UserAtom);
   const token = userInfo.token;
   const navigate = useNavigate();
   //유저 정보 상태관리
-
-  const [username, setUsername] = useState(`${data.username}`);
+  const url = 'https://api.mandarin.weniv.co.kr/';
+  const [username, setUsername] = useState(`${userInfo.username}`);
   const [accountname, setAccountname] = useState(`${data.accountname}`);
   const [intro, setIntro] = useState(`${data.intro}`);
   const [button, setButton] = useState(false);
@@ -104,16 +104,18 @@ const EditProfile = () => {
   };
 
   const handleSetProfileSubmit = async () => {
-    const updatedInfo = {
+    const updatedUserValue = {
+      ...userValue,
       username: username,
       accountname: accountname,
       intro: intro,
-      image: `https://api.mandarin.weniv.co.kr/${image}`,
+      image: url + image,
     };
-    console.log(updatedInfo);
-    const response = await PutProfileUpdate(updatedInfo, token);
+
+    const response = await PutProfileUpdate(updatedUserValue, token);
     if (response) {
       console.log('프로필 수정 성공');
+      console.log(response);
       navigate(`/my_profile`);
     }
   };
