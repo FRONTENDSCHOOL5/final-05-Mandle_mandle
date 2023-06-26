@@ -7,7 +7,7 @@ import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
 import HeartButton from '../HeartButton';
 
 export default function PostContent({ post }) {
-  console.log(post);
+  // console.log(post);
   const postDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateString);
