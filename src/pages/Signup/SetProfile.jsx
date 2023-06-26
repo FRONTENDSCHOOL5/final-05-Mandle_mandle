@@ -1,25 +1,21 @@
 import { React, useState, useEffect } from 'react';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { SignUpAtom } from '../../Store/AtomSignupState';
-import ArrowImg from '../../assets/img/icon-arrow-left.svg';
-import UploadProfile from '../../components/Common/UploadProfile';
-import { useNavigate } from 'react-router-dom';
-
-import PostIdValid from '../../api/PostIdValid';
 import PostSignUp from '../../api/PostSignup';
-import ProfileInputHook from '../../Hooks/ProfileInputHook';
+import PostIdValid from '../../api/PostIdValid';
+import Input from '../../components/Common/Account/Input';
+import useProfileInput from '../../Hooks/useProfileInput';
+import UploadProfile from '../../components/Common/UploadProfile';
+import AccountHeader from '../../components/Common/Account/AccountHeader';
+import StartButtonImg from '../../assets/img/L-Start-button(clay).svg';
+import DisabledButtonImg from '../../assets/img/L-Start-Disabled-button(clay).svg';
 import {
-  SignupHeader,
-  Heading1,
-  SignupDiv,
-  ButtonImg,
-  SetProfileDiv,
-  SetProfileLabel,
-  SetProfileInputBox,
-  P,
-  Wrap,
-} from './SetProfileStyle';
+  AccountForm,
+  Description,
+  ButtonImgStyle,
+  ErrorMessage,
+} from '../../components/Common/Account/AccountStyle';
 
 const SetProfile = () => {
   const url = 'https://api.mandarin.weniv.co.kr/';
@@ -31,18 +27,15 @@ const SetProfile = () => {
   const [accountAlertMsg, setAccountAlertMsg] = useState('');
   const [usernameValid, setUsernameValid] = useState(true);
   const [usernameAlertMsg, setUsernameAlertMsg] = useState('');
-  const [inputValues, handleInputChange, buttonImg] = ProfileInputHook();
+  const { inputValues, handleInputChange, buttonImg } = useProfileInput(
+    StartButtonImg,
+    DisabledButtonImg,
+  );
   const { username, accountname, intro } = inputValues;
   const handleProfileImageResponse = (fileName) => {
     setImage(fileName);
   };
 
-  //이전 페이지 이동
-  const goBack = () => {
-    navigate(-1);
-  };
-
-  ////유저 이름 유효성 검사
   const handleUsernameValid = () => {
     if (username.length >= 2 && username.length <= 10) {
       setUsernameAlertMsg('');
@@ -51,7 +44,6 @@ const SetProfile = () => {
       setUsernameAlertMsg('유저 이름은 2자 이상~10자 이내여야 합니다.');
       setUsernameValid(false);
     }
-    // setUsername(value);
   };
 
   //아이디 유효성 검사
@@ -71,9 +63,9 @@ const SetProfile = () => {
 
   const handleSetProfileSubmit = async (event) => {
     event.preventDefault();
-    // if (buttonImg === DisabledButtonImg) {
-    //   return; // 버튼 비활성화일 때 기능 막기
-    // }
+    if (buttonImg === DisabledButtonImg) {
+      return; // 버튼 비활성화일 때 기능 막기
+    }
     if (username && accountname && usernameValid && accountValid) {
       const updatedAccountname = `${userInfo.type}${accountname}`;
       setUserInfo((prevValue) => {
@@ -93,63 +85,51 @@ const SetProfile = () => {
     if (username && accountname && usernameValid && accountValid) {
       PostSignUp(userInfo);
     }
-  }, [userInfo]);
+  }, [username, accountname, usernameValid, accountValid, userInfo]);
 
   return (
-    <SignupDiv>
-      <SignupHeader>
-        <button onClick={goBack}>
-          <img src={ArrowImg} alt='' />
-        </button>
-        <Heading1>프로필 설정</Heading1>
-      </SignupHeader>
-
-      <Wrap>
-        <P>나중에 언제든지 변경할 수 있습니다.</P>
+    <>
+      <AccountHeader title='프로필 설정' />
+      <Description>나중에 언제든지 변경할 수 있습니다.</Description>
+      <AccountForm>
         <UploadProfile onResponse={handleProfileImageResponse} />
-
-        <SetProfileDiv first>
-          <SetProfileLabel>사용자 이름</SetProfileLabel>
-          <SetProfileInputBox
-            name='username'
-            onChange={handleInputChange}
-            placeholder='2-10자 이내 여야 합니다'
-            onBlur={handleUsernameValid}
-          />
-        </SetProfileDiv>
+        <Input
+          label='사용자 이름'
+          name='username'
+          type='text'
+          placeholder='2-10자 이내 여야 합니다'
+          onChange={handleInputChange}
+          onBlur={handleUsernameValid}
+          borderColor={usernameAlertMsg ? 'var(--error-color)' : '#dbdbdb'}
+        />
         {usernameAlertMsg && <ErrorMessage>{usernameAlertMsg}</ErrorMessage>}
-        <SetProfileDiv>
-          <SetProfileLabel>계정 ID</SetProfileLabel>
-          <SetProfileInputBox
-            name='accountname'
-            onChange={handleInputChange}
-            onBlur={handleAccountNameValid}
-            placeholder='영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.'
-          />
-        </SetProfileDiv>
-        {accountAlertMsg && <ErrorMessage>{accountAlertMsg}</ErrorMessage>}
-        <SetProfileDiv>
-          <SetProfileLabel>소개</SetProfileLabel>
-          <SetProfileInputBox
-            name='intro'
-            onChange={handleInputChange}
-            placeholder='자신과 판매할 상품에 대해 소개해 주세요!'
-          />
-        </SetProfileDiv>
+        <Input
+          label='계정 ID'
+          name='accountname'
+          type='text'
+          placeholder='영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.'
+          onChange={handleInputChange}
+          onBlur={handleAccountNameValid}
+          borderColor={accountAlertMsg ? 'var(--error-color)' : '#dbdbdb'}
+        />
 
-        <ButtonImg type='submit' onClick={handleSetProfileSubmit}>
+        {accountAlertMsg && <ErrorMessage>{accountAlertMsg}</ErrorMessage>}
+        <Input
+          label='소개'
+          name='intro'
+          type='text'
+          placeholder='자신에 대해 소개해 주세요!'
+          onChange={handleInputChange}
+          onBlur={handleAccountNameValid}
+          borderColor='#dbdbdb'
+        />
+
+        <ButtonImgStyle type='submit' onClick={handleSetProfileSubmit}>
           <img src={buttonImg} alt='' />
-        </ButtonImg>
-      </Wrap>
-    </SignupDiv>
+        </ButtonImgStyle>
+      </AccountForm>
+    </>
   );
 };
 
 export default SetProfile;
-
-const ErrorMessage = styled.div`
-  padding-left: 34px;
-  align-self: stretch;
-  color: var(--error-color);
-  font-size: var(--font-sm);
-`;

@@ -1,7 +1,6 @@
-import { React, useState, useEffect } from 'react';
-import DisabledButtonImg from '../assets/img/L-Start-Disabled-button(clay).svg';
-import ClayButtonImg from '../assets/img/L-start-button(clay).svg';
-export default function ProfileInputHook() {
+import { useState, useEffect } from 'react';
+
+export default function useProfileInput(ButtonImg, DisabledButtonImg) {
   const [inputValues, setInputValues] = useState({
     username: '',
     accountname: '',
@@ -18,18 +17,18 @@ export default function ProfileInputHook() {
     }));
   };
 
-  useEffect(() => {
-    handleActiveButton();
-  }, [inputValues]);
-
   const handleActiveButton = () => {
     const { username, accountname, intro } = inputValues;
     if (username !== '' && accountname !== '' && intro !== '') {
-      setButtonImg(ClayButtonImg);
+      setButtonImg(ButtonImg);
     } else {
       setButtonImg(DisabledButtonImg);
     }
   };
 
-  return [inputValues, handleInputChange, buttonImg, setButtonImg];
+  useEffect(() => {
+    handleActiveButton();
+  }, [inputValues, ButtonImg, DisabledButtonImg]);
+
+  return { inputValues, handleInputChange, buttonImg };
 }
