@@ -28,7 +28,7 @@ export default function UploadProfile({ onResponse, image }) {
         });
 
         // 응답 처리
-        console.log(response.data);
+
         onResponse(response.data.filename);
       } catch (error) {
         // 오류 처리

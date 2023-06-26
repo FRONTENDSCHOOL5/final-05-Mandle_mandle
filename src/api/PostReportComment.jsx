@@ -12,7 +12,7 @@ export default async function PostReportComment(postId, commentId, token) {
         },
       },
     );
-    console.log(response);
+
     return response.data;
   } catch (error) {
     console.error(error);

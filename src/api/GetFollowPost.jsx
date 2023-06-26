@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export default async function GetFollowPost(postCount, token) {
+export default async function GetFollowPost(token) {
   try {
     const response = await axios.get(
-      `https://api.mandarin.weniv.co.kr/post/feed?limit=${postCount}`,
+      `https://api.mandarin.weniv.co.kr/post/feed?limit=999`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
