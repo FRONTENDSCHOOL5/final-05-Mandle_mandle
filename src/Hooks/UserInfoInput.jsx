@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
-import ButtonImg from '../assets/img/L-button(clay).svg';
-import DisabledButtonImg from '../assets/img/L-Disabled-button(clay).svg';
-export default function UserInfoInput() {
+
+export default function UserInfoInput(button, disabledButton) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [buttonImg, setButtonImg] = useState(DisabledButtonImg);
-
+  const [buttonImg, setButtonImg] = useState(disabledButton);
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [pwErrorMessage, setPwErrorMessage] = useState('');
   const handleActiveButton = () => {
     setButtonImg(
-      email !== '' && password !== '' ? ButtonImg : DisabledButtonImg
+      emailErrorMessage === '' &&
+        pwErrorMessage === '' &&
+        email !== '' &&
+        password !== ''
+        ? button
+        : disabledButton,
     );
   };
 
@@ -31,5 +36,9 @@ export default function UserInfoInput() {
     setPassword,
     buttonImg,
     handleInputChange,
+    emailErrorMessage,
+    pwErrorMessage,
+    setEmailErrorMessage,
+    setPwErrorMessage,
   };
 }
