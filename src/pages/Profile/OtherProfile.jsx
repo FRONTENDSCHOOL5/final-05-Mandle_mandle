@@ -106,7 +106,10 @@ export default function Profile() {
   const handleFollowClick = () => {
     SetIsfollow((prevIsfollow) => !prevIsfollow);
   };
-
+  const handlePostImgClick = (postId) => {
+    navigate(`/post/${postId}`, { state: postId });
+    console.log(postId);
+  };
   const handleButtonClick = (btnName) => {
     if (btnName === 'listBtn') {
       setListBtnActive(true);
@@ -229,6 +232,7 @@ export default function Profile() {
                       key={post.id}
                       src={post.image.split(',')[0]}
                       alt='포스트 이미지'
+                      onClick={() => handlePostImgClick(post.id)}
                     />
                   ))
                 ) : (

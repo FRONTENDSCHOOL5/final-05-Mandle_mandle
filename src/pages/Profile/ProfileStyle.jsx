@@ -139,6 +139,7 @@ const PostSection = styled.section`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
+    min-height: 350px;
   }
 
   .image-grid img {
