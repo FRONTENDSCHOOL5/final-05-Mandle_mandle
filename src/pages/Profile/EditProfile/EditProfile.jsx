@@ -144,7 +144,7 @@ const EditProfile = () => {
 
       <Wrap>
         <P>변경사항 입력 후 저장 버튼을 눌러주세요.</P>
-        <UploadProfile onResponse={handleProfileImageResponse} />
+        <UploadProfile onResponse={handleProfileImageResponse} image={image} />
 
         <SetProfileDiv first>
           <SetProfileLabel>사용자 이름</SetProfileLabel>
