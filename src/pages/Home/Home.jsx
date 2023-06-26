@@ -22,19 +22,19 @@ export default function Home({ to }) {
 
     response();
   }, [token]);
-
+  console.log(postList);
   return (
     <HomeWrap>
       <HomeNav title='홈' to='/home/search'></HomeNav>
       <MainWrap>
-        {postList === null && !postList.length ? (
+        {postList === null || postList.length === 0 ? (
           <Loading />
         ) : postList !== null && postList.length === 0 ? (
           <PostBlank
             text='아직 팔로워가 작성한 글이 없어요.'
             text2='검색을 통해 팔로워를 더 만들어 볼까요?'
           />
-        ) : postList.length === 0 ? (
+        ) : postList === null ? (
           <PostBlank text='유저를 검색해 팔로우 해보세요!' />
         ) : (
           <PostUlStyle>

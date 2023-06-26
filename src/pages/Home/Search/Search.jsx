@@ -16,7 +16,6 @@ export default function Search() {
     const response =
       keyword.trim() === '' ? null : await GetSearchUser(keyword, token);
     setAccountData(response);
-    console.log(keyword, response);
   };
 
   return (

@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ProfileImg from '../../../assets/img/basic-profile-img.svg';
-import MoreBtn from '../../../assets/img/s-icon-more-vertical.svg';
 import MoreButton from '../MoreButton';
 import CalTimeAgo from '../CalTimeAgo';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import ModalAlert from '../Modal/ModalAlert/ModalAlert';
 import Modal from '../../Common/Modal/Modal';
-import ReportModal from '../../Common/Modal/ReportModal';
+
 import PostReportComment from '../../../api/PostReportComment';
 import DeleteComment from '../../../api/DeleteComment';
 export default function CommentList({ postId, comment, setCommentUpdated }) {
@@ -29,6 +28,7 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
     );
     if (response) {
       alert(`해당 댓글이 신고되었습니다.`);
+      setModalOpen(false);
     }
   };
 
@@ -63,13 +63,13 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
           <Modal
             setModalOpen={setModalOpen}
             setAlertModalOpen={setAlertModalOpen}
-            type='comment'
+            text='삭제'
           />
         ) : (
-          <ReportModal
+          <Modal
             setModalOpen={setModalOpen}
             onClick={handleReportSubmit}
-            category={'게시글'}
+            text='신고하기'
           />
         ))}
       {alertModalOpen && (
