@@ -39,7 +39,7 @@ export function ClassPostMini({miniImg, miniTag, miniName}) {
   );
 }
 
-const ClassPostWrap = styled.a`
+const ClassPostWrap = styled.article`
   display: block;
   width: ${(props) => props.width};
   height: ${(props) => props.height};
@@ -64,5 +64,8 @@ const ClassPostWrap = styled.a`
   h3 {
     font-size: var(--font-md);
     color: var(--font-color);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
 `;

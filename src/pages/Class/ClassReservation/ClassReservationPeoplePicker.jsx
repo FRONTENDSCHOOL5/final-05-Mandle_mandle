@@ -38,8 +38,8 @@ export function People({ numOfPeople, handleNumOfPeopleChange }) {
           <input id='people-input' type='number' value={numOfPeople} readOnly />
           <button onClick={handleIncrement}>+</button>
         </BtnBox>
-        <BtnReserve>예약하기</BtnReserve>
       </PeopleBox>
+      <BtnReserve>예약하기</BtnReserve>
     </>
   );
 }
