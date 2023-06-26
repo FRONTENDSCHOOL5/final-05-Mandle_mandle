@@ -15,43 +15,18 @@ const MainWrap = styled.main`
     display: none;
   }
 `;
-const TopNavWrap = styled.div`
-  display: flex;
-  width: 100%;
-  height: 48px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #dbdbdb;
-  align-items: center;
-  justify-content: space-between;
-
-  input {
-    width: 316px;
-    height: 32px;
-    border-radius: 32px;
-    border: none;
-    background-color: #f2f2f2;
-    padding-left: 16px;
-    font-size: 14px;
-  }
-
-  button {
-    margin-right: 16px;
-  }
-
-  .go-back {
-    margin-left: 16px;
-  }
-`;
 
 const ProfileSection = styled.section`
   width: 100%;
   text-align: center;
   padding: 10px auto;
   background: white;
+  margin-bottom: 5px;
   #usernameWrap {
     display: flex;
     justify-content: center;
     gap: 5px;
+    align-items: center;
   }
   #NickName {
     font-size: var(--font-lg);
@@ -106,6 +81,7 @@ const WrapBtn = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
+  padding-bottom: 20px;
   .profileEditBtn,
   .profileBtn {
     border: 1px solid var(--border-color);
@@ -132,6 +108,7 @@ const WrapBtn = styled.div`
   }
 `;
 const PostSection = styled.section`
+  position: relative;
   padding: 10px;
   background: white;
   #PostBtnWrap {
@@ -139,6 +116,7 @@ const PostSection = styled.section`
     flex-direction: row;
     justify-content: flex-end;
     background: white;
+    padding-bottom: 10px;
     gap: 5px;
     button {
       width: 26px;
@@ -148,16 +126,40 @@ const PostSection = styled.section`
       width: 100%;
     }
   }
+  #PostBtnWrap span {
+    width: 100%;
+    position: absolute;
+    top: 44px;
+    left: 0;
+    border: 1px solid var(--background-color);
+  }
   .image-grid {
+    width: 360px;
+    margin: 14px auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
+    gap: 15px;
   }
 
   .image-grid img {
     width: 100%;
-    height: 100px;
+    height: 110px;
     object-fit: cover;
+  }
+
+  .image-none {
+    width: 360px;
+    margin: 14px auto;
+    min-height: 350px;
+    div {
+      margin: 80px auto;
+      text-align: center;
+    }
+  }
+  .post-none {
+    margin: 80px auto;
+    text-align: center;
+    min-height: 350px;
   }
 `;
 const ClassSection = styled.section`
@@ -165,6 +167,7 @@ const ClassSection = styled.section`
   box-sizing: border-box;
   padding: 10px;
   background-color: #fff;
+  margin-bottom: 5px;
 `;
 const ClassListUl = styled.ul`
   padding: 0 0 10px 0;
@@ -198,12 +201,26 @@ const PostListUl = styled.ul`
     display: none;
   }
 `;
+const FollowBtn = styled.button`
+  width: 100px;
+  height: 28px;
+  color: white;
+  border-radius: 28px;
+  background-color: var(--main-color);
+  text-align: center;
+
+  &.following {
+    background-color: white;
+    color: var(--sub-font-color);
+    border: 1px solid var(--sub-font-color);
+  }
+`;
 
 export {
   WrapBtn,
   Wrap,
   ProfileSection,
-  TopNavWrap,
+  FollowBtn,
   ProfilePage,
   PostSection,
   ClassSection,
