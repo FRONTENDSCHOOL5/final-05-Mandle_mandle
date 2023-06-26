@@ -28,7 +28,7 @@ export const TimeList = styled.ul`
     &:not(:last-child) {
       border-bottom: none;
     }
-    &:active {
+    &.active {
       box-shadow: inset 0 0 10px var(--main-color);
     }
   }

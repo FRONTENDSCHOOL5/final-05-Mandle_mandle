@@ -9,7 +9,8 @@ export const ReservationSection = styled.section`
 export const StyledCalendar = styled(Calendar)`
   border: none;
   text-align: center;
-
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 
   .react-calendar__navigation button:disabled {
     background-color: #fff;
