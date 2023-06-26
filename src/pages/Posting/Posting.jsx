@@ -32,7 +32,6 @@ export default function Posting() {
   const token = userInfo.token;
 
   const navigate = useNavigate();
-  console.log(token);
 
   useEffect(() => {
     GetUserProfileImage(token, setUserImage);
@@ -79,7 +78,7 @@ export default function Posting() {
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
     const response = await PostUploadPost(token, inputValue, images);
-    console.log(response);
+
     if (response) {
       setInputValue('');
       setSelectedImages([]);
@@ -94,7 +93,6 @@ export default function Posting() {
     updatedImages.splice(index, 1);
     setSelectedImages(updatedImages);
   };
-  console.log(selectedImages);
 
   return (
     <div>
@@ -126,7 +124,6 @@ export default function Posting() {
             </PreviewImgWrapStyle>
           ))}
         </ImgWrapStyle>
-        {/* <FileUploadButton handleImageChange={handleImageChange} /> */}
       </PostFormStyle>
     </div>
   );
