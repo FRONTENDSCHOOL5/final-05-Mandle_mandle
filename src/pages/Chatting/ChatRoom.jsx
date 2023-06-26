@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { MoreNav } from '../../components/Common/TopNav';
 import profileimg from '../../assets/img/mini-basic-progile-img.svg';
+import ChatModal from '../../components/Common/Modal/ChatModal';
 export default function ChatRoom() {
   const [inputValue, setInputValue] = useState('');
   const [textValue, settextValue] = useState([]);
-
+  const [isModalOpen, setModalOpen] = useState(false);
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -28,9 +29,21 @@ export default function ChatRoom() {
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
 
+  const handleModalOpen = (e) => {
+    setModalOpen(true);
+  };
+
+  const navigate = useNavigate();
+  const handleChatRoomExit = () => {
+    navigate('/chat/chatlist');
+  };
+
   return (
     <>
-      <MoreNav />
+      <MoreNav onClick={handleModalOpen} />
+      {isModalOpen && (
+        <ChatModal setModalOpen={setModalOpen} onClick={handleChatRoomExit} />
+      )}
       <ChattingLayout>
         <ChatContentLayout>
           <UserImage src={profileimg} alt='유저 프로필 이미지' />
