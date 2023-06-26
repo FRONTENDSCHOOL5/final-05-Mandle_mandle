@@ -65,8 +65,16 @@ export default function Login() {
         //성공시
       } else {
         //로그인 성공
-        const { accountname, token, refreshToken, image } = loginInfo.user;
-        setUserInfo({ accountname, token, refreshToken, image });
+        const { accountname, token, refreshToken, image, username, intro } =
+          loginInfo.user;
+        setUserInfo({
+          accountname,
+          username,
+          token,
+          refreshToken,
+          image,
+          intro,
+        });
         setIsLogin(true);
         setLoginErrorMessage('');
         setEmail('');
@@ -75,7 +83,6 @@ export default function Login() {
       }
     }
   };
-
   return (
     <>
       <AccountHeader title='로그인' />
