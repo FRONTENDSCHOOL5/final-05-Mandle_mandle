@@ -18,7 +18,7 @@ import OtherProfile from '../src/pages/Profile/OtherProfile';
 import SetProfile from './pages/Signup/SetProfile';
 import Signup from './pages/Signup/Signup';
 import Login from '../src/pages/Login/Login';
-import Loading from '../src/pages/Loading/Loading';
+import Splash from '../src/pages/Splash/Splash';
 import Intro from '../src/pages/Intro/Intro';
 import Home from '../src/pages/Home/Home';
 import Search from '../src/pages/Home/Search/Search';
@@ -37,7 +37,7 @@ function App() {
       <GlobalStyle />
       <Router>
         <Routes>
-          <Route path='/' element={<Loading />} />
+          <Route path='/' element={<Splash />} />
           <Route path='/intro' element={<Intro />} />
           <Route path='/account' element={<Outlet />}>
             <Route path='login' element={<Login />} />

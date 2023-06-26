@@ -10,12 +10,18 @@ export const StyledCalendar = styled(Calendar)`
   border: none;
   text-align: center;
 
+
+  .react-calendar__navigation button:disabled {
+    background-color: #fff;
+    cursor: normal;
+  }
+
   .react-calendar__navigation {
     font-size: 18px;
   }
 
   .react-calendar__month-view__weekdays {
-    font-size: 14px;
+    font-size: var(--font-md);
   }
 
   .react-calendar__navigation__arrow.react-calendar__navigation__prev2-button,
@@ -27,20 +33,20 @@ export const StyledCalendar = styled(Calendar)`
     flex-direction: row;
     justify-content: space-between;
     abbr {
-      color: #767676;
-      font-size: 14px;
-      font-weight: normal;
+      color: var(--sub-font-color);
+      font-size: var(--font-md);
+      font-weight: var(--font-regular);
       text-decoration: none;
     }
   }
 
   .react-calendar__tile {
-    font-size: 14px;
+    font-size: var(--font-md);
     width: 24px;
     height: 48px;
     abbr {
       display: block;
-      border: 1px solid #036635;
+      border: 1px solid var(--main-color);
       padding: 7px;
       width: 32px;
       height: 32px;
@@ -52,7 +58,14 @@ export const StyledCalendar = styled(Calendar)`
     }
     abbr[aria-label='Saturday'],
     abbr[aria-label='Sunday'] {
-      color: #767676;
+      color: var(--sub-font-color);
+    }
+    &--now {
+      abbr {
+        background: none;
+        border: 1px solid var(--main-color);
+        border-radius: 50%;
+      }
     }
   }
 
@@ -62,22 +75,28 @@ export const StyledCalendar = styled(Calendar)`
 
   .react-calendar__tile--now {
     background: none;
-    color: #036635;
+    color: var(--main-color);
   }
 
   /* 비활성화된 날짜의 배경색 설정 */
   .react-calendar__tile:disabled {
     background-color: #fff;
+    abbr {
+      border: 0;
+    }
   }
 
   /* 해당 월에 있는 평일의 폰트 색상 변경 */
   .react-calendar__month-view {
-    color: #036635;
+    color: var(--main-color);
   }
 
   /* 지난달 날짜의 폰트 색상 변경 */
   .react-calendar__month-view__days__day--neighboringMonth {
-    color: #757575;
+    color: var(--sub-font-color);
+    abbr {
+      border: 0;
+    }
   }
 
   /* 호버 및 포커스 시 버튼 배경색 없애기 */
@@ -89,7 +108,7 @@ export const StyledCalendar = styled(Calendar)`
   
   /* 날짜 클릭 시 abbr 배경색 및 폰트 색상 변경 */
   .react-calendar__tile--active abbr {
-    background-color: #036635;
+    background-color: var(--main-color);
     color: #fff;
   }
 `;
@@ -97,6 +116,6 @@ export const StyledCalendar = styled(Calendar)`
 export const SelectedDate = styled.p`
   margin-top: 20px;
   padding: 16px 12px;
-  border: 0.5px solid #767676;
+  border: 0.5px solid var(--sub-font-color);
   border-radius: 8px;
 `;

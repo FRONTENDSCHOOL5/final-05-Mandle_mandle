@@ -8,8 +8,28 @@ import PostList from '../../components/Common/PostList/PostList';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-import { WrapBtn, Wrap, ProfileSection, TopNavWrap } from './ProfileStyle';
+import HomeLogo from '../../assets/img/home-logo.svg';
+import { MoreNav } from '../../components/Common/TopNav';
+
+import {
+  MainWrap,
+  WrapBtn,
+  Wrap,
+  ProfileSection,
+  ProfilePage,
+  PostSection,
+  ClassSection,
+  ClassListUl,
+  Title,
+  PostListUl,
+  FollowBtn,
+} from './ProfileStyle';
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
+import MenuBar from '../../components/Common/MenuBar';
+import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
+import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
+import PostAlbumBtnOn from '../../assets/img/icon-post-album-on.svg';
+import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -24,6 +44,11 @@ export default function Profile() {
   const [profileData, setProfileData] = useState([]);
   const [classData, setClassData] = useState([]);
   const [postData, setPostData] = useState([]);
+  const [postUpdated, setPostUpdated] = useState(false);
+  const [isListBtnActive, setListBtnActive] = useState(true);
+  const [isImgListBtnActive, setImgListBtnActive] = useState(false);
+  const [classUpdated, setClassUpdated] = useState(false);
+  const [isfollow, SetIsfollow] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,12 +57,12 @@ export default function Profile() {
         const userClassData = await fetchDataFromAPI(
           ClassData,
           accountname,
-          token,
+          token
         );
         const userPostData = await fetchDataFromAPI(
           PostData,
           accountname,
-          token,
+          token
         );
         setProfileData(userProfileData);
         setClassData(userClassData);
@@ -67,83 +92,162 @@ export default function Profile() {
   const navigateToFollowing = () => {
     navigate(`/other_profile/${accountname}/following`);
   };
+  if (!profileData && !classData) {
+    return <div>Loading...</div>;
+  }
+  //프로필 수정페이지 이동
+  function handleClick(profileData) {
+    navigate(`edit/${profileData.accountname}`, {
+      state: {
+        profileData: profileData,
+      },
+    });
+  }
+  const handleFollowClick = () => {
+    SetIsfollow((prevIsfollow) => !prevIsfollow);
+  };
+  const handlePostImgClick = (postId) => {
+    navigate(`/post/${postId}`, { state: postId });
+    console.log(postId);
+  };
+  const handleButtonClick = (btnName) => {
+    if (btnName === 'listBtn') {
+      setListBtnActive(true);
+      setImgListBtnActive(false);
+    } else if (btnName === 'imgListBtn') {
+      setListBtnActive(false);
+      setImgListBtnActive(true);
+    }
+  };
   return (
-    <div>
-      <MoreNavigation />
-      <ProfileSection>
-        <Wrap>
-          <div className='follow'>
-            <button onClick={navigateToFollowers}>
-              <p>{profileData.followerCount}</p>
-              <p className='followNum'>followers</p>
-            </button>
-          </div>
-          <img src={profileData.image} id='profileImg' alt='프로필 이미지' />
-          <div className='follow'>
-            <Link to={`/other_profile/${accountname}/following`}>
-              <p>{profileData.followingCount}</p>
-              <p className='followNum'>followings</p>
+    <ProfilePage>
+      <MoreNav />
+      <MainWrap>
+        <ProfileSection>
+          <Wrap>
+            <div className='follow'>
+              <button onClick={navigateToFollowers}>
+                <p>{profileData.followerCount}</p>
+                <p className='followNum'>followers</p>
+              </button>
+            </div>
+            <img src={profileData.image} id='profileImg' alt='프로필 이미지' />
+            <div className='follow'>
+              <Link to={`/other_profile/${accountname}/following`}>
+                <p>{profileData.followingCount}</p>
+                <p className='followNum'>followings</p>
+              </Link>
+            </div>
+          </Wrap>
+          <p id='NickName'>
+            {profileData.username}
+            <span
+              className={
+                profileData.accountname &&
+                profileData.accountname.includes('Teacher')
+                  ? ''
+                  : 'a11y-hidden'
+              }
+            ></span>
+          </p>
+          <p id='MandleId'>
+            @
+            {(profileData.accountname &&
+              profileData.accountname.includes('Teacher')) ||
+            (profileData.accountname &&
+              profileData.accountname.includes('Student'))
+              ? profileData.accountname.substr(7)
+              : profileData.accountname}
+          </p>
+          <p id='Introduce'>{profileData.intro}</p>
+          <WrapBtn>
+            <Link to='/chat'>
+              <button className='ChatBtn'>
+                <img src={ChatImg} alt='채팅 아이콘 이미지' />
+              </button>
             </Link>
-          </div>
-        </Wrap>
-        <p id='NickName'>
-          {profileData.username}
-          <span
-            className={
-              profileData.accountname &&
-              profileData.accountname.includes('Teacher')
-                ? ''
-                : 'a11y-hidden'
-            }
-          ></span>
-        </p>
-        <p id='MandleId'>
-          @
-          {(profileData.accountname &&
-            profileData.accountname.includes('Teacher')) ||
-          (profileData.accountname &&
-            profileData.accountname.includes('Student'))
-            ? profileData.accountname.substr(7)
-            : profileData.accountname}
-        </p>
-        <p id='Introduce'>{profileData.intro}</p>
-        <WrapBtn>
-          <Link to='/chat'>
-            <button className='ChatBtn'>
-              <img src={ChatImg} alt='채팅 아이콘 이미지' />
+            <FollowBtn
+              className={isfollow ? 'following' : ''}
+              onClick={handleFollowClick}
+            >
+              {isfollow ? '취소' : '팔로우'}
+            </FollowBtn>
+            <button className='ShareBtn'>
+              <img src={ShareImg} alt='공유 아이콘 이미지' />
             </button>
-          </Link>
-          <button className='FollowBtn'>팔로우하기</button>
-          <button className='ShareBtn'>
-            <img src={ShareImg} alt='공유 아이콘 이미지' />
-          </button>
-        </WrapBtn>
-      </ProfileSection>
-      {profileData.accountname &&
-        profileData.accountname.includes('Teacher') && (
-          <MiniClassList classData={classData} />
-        )}
-      <div>
-        {postData.post && postData.post.length > 0 ? (
-          postData.post.map((post) => <PostList post={post} key={post.id} />)
-        ) : (
-          <p>No posts available</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function MoreNavigation() {
-  return (
-    <TopNavWrap>
-      <button className='go-back'>
-        <img src={ArrowIcon} alt='뒤로가기 아이콘' />
-      </button>
-      <button className='more-icon'>
-        <img src={MoreIcon} alt='더보기 아이콘' />
-      </button>
-    </TopNavWrap>
+          </WrapBtn>
+        </ProfileSection>
+        <PostSection>
+          <div id='PostBtnWrap'>
+            <button
+              id='ListBtn'
+              onClick={() => handleButtonClick('listBtn')}
+              className={isListBtnActive ? 'active' : ''}
+            >
+              <img
+                src={isListBtnActive ? PostListBtnOn : PostListBtnOff}
+                alt='포스트리스트 버튼'
+              />
+            </button>
+            <button
+              id='ImgListBtn'
+              onClick={() => handleButtonClick('imgListBtn')}
+              className={isImgListBtnActive ? 'active' : ''}
+            >
+              <img
+                src={isImgListBtnActive ? PostAlbumBtnOn : PostAlbumBtnOff}
+                alt='포스트 앨범 버튼'
+              />
+            </button>
+            <span></span>
+          </div>
+          <PostListUl>
+            {isListBtnActive && postData && postData.post && (
+              <div className={postData.post.length > 0 ? '' : 'posts-none'}>
+                {postData.post.length > 0 ? (
+                  postData.post.map((post) => (
+                    <PostList
+                      key={post.id}
+                      setPostUpdated={setPostUpdated}
+                      post={post}
+                    />
+                  ))
+                ) : (
+                  <div className='post-none'>
+                    <img src={HomeLogo} alt='포스트가 없습니다' />
+                    <p>No posts available.</p>
+                  </div>
+                )}
+              </div>
+            )}
+            {isImgListBtnActive && postData && postData.post && (
+              <div
+                className={
+                  postData.post.length > 0 ? 'image-grid' : 'image-none'
+                }
+              >
+                {postData.post.length > 0 ? (
+                  postData.post.map((post) => (
+                    <img
+                      key={post.id}
+                      src={post.image.split(',')[0]}
+                      alt='포스트 이미지'
+                      onClick={() => handlePostImgClick(post.id)}
+                    />
+                  ))
+                ) : (
+                  <div>
+                    <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
+                    <p>No images available.</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </PostListUl>
+        </PostSection>
+      </MainWrap>
+      <MenuBar />
+    </ProfilePage>
   );
 }
 

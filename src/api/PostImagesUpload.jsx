@@ -19,7 +19,7 @@ export const PostImagesUpload = async (files) => {
         },
       },
     );
-    console.log(response);
+
     //여기에 http url감싸기
     const filenames =
       response.length > 1

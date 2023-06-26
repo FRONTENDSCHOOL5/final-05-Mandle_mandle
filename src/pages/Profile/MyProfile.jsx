@@ -7,8 +7,9 @@ import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 import styled from 'styled-components';
+import HomeLogo from '../../assets/img/home-logo.svg';
 import MenuBar from '../../components/Common/MenuBar';
-
+import Loading from '../Loading/Loading';
 import {
   MainWrap,
   WrapBtn,
@@ -54,7 +55,7 @@ export default function Profile() {
   }, [userAccountname, postUpdated, classUpdated, token]);
 
   if (!profileData && !classData) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   //프로필 수정페이지 이동
   function handleClick(profileData) {
@@ -142,7 +143,11 @@ export default function Profile() {
             </button>
           </WrapBtn>
         </ProfileSection>
-        <ClassSection>
+        <ClassSection
+          className={
+            profileData.accountname.includes('Teacher') ? '' : 'a11y-hidden'
+          }
+        >
           <Title>클래스 리스트</Title>
           <ClassListUl>
             {profileData.accountname.includes('Teacher') &&
@@ -181,28 +186,47 @@ export default function Profile() {
                 alt='포스트 앨범 버튼'
               />
             </button>
+            <span></span>
           </div>
           <PostListUl>
-            {isListBtnActive &&
-              postData &&
-              postData.post &&
-              postData.post.map((post) => (
-                <PostList
-                  key={post.id}
-                  setPostUpdated={setPostUpdated}
-                  post={post}
-                />
-              ))}
-
+            {isListBtnActive && postData && postData.post && (
+              <div className={postData.post.length > 0 ? '' : 'posts-none'}>
+                {postData.post.length > 0 ? (
+                  postData.post.map((post) => (
+                    <PostList
+                      key={post.id}
+                      setPostUpdated={setPostUpdated}
+                      post={post}
+                    />
+                  ))
+                ) : (
+                  <div className='post-none'>
+                    <img src={HomeLogo} alt='포스트가 없습니다' />
+                    <p>No posts available.</p>
+                  </div>
+                )}
+              </div>
+            )}
             {isImgListBtnActive && postData && postData.post && (
-              <div className='image-grid'>
-                {postData.post.map((post) => (
-                  <img
-                    key={post.id}
-                    src={post.image.split(',')[0]}
-                    alt='포스트 이미지'
-                  />
-                ))}
+              <div
+                className={
+                  postData.post.length > 0 ? 'image-grid' : 'image-none'
+                }
+              >
+                {postData.post.length > 0 ? (
+                  postData.post.map((post) => (
+                    <img
+                      key={post.id}
+                      src={post.image.split(',')[0]}
+                      alt='포스트 이미지'
+                    />
+                  ))
+                ) : (
+                  <div>
+                    <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
+                    <p>No images available.</p>
+                  </div>
+                )}
               </div>
             )}
           </PostListUl>

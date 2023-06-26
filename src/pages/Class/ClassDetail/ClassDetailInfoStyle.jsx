@@ -10,8 +10,8 @@ export const ClassInfoSection = styled.section`
   box-sizing: border-box;
   background-color: #fff;
   p {
-    font-size: 14px;
-    color: #767676;
+    font-size: var(--font-md);
+    color: var(--sub-font-color);
   }
 `;
 
@@ -24,7 +24,7 @@ export const ClassImage = styled.img`
 `;
 
 export const ClassName = styled.h2`
-  font-size: 16px;
+  font-size: var(--font-lg);
   margin: 4px 0 11px;
 `;
 
@@ -32,14 +32,14 @@ export const ClassPrice = styled.strong`
   display: block;
   font-size: 20px;
   margin-bottom: 20px;
-  font-weight: bold;
+  font-weight: var(--font--bold);
 `;
 
 export const TopBtn = styled.div`
   padding: 8px 0;
   height: 35px;
   border-radius: 8px;
-  border: 1px solid #767676;
+  border: 1px solid var(--sub-font-color);
   display: flex;
   justify-content: space-around;
   position: relative;
@@ -48,8 +48,8 @@ export const TopBtn = styled.div`
 `;
 
 export const LikeBtn = styled.button`
-  font-size: 14px;
-  color: #767676;
+  font-size: var(--font-md);
+  color: var(--sub-font-color);
   width: calc(100% / 2);
   padding-left: 16px;
   text-align: center;
@@ -70,7 +70,7 @@ export const LikeBtn = styled.button`
     width: 1px;
     height: 34px;
     display: block;
-    background-color: #767676;
+    background-color: var(--sub-font-color);
     position: absolute;
     top: 0;
     left: 50%;
@@ -78,13 +78,13 @@ export const LikeBtn = styled.button`
 `;
 
 export const LikeNum = styled.span`
-  font-size: 14px;
+  font-size: var(--font-md);
   margin-left: 5px;
 `;
 
 export const ShareBtn = styled.button`
-  font-size: 14px;
-  color: #767676;
+  font-size: var(--font-md);
+  color: var(--sub-font-color);
   width: calc(100% / 2);
   padding-left: 16px;
   text-align: center;
@@ -108,9 +108,9 @@ export const BottomBtn = styled.div`
 export const AskBtn = styled.button`
   width: 102px;
   height: 34px;
-  border: 1px solid #dbdbdb;
-  font-size: 14px;
-  color: #767676;
+  border: 1px solid var(--border-color);
+  font-size: var(--font-md);
+  color: var(--sub-font-color);
   padding: 8px 14px 8px 0;
   box-sizing: border-box;
   border-radius: 44px;
@@ -133,7 +133,7 @@ export const ReverseBtn = styled.button`
   width: 220px;
   float: right;
   height: 34px;
-  background-color: #036635;
+  background-color: var(--main-color);
   border-radius: 44px;
   color: #fff;
   text-align: center;
