@@ -7,6 +7,7 @@ import MenuBar from '../../components/Common/MenuBar';
 import { Link } from 'react-router-dom';
 import { HiddenContext, MainWrap, MiniSection, ClassSection, Title, MiniList, ClassList } from './ClassStyle';
 import GetClassData from '../../api/GetClassData';
+import Loading from '../Loading/Loading';
 
 export default function Class() {
   const UserInfo = useRecoilValue(UserAtom);
@@ -34,51 +35,53 @@ export default function Class() {
 
   return (
     <>
-      <HomeNav title={'클래스'}>
-        <HiddenContext>클래스 피드</HiddenContext>
-      </HomeNav>
-      <MainWrap>
-        {loading ? (
-          <div>Loading...</div>
-        ) : (
-          <>
-            <MiniSection>
-              <Title>인기 클래스</Title>
-              <MiniList>
-                {popularClasses.map(classItem => (
-                  <li key={classItem._id}>
-                    <Link to={`/class/detail/${classItem._id}`}>
-                      <ClassPostMini
-                        miniImg={classItem.itemImage}
-                        miniName={classItem.itemName}
-                        miniTag={classItem.link}
-                      />
-                    </Link>
-                  </li>
-                ))}
-              </MiniList>
-            </MiniSection>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <HomeNav title={'클래스'}>
+            <HiddenContext>클래스 피드</HiddenContext>
+          </HomeNav>
+          <MainWrap>
+            <>
+              <MiniSection>
+                <Title>인기 클래스</Title>
+                <MiniList>
+                  {popularClasses.map(classItem => (
+                    <li key={classItem._id}>
+                      <Link to={`/class/detail/${classItem._id}`}>
+                        <ClassPostMini
+                          miniImg={classItem.itemImage}
+                          miniName={classItem.itemName}
+                          miniTag={classItem.link}
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </MiniList>
+              </MiniSection>
 
-            <ClassSection>
-              <Title>새로운 클래스</Title>
-              <ClassList>
-                {newClasses.map(classItem => (
-                  <li key={classItem._id}>
-                    <Link to={`/class/detail/${classItem._id}`}>
-                      <ClassPost
-                        mainImg={classItem.itemImage}
-                        title={classItem.itemName}
-                        tag={classItem.link}
-                      />
-                    </Link>
-                  </li>
-                ))}
-              </ClassList>
-            </ClassSection>
-          </>
-        )}
-      </MainWrap>
-      <MenuBar />
+              <ClassSection>
+                <Title>새로운 클래스</Title>
+                <ClassList>
+                  {newClasses.map(classItem => (
+                    <li key={classItem._id}>
+                      <Link to={`/class/detail/${classItem._id}`}>
+                        <ClassPost
+                          mainImg={classItem.itemImage}
+                          title={classItem.itemName}
+                          tag={classItem.link}
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </ClassList>
+              </ClassSection>
+            </>
+          </MainWrap>
+          <MenuBar />
+        </>
+      )}
     </>
   );
 }
