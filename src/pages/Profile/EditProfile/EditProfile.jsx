@@ -30,8 +30,14 @@ const EditProfile = () => {
   //유저 정보 상태관리
   const url = 'https://api.mandarin.weniv.co.kr/';
   const [username, setUsername] = useState(data.username);
-  const [accountname, setAccountname] = useState(data.accountname.substr(7));
-  const accountType = data.accountname.substr(0, 7);
+  const accountType =
+    data.accountname.substr(0, 7) === 'Student' ||
+    data.accountname.substr(0, 7) === 'Teacher'
+      ? data.accountname.substr(0, 7)
+      : '';
+  const [accountname, setAccountname] = useState(
+    accountType ? data.accountname.substr(7) : data.accountname,
+  );
   const [intro, setIntro] = useState(data.intro);
   const [button, setButton] = useState(false);
   const [image, setImage] = useState(data.image);
