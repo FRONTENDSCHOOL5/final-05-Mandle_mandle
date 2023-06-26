@@ -67,6 +67,8 @@ export default function Profile() {
         setProfileData(userProfileData);
         setClassData(userClassData);
         setPostData(userPostData);
+        SetIsfollow(userProfileData.isfollow);
+        console.log(userProfileData);
       } catch (error) {
         console.log(error);
       }
@@ -103,9 +105,26 @@ export default function Profile() {
       },
     });
   }
-  const handleFollowClick = () => {
-    SetIsfollow((prevIsfollow) => !prevIsfollow);
+  const handleFollowClick = async () => {
+    try {
+      if (isfollow) {
+        const response = await unfollow(accountname, token);
+        if (response) {
+          SetIsfollow(false);
+        } else {
+        }
+      } else {
+        const response = await follow(accountname, token);
+        if (response) {
+          SetIsfollow(true);
+        } else {
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   const handlePostImgClick = (postId) => {
     navigate(`/post/${postId}`, { state: postId });
     console.log(postId);
@@ -133,10 +152,10 @@ export default function Profile() {
             </div>
             <img src={profileData.image} id='profileImg' alt='프로필 이미지' />
             <div className='follow'>
-              <Link to={`/other_profile/${accountname}/following`}>
+              <button onClick={navigateToFollowing}>
                 <p>{profileData.followingCount}</p>
                 <p className='followNum'>followings</p>
-              </Link>
+              </button>
             </div>
           </Wrap>
           <p id='NickName'>
@@ -294,6 +313,43 @@ async function PostData(accountname, token) {
       },
     });
     return res.data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+async function follow(accountname, token) {
+  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}/follow`;
+
+  try {
+    const res = await axios.post(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      }
+    );
+    return res.data; // Modify this based on the actual response structure
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
+async function unfollow(accountname, token) {
+  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}/unfollow`;
+
+  try {
+    const res = await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    return res.data; // Modify this based on the actual response structure
   } catch (err) {
     console.log(err);
     return null;
