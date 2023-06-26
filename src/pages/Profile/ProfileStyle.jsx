@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Teacher from '../../assets/img/icon-teacher.svg';
 
 const ProfilePage = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
 `;
@@ -107,7 +108,6 @@ const WrapBtn = styled.div`
   }
 `;
 const PostSection = styled.section`
-  position: relative;
   padding: 10px;
   background: white;
   #PostBtnWrap {
@@ -130,7 +130,6 @@ const PostSection = styled.section`
     position: absolute;
     top: 44px;
     left: 0;
-    border: 1px solid var(--background-color);
   }
   .image-grid {
     width: 360px;
