@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import axios from 'axios';
 import BasicProfile from '../../assets/img/basic-profile-img.svg';
 import UploadBtnImg from '../../assets/img/img-upload-button.svg';
 import styled from 'styled-components';

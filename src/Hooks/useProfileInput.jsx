@@ -30,5 +30,5 @@ export default function useProfileInput(ButtonImg, DisabledButtonImg) {
     }
   };
 
-  return { inputValues, handleInputChange, buttonImg };
+  return { inputValues, handleInputChange, buttonImg, handleActiveButton };
 }
