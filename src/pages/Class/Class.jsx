@@ -21,7 +21,7 @@ export default function Class() {
       try {
         const data = await GetClassData(token);
         const filteredClasses = data.product.filter(classItem => classItem.author.accountname.includes('Teacher'));
-        const popularClasses = filteredClasses.slice(0, 5);
+        const popularClasses = filteredClasses.slice(0, 3);
         setPopularClasses(popularClasses);
         setNewClasses(filteredClasses);
         setLoading(false);
