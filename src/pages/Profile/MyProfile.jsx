@@ -8,7 +8,7 @@ import axios from 'axios';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 import styled from 'styled-components';
 import MenuBar from '../../components/Common/MenuBar';
-
+import Loading from '../Loading/Loading';
 import {
   MainWrap,
   WrapBtn,
@@ -54,7 +54,7 @@ export default function Profile() {
   }, [userAccountname, postUpdated, classUpdated, token]);
 
   if (!profileData && !classData) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   //프로필 수정페이지 이동
   function handleClick(profileData) {
