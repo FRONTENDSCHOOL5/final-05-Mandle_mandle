@@ -1,12 +1,13 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import MiniClassList from '../../components/Common/MiniClassList';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { UserAtom } from '../../Store/userInfoAtoms';
+import Modal from '../../components/Common/Modal/Modal';
 import { MoreNav } from '../../components/Common/TopNav';
 import PostList from '../../components/Common/PostList/PostList';
-import { UserAtom } from '../../Store/userInfoAtoms';
-import { useRecoilValue } from 'recoil';
-import axios from 'axios';
-import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
-import styled from 'styled-components';
+import MiniClassList from '../../components/Common/MiniClassList';
+
 import HomeLogo from '../../assets/img/home-logo.svg';
 import MenuBar from '../../components/Common/MenuBar';
 import Loading from '../Loading/Loading';
@@ -22,7 +23,6 @@ import {
   Title,
   PostListUl,
 } from './ProfileStyle';
-import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
 import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
 import PostAlbumBtnOn from '../../assets/img/icon-post-album-on.svg';
@@ -30,16 +30,17 @@ import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
 
 export default function Profile() {
   const navigate = useNavigate();
-  const userInfo = useRecoilValue(UserAtom);
+  const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const userAccountname = userInfo.accountname;
   const token = userInfo.token;
-  const [profileData, setProfileData] = useState(null);
-  const [classData, setClassData] = useState(null);
   const [postData, setPostData] = useState(null);
+  const [classData, setClassData] = useState(null);
+  const [profileData, setProfileData] = useState(null);
   const [postUpdated, setPostUpdated] = useState(false);
+  const [classUpdated, setClassUpdated] = useState(false);
   const [isListBtnActive, setListBtnActive] = useState(true);
   const [isImgListBtnActive, setImgListBtnActive] = useState(false);
-  const [classUpdated, setClassUpdated] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const userProfileData = await ProfileData(userAccountname, token);
@@ -52,7 +53,7 @@ export default function Profile() {
       setClassUpdated(false);
     };
     fetchData();
-  }, [userAccountname, postUpdated, classUpdated, token]);
+  }, [postUpdated, classUpdated]);
 
   //프로필 수정페이지 이동
   function handleClick(profileData) {
@@ -72,9 +73,27 @@ export default function Profile() {
     }
   };
 
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+  const handleLogout = () => {
+    setUserInfo({});
+    alert('로그아웃 되었습니다. 다음에 또 만나요!');
+    localStorage.removeItem('recoil-persist');
+    navigate('/');
+    window.location.reload();
+  };
+
   return (
     <ProfilePage>
-      <MoreNav />
+      <MoreNav onClick={handleModalOpen} />
+      {isModalOpen && (
+        <Modal
+          setModalOpen={setModalOpen}
+          onClick={handleLogout}
+          text='로그아웃'
+        />
+      )}
       <MainWrap>
         {!profileData && !classData ? (
           <Loading />
