@@ -7,7 +7,6 @@ const ProfilePage = styled.div`
 `;
 const MainWrap = styled.main`
   background-color: var(--background-color);
-  const PostListUl = styled.ul
   width: 100%;
   height: calc(100% - 48px - 60px);
   overflow-y: scroll;
