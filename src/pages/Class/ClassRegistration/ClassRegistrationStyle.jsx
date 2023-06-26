@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const ClassRegistrationForm = styled.form`
   padding: 30px 34px;
   label {
-    font-size: 12px;
-    color: #767676;
+    font-size: var(--font-sm);
+    color: var(--sub-font-color);
   }
 `;
 
@@ -36,19 +36,25 @@ export const ImgBtn = styled.div`
 export const ClassInput = styled.input`
   width: 322px;
   height: 48px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid #dbdbdb;
+  margin-top: 16px;
+  border-bottom: 1px solid var(--border-color);
   &::placeholder {
-    font-size: 14px;
-    color: #dbdbdb;
+    font-size: var(--font-md);
+    color: var(--border-color);
   }
 `;
+
+export const InputValidationError = styled.p`
+  font-size: var(--font-sm);
+  color: var(--error-color);
+  margin-top: 6px;
+`
 
 export const AddBtn = styled.button`
   width: 90px;
   text-align: center;
-  font-size: 14px;
-  background-color: ${props => props.disabled ? '#B1D4C3' : '#036635'};
+  font-size: var(--font-md);
+  background-color: ${props => props.disabled ? '#B1D4C3' : 'var(--main-color)'};
   color: #fff;
   padding: 7px 32px;
   box-sizing: border-box;
@@ -56,5 +62,4 @@ export const AddBtn = styled.button`
   position: absolute;
   top: 8px;
   right: 16px;
-  z-index: 2;
 `;

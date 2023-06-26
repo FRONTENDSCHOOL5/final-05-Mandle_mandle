@@ -35,6 +35,7 @@ export default function UserInfoInput(button, disabledButton) {
     password,
     setPassword,
     buttonImg,
+
     handleInputChange,
     emailErrorMessage,
     pwErrorMessage,

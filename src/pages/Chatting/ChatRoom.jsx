@@ -51,7 +51,9 @@ export default function ChatRoom() {
 
         {textValue.map((value, i) => (
           <ChatContentLayout key={`chat-${i}`} marginLeft='auto'>
-            <ChatTime>{`${hours}:${minutes}`}</ChatTime>
+            <ChatTime
+              style={{ paddingRight: '6px' }}
+            >{`${hours}:${minutes}`}</ChatTime>
             <ChatContent
               style={{ backgroundColor: 'var(--main-color)', color: 'white' }}
               radius='15px 3px 15px 15px'
@@ -79,10 +81,7 @@ export default function ChatRoom() {
 }
 
 const ChattingLayout = styled.div`
-  /* width: 390px; */
-  height: 750px;
-  /* margin: 0 auto; */
-
+  min-height: 100%;
   box-sizing: border-box;
   padding: 48px 0 73px;
   display: flex;
@@ -136,7 +135,7 @@ const ChatInputDiv = styled.div`
   margin: auto;
   padding: 0 16px;
 
-  position: absolute;
+  position: fixed;
   right: 0px;
   left: 0;
   bottom: 0px;

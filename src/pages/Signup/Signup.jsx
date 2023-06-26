@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
-// import axios from "axios";
-import { useSetRecoilState } from 'recoil';
-
-import { SignUpAtom } from '../../Store/AtomSignupState';
 import { useNavigate } from 'react-router-dom';
-import ArrowImg from '../../assets/img/icon-arrow-left.svg';
-import GoBackButton from '../../components/Common/GoBackButton';
-// import { InputDiv } from '../../components/Common/Input';
-import { ButtonStyle } from '../../components/Common/Button';
-import PostEmailValid from '../../api/PostEmailVaild';
+import { useSetRecoilState } from 'recoil';
+import { SignUpAtom } from '../../Store/AtomSignupState';
 import UserInfoInput from '../../Hooks/UserInfoInput';
-import ButtonImg from '../../assets/img/L-button(clay).svg';
-import AccountHeader from '../../components/Common/Account/AccountHeader';
+import PostEmailValid from '../../api/PostEmailVaild';
 import Input from '../../components/Common/Account/Input';
+import { ButtonStyle } from '../../components/Common/Button';
+import AccountHeader from '../../components/Common/Account/AccountHeader';
+import ButtonImg from '../../assets/img/L-button(clay).svg';
 import DisabledButtonImg from '../../assets/img/L-Disabled-button(clay).svg';
 import {
   AccountForm,
@@ -61,9 +56,11 @@ export default function Signup() {
   const handlePasswordValid = () => {
     if (password.length >= 6) {
       setPwErrorMessage('');
+      setPasswordValid(true);
     } else {
       setPwErrorMessage('비밀번호는 6자 이상이어야 합니다.');
       setPassword('');
+      setPasswordValid(false);
     }
   };
 

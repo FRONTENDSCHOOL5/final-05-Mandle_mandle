@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function useProfileInput(ButtonImg, DisabledButtonImg) {
   const [inputValues, setInputValues] = useState({
@@ -25,10 +25,7 @@ export default function useProfileInput(ButtonImg, DisabledButtonImg) {
       setButtonImg(DisabledButtonImg);
     }
   };
-
-  useEffect(() => {
-    handleActiveButton();
-  }, [inputValues, ButtonImg, DisabledButtonImg]);
+  handleActiveButton();
 
   return { inputValues, handleInputChange, buttonImg };
 }

@@ -3,20 +3,20 @@ import styled from 'styled-components';
 export const ClassWrap = styled.div`
   padding: 20px 35px;
   h3 {
-    font-size: 16px;
-    font-weight: normal;
+    font-size: var(--font-lg);
+    font-weight: var(--font-regular);
     margin-bottom: 26px;
     &::after {
       content: '';
       width: 322px;
       height: 0.1px;
       display: block;
-      background-color: #dbdbdb;
+      background-color: var(--border-color);
       position: absolute;
       top: 43px;
     }
   }
-`;
+  `;
 
 export const ClassReviewSection = styled.section`
   background-color: #fff;
@@ -41,11 +41,11 @@ export const UserInfo = styled.div`
   transform: translate(0, -50%);
 `;
 export const UserName = styled.h4`
-  font-size: 14px;
+  font-size: var(--font-md);
   margin-bottom: 2px;
 `;
 export const UserUpload = styled.p`
-  font-size: 12px;
+  font-size: var(--font-sm);
   color: #767676;
 `;
 
@@ -62,5 +62,5 @@ export const ReviewImg = styled.img`
 `;
 
 export const ReviewP = styled.p`
-  font-size: 14px;
+  font-size: var(--font-md);
 `;
