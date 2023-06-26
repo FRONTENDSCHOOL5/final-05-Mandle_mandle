@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PeopleBox, BtnBox, BtnReserve } from './ClassReservationPeoplePickerStyle'
 
 export function PeoplePicker() {
@@ -29,6 +30,12 @@ export function People({ numOfPeople, handleNumOfPeopleChange }) {
     }
   };
 
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <PeopleBox>
@@ -39,8 +46,7 @@ export function People({ numOfPeople, handleNumOfPeopleChange }) {
           <button onClick={handleIncrement}>+</button>
         </BtnBox>
       </PeopleBox>
-      <BtnReserve>예약하기</BtnReserve>
+      <BtnReserve onClick={goBack}>예약하기</BtnReserve>
     </>
   );
 }
-

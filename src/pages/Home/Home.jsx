@@ -23,25 +23,23 @@ export default function Home({ to }) {
     response();
   }, [token]);
 
-  if (!postList.length) {
-    return <Loading />;
-  } else {
-    return (
-      <HomeWrap>
-        <HomeNav title='홈' to='/home/search'></HomeNav>
-        <MainWrap>
-          {postList === null || postList.length === 0 ? (
-            <PostBlank />
-          ) : (
-            <PostUlStyle>
-              {postList.map((post) => (
-                <PostList key={post.id} post={post} />
-              ))}
-            </PostUlStyle>
-          )}
-        </MainWrap>
-        <MenuBar />
-      </HomeWrap>
-    );
-  }
+  return (
+    <HomeWrap>
+      <HomeNav title='홈' to='/home/search'></HomeNav>
+      <MainWrap>
+        {postList === null || postList.length === 0 ? (
+          <PostBlank />
+        ) : postList.length === 0 ? (
+          <Loading />
+        ) : (
+          <PostUlStyle>
+            {postList.map((post) => (
+              <PostList key={post.id} post={post} />
+            ))}
+          </PostUlStyle>
+        )}
+      </MainWrap>
+      <MenuBar />
+    </HomeWrap>
+  );
 }

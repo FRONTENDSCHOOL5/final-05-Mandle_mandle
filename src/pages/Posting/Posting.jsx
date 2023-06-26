@@ -11,6 +11,8 @@ import {
   PreviewImgWrapStyle,
   DeleteImgBtn,
   PostFormStyle,
+  ImagePreview,
+  TextInputContainer,
 } from './PostingStyle';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
@@ -18,9 +20,10 @@ import { PostImagesUpload } from '../../api/PostImagesUpload';
 import { useNavigate } from 'react-router-dom';
 import PostUploadPost from '../../api/PostUploadPost';
 import { GetUserProfileImage } from '../../api/GetUserProfileImage';
-import ImageHandleHook from '../../Hooks/ImageHandleHook';
+
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 export default function Posting() {
+  const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
@@ -29,22 +32,14 @@ export default function Posting() {
   const token = userInfo.token;
 
   const navigate = useNavigate();
-  console.log(token);
 
   useEffect(() => {
     GetUserProfileImage(token, setUserImage);
   }, [token]);
 
-  const {
-    selectedImages,
-    setSelectedImages,
-    handleImageChange,
-    handleDeleteImage,
-  } = ImageHandleHook();
-
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
 
   useEffect(() => {
@@ -55,11 +50,35 @@ export default function Posting() {
     }
   }, [inputValue, selectedImages]);
 
+  const handleImageChange = async (event) => {
+    const files = event.target.files;
+    let imagesArray = [...selectedImages];
+    if (imagesArray.length + files.length > 3) {
+      alert('이미지는 최대 3개까지 업로드가 가능합니다.');
+      return;
+    }
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      if (file.size > 1024 * 1024 * 10) {
+        alert('10MB 이상의 이미지는 업로드 할 수 없습니다.');
+        return;
+      }
+      if (!file.name.match(/\.(jpg|gif|png|jpeg|bmp|tif|heic)$/i)) {
+        alert('이미지 파일만 업로드가 가능합니다.');
+        return;
+      }
+
+      imagesArray.push(file);
+    }
+
+    setSelectedImages(imagesArray);
+  };
+
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
-
     const response = await PostUploadPost(token, inputValue, images);
-    console.log(response);
+
     if (response) {
       setInputValue('');
       setSelectedImages([]);
@@ -69,6 +88,12 @@ export default function Posting() {
     }
   };
 
+  const handleDeleteImage = (index) => {
+    const updatedImages = [...selectedImages];
+    updatedImages.splice(index, 1);
+    setSelectedImages(updatedImages);
+  };
+
   return (
     <div>
       <DisabledUploadBtnNav
@@ -76,11 +101,12 @@ export default function Posting() {
         buttonStyle={buttonStyle}
       />
       <ProfileContainer>
-        <ProfileImage src={userImage} alt='User Profile Image' />
+        <ProfileImage src={userImage} alt='유저 프로필 이미지' />
+        <FileUploadButton handleImageChange={handleImageChange} />
       </ProfileContainer>
       <PostFormStyle>
         <TextInputContainer
-          placeholder='게시글 입력...'
+          placeholder='게시글 입력하기..'
           onChange={handleTextareaChange}
           ref={textarea}
         ></TextInputContainer>
@@ -98,31 +124,7 @@ export default function Posting() {
             </PreviewImgWrapStyle>
           ))}
         </ImgWrapStyle>
-        <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>
     </div>
   );
 }
-
-export const ImagePreview = styled.img`
-  width: 304px;
-  border-radius: 20px;
-  max-height: 228px;
-  object-fit: cover;
-
-  top: 20px;
-  left: 50px;
-`;
-
-export const TextInputContainer = styled.textarea`
-  margin-top: 30px;
-  width: 100%;
-  overflow-y: hidden;
-  display: block;
-  /* min-height: 80px; */
-  height: 100%;
-  padding-left: 71px;
-  resize: none;
-  outline: none;
-  border: none;
-`;

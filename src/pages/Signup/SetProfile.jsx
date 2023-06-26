@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { SignUpAtom } from '../../Store/AtomSignupState';
 import PostSignUp from '../../api/PostSignup';
 import PostIdValid from '../../api/PostIdValid';
@@ -21,7 +21,8 @@ const SetProfile = () => {
   const url = 'https://api.mandarin.weniv.co.kr/';
 
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useRecoilState(SignUpAtom);
+  const signupInfo = useRecoilValue(SignUpAtom);
+  const [userInfo, setUserInfo] = useState({ ...signupInfo });
   const [image, setImage] = useState('');
   const [accountValid, setAccountValid] = useState(true);
   const [accountAlertMsg, setAccountAlertMsg] = useState('');
@@ -74,7 +75,7 @@ const SetProfile = () => {
           username: username,
           accountname: updatedAccountname,
           intro: intro,
-          image: url + image,
+          image: image,
         };
       });
       navigate('/account/login');

@@ -23,17 +23,18 @@ const EditProfile = () => {
   //기존 가입한 유저 정보 가져오기
   const location = useLocation();
   const data = location.state.profileData;
-  const userInfo = useRecoilValue(UserAtom);
-  const userValue = useRecoilState(UserAtom);
+  const [userInfo, setUserInfo] = useRecoilState(UserAtom);
+
   const token = userInfo.token;
   const navigate = useNavigate();
   //유저 정보 상태관리
   const url = 'https://api.mandarin.weniv.co.kr/';
-  const [username, setUsername] = useState(`${data.username}`);
-  const [accountname, setAccountname] = useState(`${data.accountname}`);
-  const [intro, setIntro] = useState(`${data.intro}`);
+  const [username, setUsername] = useState(data.username);
+  const [accountname, setAccountname] = useState(data.accountname.substr(7));
+  const accountType = data.accountname.substr(0, 7);
+  const [intro, setIntro] = useState(data.intro);
   const [button, setButton] = useState(false);
-  const [image, setImage] = useState(`${data.image}`);
+  const [image, setImage] = useState(data.image);
 
   //유저 아이디 유효성검사
 
@@ -45,6 +46,7 @@ const EditProfile = () => {
 
   const handleProfileImageResponse = (fileName) => {
     setImage(fileName);
+    setButton(true);
   };
 
   //이전 페이지 이동
@@ -84,11 +86,13 @@ const EditProfile = () => {
   const handleAccountNameValid = async () => {
     const pattern = /^[A-Za-z0-9_.]+$/;
     if (pattern.test(accountname)) {
-      const validMessage = await PostIdValid(accountname);
-      setAccountAlertMsg(validMessage);
-      validMessage === '사용 가능한 계정ID 입니다.'
-        ? setAccountValid(true)
-        : setAccountValid(false);
+      const validMessage = await PostIdValid(accountType + accountname);
+      if (validMessage === '사용 가능한 계정ID 입니다.') {
+        setAccountAlertMsg(validMessage);
+        setAccountValid(true);
+      } else {
+        setAccountValid(false);
+      }
     } else {
       setAccountAlertMsg('*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.');
       setAccountValid(false);
@@ -105,17 +109,16 @@ const EditProfile = () => {
 
   const handleSetProfileSubmit = async () => {
     const updatedUserValue = {
-      ...userValue,
+      ...userInfo,
       username: username,
-      accountname: accountname,
+      accountname: accountType + accountname,
       intro: intro,
-      image: url + image,
+      image: image,
     };
 
     const response = await PutProfileUpdate(updatedUserValue, token);
     if (response) {
-      console.log('프로필 수정 성공');
-      console.log(response);
+      setUserInfo(updatedUserValue);
       navigate(`/my_profile`);
     }
   };
@@ -141,7 +144,7 @@ const EditProfile = () => {
 
       <Wrap>
         <P>변경사항 입력 후 저장 버튼을 눌러주세요.</P>
-        <UploadProfile onResponse={handleProfileImageResponse} image={image} />
+        <UploadProfile onResponse={handleProfileImageResponse} />
 
         <SetProfileDiv first>
           <SetProfileLabel>사용자 이름</SetProfileLabel>
@@ -177,7 +180,7 @@ const EditProfile = () => {
 
         <button
           id='submitBtn'
-          className={`${button ? 'active' : ''}`}
+          className={button ? 'active' : ''}
           type='submit'
           onClick={handleCheckValid}
         >
