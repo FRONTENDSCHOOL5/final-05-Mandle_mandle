@@ -29,7 +29,7 @@ const EditProfile = () => {
   const navigate = useNavigate();
   //유저 정보 상태관리
   const url = 'https://api.mandarin.weniv.co.kr/';
-  const [username, setUsername] = useState(`${userInfo.username}`);
+  const [username, setUsername] = useState(`${data.username}`);
   const [accountname, setAccountname] = useState(`${data.accountname}`);
   const [intro, setIntro] = useState(`${data.intro}`);
   const [button, setButton] = useState(false);
