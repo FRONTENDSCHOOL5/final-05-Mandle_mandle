@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import HeartIcon from '../../../assets/img/icon-heart.svg';
-import HeartedIcon from '../../../assets/img/icon-heart-clicked.svg';
-import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import HeartButton from '../HeartButton';
 import HandleNormalizeImage from '../../../Hooks/HandleNormalizeImage';
+import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
 export default function PostContent({ post }) {
-  // console.log(post);
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const postDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateString);
     return date.toLocaleDateString('ko-KR', options); // '2023년 6월 20일' 형식으로 변환
   };
   const postImages = post.image ? post.image.split(',') : '';
-  const navigate = useNavigate();
   const handlePostClick = () => {
     navigate(`/post/${post.id}`, { state: post.id });
   };
   return (
     <PostContentWrap>
-      <MovePostDetail onClick={handlePostClick}>
+      <MovePostDetail
+        cursor={location.pathname.startsWith('/post') ? 'default ' : 'pointer'}
+        onClick={handlePostClick}
+      >
         {post.content && <p>{post.content}</p>}
         {postImages[0] === '' ? (
           ''
@@ -43,10 +46,15 @@ export default function PostContent({ post }) {
       </MovePostDetail>
       <PostIconWrap>
         <HeartButton post={post} />
-        <button onClick={handlePostClick}>
+        <CommentButton
+          onClick={handlePostClick}
+          cursor={
+            location.pathname.startsWith('/post') ? 'default ' : 'pointer'
+          }
+        >
           <img src={ChatIcon} alt='댓글 버튼' />
           <p>{post.commentCount}</p>
-        </button>
+        </CommentButton>
       </PostIconWrap>
       <PostDate>{postDate(post.createdAt)}</PostDate>
     </PostContentWrap>
@@ -64,6 +72,7 @@ const MovePostDetail = styled.button`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  cursor: ${(props) => props.cursor};
 `;
 
 const PostImageWrap = styled.div`
@@ -99,14 +108,20 @@ const PostImageWrap = styled.div`
 `;
 
 const PostIconWrap = styled.div`
+  width: 85px;
   display: flex;
-  gap: 18px;
+  justify-content: space-between;
+
   button,
   a {
     display: flex;
     align-items: center;
     gap: 6px;
   }
+`;
+
+const CommentButton = styled.button`
+  cursor: ${(props) => props.cursor};
 `;
 
 const PostDate = styled.p`
