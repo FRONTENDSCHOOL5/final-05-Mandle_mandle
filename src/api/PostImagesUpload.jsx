@@ -1,5 +1,7 @@
 import axios from 'axios';
 export const PostImagesUpload = async (files) => {
+  console.log('파일 담긴 것 확인', files);
+
   const formData = new FormData();
   if (files && files.length) {
     for (let i = 0; i < files.length; i++) {
@@ -19,10 +21,10 @@ export const PostImagesUpload = async (files) => {
         },
       },
     );
-
+    console.log('파일 받아온 것 확인', response);
     //여기에 http url감싸기
     const filenames =
-      response.length > 1
+      response.data.length > 1
         ? response.data
             .map(
               (image) => `https://api.mandarin.weniv.co.kr/${image.filename}`,
