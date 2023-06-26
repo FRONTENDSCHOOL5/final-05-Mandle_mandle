@@ -37,7 +37,7 @@ function MenuBar() {
         </li>
         <li>
           <LinkWrap
-            to='/chat/chatList'
+            to='/chat/chatlist'
             active={location.pathname.startsWith('/chat').toString()}
           >
             <div>

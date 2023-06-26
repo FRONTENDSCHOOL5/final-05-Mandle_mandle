@@ -23,7 +23,7 @@ export default function PostProfile({ post, setPostUpdated }) {
     });
   };
 
-  const handleClick = () => {
+  const handleModalOpen = () => {
     setModalOpen(true);
   };
 
@@ -65,7 +65,7 @@ export default function PostProfile({ post, setPostUpdated }) {
           <p>{post.author.accountname.substr(7)}</p>
         </PostProfileInfo>
       </button>
-      <MoreButton onClick={handleClick} />
+      <MoreButton onClick={handleModalOpen} />
       {isModalOpen &&
         (post.author.accountname === userInfo.accountname ? (
           <Modal

@@ -15,7 +15,7 @@ export const ModalOverlay = styled.div`
 
 export const ModalWrap = styled.div`
   width: 100%;
-  padding-bottom: 6px;
+  padding-bottom: 30px;
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -51,9 +51,14 @@ export const ModalWrap = styled.div`
   }
   li {
     width: 100%;
-    height: 46px;
+    height: 40px;
     padding-left: 26px;
     display: flex;
     align-items: center;
+
+    &:hover {
+      background-color: var(--main-color);
+      color: #fff;
+    }
   }
 `;
