@@ -7,7 +7,6 @@ import { TopNavWrap } from '../../components/Common/TopNav';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 import { useNavigate } from 'react-router-dom';
 import DeletBtn from '../../assets/img/icon-x.svg';
-import { ImagePreview } from './Posting';
 
 export const ProfileContainer = styled.div`
   position: relative;
@@ -24,7 +23,7 @@ export const ProfileImage = styled.img`
 
 export const UploadButton = styled.div`
   position: absolute;
-  top: 768px;
+  top: 750px;
   left: 324px;
 `;
 
@@ -44,10 +43,17 @@ export const ImgWrapStyle = styled.ul`
   display: flex;
   overflow-x: scroll;
 
-  -ms-overflow-style: none;
-  scrollbar-width: none;
   &::-webkit-scrollbar {
-    display: none;
+    padding-top: 5px;
+    background-color: white;
+
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid white;
   }
   & > li + li {
     margin-left: 8px;
@@ -107,6 +113,34 @@ export function DisabledUploadBtnNav({ handleUploadPost, buttonStyle }) {
   );
 }
 
+export function EditUploadBtnNav({ handleUploadPost, buttonStyle }) {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+  return (
+    <TopNavWrap>
+      <button onClick={goBack} className='go-back'>
+        <img src={ArrowIcon} alt='뒤로가기 아이콘' />
+      </button>
+      <ButtonStyle
+        type='button'
+        bg={buttonStyle ? '#036635' : '#b1d4c3'} // 버튼 색 설정
+        width='90px'
+        height='32px'
+        br='32px'
+        color='#ffffff'
+        fontsize='14px'
+        margin='0 16px 0 0'
+        onClick={handleUploadPost}
+      >
+        수정하기
+      </ButtonStyle>
+    </TopNavWrap>
+  );
+}
+
 export function FileUploadButton({ handleImageChange }) {
   return (
     <UploadButton>
@@ -124,3 +158,26 @@ export function FileUploadButton({ handleImageChange }) {
     </UploadButton>
   );
 }
+
+export const ImagePreview = styled.img`
+  width: 304px;
+  border-radius: 20px;
+  max-height: 228px;
+  object-fit: cover;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+  top: 20px;
+  left: 50px;
+`;
+
+export const TextInputContainer = styled.textarea`
+  margin: 30px 0 50px 0;
+  width: 100%;
+  overflow-y: hidden;
+  display: block;
+  /* min-height: 80px; */
+  height: 100%;
+  padding-left: 71px;
+  resize: none;
+  outline: none;
+  border: none;
+`;

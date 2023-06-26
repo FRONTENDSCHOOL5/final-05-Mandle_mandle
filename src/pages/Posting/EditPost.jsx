@@ -2,16 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
-import { TextInputContainer, ImagePreview } from './Posting'; // Import shared components from Posting.jsx.
+
 // import { PostImagesUpload } from '../../api/PostImagesUpload';
 import PutPostEdit from '../../api/PutPostEdit';
 import ProfileImg from '../../assets/img/mini-basic-progile-img.svg';
-import ImageHandleHook from '../../Hooks/ImageHandleHook';
+
 import { useLocation } from 'react-router-dom';
 import { PostEditImagesUpload } from '../../api/PostEditImagesUpload';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import {
-  DisabledUploadBtnNav,
+  TextInputContainer,
+  ImagePreview,
+  EditUploadBtnNav,
   ProfileContainer,
   ProfileImage,
   FileUploadButton,
@@ -25,7 +27,7 @@ export default function EditPost() {
   const location = useLocation();
   const post = location.state;
   const postId = post.id;
-
+  const [selectedImages, setSelectedImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
@@ -40,12 +42,9 @@ export default function EditPost() {
     setInputValue(post.content);
   }, [post.image]);
 
-  const { selectedImages, setSelectedImages, handleDeleteImage } =
-    ImageHandleHook();
-
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -78,7 +77,7 @@ export default function EditPost() {
       postId,
       token,
       inputValue,
-      selectedImages.join(','),
+      selectedImages.join(',')
     );
 
     if (editedPost) {
@@ -90,14 +89,22 @@ export default function EditPost() {
     }
   };
 
+  const handleDeleteImage = (index) => {
+    const updatedImages = [...selectedImages];
+    updatedImages.splice(index, 1);
+    setSelectedImages(updatedImages);
+  };
+  console.log(selectedImages);
+
   return (
     <div>
-      <DisabledUploadBtnNav
+      <EditUploadBtnNav
         handleUploadPost={handleUploadPost}
         buttonStyle={buttonStyle}
       />
       <ProfileContainer>
         <ProfileImage src={ProfileImg} alt='유저 프로필 이미지' />
+        <FileUploadButton handleImageChange={handleImageChange} />
       </ProfileContainer>
       <PostFormStyle>
         <TextInputContainer
@@ -122,7 +129,7 @@ export default function EditPost() {
             </PreviewImgWrapStyle>
           ))}
         </ImgWrapStyle>
-        <FileUploadButton handleImageChange={handleImageChange} />
+        {/* <FileUploadButton handleImageChange={handleImageChange} /> */}
       </PostFormStyle>
     </div>
   );
