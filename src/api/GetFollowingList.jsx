@@ -15,7 +15,7 @@ export const GetFollowingList = async (accountname, token) => {
       },
     });
     return res.data;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 };

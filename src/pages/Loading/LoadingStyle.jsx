@@ -6,9 +6,8 @@ export const LoadingWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap:10px;
+  gap: 10px;
   justify-content: center;
-
 
   @keyframes bounce {
     from {
@@ -17,8 +16,6 @@ export const LoadingWrap = styled.div`
     to {
       transform: translateY(0px);
     }
-  }
- 
   }
 
   .bounce {

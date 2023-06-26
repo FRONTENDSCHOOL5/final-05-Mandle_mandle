@@ -16,7 +16,7 @@ export default function Home({ to }) {
 
   useEffect(() => {
     const response = async () => {
-      const data = await GetFollowPost(5, token);
+      const data = await GetFollowPost(token);
       setpostList(data);
     };
 

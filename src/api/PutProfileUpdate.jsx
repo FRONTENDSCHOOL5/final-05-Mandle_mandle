@@ -20,7 +20,6 @@ export default async function PutProfileUpdate(updatedUserValue, token) {
       }
     );
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);

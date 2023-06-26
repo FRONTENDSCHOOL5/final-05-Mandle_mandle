@@ -5,7 +5,7 @@ import HeartIcon from '../../../assets/img/icon-heart.svg';
 import HeartedIcon from '../../../assets/img/icon-heart-clicked.svg';
 import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
 import HeartButton from '../HeartButton';
-
+import HandleNormalizeImage from '../../../Hooks/HandleNormalizeImage';
 export default function PostContent({ post }) {
   // console.log(post);
   const postDate = (dateString) => {
@@ -32,7 +32,7 @@ export default function PostContent({ post }) {
               postImages.map((postImage, index) => (
                 <img
                   key={index}
-                  src={postImage}
+                  src={HandleNormalizeImage(postImage)}
                   width={postImages.length > 1 ? '168px' : '304px'}
                   height={postImages.length > 1 ? '126px' : '228px'}
                   alt=''

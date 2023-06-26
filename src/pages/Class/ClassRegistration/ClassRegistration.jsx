@@ -5,9 +5,9 @@ import { UserAtom } from '../../../Store/userInfoAtoms';
 import { GoBackNav } from '../../../components/Common/TopNav';
 import UploadImgBtn from '../../../assets/img/img-upload-button(gray).svg';
 import ImgNon from '../../../assets/img/class-Img.svg';
-import { ClassRegistrationForm, ImgBox, StyledImg, ImgBtn, ClassInput, AddBtn } from './ClassRegistrationStyle';
+import { ClassRegistrationForm, ImgBox, StyledImg, ImgBtn, ClassInput, InputValidationError, AddBtn } from './ClassRegistrationStyle';
 import { PostImagesUpload } from '../../../api/PostImagesUpload';
-import PostClassAdd from '../../../api/PostClassAdd';
+import PostClassRegistration from '../../../api/PostClassRegistration'
 
 
 
@@ -37,8 +37,6 @@ export function Main() {
     const file = event.target.files[0];
     const response = await PostImagesUpload(file);
     setImage(response);
-    console.log(file, "file값 확인")
-    console.log(response);
   };
 
   const handleRegisterSubmit = async (event) => {
@@ -50,23 +48,21 @@ export function Main() {
       link: classTag,
       itemImage: image
     };
-    console.log(product)
 
     const requestBody = {
       product: product,
     };
-
-    console.log(requestBody)
     
     try {
-      await PostClassAdd({ token, navigate, requestBody });
+      await PostClassRegistration({ token, navigate, requestBody });
     } catch (error) {
       console.log('Error:', error);
     }
   };
 
   const isFormIncomplete =
-    !image || !className || !classPrice || !classTag;
+  !image || className.length < 2 || className.length > 15 || !classPrice || !classTag;
+
 
   return (
     <ClassRegistrationForm onSubmit={handleRegisterSubmit}>
@@ -94,6 +90,11 @@ export function Main() {
         }}
         placeholder='클래스 이름'
       />
+      {(className && (className.length < 2 || className.length > 15)) ? (
+        <InputValidationError>
+          클래스 이름은 2자 이상, 15자 이하여야 합니다.
+        </InputValidationError>
+      ) : null}
 
       <label className='a11y-hidden'>클래스 태그</label>
       <ClassInput
