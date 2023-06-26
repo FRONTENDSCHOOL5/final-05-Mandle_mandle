@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import DisabledButtonImg from '../assets/img/L-Disabled-button(clay).svg';
+import DisabledButtonImg from '../assets/img/L-Start-Disabled-button(clay).svg';
 import ClayButtonImg from '../assets/img/L-start-button(clay).svg';
 export default function ProfileInputHook() {
   const [inputValues, setInputValues] = useState({
