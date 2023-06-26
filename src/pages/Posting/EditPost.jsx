@@ -2,15 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
-import { TextInputContainer, ImagePreview } from './Posting'; // Import shared components from Posting.jsx.
+
 // import { PostImagesUpload } from '../../api/PostImagesUpload';
 import PutPostEdit from '../../api/PutPostEdit';
 import ProfileImg from '../../assets/img/mini-basic-progile-img.svg';
-import ImageHandleHook from '../../Hooks/ImageHandleHook';
+
 import { useLocation } from 'react-router-dom';
 import { PostEditImagesUpload } from '../../api/PostEditImagesUpload';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import {
+  TextInputContainer,
+  ImagePreview,
   EditUploadBtnNav,
   ProfileContainer,
   ProfileImage,
@@ -25,7 +27,7 @@ export default function EditPost() {
   const location = useLocation();
   const post = location.state;
   const postId = post.id;
-
+  const [selectedImages, setSelectedImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
@@ -39,9 +41,6 @@ export default function EditPost() {
     setPreviewImages(post.image.split(','));
     setInputValue(post.content);
   }, [post.image]);
-
-  const { selectedImages, setSelectedImages, handleDeleteImage } =
-    ImageHandleHook();
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
@@ -93,6 +92,13 @@ export default function EditPost() {
       });
     }
   };
+
+  const handleDeleteImage = (index) => {
+    const updatedImages = [...selectedImages];
+    updatedImages.splice(index, 1);
+    setSelectedImages(updatedImages);
+  };
+  console.log(selectedImages);
 
   return (
     <div>
