@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import HomeLogo from '../../../assets/img/home-logo.svg';
 import ButtonStyle from '../../../components/Common/Button';
 import { PostBlankWrap } from './PostBlankStyle';
-export default function PostBlank() {
+export default function PostBlank({ text, text2 }) {
   return (
     <PostBlankWrap>
       <img src={HomeLogo} alt='만들만들 홈로고' />
-      <p>유저를 검색해 팔로우 해보세요!</p>
+      <div>
+        <p>{text}</p>
+        {text2 && <p>{text2}</p>}
+      </div>
       <Link to='/home/search'>
         <ButtonStyle
           width='120px'

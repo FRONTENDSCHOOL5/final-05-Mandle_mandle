@@ -37,7 +37,7 @@ function MenuBar() {
         </li>
         <li>
           <LinkWrap
-            to='/chat/chatList'
+            to='/chat/chatlist'
             active={location.pathname.startsWith('/chat').toString()}
           >
             <div>
@@ -115,6 +115,16 @@ export const LinkWrap = styled(Link)`
   }
 
   p {
-    color: ${(props) => (props.active === 'true' ? '#036635' : '#000')};
+    color: ${(props) =>
+      props.active === 'true' ? 'var(--main-color)' : '#000'};
+  }
+
+  &:hover {
+    img {
+      object-position: -24px;
+    }
+    p {
+      color: var(--main-color);
+    }
   }
 `;
