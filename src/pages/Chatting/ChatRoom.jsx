@@ -81,7 +81,7 @@ export default function ChatRoom() {
 }
 
 const ChattingLayout = styled.div`
-  min-height: 100%;
+  height: calc(100% - 80px);
   box-sizing: border-box;
   padding: 48px 0 73px;
   display: flex;
@@ -92,10 +92,14 @@ const ChattingLayout = styled.div`
   padding-right: 16px;
 `;
 
-const ChatContentLayout = styled.div`
+const ChatMain = styled.main`
+  background-color: #f2f2f2;
+`;
+
+const ChatContentLayout = styled.section`
   display: flex;
   margin-bottom: 10px;
-
+  background-color: #f2f2f2;
   margin-left: ${(props) => props.marginLeft};
 `;
 const UserImage = styled.img`
