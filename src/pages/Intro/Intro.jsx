@@ -31,7 +31,7 @@ export default function Intro() {
             <LoginLink
               imgsrc={GoogleIcon}
               alt='구글로 로그인하기 버튼'
-              style={{ opacity: 0.5, cursor: 'not-allowed' }}
+              style={{ opacity: 0.5, pointerEvents: 'none' }}
             >
               구글 계정으로 로그인
             </LoginLink>
@@ -41,7 +41,7 @@ export default function Intro() {
               bc='#F2C94C'
               imgsrc={KaKaoIcon}
               alt='카카오로 로그인하기 버튼'
-              style={{ opacity: 0.5, cursor: 'not-allowed' }}
+              style={{ opacity: 0.5, pointerEvents: 'none' }}
             >
               카카오톡 계정으로 로그인
             </LoginLink>
@@ -51,7 +51,7 @@ export default function Intro() {
               bc='#2D9CDB'
               imgsrc={FaceBookIcon}
               alt='페이스북으로 로그인하기 버튼'
-              style={{ opacity: 0.5, cursor: 'not-allowed' }}
+              style={{ opacity: 0.5, pointerEvents: 'none' }}
             >
               페이스북 계정으로 로그인
             </LoginLink>
