@@ -82,7 +82,7 @@ export function Main() {
         </ImgBox>
       </label>
 
-      <label className='a11y-hidden'>클래스 이름</label>
+      <label>클래스 이름</label>
       <ClassInput
         type='text'
         onChange={(e) => {
@@ -95,8 +95,9 @@ export function Main() {
           클래스 이름은 2자 이상, 15자 이하여야 합니다.
         </InputValidationError>
       ) : null}
+      
 
-      <label className='a11y-hidden'>클래스 태그</label>
+      <label>클래스 태그</label>
       <ClassInput
         type='text'
         onChange={(e) => {
@@ -105,7 +106,7 @@ export function Main() {
         placeholder='클래스 태그'
       />
 
-      <label className='a11y-hidden'>클래스 가격</label>
+      <label>클래스 가격 (원)</label>
       <ClassInput
         type='number'
         step={500}
@@ -115,6 +116,7 @@ export function Main() {
         }}
         placeholder='클래스 가격'
       />
+      
 
       <AddBtn type='submit' disabled={isFormIncomplete}>저장</AddBtn>
     </ClassRegistrationForm>
