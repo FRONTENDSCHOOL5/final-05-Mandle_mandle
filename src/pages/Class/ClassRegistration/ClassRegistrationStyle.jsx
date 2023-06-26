@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
 export const ClassRegistrationForm = styled.form`
-  padding: 30px 34px;
+  padding: 0 34px;
   label {
     font-size: var(--font-sm);
     color: var(--sub-font-color);
-  }
+    margin-top: 30px;
+    display: block;
+}
 `;
 
 export const ImgBox = styled.div`
@@ -36,7 +38,6 @@ export const ImgBtn = styled.div`
 export const ClassInput = styled.input`
   width: 322px;
   height: 48px;
-  margin-top: 16px;
   border-bottom: 1px solid var(--border-color);
   &::placeholder {
     font-size: var(--font-md);
