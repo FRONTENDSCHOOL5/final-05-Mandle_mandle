@@ -39,7 +39,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
 
   useEffect(() => {
@@ -77,6 +77,7 @@ export default function Posting() {
 
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
+    console.log(images);
     const response = await PostUploadPost(token, inputValue, images);
 
     if (response) {
