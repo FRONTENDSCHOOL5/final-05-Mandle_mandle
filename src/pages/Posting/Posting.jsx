@@ -101,12 +101,12 @@ export default function Posting() {
         buttonStyle={buttonStyle}
       />
       <ProfileContainer>
-        <ProfileImage src={userImage} alt='User Profile Image' />
+        <ProfileImage src={userImage} alt='유저 프로필 이미지' />
         <FileUploadButton handleImageChange={handleImageChange} />
       </ProfileContainer>
       <PostFormStyle>
         <TextInputContainer
-          placeholder='게시글 입력...'
+          placeholder='게시글 입력하기..'
           onChange={handleTextareaChange}
           ref={textarea}
         ></TextInputContainer>

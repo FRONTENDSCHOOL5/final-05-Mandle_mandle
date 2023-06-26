@@ -6,7 +6,7 @@ import { UserAtom } from '../../Store/userInfoAtoms';
 // import { PostImagesUpload } from '../../api/PostImagesUpload';
 import PutPostEdit from '../../api/PutPostEdit';
 import ProfileImg from '../../assets/img/mini-basic-progile-img.svg';
-
+import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 import { useLocation } from 'react-router-dom';
 import { PostEditImagesUpload } from '../../api/PostEditImagesUpload';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
@@ -31,11 +31,14 @@ export default function EditPost() {
   const [previewImages, setPreviewImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
-
+  const [userImage, setUserImage] = useState('');
   const navigate = useNavigate();
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
 
+  useEffect(() => {
+    GetUserProfileImage(token, setUserImage);
+  }, [token]);
   useEffect(() => {
     setSelectedImages(post.image.split(','));
     setPreviewImages(post.image.split(','));
@@ -103,12 +106,12 @@ export default function EditPost() {
         buttonStyle={buttonStyle}
       />
       <ProfileContainer>
-        <ProfileImage src={ProfileImg} alt='유저 프로필 이미지' />
+        <ProfileImage src={userImage} alt='유저 프로필 이미지' />
         <FileUploadButton handleImageChange={handleImageChange} />
       </ProfileContainer>
       <PostFormStyle>
         <TextInputContainer
-          placeholder='Enter post...'
+          placeholder='게시글 입력하기..'
           onChange={handleTextareaChange}
           ref={textarea}
           value={inputValue}
