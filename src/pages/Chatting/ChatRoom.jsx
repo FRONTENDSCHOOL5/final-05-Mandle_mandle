@@ -141,6 +141,7 @@ const ChatInputDiv = styled.div`
   bottom: 0px;
   background-color: white;
   border-right: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
   border-top: 0.5px solid var(--border-color);
 `;
 
