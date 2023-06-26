@@ -4,9 +4,10 @@ import { ModalOverlay, ModalWrap } from './ModalStyle';
 import ModalAlert from './ModalAlert/ModalAlert';
 import { useNavigate } from 'react-router-dom';
 export default function Modal({
+  onClick,
   setModalOpen,
   setAlertModalOpen,
-  onClick,
+  text,
   type,
 }) {
   const handleOverlayClick = (event) => {
@@ -25,12 +26,18 @@ export default function Modal({
         <div></div>
         <ul>
           <li>
-            <button onClick={handleAlertModalOpen}>삭제</button>
+            <button onClick={text === '삭제' ? handleAlertModalOpen : onClick}>
+              {type ? '삭제' : text}
+            </button>
           </li>
           {type && (
             <li>
-              <button onClick={onClick}>
-                {type === 'post' ? '수정' : '클래스 상세 페이지로 이동'}
+              <button onClick={type && onClick}>
+                {type === 'post'
+                  ? '수정'
+                  : type === 'class'
+                  ? '클래스 상세 페이지로 이동'
+                  : null}
               </button>
             </li>
           )}

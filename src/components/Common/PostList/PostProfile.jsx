@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import ProfileImg from '../../../assets/img/basic-profile-img.svg';
-import MoreBtn from '../../../assets/img/s-icon-more-vertical.svg';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import MoreButton from '../MoreButton';
-import ReportModal from '../../Common/Modal/ReportModal';
 import Modal from '../Modal/Modal';
 import PostReportPost from '../../../api/PostReportPost';
 import DeletePost from '../../../api/DeletePost';
@@ -35,6 +32,7 @@ export default function PostProfile({ post, setPostUpdated }) {
     const response = await PostReportPost(post.id, userInfo.token); // Call the API component
     if (response) {
       alert(`해당 게시글이 신고되었습니다.`);
+      setModalOpen(false);
     }
   };
 
@@ -69,17 +67,20 @@ export default function PostProfile({ post, setPostUpdated }) {
       {isModalOpen &&
         (post.author.accountname === userInfo.accountname ? (
           <Modal
+            onClick={handleMovePostEdit}
             setModalOpen={setModalOpen}
             setAlertModalOpen={setAlertModalOpen}
-            onClick={handleMovePostEdit}
             type='post'
+            text='삭제'
           />
         ) : (
-          <ReportModal
+          <Modal
             onClick={handleReportSubmit}
             setModalOpen={setModalOpen}
+            text='신고하기'
           />
         ))}
+
       {alertModalOpen && (
         <ModalAlert
           setAlertModalOpen={setAlertModalOpen}

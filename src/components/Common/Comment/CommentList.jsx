@@ -63,7 +63,7 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
           <Modal
             setModalOpen={setModalOpen}
             setAlertModalOpen={setAlertModalOpen}
-            type='comment'
+            text='삭제'
           />
         ) : (
           <ReportModal

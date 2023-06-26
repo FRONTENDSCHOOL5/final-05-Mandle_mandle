@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { MoreNav } from '../../components/Common/TopNav';
 import profileimg from '../../assets/img/mini-basic-progile-img.svg';
-import ChatModal from '../../components/Common/Modal/ChatModal';
+import Modal from '../../components/Common/Modal/Modal';
 export default function ChatRoom() {
   const [inputValue, setInputValue] = useState('');
   const [textValue, settextValue] = useState([]);
@@ -29,7 +29,7 @@ export default function ChatRoom() {
   const hours = now.getHours().toString().padStart(2, '0');
   const minutes = now.getMinutes().toString().padStart(2, '0');
 
-  const handleModalOpen = (e) => {
+  const handleModalOpen = () => {
     setModalOpen(true);
   };
 
@@ -42,7 +42,11 @@ export default function ChatRoom() {
     <>
       <MoreNav onClick={handleModalOpen} />
       {isModalOpen && (
-        <ChatModal setModalOpen={setModalOpen} onClick={handleChatRoomExit} />
+        <Modal
+          setModalOpen={setModalOpen}
+          onClick={handleChatRoomExit}
+          text='채팅방 나가기'
+        />
       )}
       <ChattingLayout>
         <ChatContentLayout>
