@@ -79,159 +79,170 @@ export default function Profile() {
     <ProfilePage>
       <MoreNav />
       <MainWrap>
-        <ProfileSection>
-          <Wrap>
-            <div className='follow'>
-              <Link to='/my_profile/follower'>
-                <p>{profileData.followerCount}</p>
-                <p className='followNum'>followers</p>
-              </Link>
-            </div>
-            <img src={profileData.image} id='profileImg' alt='프로필 이미지' />
-            <div className='follow'>
-              <Link to='/my_profile/following'>
-                <p>{profileData.followingCount}</p>
-                <p className='followNum'>followings</p>
-              </Link>
-            </div>
-          </Wrap>
-          <div id='usernameWrap'>
-            <p id='NickName'>{profileData.username}</p>{' '}
-            <span
-              className={
-                profileData.accountname &&
-                profileData.accountname.includes('Teacher')
-                  ? ''
-                  : 'a11y-hidden'
-              }
-            ></span>
-          </div>
-          <p id='MandleId'>
-            @
-            {(profileData.accountname &&
-              profileData.accountname.includes('Teacher')) ||
-            (profileData.accountname &&
-              profileData.accountname.includes('Student'))
-              ? profileData.accountname.substr(7)
-              : profileData.accountname}
-          </p>
-          <p id='Introduce'>{profileData.intro}</p>
-          <WrapBtn>
-            <button
-              className='profileEditBtn'
-              onClick={() => handleClick(profileData)}
-            >
-              프로필 수정
-            </button>
-            <button
-              className={
-                profileData.accountname &&
-                profileData.accountname.includes('Teacher')
-                  ? 'profileBtn'
-                  : 'a11y-hidden'
-              }
-              onClick={() => {
-                if (
-                  profileData.accountname &&
-                  profileData.accountname.includes('Teacher')
-                ) {
-                  navigate('/registration');
-                }
-              }}
-            >
-              클래스 등록
-            </button>
-          </WrapBtn>
-        </ProfileSection>
-        <ClassSection
-          className={
-            profileData.accountname.includes('Teacher') ? '' : 'a11y-hidden'
-          }
-        >
-          <Title>클래스 리스트</Title>
-          <ClassListUl>
-            {profileData.accountname.includes('Teacher') &&
-              classData.product &&
-              classData.product.map((classItem, index) => (
-                <MiniClassList
-                  key={classItem.id}
-                  token={token}
-                  classItem={classItem}
-                  page='profile'
-                  setClassUpdated={setClassUpdated}
+        {!profileData && !classData ? (
+          Loading
+        ) : (
+          <div>
+            <ProfileSection>
+              <Wrap>
+                <div className='follow'>
+                  <Link to='/my_profile/follower'>
+                    <p>{profileData.followerCount}</p>
+                    <p className='followNum'>followers</p>
+                  </Link>
+                </div>
+                <img
+                  src={profileData.image}
+                  id='profileImg'
+                  alt='프로필 이미지'
                 />
-              ))}
-          </ClassListUl>
-        </ClassSection>
+                <div className='follow'>
+                  <Link to='/my_profile/following'>
+                    <p>{profileData.followingCount}</p>
+                    <p className='followNum'>followings</p>
+                  </Link>
+                </div>
+              </Wrap>
+              <div id='usernameWrap'>
+                <p id='NickName'>{profileData.username}</p>{' '}
+                <span
+                  className={
+                    profileData.accountname &&
+                    profileData.accountname.includes('Teacher')
+                      ? ''
+                      : 'a11y-hidden'
+                  }
+                ></span>
+              </div>
+              <p id='MandleId'>
+                @
+                {(profileData.accountname &&
+                  profileData.accountname.includes('Teacher')) ||
+                (profileData.accountname &&
+                  profileData.accountname.includes('Student'))
+                  ? profileData.accountname.substr(7)
+                  : profileData.accountname}
+              </p>
+              <p id='Introduce'>{profileData.intro}</p>
+              <WrapBtn>
+                <button
+                  className='profileEditBtn'
+                  onClick={() => handleClick(profileData)}
+                >
+                  프로필 수정
+                </button>
+                <button
+                  className={
+                    profileData.accountname &&
+                    profileData.accountname.includes('Teacher')
+                      ? 'profileBtn'
+                      : 'a11y-hidden'
+                  }
+                  onClick={() => {
+                    if (
+                      profileData.accountname &&
+                      profileData.accountname.includes('Teacher')
+                    ) {
+                      navigate('/registration');
+                    }
+                  }}
+                >
+                  클래스 등록
+                </button>
+              </WrapBtn>
+            </ProfileSection>
+            <ClassSection
+              className={
+                profileData.accountname.includes('Teacher') ? '' : 'a11y-hidden'
+              }
+            >
+              <Title>클래스 리스트</Title>
+              <ClassListUl>
+                {profileData.accountname.includes('Teacher') &&
+                  classData.product &&
+                  classData.product.map((classItem, index) => (
+                    <MiniClassList
+                      key={classItem.id}
+                      token={token}
+                      classItem={classItem}
+                      page='profile'
+                      setClassUpdated={setClassUpdated}
+                    />
+                  ))}
+              </ClassListUl>
+            </ClassSection>
 
-        <PostSection>
-          <div id='PostBtnWrap'>
-            <button
-              id='ListBtn'
-              onClick={() => handleButtonClick('listBtn')}
-              className={isListBtnActive ? 'active' : ''}
-            >
-              <img
-                src={isListBtnActive ? PostListBtnOn : PostListBtnOff}
-                alt='포스트리스트 버튼'
-              />
-            </button>
-            <button
-              id='ImgListBtn'
-              onClick={() => handleButtonClick('imgListBtn')}
-              className={isImgListBtnActive ? 'active' : ''}
-            >
-              <img
-                src={isImgListBtnActive ? PostAlbumBtnOn : PostAlbumBtnOff}
-                alt='포스트 앨범 버튼'
-              />
-            </button>
-            <span></span>
+            <PostSection>
+              <div id='PostBtnWrap'>
+                <button
+                  id='ListBtn'
+                  onClick={() => handleButtonClick('listBtn')}
+                  className={isListBtnActive ? 'active' : ''}
+                >
+                  <img
+                    src={isListBtnActive ? PostListBtnOn : PostListBtnOff}
+                    alt='포스트리스트 버튼'
+                  />
+                </button>
+                <button
+                  id='ImgListBtn'
+                  onClick={() => handleButtonClick('imgListBtn')}
+                  className={isImgListBtnActive ? 'active' : ''}
+                >
+                  <img
+                    src={isImgListBtnActive ? PostAlbumBtnOn : PostAlbumBtnOff}
+                    alt='포스트 앨범 버튼'
+                  />
+                </button>
+                <span></span>
+              </div>
+              <PostListUl>
+                {isListBtnActive && postData && postData.post && (
+                  <div className={postData.post.length > 0 ? '' : 'posts-none'}>
+                    {postData.post.length > 0 ? (
+                      postData.post.map((post) => (
+                        <PostList
+                          key={post.id}
+                          setPostUpdated={setPostUpdated}
+                          post={post}
+                        />
+                      ))
+                    ) : (
+                      <div className='post-none'>
+                        <img src={HomeLogo} alt='포스트가 없습니다' />
+                        <p>No posts available.</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {isImgListBtnActive && postData && postData.post && (
+                  <div
+                    className={
+                      postData.post.length > 0 ? 'image-grid' : 'image-none'
+                    }
+                  >
+                    {postData.post.length > 0 ? (
+                      postData.post.map((post) => (
+                        <img
+                          key={post.id}
+                          src={post.image.split(',')[0]}
+                          alt='포스트 이미지'
+                        />
+                      ))
+                    ) : (
+                      <div>
+                        <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
+                        <p>No images available.</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </PostListUl>
+            </PostSection>
           </div>
-          <PostListUl>
-            {isListBtnActive && postData && postData.post && (
-              <div className={postData.post.length > 0 ? '' : 'posts-none'}>
-                {postData.post.length > 0 ? (
-                  postData.post.map((post) => (
-                    <PostList
-                      key={post.id}
-                      setPostUpdated={setPostUpdated}
-                      post={post}
-                    />
-                  ))
-                ) : (
-                  <div className='post-none'>
-                    <img src={HomeLogo} alt='포스트가 없습니다' />
-                    <p>No posts available.</p>
-                  </div>
-                )}
-              </div>
-            )}
-            {isImgListBtnActive && postData && postData.post && (
-              <div
-                className={
-                  postData.post.length > 0 ? 'image-grid' : 'image-none'
-                }
-              >
-                {postData.post.length > 0 ? (
-                  postData.post.map((post) => (
-                    <img
-                      key={post.id}
-                      src={post.image.split(',')[0]}
-                      alt='포스트 이미지'
-                    />
-                  ))
-                ) : (
-                  <div>
-                    <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
-                    <p>No images available.</p>
-                  </div>
-                )}
-              </div>
-            )}
-          </PostListUl>
-        </PostSection>
+        )}
       </MainWrap>
+
       <MenuBar />
     </ProfilePage>
   );

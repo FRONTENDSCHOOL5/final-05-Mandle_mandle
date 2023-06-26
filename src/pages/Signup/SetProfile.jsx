@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { SignUpAtom } from '../../Store/AtomSignupState';
 import PostSignUp from '../../api/PostSignup';
 import PostIdValid from '../../api/PostIdValid';
@@ -8,7 +8,7 @@ import Input from '../../components/Common/Account/Input';
 import useProfileInput from '../../Hooks/useProfileInput';
 import UploadProfile from '../../components/Common/UploadProfile';
 import AccountHeader from '../../components/Common/Account/AccountHeader';
-import StartButtonImg from '../../assets/img/L-start-button(clay).svg';
+import StartButtonImg from '../../assets/img/L-Start-button(clay).svg';
 import DisabledButtonImg from '../../assets/img/L-Start-Disabled-button(clay).svg';
 import {
   AccountForm,
@@ -21,7 +21,8 @@ const SetProfile = () => {
   const url = 'https://api.mandarin.weniv.co.kr/';
 
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useRecoilState(SignUpAtom);
+  const signupInfo = useRecoilValue(SignUpAtom);
+  const [userInfo, setUserInfo] = useState({ ...signupInfo });
   const [image, setImage] = useState('');
   const [accountValid, setAccountValid] = useState(true);
   const [accountAlertMsg, setAccountAlertMsg] = useState('');
@@ -29,7 +30,7 @@ const SetProfile = () => {
   const [usernameAlertMsg, setUsernameAlertMsg] = useState('');
   const { inputValues, handleInputChange, buttonImg } = useProfileInput(
     StartButtonImg,
-    DisabledButtonImg
+    DisabledButtonImg,
   );
   const { username, accountname, intro } = inputValues;
   const handleProfileImageResponse = (fileName) => {
@@ -74,7 +75,7 @@ const SetProfile = () => {
           username: username,
           accountname: updatedAccountname,
           intro: intro,
-          image: url + image,
+          image: image,
         };
       });
       navigate('/account/login');

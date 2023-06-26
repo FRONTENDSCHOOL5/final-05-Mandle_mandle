@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
-import axios from 'axios';
 import BasicProfile from '../../assets/img/basic-profile-img.svg';
 import UploadBtnImg from '../../assets/img/img-upload-button.svg';
 import styled from 'styled-components';
-
+import { PostImagesUpload } from '../../api/PostImagesUpload';
 export default function UploadProfile({ onResponse, image }) {
   const fileInputRef = useRef(null);
   const [previewImage, setPreviewImage] = useState(image || BasicProfile);
@@ -14,35 +13,16 @@ export default function UploadProfile({ onResponse, image }) {
 
   const handleImageChange = async (event) => {
     const selectedFile = event.target.files[0];
+    const response = await PostImagesUpload(selectedFile);
+    onResponse(response);
 
-    if (selectedFile) {
-      const url = 'https://api.mandarin.weniv.co.kr/';
-      const formData = new FormData();
-      formData.append('image', selectedFile);
+    const reader = new FileReader();
 
-      try {
-        const response = await axios.post(url + 'image/uploadfile', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+    reader.onload = () => {
+      setPreviewImage(reader.result);
+    };
 
-        // 응답 처리
-
-        onResponse(response.data.filename);
-      } catch (error) {
-        // 오류 처리
-        console.error(error);
-      }
-
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        setPreviewImage(reader.result);
-      };
-
-      reader.readAsDataURL(selectedFile);
-    }
+    reader.readAsDataURL(selectedFile);
   };
 
   useEffect(() => {
