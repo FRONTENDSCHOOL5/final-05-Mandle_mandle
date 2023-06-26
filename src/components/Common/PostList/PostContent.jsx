@@ -76,6 +76,7 @@ const PostImageWrap = styled.div`
     aspect-ratio: 304/228;
     border-radius: 10px;
     object-fit: cover;
+    box-shadow: 0px 1px 2px rgba(118, 118, 118, 0.25);
   }
   &.postImgscroll {
     display: flex;

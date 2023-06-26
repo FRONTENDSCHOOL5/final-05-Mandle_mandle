@@ -8,7 +8,7 @@ import Input from '../../components/Common/Account/Input';
 import useProfileInput from '../../Hooks/useProfileInput';
 import UploadProfile from '../../components/Common/UploadProfile';
 import AccountHeader from '../../components/Common/Account/AccountHeader';
-import StartButtonImg from '../../assets/img/L-Start-button(clay).svg';
+import StartButtonImg from '../../assets/img/L-start-button(clay).svg';
 import DisabledButtonImg from '../../assets/img/L-Start-Disabled-button(clay).svg';
 import {
   AccountForm,
@@ -30,7 +30,7 @@ const SetProfile = () => {
   const [usernameAlertMsg, setUsernameAlertMsg] = useState('');
   const { inputValues, handleInputChange, buttonImg } = useProfileInput(
     StartButtonImg,
-    DisabledButtonImg,
+    DisabledButtonImg
   );
   const { username, accountname, intro } = inputValues;
   const handleProfileImageResponse = (fileName) => {

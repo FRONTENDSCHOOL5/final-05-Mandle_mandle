@@ -176,8 +176,14 @@ export const TextInputContainer = styled.textarea`
   display: block;
   /* min-height: 80px; */
   height: 100%;
+  font-size: var(--font-md);
+  color: var(--font-color);
   padding-left: 71px;
   resize: none;
   outline: none;
   border: none;
+  &::placeholder {
+    color: var(--sub-font-color);
+    font-size: var(--font-md);
+  }
 `;
