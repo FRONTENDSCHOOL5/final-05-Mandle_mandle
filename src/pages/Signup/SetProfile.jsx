@@ -31,7 +31,8 @@ const SetProfile = () => {
   const [accountAlertMsg, setAccountAlertMsg] = useState('');
   const [usernameValid, setUsernameValid] = useState(true);
   const [usernameAlertMsg, setUsernameAlertMsg] = useState('');
-  const [inputValues, handleInputChange, buttonImg] = ProfileInputHook();
+  const [inputValues, handleInputChange, buttonImg, DisabledButtonImg] =
+    ProfileInputHook();
   const { username, accountname, intro } = inputValues;
   const handleProfileImageResponse = (fileName) => {
     setImage(fileName);
@@ -71,9 +72,9 @@ const SetProfile = () => {
 
   const handleSetProfileSubmit = async (event) => {
     event.preventDefault();
-    // if (buttonImg === DisabledButtonImg) {
-    //   return; // 버튼 비활성화일 때 기능 막기
-    // }
+    if (buttonImg === DisabledButtonImg) {
+      return; // 버튼 비활성화일 때 기능 막기
+    }
     if (username && accountname && usernameValid && accountValid) {
       const updatedAccountname = `${userInfo.type}${accountname}`;
       setUserInfo((prevValue) => {

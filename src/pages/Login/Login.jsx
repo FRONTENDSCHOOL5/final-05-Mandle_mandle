@@ -10,7 +10,6 @@ import UserInfoInput from '../../Hooks/UserInfoInput';
 export default function Login() {
   const [userValue, setUserValue] = useRecoilState(UserAtom);
   const [isLogin, setIsLogin] = useRecoilState(IsLogin);
-
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [pwErrorMessage, setPwErrorMessage] = useState('');
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
@@ -27,6 +26,7 @@ export default function Login() {
     setPassword,
     buttonImg,
     handleInputChange,
+    DisabledButtonImg,
   } = UserInfoInput();
 
   const handleEmailValid = () => {
@@ -48,13 +48,15 @@ export default function Login() {
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
-
+    if (buttonImg === DisabledButtonImg) {
+      return; // 버튼 비활성화일 때 기능 막기
+    }
     const loginInfo = await PostLogin(email, password);
     if (!isLogin) {
       //로그인 실패
       if (loginInfo.status === 422) {
         setLoginErrorMessage(loginInfo.message);
-        alert(loginErrorMessage);
+
         setEmail('');
         setPassword('');
         //성공시
