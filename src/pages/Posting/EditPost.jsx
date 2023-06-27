@@ -42,7 +42,7 @@ export default function EditPost() {
     setSelectedImages(post.image.split(','));
     setPreviewImages(post.image.split(','));
     setInputValue(post.content);
-  }, [post.image]);
+  }, [post.image, post.content]);
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
