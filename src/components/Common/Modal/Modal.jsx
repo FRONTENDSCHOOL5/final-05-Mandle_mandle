@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { ModalOverlay, ModalWrap } from './ModalStyle';
-import ModalAlert from './ModalAlert/ModalAlert';
-import { useNavigate } from 'react-router-dom';
+
 export default function Modal({
   onClick,
   setModalOpen,

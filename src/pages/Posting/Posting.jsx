@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 
 import {
   DisabledUploadBtnNav,
@@ -77,7 +75,7 @@ export default function Posting() {
 
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
-    console.log(images);
+
     const response = await PostUploadPost(token, inputValue, images);
 
     if (response) {

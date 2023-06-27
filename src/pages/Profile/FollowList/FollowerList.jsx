@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import GlobalStyle from '../../../styles/GlobalStyles';
+
 import { GoBackNav } from '../../../components/Common/TopNav';
 
 import { FollowWrap } from './FollowListStyle';
-import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import UserList from '../../../components/Common/UserList';
 export default function FollowerList() {
-  const navigate = useNavigate();
   const location = useLocation();
-  const { accountname } = useParams();
   const userInfo = useRecoilValue(UserAtom);
   const isMyProfile = location.pathname === '/my_profile/follower'; // Check if it's my profile
   const userAccountname = isMyProfile ? userInfo.accountname : location.state;

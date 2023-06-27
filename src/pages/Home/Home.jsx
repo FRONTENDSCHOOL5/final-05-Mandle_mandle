@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { HomeNav } from '../../components/Common/TopNav';
 import { UserAtom } from '../../Store/userInfoAtoms';
@@ -22,7 +21,7 @@ export default function Home({ to }) {
 
     response();
   }, [token]);
-  console.log(postList);
+
   return (
     <HomeWrap>
       <HomeNav title='홈' to='/home/search'></HomeNav>

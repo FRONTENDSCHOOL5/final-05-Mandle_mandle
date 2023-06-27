@@ -96,7 +96,7 @@ export default function ChatRoom() {
   );
 }
 
-const ChattingLayout = styled.div`
+const ChattingLayout = styled.main`
   height: calc(100% - 40px);
   box-sizing: border-box;
   padding: 48px 0 73px;
@@ -106,10 +106,6 @@ const ChattingLayout = styled.div`
   background-color: #f2f2f2;
   padding-left: 16px;
   padding-right: 16px;
-`;
-
-const ChatMain = styled.main`
-  background-color: #f2f2f2;
 `;
 
 const ChatContentLayout = styled.section`

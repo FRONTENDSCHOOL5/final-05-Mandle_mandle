@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 
 // import { PostImagesUpload } from '../../api/PostImagesUpload';
 import PutPostEdit from '../../api/PutPostEdit';
-import ProfileImg from '../../assets/img/mini-basic-progile-img.svg';
 import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 import { useLocation } from 'react-router-dom';
-import { PostEditImagesUpload } from '../../api/PostEditImagesUpload';
+import { PostImagesUpload } from '../../api/PostImagesUpload';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import {
   TextInputContainer,
@@ -47,7 +46,7 @@ export default function EditPost() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -61,7 +60,7 @@ export default function EditPost() {
     const files = await event.target.files[0];
 
     try {
-      const imageUrl = await PostEditImagesUpload(files);
+      const imageUrl = await PostImagesUpload(files);
       setSelectedImages((prevImages) => [...prevImages, imageUrl]);
 
       const reader = new FileReader();
@@ -80,7 +79,7 @@ export default function EditPost() {
       postId,
       token,
       inputValue,
-      selectedImages.join(',')
+      selectedImages.join(','),
     );
 
     if (editedPost) {
@@ -132,7 +131,6 @@ export default function EditPost() {
             </PreviewImgWrapStyle>
           ))}
         </ImgWrapStyle>
-        {/* <FileUploadButton handleImageChange={handleImageChange} /> */}
       </PostFormStyle>
     </div>
   );

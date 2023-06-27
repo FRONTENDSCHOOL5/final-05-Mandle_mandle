@@ -170,6 +170,7 @@ export const ImagePreview = styled.img`
 `;
 
 export const TextInputContainer = styled.textarea`
+  font-family: 'SpoqaHanSansNeo-Regular';
   margin: 30px 0 50px 0;
   width: 100%;
   overflow-y: hidden;

@@ -1,13 +1,13 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import styled from 'styled-components';
 import ArrowImg from '../../../assets/img/icon-arrow-left.svg';
 import UploadProfile from '../../../components/Common/UploadProfile';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PostIdValid from '../../../api/PostIdValid';
 import PutProfileUpdate from '../../../api/PutProfileUpdate';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-import { useRecoilValue, useRecoilState } from 'recoil';
-
+import { useRecoilState } from 'recoil';
+import GoBackButton from '../../../components/Common/GoBackButton';
 import {
   SignupHeader,
   Heading1,
@@ -28,7 +28,7 @@ const EditProfile = () => {
   const token = userInfo.token;
   const navigate = useNavigate();
   //유저 정보 상태관리
-  const url = 'https://api.mandarin.weniv.co.kr/';
+
   const [username, setUsername] = useState(data.username);
   const accountType =
     data.accountname.substr(0, 7) === 'Student' ||
@@ -55,11 +55,6 @@ const EditProfile = () => {
     setButton(true);
   };
 
-  //이전 페이지 이동
-  const goBack = () => {
-    navigate(-1);
-  };
-
   // 입력란 값 변경 시 실행되는 함수x
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -76,7 +71,7 @@ const EditProfile = () => {
     // 두 입력란에 값이 모두 존재할 경우 버튼 활성화 함수 실행
   };
 
-  ////유저 이름 유효성 검사
+  //유저 이름 유효성 검사
   const handleUsernameValid = () => {
     if (username.length >= 2 && username.length <= 10) {
       setUsernameAlertMsg('');
@@ -142,9 +137,7 @@ const EditProfile = () => {
   return (
     <SignupDiv>
       <SignupHeader>
-        <button onClick={goBack}>
-          <img src={ArrowImg} alt='' />
-        </button>
+        <GoBackButton />
         <Heading1>프로필 수정</Heading1>
       </SignupHeader>
 

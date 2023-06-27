@@ -12,7 +12,7 @@ export const SignupHeader = styled.header`
     position: absolute;
     left: 34px;
   }
-`; // 헤더부분 수정하였습니다
+`;
 
 export const Heading1 = styled.h1`
   font-size: var(--font-xl);
