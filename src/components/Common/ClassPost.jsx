@@ -7,8 +7,7 @@ export function ClassPost({mainImg, tag, title}) {
     <ClassPostWrap
       src=''
       width='180px'
-      height='200px'
-      padding='10px 6px 0'
+      padding='10px 6px'
       alt=''
     >
       <img src={mainImg} alt='' />
@@ -25,7 +24,6 @@ export function ClassPostMini({miniImg, miniTag, miniName}) {
     <ClassPostWrap
       src=''
       width='140px'
-      // height='136px'
       padding='6px 4px'
       alt=''
       

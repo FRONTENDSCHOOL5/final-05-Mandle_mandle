@@ -61,7 +61,7 @@ export function Main() {
   };
 
   const isFormIncomplete =
-  !image || className.length < 2 || className.length > 15 || !classPrice || !classTag;
+  !image || className.length < 2 || className.length > 30 || !classPrice || !classTag;
 
 
   return (
@@ -106,8 +106,7 @@ export function Main() {
         placeholder='클래스 태그'
       />
 
-      <label>클래스 가격 (원)
-        <p>원</p>
+      <label>클래스 가격 (원)</label>
       <ClassInput
         type='text'
         onChange={(e) => {
@@ -130,7 +129,7 @@ export function Main() {
         placeholder='클래스 가격'
         
       />
-      </label>
+
 
       <AddBtn type='submit' disabled={isFormIncomplete}>저장</AddBtn>
     </ClassRegistrationForm>

@@ -32,56 +32,54 @@ export default function Class() {
     };
     fetchData();
   }, [token]);
-
+  
   return (
     <>
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          <HomeNav title={'클래스'}>
-            <HiddenContext>클래스 피드</HiddenContext>
-          </HomeNav>
-          <MainWrap>
-            <>
-              <MiniSection>
-                <Title>인기 클래스</Title>
-                <MiniList>
-                  {popularClasses.map(classItem => (
-                    <li key={classItem._id}>
-                      <Link to={`/class/detail/${classItem._id}`}>
-                        <ClassPostMini
-                          miniImg={classItem.itemImage}
-                          miniName={classItem.itemName}
-                          miniTag={classItem.link}
-                        />
-                      </Link>
-                    </li>
-                  ))}
-                </MiniList>
-              </MiniSection>
+      <HomeNav title={'클래스'}>
+        <HiddenContext>클래스 피드</HiddenContext>
+      </HomeNav>
+      <MainWrap>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <MiniSection>
+              <Title>인기 클래스</Title>
+              <MiniList>
+                {popularClasses.map(classItem => (
+                  <li key={classItem._id}>
+                    <Link to={`/class/detail/${classItem._id}`}>
+                      <ClassPostMini
+                        miniImg={classItem.itemImage}
+                        miniName={classItem.itemName}
+                        miniTag={classItem.link}
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </MiniList>
+            </MiniSection>
 
-              <ClassSection>
-                <Title>새로운 클래스</Title>
-                <ClassList>
-                  {newClasses.map(classItem => (
-                    <li key={classItem._id}>
-                      <Link to={`/class/detail/${classItem._id}`}>
-                        <ClassPost
-                          mainImg={classItem.itemImage}
-                          title={classItem.itemName}
-                          tag={classItem.link}
-                        />
-                      </Link>
-                    </li>
-                  ))}
-                </ClassList>
-              </ClassSection>
-            </>
-          </MainWrap>
-          <MenuBar />
-        </>
-      )}
+            <ClassSection>
+              <Title>새로운 클래스</Title>
+              <ClassList>
+                {newClasses.map(classItem => (
+                  <li key={classItem._id}>
+                    <Link to={`/class/detail/${classItem._id}`}>
+                      <ClassPost
+                        mainImg={classItem.itemImage}
+                        title={classItem.itemName}
+                        tag={classItem.link}
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ClassList>
+            </ClassSection>
+          </>
+        )}
+      </MainWrap>
+      <MenuBar />
     </>
   );
 }
