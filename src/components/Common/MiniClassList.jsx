@@ -44,6 +44,7 @@ function MiniClassList({ classItem, page, token, setClassUpdated }) {
           setAlertModalOpen={setAlertModalOpen}
           onClick={handleMoveClassDetail}
           type='class'
+          text='삭제'
         />
       )}
       {alertModalOpen && (
