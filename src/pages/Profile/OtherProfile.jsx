@@ -88,11 +88,11 @@ export default function Profile() {
   };
 
   const navigateToFollowers = () => {
-    navigate(`/other_profile/${accountname}/follower`);
+    navigate(`/other_profile/${accountname}/follower`, { state: accountname });
   };
 
   const navigateToFollowing = () => {
-    navigate(`/other_profile/${accountname}/following`);
+    navigate(`/other_profile/${accountname}/following`, { state: accountname });
   };
   if (!profileData && !classData) {
     return <div>Loading...</div>;

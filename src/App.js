@@ -75,7 +75,7 @@ function App() {
             <Route path='following' element={<Following />} />
             <Route path='edit/:accountname' element={<EditProfile />} />
           </Route>
-          <Route path='/other_profile/:accountname' element={<OtherProfile />}>
+          <Route path='/other_profile/:accountname' element={<Outlet />}>
             <Route path='' element={<OtherProfile />} />
             <Route path='follower' element={<Follower />} />
             <Route path='following' element={<Following />} />
