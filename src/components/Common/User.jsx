@@ -53,21 +53,14 @@ const FollowBtn = styled.button`
   }
 `;
 
-export default function User(props) {
+export default function User({ user }) {
   const location = useLocation();
   const navigate = useNavigate();
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
 
-  const {
-    username,
-    accountname,
-    intro,
-    image,
-    isfollow,
-    followerCount,
-    followingCount,
-  } = props.user;
+  const { username, accountname, intro, image } = user.user;
+  console.log(image);
   function handleClick(accountname) {
     navigate(`/other_profile/${accountname}`, {
       state: {
@@ -75,10 +68,10 @@ export default function User(props) {
       },
     });
   }
-  const [follow, SetFollow] = useState(isfollow);
+  const [isfollow, SetFollow] = useState(user.isfollow);
   const handleFollowClick = async () => {
     try {
-      if (follow) {
+      if (isfollow) {
         const response = await unfollow(accountname, token);
         if (response) {
           SetFollow(false);
@@ -105,10 +98,10 @@ export default function User(props) {
         </div>
       </UserWrap>
       <FollowBtn
-        className={follow ? 'following' : ''}
+        className={isfollow ? 'following' : ''}
         onClick={handleFollowClick}
       >
-        {follow ? '취소' : '팔로우'}
+        {isfollow ? '취소' : '팔로우'}
       </FollowBtn>
     </div>
   );
@@ -125,7 +118,7 @@ async function userfollow(accountname, token) {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      }
+      },
     );
     return res.data; // Modify this based on the actual response structure
   } catch (err) {

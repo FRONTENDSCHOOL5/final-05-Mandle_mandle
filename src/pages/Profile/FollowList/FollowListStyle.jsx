@@ -2,12 +2,10 @@ import styled from 'styled-components';
 
 export const FollowWrap = styled.div`
   ul {
-    #userDiv {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-    }
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 16px 0;
   }
   h1 {
     position: absolute;

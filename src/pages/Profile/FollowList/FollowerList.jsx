@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import GlobalStyle from '../../../styles/GlobalStyles';
 import { GoBackNav } from '../../../components/Common/TopNav';
-import User from '../../../components/Common/User';
+
 import { FollowWrap } from './FollowListStyle';
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-
+import UserList from '../../../components/Common/UserList';
 export default function FollowerList() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,6 +16,7 @@ export default function FollowerList() {
   const userInfo = useRecoilValue(UserAtom);
   const isMyProfile = location.pathname === '/my_profile/follower'; // Check if it's my profile
   const userAccountname = isMyProfile ? userInfo.accountname : location.state;
+  console.log(isMyProfile, userAccountname);
   const token = userInfo.token;
   const [followerData, setFollowerData] = useState([]);
 
@@ -26,15 +27,7 @@ export default function FollowerList() {
     };
     fetchData();
   }, [userAccountname, token]);
-  // const fetchDataFromAPI = async (apiFunction, ...params) => {
-  //   try {
-  //     const data = await apiFunction(...params);
-  //     return data;
-  //   } catch (error) {
-  //     console.log(error);
-  //     return null;
-  //   }
-  // };
+
   if (followerData === null) {
     return null;
   }
@@ -44,9 +37,7 @@ export default function FollowerList() {
       <h1>Followers</h1>
       <ul>
         {followerData &&
-          followerData.map((user) => (
-            <User key={user._id} user={user} accountname={user.accountname} />
-          ))}
+          followerData.map((user) => <UserList user={user} type='follow' />)}
       </ul>
     </FollowWrap>
   );
