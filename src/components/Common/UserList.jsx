@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import BasicProfileImg from '../../assets/img/basic-profile-img.svg';
-import HandleNormalizeImage from '../../Hooks/HandleNormalizeImage';
+import HandleNormalizeImage from './HandleNormalizeImage';
 import FollowButtton from './FollowButtton';
 export default function SearchList({ user, type }) {
   const navigate = useNavigate();
