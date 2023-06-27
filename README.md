@@ -135,5 +135,41 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
 </details>
 
 
-
+## 7. 폴더 구조
+```
+📦 Final-05-Mandle_mandle
+.gitignore
+.eslintrc.json
+.prettier.json
+README.md
+package-lock.json
+package.json
+├─ 📁public
+└─ 📁src
+   ├─ App.js
+📁Hooks
+   ├─ 📁Store
+   ├─ 📁api
+   ├─ 📁 assets
+   │  ├─ font
+   │  └─ img
+   ├─ 📁 componenent
+   │  ├─ Common
+   │  ├─ Account
+   │  ├─ Modal
+   │  └─ PostList
+   ├─ index.js
+   ├─ 📁pages
+   │  ├─ Chatting
+   │  ├─ Clas
+   │  ├─ Home
+   │  ├─ Loadinng
+   │  ├─ Loging
+   │  ├─ NotFound
+   │  ├─ Posting
+   │  ├─ Profile
+   │  ├─ Signup
+   │  └─ Splash
+   └─ 📁styles
+```
 
