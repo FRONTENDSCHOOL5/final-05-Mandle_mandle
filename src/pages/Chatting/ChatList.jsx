@@ -18,9 +18,9 @@ export default function ChatList() {
         >
           <img src={profileimg} alt='유저 프로필 이미지' confirm={true} />
           <div className='text'>
-            <span>위니브 메이드 공방</span>
+            <span>뽀송뽀송</span>
             <div className='chatInfo'>
-              <p>안내 드릴게요!</p>
+              <p>안녕하세요 어떤 디자인 비누들이 있나요?</p>
               <div className='date'>2023.06.17</div>
             </div>
           </div>
@@ -48,7 +48,7 @@ export default function ChatList() {
           <div className='text'>
             <span>금손이 되고싶어</span>
             <div className='chatInfo'>
-              <p>금손이 될때까지 클래스 수강을 할테야</p>
+              <p>곰돌이 쿠키 디자인이 너무 예뻐요!!</p>
 
               <div className='date'>2023.06.11</div>
             </div>
