@@ -13,6 +13,7 @@
 8. [프로젝트 후기](#9-프로젝트-후기)
 
 ## 1. 프로젝트 소개
+![소개 이미지](https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/1f856ec1-ed14-446e-960f-f730703bb394)
 
 > 추가예정
 
