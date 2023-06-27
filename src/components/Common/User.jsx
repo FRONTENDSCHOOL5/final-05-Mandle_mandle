@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import BasicProfile from '../../assets/img/basic-profile-img.svg';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { UserAtom } from '../../Store/userInfoAtoms';
+import { useRecoilValue } from 'recoil';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const UserWrap = styled.a`
@@ -53,6 +56,9 @@ const FollowBtn = styled.button`
 export default function User(props) {
   const location = useLocation();
   const navigate = useNavigate();
+  const userInfo = useRecoilValue(UserAtom);
+  const token = userInfo.token;
+
   const {
     username,
     accountname,
@@ -69,6 +75,26 @@ export default function User(props) {
       },
     });
   }
+  const [follow, SetFollow] = useState(isfollow);
+  const handleFollowClick = async () => {
+    try {
+      if (follow) {
+        const response = await unfollow(accountname, token);
+        if (response) {
+          SetFollow(false);
+        } else {
+        }
+      } else {
+        const response = await userfollow(accountname, token);
+        if (response) {
+          SetFollow(true);
+        } else {
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div id='userDiv'>
       <UserWrap onClick={() => handleClick(accountname)}>
@@ -78,9 +104,49 @@ export default function User(props) {
           <p>{intro}</p>
         </div>
       </UserWrap>
-      <FollowBtn className={isfollow ? 'following' : ''}>
-        {isfollow ? '취소' : '팔로우'}
+      <FollowBtn
+        className={follow ? 'following' : ''}
+        onClick={handleFollowClick}
+      >
+        {follow ? '취소' : '팔로우'}
       </FollowBtn>
     </div>
   );
+}
+async function userfollow(accountname, token) {
+  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}/follow`;
+
+  try {
+    const res = await axios.post(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+      }
+    );
+    return res.data; // Modify this based on the actual response structure
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
+async function unfollow(accountname, token) {
+  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}/unfollow`;
+
+  try {
+    const res = await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    return res.data; // Modify this based on the actual response structure
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 }
