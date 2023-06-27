@@ -1,6 +1,6 @@
 {
   "name": "mandle_mandle",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
+    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-calendar": "^4.3.0",
     "react-router-dom": "^6.12.1",
@@ -24,7 +25,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve": "serve -s build",
-    "build-and-serve": "npm run build && npm run serve"
+    "build-and-serve": "npm run build && npm run serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -43,5 +46,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage":"https://FRONTENDSCHOOL5.github.io/final-05-Mandle_mandle/"
 }
