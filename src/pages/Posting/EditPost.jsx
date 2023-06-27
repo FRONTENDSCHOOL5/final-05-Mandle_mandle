@@ -42,11 +42,11 @@ export default function EditPost() {
     setSelectedImages(post.image.split(','));
     setPreviewImages(post.image.split(','));
     setInputValue(post.content);
-  }, [post.image, post.content]);
+  }, [post.image]);
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -79,7 +79,7 @@ export default function EditPost() {
       postId,
       token,
       inputValue,
-      selectedImages.join(','),
+      selectedImages.join(',')
     );
 
     if (editedPost) {
