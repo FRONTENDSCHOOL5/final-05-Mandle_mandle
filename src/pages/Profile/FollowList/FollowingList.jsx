@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import GlobalStyle from '../../../styles/GlobalStyles';
 import { GoBackNav } from '../../../components/Common/TopNav';
-import User from '../../../components/Common/User';
 import { FollowWrap } from './FollowListStyle';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { GetFollowingList } from '../../../api/GetFollowingList';
