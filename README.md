@@ -56,8 +56,8 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
 
 <table>
 <tr>
- <td align="center" width="60px">사용 기술</td>
- <td width="500px">
+ <td align="center" width="100px">사용 기술</td>
+ <td width="800px">
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=ffffff"/>&nbsp  
   <img src="https://img.shields.io/badge/Recoil-764ABC?style=for-the-badge&logo=Redux&logoColor=white"/>&nbsp 
    <img src="https://img.shields.io/badge/React%20Router-CA4245?style=for-the-badge&logo=ReactRouter&logoColor=white"/>&nbsp 
