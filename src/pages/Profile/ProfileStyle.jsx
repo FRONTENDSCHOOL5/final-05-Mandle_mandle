@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Teacher from '../../assets/img/icon-teacher.svg';
 
 const ProfilePage = styled.div`
-  position: relative;
   width: 100%;
   height: 100%;
 `;
@@ -109,16 +108,18 @@ const WrapBtn = styled.div`
   }
 `;
 const PostSection = styled.section`
-  padding: 10px;
   background: white;
   position: relative;
   #PostBtnWrap {
+    width: 100%;
+    height: 44px;
+    border-bottom: 1.5px solid var(--background-color);
     display: flex;
-    flex-direction: row;
     justify-content: flex-end;
     background: white;
     padding-bottom: 10px;
     gap: 5px;
+    padding: 9px 11px;
     button {
       width: 26px;
       height: 26px;
@@ -127,13 +128,7 @@ const PostSection = styled.section`
       width: 100%;
     }
   }
-  #PostBtnWrap span {
-    width: 100%;
-    position: absolute;
-    top: 44px;
-    left: 0;
-    border: 1px solid var(--background-color);
-  }
+
   .image-grid {
     width: 360px;
     margin: 14px auto;
@@ -197,7 +192,9 @@ const Title = styled.p`
 `;
 
 const PostListUl = styled.ul`
+  padding: 16px;
   width: 100%;
+
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
