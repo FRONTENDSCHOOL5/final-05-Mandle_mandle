@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import candleT1 from '../../assets/img/temp/candleT1.png';
 import React from 'react';
 
-export default function ClassPost() {
+export function ClassPost({mainImg, tag, title}) {
+
   return (
     <ClassPostWrap
       src=''
@@ -11,34 +11,35 @@ export default function ClassPost() {
       padding='10px 6px 0'
       alt=''
     >
-      <img src={candleT1} alt='' />
+      <img src={mainImg} alt='' />
       <div>
-        <p>뷰티</p>
-        <p>비누 만들기 클래스</p>
+        <p>{tag}</p>
+        <h3>{title}</h3>
       </div>
     </ClassPostWrap>
   );
 }
 
-export function ClassPostMini() {
+export function ClassPostMini({miniImg, miniTag, miniName}) {
   return (
     <ClassPostWrap
       src=''
-      width='180px'
-      height='200px'
-      padding='10px 4px 0'
+      width='140px'
+      height='136px'
+      padding='6px 4px 0'
       alt=''
+      
     >
-      <img src={candleT1} alt='' />
+      <img src={miniImg} alt='' />
       <div>
-        <p>뷰티</p>
-        <p>비누 만들기 클래스</p>
+        <p>{miniTag}</p>
+        <h3>{miniName}</h3>
       </div>
     </ClassPostWrap>
   );
 }
 
-const ClassPostWrap = styled.a`
+const ClassPostWrap = styled.article`
   display: block;
   width: ${(props) => props.width};
   height: ${(props) => props.height};
@@ -60,8 +61,11 @@ const ClassPostWrap = styled.a`
     font-size: var(--font-sm);
     margin-bottom: 8px;
   }
-  p + p {
+  h3 {
     font-size: var(--font-md);
     color: var(--font-color);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
 `;

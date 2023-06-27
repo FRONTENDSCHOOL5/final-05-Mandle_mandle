@@ -2,10 +2,10 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../../assets/img/icon-search.svg';
-import MoreIcon from '../../assets/img/icon- more-vertical.svg';
+import MoreIcon from '../../assets/img/icon-more-vertical.svg';
 import { ButtonStyle } from './Button';
 import GoBackButton from './GoBackButton';
-import Modal from './Modal';
+import MoreButton from './MoreButton';
 // home
 export function HomeNav({ title, to }) {
   return (
@@ -35,13 +35,11 @@ export function SearchNav({ onChange, value }) {
 }
 
 // 뒤로가기 + 더보기
-export function MoreNav() {
+export function MoreNav({ onClick }) {
   return (
     <TopNavWrap>
       <GoBackButton />
-      <button className='more-icon'>
-        <img src={MoreIcon} alt='더보기 아이콘' />
-      </button>
+      <MoreButton onClick={onClick} />
     </TopNavWrap>
   );
 }
@@ -98,7 +96,8 @@ function DisabledUploadBtnNav() {
 
 export const TopNavWrap = styled.header`
   display: flex;
-  width: 390px;
+  gap: 20px;
+  width: 100%;
   height: 48px;
   background-color: #ffffff;
   border-bottom: 1px solid #dbdbdb;

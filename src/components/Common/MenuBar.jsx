@@ -15,8 +15,8 @@ function MenuBar() {
       <ul>
         <li>
           <LinkWrap
-            to='/home/'
-            active={location.pathname.startsWith('/home/').toString()}
+            to='/home'
+            active={location.pathname.startsWith('/home').toString()}
           >
             <div>
               <img src={HomeIcon} alt='홈 버튼'></img>
@@ -26,8 +26,8 @@ function MenuBar() {
         </li>
         <li>
           <LinkWrap
-            to='/class/'
-            active={(location.pathname === '/class/').toString()}
+            to='/class'
+            active={location.pathname.startsWith('/class').toString()}
           >
             <div>
               <img src={ClassIcon} alt='클래스 버튼'></img>
@@ -37,8 +37,8 @@ function MenuBar() {
         </li>
         <li>
           <LinkWrap
-            to='/chatlist/'
-            active={(location.pathname === '/chatlist/').toString()}
+            to='/chat/chatlist'
+            active={location.pathname.startsWith('/chat').toString()}
           >
             <div>
               <img src={ChattingIcon} alt='채팅 버튼'></img>
@@ -48,8 +48,8 @@ function MenuBar() {
         </li>
         <li>
           <LinkWrap
-            to='/post/'
-            active={(location.pathname === '/post/').toString()}
+            to='/post/upload'
+            active={(location.pathname === '/post').toString()}
           >
             <div>
               <img src={PostingIcon} alt='게시물 작성 버튼'></img>
@@ -59,8 +59,8 @@ function MenuBar() {
         </li>
         <li>
           <LinkWrap
-            to='/profile/:accountname/'
-            active={(location.pathname.startsWith === '/profile/').toString()}
+            to='/my_profile'
+            active={(location.pathname === '/my_profile').toString()}
           >
             <div>
               <img src={ProfileIcon} alt='프로필 버튼'></img>
@@ -89,6 +89,7 @@ const MenuBarWrap = styled.footer`
     justify-content: space-around;
 
     li {
+      width: 50px;
       list-style: none;
     }
 
@@ -114,6 +115,16 @@ export const LinkWrap = styled(Link)`
   }
 
   p {
-    color: ${(props) => (props.active === 'true' ? '#036635' : '#000')};
+    color: ${(props) =>
+      props.active === 'true' ? 'var(--main-color)' : '#000'};
+  }
+
+  &:hover {
+    img {
+      object-position: -24px;
+    }
+    p {
+      color: var(--main-color);
+    }
   }
 `;

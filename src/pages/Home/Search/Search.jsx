@@ -1,29 +1,34 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import SearchList from './SearchList';
+import GetSearchUser from '../../../api/GetSearchUser';
+import { UserAtom } from '../../../Store/userInfoAtoms';
 import MenuBar from '../../../components/Common/MenuBar';
 import { SearchNav } from '../../../components/Common/TopNav';
-
+import { MainWrap } from './SearchStyle';
 export default function Search() {
+  const [userValue] = useRecoilState(UserAtom); // UserAtom값 불러오기
+  const [accountData, setAccountData] = useState(null);
+  const token = userValue.token; // token값 추출
+
+  const handleKeywordChange = async (e) => {
+    const keyword = e.target.value;
+    const response =
+      keyword.trim() === '' ? null : await GetSearchUser(keyword, token);
+    setAccountData(response);
+  };
+
   return (
     <>
-      <SearchNav></SearchNav>
-      <MainWrap></MainWrap>
+      <SearchNav token={token} onChange={handleKeywordChange}></SearchNav>
+      <MainWrap>
+        <ul>
+          {accountData
+            ? accountData.map((account) => <SearchList account={account} />)
+            : ''}
+        </ul>
+      </MainWrap>
       <MenuBar />
-      cc
     </>
   );
 }
-const MainWrap = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: calc(100% - 60px - 48px);
-
-  p {
-    padding: 10px 0 20px;
-    color: var(--sub-font-color);
-  }
-`;

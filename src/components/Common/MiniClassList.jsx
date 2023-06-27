@@ -1,59 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import GlobalStyle from '../../styles/GlobalStyles';
-import ClassImg from '../../assets/img/temp/candleT1.png';
+import Modal from '../Common/Modal/Modal';
+import ModalAlert from './Modal/ModalAlert/ModalAlert';
+import DeleteClass from '../../api/DeleteClass';
+import { useNavigate } from 'react-router-dom';
+function MiniClassList({ classItem, page, token, setClassUpdated }) {
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const handleClick = () => {
+    if (page === 'profile') {
+      setModalOpen(true);
+    } else {
+      navigate(`/class/detail/${classItem.id}`);
+    }
+  };
 
-function MiniClassList() {
+  const handleDeleteSubmit = async () => {
+    const response = await DeleteClass(classItem.id, token); // Call the API component
+    if (response) {
+      setAlertModalOpen(false);
+      alert(`해당 게시글이 삭제되었습니다.`);
+
+      setClassUpdated(true); // 새로고침(상태변경으로 바꿀 예정)
+    }
+  };
+
+  const handleMoveClassDetail = () => {
+    navigate(`/class/detail/${classItem.id}`);
+  };
+
   return (
-    <ClassSection>
-      <Title>판매중인 상품</Title>
-      <ClassList>
-        <li>
-          <a href='#'>
-            <Class>
-              <ClassImage src={ClassImg} alt='양초 수업' />
-              <ClassDescription>생활</ClassDescription>
-              <ClassTitle>향초 만들기</ClassTitle>
-            </Class>
-          </a>
-        </li>
-        <li>
-          <a href='#'>
-            <Class>
-              <ClassImage src={ClassImg} alt='양초 수업' />
-              <ClassDescription>생활</ClassDescription>
-              <ClassTitle>향초 만들기</ClassTitle>
-            </Class>
-          </a>
-        </li>
-        <li>
-          <a href='#'>
-            <Class>
-              <ClassImage src={ClassImg} alt='양초 수업' />
-              <ClassDescription>생활</ClassDescription>
-              <ClassTitle>향초 만들기</ClassTitle>
-            </Class>
-          </a>
-        </li>
-      </ClassList>
-    </ClassSection>
+    <>
+      <ClassButtonWrap onClick={handleClick}>
+        <ClassImage src={classItem.itemImage} alt={classItem.itemName} />
+        <ClassDescription>{classItem.link}</ClassDescription>
+        <ClassTitle>{classItem.itemName}</ClassTitle>
+      </ClassButtonWrap>
+
+      {isModalOpen && (
+        <Modal
+          setModalOpen={setModalOpen}
+          setAlertModalOpen={setAlertModalOpen}
+          onClick={handleMoveClassDetail}
+          type='class'
+        />
+      )}
+      {alertModalOpen && (
+        <ModalAlert
+          setAlertModalOpen={setAlertModalOpen}
+          onClick={handleDeleteSubmit}
+        />
+      )}
+    </>
   );
 }
+
 export default MiniClassList;
 
-const ClassSection = styled.section`
-  box-sizing: border-box;
-  padding: 10px;
-`;
-
-const Title = styled.h2`
-  font-size: var(--font-md);
-  margin-bottom: 16px;
-`;
-
-const Class = styled.article`
-  width: 140px;
-  height: 136px;
+const ClassButtonWrap = styled.button`
+  width: 100%;
+  height: 100%;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   background-color: #fff;
@@ -72,16 +79,13 @@ const ClassDescription = styled.p`
   margin: 6px 0 7px 4px;
 `;
 
-const ClassTitle = styled.h3`
+const ClassTitle = styled.p`
   font-size: var(--font-md);
   font-weight: normal;
-  margin-left: 4px;
   color: #000;
-`;
-
-const ClassList = styled.ul`
-  padding: 0 0 10px 0;
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
+  width: 120px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 6px 0 7px 4px;
 `;

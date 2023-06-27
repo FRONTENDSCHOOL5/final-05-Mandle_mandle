@@ -1,52 +1,41 @@
-import React from "react";
-import styled from "styled-components";
-import GlobalStyle from "../../styles/GlobalStyles";
-import Teacher from "../../assets/img/icon-teacher.svg";
+import styled from 'styled-components';
+import Teacher from '../../assets/img/icon-teacher.svg';
 
-const TopNavWrap = styled.div`
-  display: flex;
-  width: 390px;
-  height: 48px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #dbdbdb;
-  align-items: center;
-  justify-content: space-between;
-
-  input {
-    width: 316px;
-    height: 32px;
-    border-radius: 32px;
-    border: none;
-    background-color: #f2f2f2;
-    padding-left: 16px;
-    font-size: 14px;
-  }
-
-  button {
-    margin-right: 16px;
-  }
-
-  .go-back {
-    margin-left: 16px;
+const ProfilePage = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+const MainWrap = styled.main`
+  background-color: var(--background-color);
+  width: 100%;
+  height: calc(100% - 48px - 60px);
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
 const ProfileSection = styled.section`
-  width: 390px;
+  width: 100%;
   text-align: center;
-  margin: 10px auto;
-
+  padding: 10px auto;
+  background: white;
+  margin-bottom: 5px;
+  #usernameWrap {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+  }
   #NickName {
     font-size: var(--font-lg);
     position: relative;
   }
-  & #NickName span {
+  & #NickName + span {
     display: block;
     width: 14px;
     height: 14px;
-    position: absolute;
-    right: 116px;
-    top: 0;
     background-image: url(${Teacher});
   }
   #MandleId {
@@ -59,11 +48,17 @@ const ProfileSection = styled.section`
     color: var(--sub-font-color);
     margin-bottom: 24px;
   }
+  #profileImg {
+    width: 110px;
+    height: 110px;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 `;
 const Wrap = styled.div`
   display: flex;
   justify-content: space-around;
-  margin-top: 24px;
   img {
     width: 110px;
     margin: 30px 0 16px 0;
@@ -86,7 +81,8 @@ const WrapBtn = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
-  margin-bottom: 26px;
+  padding-bottom: 20px;
+  .profileEditBtn,
   .profileBtn {
     border: 1px solid var(--border-color);
     border-radius: 30px;
@@ -95,6 +91,7 @@ const WrapBtn = styled.div`
     text-align: center;
     color: var(--sub-font-color);
     font-size: var(--font-md);
+    margin-bottom: 26px;
   }
   .ChatBtn,
   .ShareBtn {
@@ -110,5 +107,124 @@ const WrapBtn = styled.div`
     height: 34px;
   }
 `;
+const PostSection = styled.section`
+  padding: 10px;
+  background: white;
+  #PostBtnWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background: white;
+    padding-bottom: 10px;
+    gap: 5px;
+    button {
+      width: 26px;
+      height: 26px;
+    }
+    img {
+      width: 100%;
+    }
+  }
+  #PostBtnWrap span {
+    width: 100%;
+    position: absolute;
+    top: 44px;
+    left: 0;
+  }
+  .image-grid {
+    width: 360px;
+    margin: 14px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    min-height: 350px;
+  }
 
-export { WrapBtn, Wrap, ProfileSection, TopNavWrap };
+  .image-grid img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+  }
+
+  .image-none {
+    width: 360px;
+    margin: 14px auto;
+    min-height: 350px;
+    div {
+      margin: 80px auto;
+      text-align: center;
+    }
+  }
+  .post-none {
+    margin: 80px auto;
+    text-align: center;
+    min-height: 350px;
+  }
+`;
+const ClassSection = styled.section`
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: #fff;
+  margin-bottom: 5px;
+`;
+const ClassListUl = styled.ul`
+  padding: 0 0 10px 0;
+
+  display: flex;
+  gap: 10px;
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    padding-top: 5px;
+    background-color: white;
+
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid white;
+  }
+`;
+const Title = styled.p`
+  font-size: var(--font-md);
+  margin-bottom: 16px;
+`;
+
+const PostListUl = styled.ul`
+  width: 100%;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+const FollowBtn = styled.button`
+  width: 100px;
+  height: 28px;
+  color: white;
+  border-radius: 28px;
+  background-color: var(--main-color);
+  text-align: center;
+
+  &.following {
+    background-color: white;
+    color: var(--sub-font-color);
+    border: 1px solid var(--sub-font-color);
+  }
+`;
+
+export {
+  WrapBtn,
+  Wrap,
+  ProfileSection,
+  FollowBtn,
+  ProfilePage,
+  PostSection,
+  ClassSection,
+  ClassListUl,
+  Title,
+  MainWrap,
+  PostListUl,
+};

@@ -1,70 +1,50 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import HomeLogo from "../../assets/img/home-logo.svg";
-import MenuBar from "../../components/Common/MenuBar";
-import ButtonStyle from "../../components/Common/Button";
-import { HomeNav } from "../../components/Common/TopNav";
-import PostList from "../../components/Common/PostList/PostList";
-import { UserAtom } from "../../Store/userInfoAtoms";
-import { useRecoilState } from "recoil";
+import React, { useEffect, useState, useRef } from 'react';
+import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { HomeNav } from '../../components/Common/TopNav';
+import { UserAtom } from '../../Store/userInfoAtoms';
+import PostBlank from './PostBlank/PostBlank';
+import GetFollowPost from '../../api/GetFollowPost';
+import MenuBar from '../../components/Common/MenuBar';
+import PostList from '../../components/Common/PostList/PostList';
+import { HomeWrap, MainWrap, PostUlStyle } from './HomeStyle';
+import Loading from '../Loading/Loading';
 export default function Home({ to }) {
-  const token = useRecoilState(UserAtom);
-  console.log(token);
+  const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
+  const token = userInfo.token; // token값 바인딩
+  const [postList, setpostList] = useState([]);
+
+  useEffect(() => {
+    const response = async () => {
+      const data = await GetFollowPost(token);
+      setpostList(data);
+    };
+
+    response();
+  }, [token]);
+  console.log(postList);
   return (
     <HomeWrap>
-      <HomeNav title="홈" to={to}></HomeNav>
+      <HomeNav title='홈' to='/home/search'></HomeNav>
       <MainWrap>
-        {/* <img src={HomeLogo} alt='' />
-        <p>유저를 검색해 팔로우 해보세요!</p>
-        <Link to={to}>
-          <ButtonStyle
-            width='120px'
-            height='44px'
-            color='#fff'
-            bg='#036635'
-            br='44px'
-          >
-            검색하기
-          </ButtonStyle>
-        </Link> */}
-        {
-          <ul>
-            <PostList />
-            <PostList />
-          </ul>
-        }
+        {postList === null || postList.length === 0 ? (
+          <Loading />
+        ) : postList !== null && postList.length === 0 ? (
+          <PostBlank
+            text='아직 팔로워가 작성한 글이 없어요.'
+            text2='검색을 통해 팔로워를 더 만들어 볼까요?'
+          />
+        ) : postList === null ? (
+          <PostBlank text='유저를 검색해 팔로우 해보세요!' />
+        ) : (
+          <PostUlStyle>
+            {postList.map((post) => (
+              <PostList key={post.id} post={post} />
+            ))}
+          </PostUlStyle>
+        )}
       </MainWrap>
       <MenuBar />
     </HomeWrap>
   );
 }
-const HomeWrap = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  font-size: var(--font-md);
-`;
-
-const MainWrap = styled.main`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: calc(100% - 48px - 60px);
-  padding: 0 16px;
-
-  ul {
-    overflow-y: scroll;
-  }
-  ul::-webkit-scrollbar {
-    display: none;
-  }
-  /* p {
-    padding: 10px 0 20px;
-    color: var(--sub-font-color);
-  } */
-`;
