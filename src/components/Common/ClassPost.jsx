@@ -25,8 +25,8 @@ export function ClassPostMini({miniImg, miniTag, miniName}) {
     <ClassPostWrap
       src=''
       width='140px'
-      height='136px'
-      padding='6px 4px 0'
+      // height='136px'
+      padding='6px 4px'
       alt=''
       
     >
@@ -51,6 +51,8 @@ const ClassPostWrap = styled.article`
     object-fit: cover;
     aspect-ratio: 180 / 120;
     border-radius: 5px 5px 0 0;
+    vertical-align: top;
+    box-sizing: border-box;
   }
 
   div {
