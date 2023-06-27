@@ -5,7 +5,7 @@ import SearchIcon from '../../assets/img/icon-search.svg';
 import MoreIcon from '../../assets/img/icon-more-vertical.svg';
 import { ButtonStyle } from './Button';
 import GoBackButton from './GoBackButton';
-
+import MoreButton from './MoreButton';
 // home
 export function HomeNav({ title, to }) {
   return (
@@ -35,13 +35,11 @@ export function SearchNav({ onChange, value }) {
 }
 
 // 뒤로가기 + 더보기
-export function MoreNav() {
+export function MoreNav({ onClick }) {
   return (
     <TopNavWrap>
       <GoBackButton />
-      <button className='more-icon'>
-        <img src={MoreIcon} alt='더보기 아이콘' />
-      </button>
+      <MoreButton onClick={onClick} />
     </TopNavWrap>
   );
 }

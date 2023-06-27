@@ -28,7 +28,6 @@ import EditProfile from './pages/Profile/EditProfile/EditProfile';
 import Follower from './pages/Profile/FollowList/FollowerList';
 import Following from './pages/Profile/FollowList/FollowingList';
 import ChatRoom from '../src/pages/Chatting/ChatRoom';
-import ChatModal from './pages/Chatting/ChatModal';
 import EditPost from './pages/Posting/EditPost';
 import ChatList from './pages/Chatting/ChatList';
 function App() {
@@ -66,10 +65,9 @@ function App() {
             {/* 라우트 추가 부분 */}
             <Route path='chatlist' element={<ChatList />} />
             <Route path='chatroom' element={<ChatRoom />} />
-            <Route path='chatmodal' element={<ChatModal />} />
           </Route>
 
-          <Route path='/my_profile/' element={<Outlet />}>
+          <Route path='/my_profile' element={<Outlet />}>
             <Route path='' element={<Profile />} />
             <Route path='follower' element={<Follower />} />
             <Route path='following' element={<Following />} />
