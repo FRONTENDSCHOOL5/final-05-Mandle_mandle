@@ -226,7 +226,7 @@ export default function Profile() {
                     ) : (
                       <div className='post-none'>
                         <img src={HomeLogo} alt='포스트가 없습니다' />
-                        <p>No posts available.</p>
+                        <p>작성된 게시물이 없습니다</p>
                       </div>
                     )}
                   </div>
@@ -248,7 +248,7 @@ export default function Profile() {
                     ) : (
                       <div>
                         <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
-                        <p>No images available.</p>
+                        <p>작성된 게시물 이미지가 없습니다</p>
                       </div>
                     )}
                   </div>

@@ -82,6 +82,7 @@ const WrapBtn = styled.div`
   gap: 10px;
   justify-content: center;
   padding-bottom: 20px;
+  align-items: center;
   .profileEditBtn,
   .profileBtn {
     border: 1px solid var(--border-color);
@@ -110,6 +111,7 @@ const WrapBtn = styled.div`
 const PostSection = styled.section`
   padding: 10px;
   background: white;
+  position: relative;
   #PostBtnWrap {
     display: flex;
     flex-direction: row;
@@ -130,6 +132,7 @@ const PostSection = styled.section`
     position: absolute;
     top: 44px;
     left: 0;
+    border: 1px solid var(--background-color);
   }
   .image-grid {
     width: 360px;
@@ -137,7 +140,7 @@ const PostSection = styled.section`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
-    min-height: 350px;
+    // padding-bottom: 88px;
   }
 
   .image-grid img {

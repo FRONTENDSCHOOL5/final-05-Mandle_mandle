@@ -64,6 +64,7 @@ const ClassButtonWrap = styled.button`
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   background-color: #fff;
+  max-width: fit-content;
 `;
 
 const ClassImage = styled.img`
