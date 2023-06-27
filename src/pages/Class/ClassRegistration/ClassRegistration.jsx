@@ -90,9 +90,9 @@ export function Main() {
         }}
         placeholder='클래스 이름'
       />
-      {(className && (className.length < 2 || className.length > 15)) ? (
+      {(className && (className.length < 2 || className.length > 30)) ? (
         <InputValidationError>
-          클래스 이름은 2자 이상, 15자 이하여야 합니다.
+          클래스 이름은 2자 이상, 30자 이하여야 합니다.
         </InputValidationError>
       ) : null}
       
@@ -106,17 +106,31 @@ export function Main() {
         placeholder='클래스 태그'
       />
 
-      <label>클래스 가격 (원)</label>
+      <label>클래스 가격 (원)
+        <p>원</p>
       <ClassInput
-        type='number'
-        step={500}
-        min={0}
+        type='text'
         onChange={(e) => {
-          setClassPrice(e.target.value.trim());
+          let inputValue = e.target.value;
+          let numericValue = inputValue.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
+          const maxValue = 9999999999999;
+      
+          if (numericValue > maxValue) {
+            numericValue = numericValue.slice(0, -1); // 최대값을 초과하는 경우 마지막 숫자 제거
+          }
+      
+          const formattedValue = Number(numericValue).toLocaleString(); // 천 단위마다 콤마 추가
+      
+          if (formattedValue !== inputValue) {
+            e.target.value = formattedValue; // 콤마가 추가된 값으로 입력란 갱신
+          }
+      
+          setClassPrice(numericValue);
         }}
         placeholder='클래스 가격'
+        
       />
-      
+      </label>
 
       <AddBtn type='submit' disabled={isFormIncomplete}>저장</AddBtn>
     </ClassRegistrationForm>

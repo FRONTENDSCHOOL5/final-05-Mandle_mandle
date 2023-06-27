@@ -7,7 +7,13 @@ export const ClassRegistrationForm = styled.form`
     color: var(--sub-font-color);
     margin-top: 30px;
     display: block;
-}
+    position: relative;
+    p {
+      position: absolute;
+      top: 30.5px;
+      right: 64%;
+    }
+  }
 `;
 
 export const ImgBox = styled.div`
@@ -64,3 +70,4 @@ export const AddBtn = styled.button`
   top: 8px;
   right: 16px;
 `;
+
