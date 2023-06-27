@@ -1,193 +1,65 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../../assets/img/icon-search.svg';
-import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
-import MoreIcon from '../../assets/img/icon- more-vertical.svg';
 import { ButtonStyle } from './Button';
-
-//메인, 클래스 타이틀 nav
-const MainNav = styled.div`
-  display: flex;
-  width: 390px;
-  height: 48px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #dbdbdb;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-//top-basic-nav
-const SearchNav = styled.div`
-  display: flex;
-  width: 390px;
-  height: 48px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #dbdbdb;
-  align-items: center;
-  justify-content: flex-end;
-`;
-
-//검색하기 뒤로가기 아이콘 nav
-const SearchBackNav = styled.div`
-  display: flex;
-  width: 390px;
-  height: 48px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #dbdbdb;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-`;
-
-//top-basic-nav
-//더보기, 뒤로가기 아이콘 속성
-const MoreBackNav = styled.div`
-  display: flex;
-  width: 390px;
-  height: 48px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #dbdbdb;
-  align-items: center;
-  justify-content: space-between;
-  /* padding-left: 16px; */
-`;
-
-// 뒤로가기 아이콘 속성
-const ArrowLeft = styled.div`
-  display: flex;
-  width: 390px;
-  height: 48px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #dbdbdb;
-  align-items: center;
-  /* padding-left: 16px; */
-`;
-
-// //검색하기 아이콘 속성
-// const SearchNav = styled.div`
-//   display: flex;
-//   width: 390px;
-//   height: 48px;
-//   background-color: #ffffff;
-//   border-bottom: 1px solid #dbdbdb;
-//   align-items: center;
-//   justify-content: flex-end;
-// `;
-
-//tob-upload-nav
-//버튼 속성
-const BackButtonNav = styled.div`
-  display: flex;
-  width: 390px;
-  height: 48px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #dbdbdb;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-// const Button = styled.button`
-//   width: 90px;
-//   height: 32px;
-//   margin-right: 16px;
-//   border-radius: 32px;
-//   text-align: center;
-//   color: #ffffff;
-//   cursor: pointer;
-
-//   &:disabled {
-//     background-color: #b1d4c3;
-//     pointer-events: none;
-//   }
-// `;
-
-//이미지들 공통 속성
-const Image = styled.img`
-  cursor: pointer;
-  padding-left: 16px;
-
-  //이미지 클래스 추가속성
-  &.search {
-    padding-right: 20px;
-  }
-
-  &.arrow-left-icon {
-    padding-left: 16px;
-  }
-
-  &.more-icon {
-    padding-right: 16px;
-  }
-`;
-
-//인풋 스타일 설정
-const Input = styled.input`
-  width: 316px;
-  height: 32px;
-  border-radius: 32px;
-  border: none;
-  background-color: #f2f2f2;
-  padding-left: 16px;
-  font-size: 14px;
-`;
-
-//메인 타이틀 설정
-const NavTitle = styled.span`
-  padding-left: 16px;
-  cursor: pointer;
-`;
-
-function MainNavigation({ title }) {
+import GoBackButton from './GoBackButton';
+import MoreButton from './MoreButton';
+// home
+export function HomeNav({ title, to }) {
   return (
-    <MainNav>
-      <NavTitle>만들만들 {title}</NavTitle>
-      <Image className='search' src={SearchIcon} alt='검색하기 아이콘' />
-    </MainNav>
+    <TopNavWrap>
+      <h1>만들만들 {title}</h1>
+      <Link to={to}>
+        <img className='search' src={SearchIcon} alt='검색하기 아이콘' />
+      </Link>
+    </TopNavWrap>
   );
 }
 
-function SearchNavigation() {
+// 검색, input있는 버전
+export function SearchNav({ onChange, value }) {
   return (
-    <SearchBackNav>
-      <Image src={ArrowIcon} alt='뒤로가기 아이콘' />
-      <label htmlFor='search-input' />
-      <Input id='search-input' type='text' placeholder='계정 검색' />
-    </SearchBackNav>
+    <TopNavWrap>
+      <GoBackButton />
+      <input
+        id='search-input'
+        type='text'
+        onChange={onChange}
+        value={value}
+        placeholder='계정 검색'
+      />
+    </TopNavWrap>
   );
 }
 
-function MoreNavigation() {
+// 뒤로가기 + 더보기
+export function MoreNav({ onClick }) {
   return (
-    <MoreBackNav>
-      <Image src={ArrowIcon} alt='뒤로가기 아이콘' />
-      <Image className='more-icon' src={MoreIcon} alt='더보기 아이콘' />
-    </MoreBackNav>
+    <TopNavWrap>
+      <GoBackButton />
+      <MoreButton onClick={onClick} />
+    </TopNavWrap>
   );
 }
 
-function ArrowLeftNavigation() {
+// 뒤로가기만 있는 버전
+export function GoBackNav() {
   return (
-    <ArrowLeft>
-      <Image src={ArrowIcon} alt='뒤로가기 아이콘' />
-    </ArrowLeft>
+    <TopNavWrap>
+      <GoBackButton />
+    </TopNavWrap>
   );
 }
 
-function SearchBar() {
+// 뒤로가기 + 업로드 버튼
+function UploadBtnNav() {
   return (
-    <SearchNav>
-      <Image className='search' src={SearchIcon} alt='검색하기 아이콘' />
-    </SearchNav>
-  );
-}
-
-function UploadButton() {
-  return (
-    <BackButtonNav>
-      <Image src={ArrowIcon} alt='뒤로가기 아이콘' />
+    <TopNavWrap>
+      <GoBackButton />
       <ButtonStyle
         type='button'
-        bg='#036635'
+        bg='var(--main-color)'
         width='90px'
         height='32px'
         br='32px'
@@ -197,14 +69,14 @@ function UploadButton() {
       >
         업로드
       </ButtonStyle>
-    </BackButtonNav>
+    </TopNavWrap>
   );
 }
 
-function DisabledUploadButton() {
+function DisabledUploadBtnNav() {
   return (
-    <BackButtonNav>
-      <Image src={ArrowIcon} alt='뒤로가기 아이콘' />
+    <TopNavWrap>
+      <GoBackButton />
       <ButtonStyle
         type='button'
         bg='#b1d4c3'
@@ -217,25 +89,35 @@ function DisabledUploadButton() {
       >
         업로드
       </ButtonStyle>
-    </BackButtonNav>
+    </TopNavWrap>
   );
 }
 
-function TopNavs({ name }) {
-  const [title, setTitle] = useState(name);
+export const TopNavWrap = styled.header`
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  height: 48px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dbdbdb;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
 
-  return (
-    <>
-      <MainNavigation title={title} />
-      <SearchNavigation />
-      <MainNavigation title={title} />
-      <MoreNavigation />
-      <ArrowLeftNavigation />
-      <SearchBar />
-      <UploadButton />
-      <DisabledUploadButton />
-    </>
-  );
-}
+  h1 {
+  }
 
-export default TopNavs;
+  input {
+    width: 316px;
+    height: 32px;
+    border-radius: 32px;
+    border: none;
+    background-color: #f2f2f2;
+    padding-left: 16px;
+    font-size: 14px;
+  }
+
+  button,
+  a {
+  }
+`;

@@ -1,34 +1,41 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { PostImagesUpload } from '../../api/PostImagesUpload';
 import BasicProfile from '../../assets/img/basic-profile-img.svg';
 import UploadBtnImg from '../../assets/img/img-upload-button.svg';
-import styled from 'styled-components';
-
-export default function UploadProfile() {
+export default function UploadProfile({ onResponse, image }) {
   const fileInputRef = useRef(null);
-  const [previewImage, setPreviewImage] = useState(BasicProfile);
+  const [previewImage, setPreviewImage] = useState(image || BasicProfile);
 
   const handleImageUpload = () => {
     fileInputRef.current.click();
   };
 
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const selectedFile = event.target.files[0];
+    const response = await PostImagesUpload(selectedFile);
+    onResponse(response);
+
     const reader = new FileReader();
 
     reader.onload = () => {
       setPreviewImage(reader.result);
     };
 
-    if (selectedFile) {
-      reader.readAsDataURL(selectedFile);
-    }
+    reader.readAsDataURL(selectedFile);
   };
+
+  useEffect(() => {
+    if (image) {
+      setPreviewImage(image);
+    }
+  }, [image]);
 
   return (
     <UploadProfileWrap>
-      <img src={previewImage} alt='' />
+      <img src={previewImage} alt='기본 사용자 프로필 사진 ' />
       <ImgUploadBtn type='button' onClick={handleImageUpload}>
-        <img src={UploadBtnImg} alt='' />
+        <img src={UploadBtnImg} alt='이미지 업로드 버튼' />
         <input
           type='file'
           ref={fileInputRef}
@@ -45,7 +52,7 @@ const UploadProfileWrap = styled.div`
   width: 110px;
   height: 110px;
   overflow: hidden;
-
+  margin: auto;
   img {
     width: 100%;
     height: 100%;
