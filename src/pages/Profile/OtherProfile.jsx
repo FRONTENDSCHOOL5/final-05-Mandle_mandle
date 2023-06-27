@@ -86,13 +86,34 @@ export default function Profile() {
       return null;
     }
   };
-
+  const handleCopy = () => {
+    const apiUrl = window.location.href; // Current URL
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(apiUrl)
+        .then(() => {
+          alert('주소가 복사되었습니다.');
+        })
+        .catch((error) => {
+          console.error('Failed to copy URL:', error);
+        });
+    } else {
+      // Fallback for browsers that do not support the Clipboard API
+      const tempInput = document.createElement('textarea');
+      tempInput.value = apiUrl;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      alert('주소가 복사되었습니다.');
+    }
+  };
   const navigateToFollowers = () => {
-    navigate(`/other_profile/${accountname}/follower`);
+    navigate(`/other_profile/${accountname}/follower`, { state: accountname });
   };
 
   const navigateToFollowing = () => {
-    navigate(`/other_profile/${accountname}/following`);
+    navigate(`/other_profile/${accountname}/following`, { state: accountname });
   };
   if (!profileData && !classData) {
     return <div>Loading...</div>;
@@ -158,8 +179,8 @@ export default function Profile() {
               </button>
             </div>
           </Wrap>
-          <p id='NickName'>
-            {profileData.username}
+          <div id='usernameWrap'>
+            <p id='NickName'>{profileData.username}</p>{' '}
             <span
               className={
                 profileData.accountname &&
@@ -168,7 +189,7 @@ export default function Profile() {
                   : 'a11y-hidden'
               }
             ></span>
-          </p>
+          </div>
           <p id='MandleId'>
             @
             {(profileData.accountname &&
@@ -180,7 +201,7 @@ export default function Profile() {
           </p>
           <p id='Introduce'>{profileData.intro}</p>
           <WrapBtn>
-            <Link to='/chat'>
+            <Link to='/chat/chatroom'>
               <button className='ChatBtn'>
                 <img src={ChatImg} alt='채팅 아이콘 이미지' />
               </button>
@@ -191,11 +212,37 @@ export default function Profile() {
             >
               {isfollow ? '취소' : '팔로우'}
             </FollowBtn>
-            <button className='ShareBtn'>
+            <button className='ShareBtn' onClick={handleCopy}>
               <img src={ShareImg} alt='공유 아이콘 이미지' />
             </button>
           </WrapBtn>
         </ProfileSection>
+        <ClassSection
+          className={
+            profileData &&
+            profileData.accountname &&
+            profileData.accountname.includes('Teacher')
+              ? ''
+              : 'a11y-hidden'
+          }
+        >
+          <Title>클래스 리스트</Title>
+          <ClassListUl>
+            {profileData &&
+              profileData.accountname &&
+              profileData.accountname.includes('Teacher') &&
+              classData.product &&
+              classData.product.map((classItem, index) => (
+                <MiniClassList
+                  key={classItem.id}
+                  token={token}
+                  classItem={classItem}
+                  page='profile'
+                  setClassUpdated={setClassUpdated}
+                />
+              ))}
+          </ClassListUl>
+        </ClassSection>
         <PostSection>
           <div id='PostBtnWrap'>
             <button
@@ -234,7 +281,7 @@ export default function Profile() {
                 ) : (
                   <div className='post-none'>
                     <img src={HomeLogo} alt='포스트가 없습니다' />
-                    <p>No posts available.</p>
+                    <p>작성된 게시물이 없습니다</p>
                   </div>
                 )}
               </div>
@@ -257,7 +304,7 @@ export default function Profile() {
                 ) : (
                   <div>
                     <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
-                    <p>No images available.</p>
+                    <p>작성된 게시물 이미지가 없습니다</p>
                   </div>
                 )}
               </div>
