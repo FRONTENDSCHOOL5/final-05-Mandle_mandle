@@ -49,6 +49,8 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
 
 ## 2. 역할 분배
 
+<img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/blob/cf0a8bfc179d31b2e0b6eeb49bbd7d9d3dd0f813/src/assets/img/role.png" >
+
 ## 3. 기술 및 개발 환경
 
 ### [기술 스택]
