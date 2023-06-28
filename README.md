@@ -2,24 +2,33 @@
 
 ### 🔗 [배포 URL](https://frontendschool5.github.io/final-05-Mandle_mandle/)
 
-> ### 목차
->
-> 1.  [프로젝트 소개](#1프로젝트-소개)
-> 2.  [팀원 소개](#2-팀원-소개)
-> 3.  [기술 및 개발 환경](#3-기술-및-개발-환경)
-> 4.  [폴더구조](#4-폴더구조)
-> 5.  [구현 기능](#5-구현-기능)
-> 6.  [기능 UI](#6-기능-UI)
-> 7.  [협업 방식](#7-협업-방식)
-> 8.  [특징](#8-특징)
-> 9.  [주요 코드](#9-주요-코드)
-> 10. [후기](#10-후기)
+### 👩‍👧‍👦 테스트 계정
+
+- 강사<br/>
+  ID : mandle2@mandle.com<br/>
+  PW : Mandletest2!
+- 수강생<br/>
+  ID : dodo@mandle.com<br/>
+  PW : dodo123
+  Da-Youn
+  > ### 목차
+  >
+  > 1.  [프로젝트 소개](#1프로젝트-소개)
+  > 2.  [팀원 소개](#2-팀원-소개)
+  > 3.  [기술 및 개발 환경](#3-기술-및-개발-환경)
+  > 4.  [폴더구조](#4-폴더구조)
+  > 5.  [구현 기능](#5-구현-기능)
+  > 6.  [기능 UI](#6-기능-UI)
+  > 7.  [협업 방식](#7-협업-방식)
+  > 8.  [특징](#8-특징)
+  > 9.  [주요 코드](#9-주요-코드)
+  > 10. [후기](#10-후기)
 
 ## 1. 프로젝트 소개
 
 ![소개 이미지](https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/1f856ec1-ed14-446e-960f-f730703bb394)
 
-> 만들만들은 참여형 플랫폼으로, 사용자들의 라이프 스타일에 새로운 도전을 응원합니다. 우리는 단순히 무언가를 만들어내는 개념을 넘어, 취미를 만들고 라이프 스타일을 창조해 나갈 수 있는 경험을 제공합니다. 이를 통해 다양한 원데이 클래스를 제공하고, 사용자들이 새로운 도전에 참여하고 즐길 수 있는 기회를 제공합니다.<br><br>만들만들은 사용자들에게 자신의 관심 분야나 취미를 발전시키는 동시에 다른 사람들과 교류하며 함께 성장할 수 있는 플랫폼을 제공합니다. 우리의 목표는 사용자들이 자유롭게 자신의 역량을 발휘하고 창의적인 활동을 할 수 있는 공간을 만드는 것입니다. 이를 통해 새로운 기술을 배우거나 예술적인 스킬을 향상시키는 등의 다양한 활동을 통해 더욱 풍요로운 삶을 즐길 수 있습니다.<br><br>만들만들은 사용자들이 자신의 삶에 의미 있는 도전을 할 수 있도록 다양한 클래스와 강사들을 소개합니다. 예를 들어, 그림 그리기, 요리, 체육 등 다양한 분야의 클래스를 제공하며, 전문적인 강사들이 사용자들을 가르치고 지원합니다. 또한, 사용자들은 이러한 클래스를 통해 새로운 취미나 특기를 개발하고, 동시에 다른 참가자들과 소통하며 교류할 수 있습니다. 이렇게 함께 성장하고 자신의 능력을 발전시키는 과정을 통해, 우리는 사용자들의 라이프 스타일을 더욱 풍요롭게 만들고자 합니다.
+> 만들만들은 **참여형 플랫폼**으로, 사용자들의 라이프 스타일에 새로운 도전을 응원합니다. 우리는 단순히 무언가를 만들어내는 개념을 넘어, 취미를 만들고 라이프 스타일을 창조해 나갈 수 있는 경험을 제공합니다. 이를 통해 다양한 원데이 클래스를 제공하고, 사용자들이 새로운 도전에 참여하고 즐길 수 있는 기회를 제공합니다.<br><br>만들만들은 사용자들에게 **자신의 관심 분야나 취미를 발전**시키는 동시에 다른 사람들과 **교류하며 함께 성장**할 수 있는 플랫폼을 제공합니다. 우리의 목표는 사용자들이 자유롭게 자신의 역량을 발휘하고 창의적인 활동을 할 수 있는 공간을 만드는 것입니다. 이를 통해 새로운 기술을 배우거나 예술적인 스킬을 향상시키는 등의 다양한 활동을 통해 더욱 풍요로운 삶을 즐길 수 있습니다.<br><br>만들만들은 사용자들이 자신의 삶에 의미 있는 도전을 할 수 있도록 다양한 클래스와 강사들을 소개합니다. 예를 들어, 그림 그리기, 요리, 체육 등 **다양한 분야의 클래스를 제공**하며, **전문적인 강사**들이 사용자들을 가르치고 지원합니다. 또한, 사용자들은 이러한 클래스를 통해 새로운 취미나 특기를 개발하고, 동시에 다른 참가자들과 소통하며 교류할 수 있습니다. 이렇게 함께 성장하고 자신의 능력을 발전시키는 과정을 통해, 우리는 사용자들의 라이프 스타일을 더욱 풍요롭게 만들고자 합니다.
 
 <p align="right"><a href="#top">(🔼 Top)</a></p>
 
@@ -32,7 +41,7 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
 |**차다연**|**김예지**|**우경석**|**윤서준** |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | <img width="180" alt="Dayoun_profile_img" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/1d81c7a2-508e-4cc2-91f3-85342e65eac7"> | <img width="180"  alt="Yegi_profile_img" src="https://likelion.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F23901406-5d30-4f87-a166-03a79e52a991%2FKakaoTalk_Photo_2023-02-28-20-38-30.jpeg?table=block&id=f41783c9-bc51-4c24-ad37-de2caf59e1bd&spaceId=c69962b0-3951-485b-b10a-5bb29576bba8&width=2000&userId=&cache=v2"> | <img width="180" alt="kyungseuk_profile_img" src="https://cdn.discordapp.com/attachments/1114083723663650887/1114083747642482728/1668348982968.jpg"> | <img width="180" alt="seojun_profile_img" src="https://avatars.githubusercontent.com/u/72855681?v=4" > |
-| [dyFlower](https://github.com/Da-Youn) | [ yeji_kim ](https://github.com/yejify) | [5647kr](https://github.com/5647kr) | [junny97](https://github.com/junny97) |
+| [Da-Youn](https://github.com/Da-Youn) | [ yeji_kim ](https://github.com/yejify) | [5647kr](https://github.com/5647kr) | [junny97](https://github.com/junny97) |
 | 팀장 | 팀원 | 팀원 | 팀원 |
 
 ## 2.1. 역할 분배
@@ -92,6 +101,52 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
 
 ### [코딩 컨벤션]
 
+<details>
+<summary>Prettier & GlobalStyle</summary>
+<div markdown="1">
+
+```
+Prettier 컨벤션
+
+{
+  "printWidth": 80, // 한줄에 80자 처리
+  "singleQuote": true, // 홑따옴표로 처리
+  "jsxSingleQuote": true,
+  "tabWidth": 2, //들여쓰기 2칸으로 지정
+  "semi": true,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "arrowParens": "always"
+}
+
+
+GlobalStyled 커벤션
+
+ :root{
+    --main-color: #036635 ;
+    --sub-color:#B1D4C3;
+    --font-color: #000000;
+    --sub-font-color: #767676;;
+    --border-color: #DBDBDB ;
+    --background-color: #F2F2F2;
+    --error-color: #EB5757;
+    --font-xl : 20px;
+    --font-lg : 16px;
+    --font-md : 14px;
+    --font-sm : 12px;
+  }
+
+    :root {
+    --font--bold: 700;
+    --font--semibold: 500;
+    --font-regular: 400;;
+  }
+
+```
+
+ </div>
+</details>
+
 ### [ Git-flow ]
 
 기본적으로 5가지 브랜치를 활용하는 Git-flow 전략이 일방적이나, 프로젝트 규모에 맞춰 3가지로 축소하여 사용했습니다.
@@ -121,17 +176,17 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
     <tr>
       <td>🐛</td>
       <td>Fix</td>
-      <td>버그 수정</td>
+      <td>버그 & 에러 수정</td>
     </tr>
     <tr>
       <td>📝</td>
       <td>Docs</td>
-      <td>문서 수정</td>
+      <td>리드미 등 문서 수정, 라이브러리 설치</td>
     </tr>
     <tr>
       <td>🎨</td>
       <td>Style</td>
-      <td>코드 포맷팅</td>
+      <td>코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우</td>
     </tr>
     <tr>
       <td>🖌</td>
@@ -146,17 +201,17 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
     <tr>
       <td>🤔</td>
       <td>Test</td>
-      <td>테스트 코드</td>
+      <td>테스트 코드, 리팩토링 테스트 코드 추가</td>
     </tr>
     <tr>
       <td>⚙</td>
       <td>Chore</td>
-      <td>빌드 업무 수정</td>
+      <td>빌드 업무 수정, 패키지 매니저 수정</td>
     </tr>
     <tr>
       <td>🗒</td>
       <td>Rename</td>
-      <td>이름 변경</td>
+      <td>파일명 혹은 폴더명 수정, 위치 옮기기</td>
     </tr>
     <tr>
       <td>🔥</td>
@@ -180,6 +235,44 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
 </details>
 
 ## 4. 폴더구조
+
+<details>
+<summary>📂만들만들 폴더트리</summary>
+📦 final-05-Mandle_mandle
+├─ 📄 .gitignore
+├─ 📂 .vscode
+├─ 📄 .eslintrc.json
+├─ 📄 .prettier.json
+├─ 📄 settings.json
+├─ 📄 README.md
+├─ 📄 package-lock.json
+├─ 📄 package.json
+├─ 📂 public
+│ └─ 📂 src
+│ ├─ 📄 App.js
+├─ 📂 Hooks
+├─ 📂 Store
+├─ 📂 api
+├─ 📂 assets
+│ ├─ 📂 font
+│ └─ 📂 img
+│ └─ 📂 temp
+├─ 📂 componenent
+│ └─ 📂 Common
+├─ 📄 index.js
+├─ 📂 pages
+│ ├─ 📂 Chatting
+│ ├─ 📂 Class
+│ ├─ 📂 Home
+│ ├─ 📂 Loadinng
+│ ├─ 📂 Loging
+│ ├─ 📂 NotFound
+│ ├─ 📂 Posting
+│ ├─ 📂 Profile
+│ ├─ 📂 Signup
+│ └─ 📂 Splash
+└─ 📂 styles
+</details>
 
 ## 5. 구현 기능
 
@@ -225,6 +318,8 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
   - 클래스 상세
 
 ## 6. 기능 UI
+
+### [🌱 순서도 & 와이어 프레임](https://www.figma.com/file/jEF9l7HGVDSYXRsvSwXqIY/%EC%88%9C%EC%84%9C%EB%8F%84?type=whiteboard&node-id=0%3A1&t=oeO5DurA19XcAwMW-1)
 
 - ### Splash, 회원가입, 로그인
 
@@ -283,21 +378,65 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
 | <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/69f4715a-7a44-4fe0-b741-ce8ac1ee431c" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/8cc156eb-00a2-4094-91a7-90f55af33b7c" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/24954eb4-858e-4817-ab86-1640ba55fd87" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/18b6de8d-151a-43aa-9860-fe945fab40f1" height=462 width=220> |
 
 <br/>
-<br/>
 
 ## 7. 협업 방식
 
-- `스크럼`을 매일 오전 9시와 오후 6시에 진행하여 각 구성원의 진행 상황과 어려움을 공유하였습니다.
-- `라이브 쉐어` 프로그램을 사용하여 오류나 어려움이 있는 부분을 함께 해결하고 기술적 중요도가 높은 파트에서는 함께 작업함으로써 전체 코드에 대한 각 구성원들의 이해도를 높였습니다.
-- `페어 프로그래밍` 협업 방식을 사용해 코드 전체 흐름을 이해하고 기술적 완성도 높은 코드를 작성하도록 커뮤니케이션 기술을 적극적으로 사용할 수 있는 기회를 만들었습니다.
-- `깃플로우 전략`을 프로젝트 규모에 맞춰 활용함으로 브랜치 및 이슈를 효율적으로 관리하고, 충돌을 효과적으로 처리했으며 `컨벤션`을 맞춰 커밋 메세지를 작성함으로 작업 진행 상황에 대한 빠른 이해를 도왔습니다.
-- 자체 `깃 프로젝트` 기능으로 전체 프로젝트의 일정과 구현해야 하는 기능들을 일목요연하게 정리할 수 있었고 원활한 커뮤니케이션으로 작업 속도와 안정성을 동시에 획득할 수 있었습니다.
+- **🗣 스크럼**
 
-## 8. 특징
+  `스크럼`을 매일 오전 9시와 오후 5시에 진행하여 각 구성원의 진행 상황과 겪은 문제, 해결 방안을 공유하였습니다.
+
+- **📹 라이브 쉐어**
+
+  `라이브 쉐어` 프로그램을 사용하여 오류나 어려움이 있는 부분을 함께 해결하고 기술적 중요도가 높은 파트에서는 함께 작업함으로써 전체 코드에 대한 각 구성원들의 이해도를 높였습니다.
+
+- **🥢 페어 프로그래밍**
+
+  공통으로 담당한 컴포넌트 작업 시 `페어 프로그래밍` 협업 방식을 사용해 팀원 모두가 코드 전체 흐름을 이해하고 기술적 완성도 높은 코드를 작성하도록 커뮤니케이션 기술을 적극적으로 사용할 수 있는 기회를 만들었습니다.
+
+- **🗂 깃플로우 전략**
+
+  `깃플로우 전략`을 프로젝트 규모에 맞춰 활용함으로 브랜치 및 이슈를 효율적으로 관리하고, 충돌을 효과적으로 처리했으며 `컨벤션`을 맞춰 커밋 메세지를 작성함으로 작업 진행 상황에 대한 빠른 이해를 도왔습니다.
+
+- **📈 깃헙 프로젝트**
+
+  `깃헙 프로젝트` 기능으로 전체 프로젝트의 일정과 구현해야 하는 기능들을 일목요연하게 정리할 수 있었고 원활한 커뮤니케이션으로 작업 속도와 안정성을 동시에 획득할 수 있었습니다.
+
+## 8. 기술스택 상세
+
+- **Recoil**을 택한 이유
+
+  - React의 UseState훅과 비슷하게 동작하고 직관적이면서 간단한 구조를 가져 코드의 양을 줄일 수 있었습니다.
+  - 대규모 데이터를 다루는 것이 아니고 상대적으로 적은 코드를 작성하는 Recoil이 Redux에 비해 유리하다 생각하였습니다.
+  - 상태 관리 라이브러리를 사용해 본 경험의 필요성을 느껴 recoil로 상태관리하기로 결정하였습니다.
+    <br><br>
+
+- **Custom Hook** 사용
+
+  1. `useProfileInput`
+
+  - 프로필 입력 폼에 관련된 상태 밑 이벤트 처리 로직을 관리하는데 사용하였습니다.
+  - 프로필 입력 폼 컴포넌트에서 해당 훅을 호출하여 상태 및 이벤트를 관리하였습니다.
+
+  2. `useTextareaResizeHook`
+
+  - textarea 요소의 크기를 내용에 맞게 자동으로 조절하는데 사용하였습니다.
+    <br><br>
+
+- axios 라이브러리 활용
+  - 비동기로 HTTP 통신을 할 수 있어 return을 promise 객체로 해주기 때문에 response 데이터를 쉽게 다루기 위해 사용하였습니다.
+  - Promise 기반의 API를 제공하여 비동기적인 방식으로 HTTP 요청을 처리하였습니다.
+    <br><br>
+- 중첩 라우트 처리를 위한 route-Outlet
+  - 일반적으로 부모 라우트 컴포넌트 내에서 사용되며, 중첩된 자식 라우트 컴포넌트의 출력을 표시하는데 사용하였습니다.
+  - 중첩된 뷰를 구성하고 다양한 경로에 따라 적절한 컴포넌트를 렌더링 할 수 있었습니다.
+    <br><br>
+- 유저정보의 지속성을 위해 사용한 recoil-Persist
+  - recoil은 기본적으로 새로고침 또는 컴포넌트 언마운트 시 상태가 초기화되지만, recoil-persist를 사용하면서 세션 스토리지에 저장하여 지속성을 유지하였습니다.
+    <br><br>
 
 ## 9. 주요 코드
 
-- **회원가입/ 프로필 설정 시 강사 /수강생 구분**
+- ### 회원가입/ 프로필 설정 시 강사 /수강생 구분
 
   저희 팀은 원데이 클래스를 주제로 선택했기 때문에, `강사`와 `수강생` 두 가지 유저 유형으로 관리해야 하는 필요성을 느꼈습니다.
 
@@ -354,35 +493,66 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
 
   프로필 설정 페이지로 넘어와 프로필 설정란을 다 작성하고 "만들만들 시작하기" 버튼을 클릭하면, 해당 정보는 API에 프로필 정보로 등록됩니다. 그러나 API에서는 유저의 회원 유형에 대한 별도의 처리가 없기 때문에 회원 유형을 식별할 수 있도록 계정 ID (`accountname`) 값 앞에 “Student" 또는 "Teacher" 중 하나의 `type` 값을 추가하여 함께 전달하여 학생과 강사 계정을 구분할 수 있도록 하였습니다.
 
-이미지 3장 업로드
+- ### 이미지 3장 업로드
 
-```js
-const [selectedImages, setSelectedImages] = useState([]);
-const handleImageChange = async (event) => {
-  const files = event.target.files;
-  let imagesArray = [...selectedImages];
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
-    imagesArray.push(file);
-  }
+  ```js
+  const [selectedImages, setSelectedImages] = useState([]);
+  const handleImageChange = async (event) => {
+    const files = event.target.files;
+    let imagesArray = [...selectedImages];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      imagesArray.push(file);
+    }
 
-  setSelectedImages(imagesArray);
-};
-```
+    setSelectedImages(imagesArray);
+  };
+  ```
 
-사용자가 게시물 작성을 위해 이미지를 선택할 때, 선택한 이미지들은 빈 배열에 저장됩니다.
+  사용자가 게시물 작성을 위해 이미지를 선택할 때, 선택한 이미지들은 `빈 배열`에 저장됩니다.
 
-```js
-const handleUploadPost = async () => {
-  const images = await PostImagesUpload(selectedImages);
-};
-```
+  ```js
+  const handleUploadPost = async () => {
+    const images = await PostImagesUpload(selectedImages);
+  };
+  ```
 
-그리고 업로드 버튼을 클릭하면 선택한 이미지들이 서버로 전송됩니다.
+  그리고 업로드 버튼을 클릭하면 선택한 이미지들이 서버로 전송됩니다.
+
+  ```js
+  const PostImagesUpload = async (files) => {
+    const formData = new FormData();
+    if (files && files.length) {
+      for (let i = 0; i < files.length; i++) {
+        formData.append('image', files[i]);
+      }
+    } else {
+      formData.append('image', files);
+    }
+  };
+  ```
+
+  이때, 이미지의 개수를 확인하기 위해 조건문을 추가했습니다. 선택된 이미지 배열의 길이를 검사하여, 이미지가 여러 장인 경우에는 for 반복문을 사용하여 각 이미지의 `key`값에 접근하여 반복문을 순회하며 `formData` 객체에 파일로 추가합니다. 하지만 이미지가 한 장인 경우에는 단일 이미지만을 formData 객체에 추가하도록 처리했습니다. 이렇게 여러 장과 한 장의 업로드 처리를 구분하였습니다.
+
+  ```js
+  const filenames =
+  response.data.length > 1
+  ? response.data
+  .map(
+  (image) => https://api.mandarin.weniv.co.kr/${image.filename},
+  )
+  .join(',')
+  : https://api.mandarin.weniv.co.kr/${response.data[0].filename};
+
+  return filenames;
+  ```
+
+  그 다음, 이미지를 서버로 전송하고 숫자로 이루어진 이미지 파일명들을 응답받습니다. 응답받은 여러 장의 이미지 파일명이 담긴 `filenames`을 다시 서버로 전송할 때는 이미지 파일명들을 하나의 `문자열`로 전송해야 하는 조건이 API 명세에 명시되어 있습니다. 그러므로, 배열의 길이가 1보다 큰 경우(즉, 2장 이상의 이미지가 담겨 있다면) map 함수를 사용하여 서버의 기본 URL과 배열을 순회하며 각 이미지 파일명을 하나씩 추가하고, 이미지 파일명들을 쉼표로 기준으로 `join` 메서드를 활용하여 하나의 `문자열`로 결합하여 여러 장의 이미지를 전송할 수 있도록 처리했습니다. 한 장의 이미지인 경우에는 해당 이미지 파일명 앞에 기본 URL을 추가하여 전송하도록 구현했습니다.
 
 ## 10.후기
 
 - 차다연
 - 김예지
+  프로젝트를 통해 짧은 기간에 폭발적으로 성장한 경험과 성공적으로 마무리 한 것이 매우 보람차다고 생각합니다. 그동안 수업을 통해 습득한 지식과 기술이 실제로 활용 가능한 수준까지 발전한 경험이 인상적이었습니다. 프로젝트 기간이 짧았지만 모든 팀원들이 최선을 다했기 때문에 가능했던 것 같고, 멋사 커뮤니티에서 서로 질문하고 배우며 긍정적인 상호작용이 활발하게 이루어진 부분도 중요한 요인이었던 것 같습니다. 이런 소중한 경험을 할 수 있어서 감사하게 생각합니다. 처음에는 스스로의 능력과 프로젝트 완수에 대한 의문이 있었습니다. 그러나 프로젝트를 진행하면서 문제를 해결하는 과정에서 시간이 걸릴 수 있더라도 그 문제를 극복할 수 있다는 자신감을 키워나갔습니다. 이러한 경험을 통해 앞으로의 도전에 더욱 자신감을 갖고, 성장해 나갈 수 있는 자신을 발견했습니다. 프로젝트를 통해 얻은 성장과 자신감은 앞으로 다른 과정에서도 문제와 오류를 극복하고 성공적으로 마무리 할 수 있는 자산이 될 것 같습니다.
 - 우경석
 - 윤서준
