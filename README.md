@@ -1,23 +1,25 @@
 # <span id="top">🧤 만들만들 🧤</span>
 
-- 🔗 [배포 URL](차후추가) **❗️차후 추가될 예정❗️**
-- **목차**
+### 🔗 [배포 URL](https://frontendschool5.github.io/final-05-Mandle_mandle/)
 
-1. [프로젝트 소개](#1-프로젝트-소개)
-2. [팀원 소개](#2-팀원-소개)
-3. [기술 및 개발 환경](#3-기술-및-개발-환경)
-4. [폴더구조](#4-폴더구조)
-5. [구현 기능](#5-구현-기능)
-6. [기능 UI](#6-기능-UI)
-7. [협업 방식](#7-협업-방식)
-8. [특징](#8-특징)
-9. [주요 코드](#9-주요-코드)
-10. [후기](#후기)
+> ### 목차
+>
+> 1.  [프로젝트 소개](#1프로젝트-소개)
+> 2.  [팀원 소개](#2-팀원-소개)
+> 3.  [기술 및 개발 환경](#3-기술-및-개발-환경)
+> 4.  [폴더구조](#4-폴더구조)
+> 5.  [구현 기능](#5-구현-기능)
+> 6.  [기능 UI](#6-기능-UI)
+> 7.  [협업 방식](#7-협업-방식)
+> 8.  [특징](#8-특징)
+> 9.  [주요 코드](#9-주요-코드)
+> 10. [후기](#10-후기)
 
 ## 1. 프로젝트 소개
+
 ![소개 이미지](https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/1f856ec1-ed14-446e-960f-f730703bb394)
 
-> 추가예정
+> 만들만들은 참여형 플랫폼으로, 사용자들의 라이프 스타일에 새로운 도전을 응원합니다. 우리는 단순히 무언가를 만들어내는 개념을 넘어, 취미를 만들고 라이프 스타일을 창조해 나갈 수 있는 경험을 제공합니다. 이를 통해 다양한 원데이 클래스를 제공하고, 사용자들이 새로운 도전에 참여하고 즐길 수 있는 기회를 제공합니다.<br><br>만들만들은 사용자들에게 자신의 관심 분야나 취미를 발전시키는 동시에 다른 사람들과 교류하며 함께 성장할 수 있는 플랫폼을 제공합니다. 우리의 목표는 사용자들이 자유롭게 자신의 역량을 발휘하고 창의적인 활동을 할 수 있는 공간을 만드는 것입니다. 이를 통해 새로운 기술을 배우거나 예술적인 스킬을 향상시키는 등의 다양한 활동을 통해 더욱 풍요로운 삶을 즐길 수 있습니다.<br><br>만들만들은 사용자들이 자신의 삶에 의미 있는 도전을 할 수 있도록 다양한 클래스와 강사들을 소개합니다. 예를 들어, 그림 그리기, 요리, 체육 등 다양한 분야의 클래스를 제공하며, 전문적인 강사들이 사용자들을 가르치고 지원합니다. 또한, 사용자들은 이러한 클래스를 통해 새로운 취미나 특기를 개발하고, 동시에 다른 참가자들과 소통하며 교류할 수 있습니다. 이렇게 함께 성장하고 자신의 능력을 발전시키는 과정을 통해, 우리는 사용자들의 라이프 스타일을 더욱 풍요롭게 만들고자 합니다.
 
 <p align="right"><a href="#top">(🔼 Top)</a></p>
 
@@ -33,7 +35,7 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
 | [dyFlower](https://github.com/Da-Youn) | [ yeji_kim ](https://github.com/yejify) | [5647kr](https://github.com/5647kr) | [junny97](https://github.com/junny97) |
 | 팀장 | 팀원 | 팀원 | 팀원 |
 
-## 2.1. 역할 분배 
+## 2.1. 역할 분배
 
 <p align="right"><a href="#top">(🔼 Top)</a></p>
 
@@ -90,65 +92,105 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
 
 ### [코딩 컨벤션]
 
-
-### [ Git-flow 전략 ]
+### [ Git-flow ]
 
 기본적으로 5가지 브랜치를 활용하는 Git-flow 전략이 일방적이나, 프로젝트 규모에 맞춰 3가지로 축소하여 사용했습니다.
 
 - `main` : 최종 배포하기 위한 브랜치
 - `develop` : 기능 구현, 버그 수정과 같은 기능을 합쳐 확인하기 위한 브랜치
-- `feat` : 세부 기능 작업들을 위한 브랜치
+- `feature` : 세부 기능 작업들을 위한 브랜치
   - 각 브랜치의 이름은 `feat/세부기능`으로 이름 지어 어떠한 기능의 브랜치인지를 알 수 있도록 했습니다.
-  - push 완료 후에는 해당 브랜치를 삭제하여 브랜치를 잘못 사용하는 경우를 방지했습니다.
+  - push 완료 후에는 해당 브랜치를 develop으로 merge하여 역할 별로 진행한 기능을 확인하며 구현했습니다.
+    안녕
 
 ### [Git/Commit 컨벤션]
 
-<details>
-<summary>커밋 유형</summary>
-<div markdown="1">
-
-```
-✨ Feat: 새로운 기능 추가
-🐛 Fix: 버그 수정
-📝 Docs: 리드미 등 문서 수정, 라이브러리 설치
-🎨 Style: 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우
-🖌 Design: UI 디자인 변경
-🔨 Refactor: 코드 리팩토링
-🤔 Test: 테스트 코드, 리팩토링 테스트 코드 추가
-⚙ Chore: 빌드 업무 수정, 패키지 매니저 수정
-🗒 Rename: 파일명 혹은 폴더명 수정, 위치 옮기기
-🔥 Remove: 파일 삭제
-```
-
- </div>
- </details>
+<detail>
+  <summary>커밋 유형</summary>
+  <table>
+    <tr>
+      <th>커밋 유형</th>
+      <th>커밋 메세지</th>
+      <th>의미</th>
+    </tr>
+    <tr>
+      <td>✨</td>
+      <td>Feat</td>
+      <td>새로운 기능 추가</td>
+    </tr>
+    <tr>
+      <td>🐛</td>
+      <td>Fix</td>
+      <td>버그 수정</td>
+    </tr>
+    <tr>
+      <td>📝</td>
+      <td>Docs</td>
+      <td>문서 수정</td>
+    </tr>
+    <tr>
+      <td>🎨</td>
+      <td>Style</td>
+      <td>코드 포맷팅</td>
+    </tr>
+    <tr>
+      <td>🖌</td>
+      <td>Design</td>
+      <td>UI 디자인 변경</td>
+    </tr>
+    <tr>
+      <td>🔨</td>
+      <td>Refactor</td>
+      <td>코드 리팩토링</td>
+    </tr>
+    <tr>
+      <td>🤔</td>
+      <td>Test</td>
+      <td>테스트 코드</td>
+    </tr>
+    <tr>
+      <td>⚙</td>
+      <td>Chore</td>
+      <td>빌드 업무 수정</td>
+    </tr>
+    <tr>
+      <td>🗒</td>
+      <td>Rename</td>
+      <td>이름 변경</td>
+    </tr>
+    <tr>
+      <td>🔥</td>
+      <td>Remove</td>
+      <td>파일 삭제</td>
+    </tr>
+  </table>
+</detail>
 
 <details>
 <summary>커밋 메시지(제목 /본문 /숫자)</summary>
 <div markdown="1">
 
 ```
-git commit -m "[✨Feat] 로그인 기능 구현 #13 //제목
+git commit -m "[✨Feat] 로그인 기능 구현 #13
+// 커밋 구분 , 제목, 이슈 번호
 
-   - 로그인 유효성 검사 //본문
-   - 로그인 정보 서버로 전송" //본문
 ```
 
  </div>
 </details>
 
-
 ## 4. 폴더구조
 
-
 ## 5. 구현 기능
+
 - **🙂 Account**
+
   - 로그인/로그아웃
   - 로그인/ 회원가입/프로필 유효성 검사
   - 강사/수강생 구분하여 회원가입 진행
   - 강사/수강생 구분하여 프로필 정보 설정
 
-- **✍️ Post** 
+- **✍️ Post**
   - 게시글 등록/수정/삭제
   - 모달창
   - 이미지 유효성 검사
@@ -156,21 +198,24 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13 //제목
   - 유저 게시글 목록
   - 팔로잉 게시글 목록
   - 게시글 신고
-  
 - **📢 Commemt**
+
   - 댓글 등록/수정/삭제
   - 신고하기
 
-- **🔎 Search** 
+- **🔎 Search**
+
   - 유저 검색
 
 - **🌹 Profile**
+
   - 개인 프로필
   - 프로필 수정
   - 팔로우/언팔로우
   - 팔로우/팔로잉 리스트
 
 - **♥️ Like**
+
   - 게시물 좋아요 및 취소
 
 - **🙌 Class**
@@ -179,8 +224,8 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13 //제목
   - 인기 클래스 리스트
   - 클래스 상세
 
-
 ## 6. 기능 UI
+
 - ### Splash, 회원가입, 로그인
 
 |                                                                      Splash                                                                       |                                                                     회원가입                                                                     |                                                                   프로필 설정                                                                    |                                                                      로그인                                                                      |
@@ -217,7 +262,7 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13 //제목
 
 - ### 마이 프로필
 
-|                                                                    강사 프로필                                                                    |                                                                  수강생 프로필                                                                   |                                                                   게시물 앨범형                                                                    |
+|                                                                    강사 프로필                                                                    |                                                                  수강생 프로필                                                                   |                                                                  게시물 앨범형                                                                   |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
 | <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/20a16ee5-11f1-4e59-878a-889d5d083b1c" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/d9de7882-399a-4990-820b-b6be2dce26ff" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/fed74ad5-cf1b-4742-baa4-5cb11e504473" height=462 width=220> |
 
@@ -237,11 +282,107 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13 //제목
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
 | <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/69f4715a-7a44-4fe0-b741-ce8ac1ee431c" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/8cc156eb-00a2-4094-91a7-90f55af33b7c" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/24954eb4-858e-4817-ab86-1640ba55fd87" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/18b6de8d-151a-43aa-9860-fe945fab40f1" height=462 width=220> |
 
-
 <br/>
 <br/>
 
 ## 7. 협업 방식
+
+- `스크럼`을 매일 오전 9시와 오후 6시에 진행하여 각 구성원의 진행 상황과 어려움을 공유하였습니다.
+- `라이브 쉐어` 프로그램을 사용하여 오류나 어려움이 있는 부분을 함께 해결하고 기술적 중요도가 높은 파트에서는 함께 작업함으로써 전체 코드에 대한 각 구성원들의 이해도를 높였습니다.
+- `페어 프로그래밍` 협업 방식을 사용해 코드 전체 흐름을 이해하고 기술적 완성도 높은 코드를 작성하도록 커뮤니케이션 기술을 적극적으로 사용할 수 있는 기회를 만들었습니다.
+- `깃플로우 전략`을 프로젝트 규모에 맞춰 활용함으로 브랜치 및 이슈를 효율적으로 관리하고, 충돌을 효과적으로 처리했으며 `컨벤션`을 맞춰 커밋 메세지를 작성함으로 작업 진행 상황에 대한 빠른 이해를 도왔습니다.
+- 자체 `깃 프로젝트` 기능으로 전체 프로젝트의 일정과 구현해야 하는 기능들을 일목요연하게 정리할 수 있었고 원활한 커뮤니케이션으로 작업 속도와 안정성을 동시에 획득할 수 있었습니다.
+
 ## 8. 특징
+
 ## 9. 주요 코드
+
+- **회원가입/ 프로필 설정 시 강사 /수강생 구분**
+
+  저희 팀은 원데이 클래스를 주제로 선택했기 때문에, `강사`와 `수강생` 두 가지 유저 유형으로 관리해야 하는 필요성을 느꼈습니다.
+
+  ```js
+  const [type, setType] = useState('Student');
+  ```
+
+  ```js
+  const handleStudentBtnClick = () => {
+    setType('Student');
+  };
+
+  const handleTeacherBtnClick = () => {
+    setType('Teacher');
+  };
+  ```
+
+  이를 구현하기 위해 저희는 회원 가입 페이지에서 사용자는 '일반 회원 (수강생)' 버튼과 '강사 회원' 버튼 중 하나를 선택하여 회원 유형을 선택할 수 있게 만들었습니다. 이 선택은 `type`변수에 저장되고 '일반 회원 (수강생)' 버튼을 클릭한 경우 `type` 값은 'Student'로 설정되며, 강사 회원' 버튼을 클릭한 경우의 `type` 값은 'Teacher'로 설정됩니다.
+
+  ```js
+  const setSignup = useSetRecoilState(SignUpAtom);
+  ```
+
+  ```js
+  if (email && password && emailValid && passwordValid) {
+    setSignup({ email, password, type });
+    navigate('/account/set_profile');
+  } else {
+    setSignup(false);
+  }
+  ```
+
+  회원 가입 시에 입력한 정보와 선택한 회원 유형(type)은 가입한 이메일과 비밀번호와 함께 **Recoil**의 `SignUpAtom`을 통해 유저 정보로 저장됩니다. 이 정보는 회원 가입 과정에서 유지되며, 유저는 프로필 설정 페이지로 이동할 수 있게 됩니다.
+
+  ```js
+  const handleSetProfileSubmit = async (event) => {
+    event.preventDefault();
+
+    if (username && accountname && usernameValid && accountValid) {
+      const updatedAccountname = `${userInfo.type}${accountname}`;
+      setUserInfo((prevValue) => {
+        return {
+          ...prevValue,
+          username: username,
+          accountname: updatedAccountname,
+          intro: intro,
+          image: image,
+        };
+      });
+      navigate('/account/login');
+    }
+  };
+  ```
+
+  프로필 설정 페이지로 넘어와 프로필 설정란을 다 작성하고 "만들만들 시작하기" 버튼을 클릭하면, 해당 정보는 API에 프로필 정보로 등록됩니다. 그러나 API에서는 유저의 회원 유형에 대한 별도의 처리가 없기 때문에 회원 유형을 식별할 수 있도록 계정 ID (`accountname`) 값 앞에 “Student" 또는 "Teacher" 중 하나의 `type` 값을 추가하여 함께 전달하여 학생과 강사 계정을 구분할 수 있도록 하였습니다.
+
+이미지 3장 업로드
+
+```js
+const [selectedImages, setSelectedImages] = useState([]);
+const handleImageChange = async (event) => {
+  const files = event.target.files;
+  let imagesArray = [...selectedImages];
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    imagesArray.push(file);
+  }
+
+  setSelectedImages(imagesArray);
+};
+```
+
+사용자가 게시물 작성을 위해 이미지를 선택할 때, 선택한 이미지들은 빈 배열에 저장됩니다.
+
+```js
+const handleUploadPost = async () => {
+  const images = await PostImagesUpload(selectedImages);
+};
+```
+
+그리고 업로드 버튼을 클릭하면 선택한 이미지들이 서버로 전송됩니다.
+
 ## 10.후기
+
+- 차다연
+- 김예지
+- 우경석
+- 윤서준
