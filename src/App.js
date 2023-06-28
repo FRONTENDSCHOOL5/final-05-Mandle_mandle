@@ -33,7 +33,7 @@ function App() {
   return (
     <Wrap>
       <GlobalStyle />
-      <Router>
+      <Router basename='/final-05-Mandle_mandle'>
         <Routes>
           <Route path='/' element={<Splash />} />
           <Route path='/intro' element={<Intro />} />

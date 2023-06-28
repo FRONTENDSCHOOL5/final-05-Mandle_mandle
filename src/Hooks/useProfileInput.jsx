@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function useProfileInput(ButtonImg, DisabledButtonImg) {
   const [inputValues, setInputValues] = useState({
@@ -17,10 +17,6 @@ export default function useProfileInput(ButtonImg, DisabledButtonImg) {
     }));
   };
 
-  useEffect(() => {
-    handleActiveButton();
-  }, [inputValues, ButtonImg, DisabledButtonImg]);
-
   const handleActiveButton = () => {
     const { username, accountname, intro } = inputValues;
     if (username !== '' && accountname !== '' && intro !== '') {
@@ -29,6 +25,7 @@ export default function useProfileInput(ButtonImg, DisabledButtonImg) {
       setButtonImg(DisabledButtonImg);
     }
   };
+  handleActiveButton();
 
   return { inputValues, handleInputChange, buttonImg, handleActiveButton };
 }
