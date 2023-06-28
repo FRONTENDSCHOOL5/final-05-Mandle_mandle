@@ -2,7 +2,7 @@
 
 ---
 
-### 🔗 [MandleMandle 배포 URL](https://frontendschool5.github.io/final-05-Mandle_mandle/)
+### 🔗 [MandleMandle URL](https://frontendschool5.github.io/final-05-Mandle_mandle/)
 
 ### 👩‍👧‍👦 테스트 계정
 
@@ -242,38 +242,38 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
 <details>
 <summary>📂만들만들 폴더트리</summary>
 📦 final-05-Mandle_mandle
-├─ 📄 .gitignore
-├─ 📂 .vscode
-├─ 📄 .eslintrc.json
-├─ 📄 .prettier.json
-├─ 📄 settings.json
-├─ 📄 README.md
-├─ 📄 package-lock.json
-├─ 📄 package.json
-├─ 📂 public
-│ └─ 📂 src
-│ ├─ 📄 App.js
-├─ 📂 Hooks
-├─ 📂 Store
-├─ 📂 api
-├─ 📂 assets
-│ ├─ 📂 font
-│ └─ 📂 img
-│ └─ 📂 temp
-├─ 📂 componenent
-│ └─ 📂 Common
-├─ 📄 index.js
-├─ 📂 pages
-│ ├─ 📂 Chatting
-│ ├─ 📂 Class
-│ ├─ 📂 Home
-│ ├─ 📂 Loadinng
-│ ├─ 📂 Loging
-│ ├─ 📂 NotFound
-│ ├─ 📂 Posting
-│ ├─ 📂 Profile
-│ ├─ 📂 Signup
-│ └─ 📂 Splash
+├─ 📄 .gitignore<br>
+├─ 📂 .vscode<br>
+├─ 📄 .eslintrc.json<br>
+├─ 📄 .prettier.json<br>
+├─ 📄 settings.json<br>
+├─ 📄 README.md<br>
+├─ 📄 package-lock.json<br>
+├─ 📄 package.json<br>
+├─ 📂 public<br>
+│ └─ 📂 src<br>
+│ ├─ 📄 App.js<br>
+├─ 📂 Hooks<br>
+├─ 📂 Store<br>
+├─ 📂 api<br>
+├─ 📂 assets<br>
+│ ├─ 📂 font<br>
+│ └─ 📂 img<br>
+│ └─ 📂 temp<br>
+├─ 📂 componenent<br>
+│ └─ 📂 Common<br>
+├─ 📄 index.js<br>
+├─ 📂 pages<br>
+│ ├─ 📂 Chatting<br>
+│ ├─ 📂 Class<br>
+│ ├─ 📂 Home<br>
+│ ├─ 📂 Loadinng<br>
+│ ├─ 📂 Loging<br>
+│ ├─ 📂 NotFound<br>
+│ ├─ 📂 Posting<br>
+│ ├─ 📂 Profile<br>
+│ ├─ 📂 Signup<br>
+│ └─ 📂 Splash<br>
 └─ 📂 styles
 </details>
 
@@ -606,7 +606,7 @@ etClassData 함수를 호출하여 token 및 userInfo.accountname의 두 인수�
   한달 동안 구현을 목적으로 부딪히고 배우며 정말 크게 성장을 했음을 느낍니다. 항상 공통 컴포넌트의 재사용성과 불필요한 코드를 줄이는 것을 우선적으로 고려하게 되었고, props를 어떻게 잘 활용할 수 있을지 고민하며 Recoil 상태관리도 공부하고, API 모든 에러에 대처하며 요청응답 원리를 이해하는 등 부트캠프의 마지막에 실전을 통한 무척 값진 학습 경험을 얻게 된 것 같습니다. 무엇보다 구현에서 어려움을 하나씩 극복하며 자신감을 얻었고, 앞으로도 이러한 자신감 잃지않고 진짜 프론트엔드 개발자가 될 때까지 차근차근 성장하며 나아가고 싶습니다. 모두 수고하셨습니다!
 - 🌱 김예지<br/>
   프로젝트를 통해 짧은 기간에 폭발적으로 성장한 경험과 성공적으로 마무리 한 것이 매우 보람차다고 생각합니다. 그동안 수업을 통해 습득한 지식과 기술이 실제로 활용 가능한 수준까지 발전한 경험이 인상적이었습니다. 프로젝트 기간이 짧았지만 모든 팀원들이 최선을 다했기 때문에 가능했던 것 같고, 멋사 커뮤니티에서 서로 질문하고 배우며 긍정적인 상호작용이 활발하게 이루어진 부분도 중요한 요인이었던 것 같습니다. 이런 소중한 경험을 할 수 있어서 감사하게 생각합니다. 처음에는 스스로의 능력과 프로젝트 완수에 대한 의문이 있었습니다. 그러나 프로젝트를 진행하면서 문제를 해결하는 과정에서 시간이 걸릴 수 있더라도 그 문제를 극복할 수 있다는 자신감을 키워나갔습니다. 이러한 경험을 통해 앞으로의 도전에 더욱 자신감을 갖고, 성장해 나갈 수 있는 자신을 발견했습니다. 프로젝트를 통해 얻은 성장과 자신감은 앞으로 다른 과정에서도 문제와 오류를 극복하고 성공적으로 마무리 할 수 있는 자산이 될 것 같습니다.
-- 우경석<br />
+- 🐢 우경석<br />
   프로젝트를 시작하기전 과연 할 수 있을까하는 생각이 들었으나 점차 진행하면서 할 수 있다라는 생각이 들면서 프로젝트에 임하게 되었습니다
   익숙하지 않던 React 문법과 협업툴인 깃허브도 점차 익숙해지는 경험이었습니다. 중간중간 실력적 한계로 어려움을 겪었지만 동료 멘토님께 질문하며 한단계 한단계 나아갈 수 있었고 또한 성장 할 수 있었습니다. 진행하는 동안 소통의 중요성을 다시 한번 더 느낄 수 있었고 모르는 거에 대한 질문을 점점 더 적극적으로 할 수 있어 진행에 있어 순조로웠던 거 같습니다. 프로젝트 기간이 길다면 길고 짧다면 짧지만 뜻깊은 기간이였고 한 단계 성장 할 수 있는 계기가 되어 좋았고 팀원들도 잘 이끌어 줘서 끝까지 잘 마무리 할 수 있었습니다 만들오줘 짱짱 멋사 5기 짱짱
-- 윤서준
+- 🍏 윤서준
