@@ -4,6 +4,7 @@ export default function Input({
   label,
   name,
   type,
+  value,
   onChange,
   onBlur,
   placeholder,
@@ -22,6 +23,7 @@ export default function Input({
         onBlur={onBlur}
         placeholder={placeholder}
         borderColor={borderColor}
+        value={value}
       />
     </InputDiv>
   );

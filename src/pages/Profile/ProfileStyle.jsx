@@ -109,7 +109,6 @@ const WrapBtn = styled.div`
 `;
 const PostSection = styled.section`
   background: white;
-  position: relative;
   #PostBtnWrap {
     width: 100%;
     height: 44px;

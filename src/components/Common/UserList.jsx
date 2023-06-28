@@ -17,6 +17,11 @@ export default function SearchList({ user, type }) {
       accountname: user.accountname,
     });
   };
+  const validAccountname =
+    user.accountname.substr(0, 7) === 'Student' ||
+    user.accountname.substr(0, 7) === 'Teacher'
+      ? user.accountname.substr(7)
+      : user.accountname;
 
   return (
     <SearchListWrap key={user._id}>
@@ -31,7 +36,7 @@ export default function SearchList({ user, type }) {
           <div>
             <p>{user.username}</p>
           </div>
-          <p>{type ? user.intro : user.accountname}</p>
+          <p>{type ? user.intro : validAccountname}</p>
         </ProfileInfo>
       </ProfileWrap>
       {type && (
