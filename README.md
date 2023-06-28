@@ -471,6 +471,12 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
       navigate('/account/login');
     }
   };
+
+   useEffect(() => {
+    if (username && accountname && usernameValid && accountValid) {
+      PostSignUp(userInfo);
+    }
+  }, [username, accountname, usernameValid, accountValid, userInfo]);
   ```
 
   프로필 설정 페이지로 넘어와 프로필 설정란을 다 작성하고 "만들만들 시작하기" 버튼을 클릭하면, 해당 정보는 API에 프로필 정보로 등록됩니다.
