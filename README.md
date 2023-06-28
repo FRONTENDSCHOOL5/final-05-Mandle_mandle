@@ -12,7 +12,6 @@
 - 수강생<br/>
   ID : dodo@mandle.com<br/>
   PW : dodo123
-  Da-Youn
 
 ---
 
