@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/final-05-Mandle_mandle/static/css/main.5d04b821.css",
-    "main.js": "/final-05-Mandle_mandle/static/js/main.d440d86c.js",
+    "main.js": "/final-05-Mandle_mandle/static/js/main.0bb5f8b0.js",
     "static/media/full-logo(loaded).svg": "/final-05-Mandle_mandle/static/media/full-logo(loaded).b29b0e52e6fb86135bfb022c92da3bfb.svg",
     "static/media/full-logo(loading).svg": "/final-05-Mandle_mandle/static/media/full-logo(loading).5266998ff6313cfd6eb29c5a29c75cfe.svg",
     "static/media/home-logo.svg": "/final-05-Mandle_mandle/static/media/home-logo.b7433c3ef6a18ab4171114886e11dadd.svg",
@@ -46,10 +46,10 @@
     "static/media/icon-teacher.svg": "/final-05-Mandle_mandle/static/media/icon-teacher.e3046560ae02bb45b74509a7c29b7d4a.svg",
     "static/media/class-Img.svg": "/final-05-Mandle_mandle/static/media/class-Img.b74ab21b9e8cb1ab56c64d91da02b0d8.svg",
     "main.5d04b821.css.map": "/final-05-Mandle_mandle/static/css/main.5d04b821.css.map",
-    "main.d440d86c.js.map": "/final-05-Mandle_mandle/static/js/main.d440d86c.js.map"
+    "main.0bb5f8b0.js.map": "/final-05-Mandle_mandle/static/js/main.0bb5f8b0.js.map"
   },
   "entrypoints": [
     "static/css/main.5d04b821.css",
-    "static/js/main.d440d86c.js"
+    "static/js/main.0bb5f8b0.js"
   ]
 }
