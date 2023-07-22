@@ -46,7 +46,7 @@ export default function EditPost() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -62,6 +62,11 @@ export default function EditPost() {
     try {
       const imageUrl = await PostImagesUpload(files);
       setSelectedImages((prevImages) => [...prevImages, imageUrl]);
+      const imagesArray = [...selectedImages, imageUrl];
+      if (imagesArray.length > 3) {
+        alert('이미지는 최대 3개까지 업로드가 가능합니다.');
+        return;
+      }
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -79,7 +84,7 @@ export default function EditPost() {
       postId,
       token,
       inputValue,
-      selectedImages.join(','),
+      selectedImages.join(',')
     );
 
     if (editedPost) {
