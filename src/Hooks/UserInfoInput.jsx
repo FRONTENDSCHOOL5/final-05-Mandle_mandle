@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function UserInfoInput(button, disabledButton) {
   const [email, setEmail] = useState('');
@@ -6,15 +6,15 @@ export default function UserInfoInput(button, disabledButton) {
   const [buttonImg, setButtonImg] = useState(disabledButton);
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [pwErrorMessage, setPwErrorMessage] = useState('');
+  useEffect(() => {
+    handleActiveButton();
+  }, [email, password, emailErrorMessage, pwErrorMessage]);
+
   const handleActiveButton = () => {
-    setButtonImg(
-      emailErrorMessage === '' &&
-        pwErrorMessage === '' &&
-        email !== '' &&
-        password !== ''
-        ? button
-        : disabledButton,
-    );
+    const isFormFilled = email.trim().length > 0 && password.trim().length > 0;
+    const isFormValid = emailErrorMessage === '' && pwErrorMessage === '';
+
+    setButtonImg(isFormFilled && isFormValid ? button : disabledButton);
   };
 
   const handleInputChange = (e) => {
