@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ProfileImg from '../../../assets/img/basic-profile-img.svg';
+import { useRecoilValue } from 'recoil';
+import { UserAtom } from '../../../Store/userInfoAtoms';
 import MoreButton from '../MoreButton';
 import CalTimeAgo from '../CalTimeAgo';
-import { UserAtom } from '../../../Store/userInfoAtoms';
-import { useRecoilValue } from 'recoil';
-import ModalAlert from '../Modal/ModalAlert/ModalAlert';
 import Modal from '../../Common/Modal/Modal';
-
-import PostReportComment from '../../../api/PostReportComment';
 import DeleteComment from '../../../api/DeleteComment';
+import ModalAlert from '../Modal/ModalAlert/ModalAlert';
+import PostReportComment from '../../../api/PostReportComment';
+import ProfileImg from '../../../assets/img/basic-profile-img.svg';
 export default function CommentList({ postId, comment, setCommentUpdated }) {
   const userInfo = useRecoilValue(UserAtom);
   const [isModalOpen, setModalOpen] = useState(false);

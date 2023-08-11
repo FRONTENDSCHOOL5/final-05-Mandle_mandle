@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import HeartButton from '../HeartButton';
-import HandleNormalizeImage from '../../../Hooks/HandleNormalizeImage';
+import HandleNormalizeImage from '..//HandleNormalizeImage';
 import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
 export default function PostContent({ post }) {
   const navigate = useNavigate();

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Modal from '../Common/Modal/Modal';
-import ModalAlert from './Modal/ModalAlert/ModalAlert';
-import DeleteClass from '../../api/DeleteClass';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../Common/Modal/Modal';
+import DeleteClass from '../../api/DeleteClass';
+import ModalAlert from './Modal/ModalAlert/ModalAlert';
 function MiniClassList({ classItem, page, token, setClassUpdated }) {
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -44,6 +44,7 @@ function MiniClassList({ classItem, page, token, setClassUpdated }) {
           setAlertModalOpen={setAlertModalOpen}
           onClick={handleMoveClassDetail}
           type='class'
+          text='삭제'
         />
       )}
       {alertModalOpen && (

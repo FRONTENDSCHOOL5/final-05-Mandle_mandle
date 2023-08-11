@@ -52,11 +52,16 @@ export const ModalWrap = styled.div`
   li {
     width: 100%;
     height: 40px;
-    padding-left: 26px;
+
     display: flex;
     align-items: center;
 
-    &:hover {
+    button {
+      padding-left: 26px;
+      width: 100%;
+      height: 100%;
+    }
+    button:hover {
       background-color: var(--main-color);
       color: #fff;
     }

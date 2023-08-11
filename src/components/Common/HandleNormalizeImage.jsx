@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 export default function HandleNormalizeImage(image, basicImg) {
   const regex = /^\d/;
   const accountImage = image

@@ -1,16 +1,9 @@
-import styled from 'styled-components';
 import React from 'react';
+import styled from 'styled-components';
 
-export function ClassPost({mainImg, tag, title}) {
-
+export function ClassPost({ mainImg, tag, title }) {
   return (
-    <ClassPostWrap
-      src=''
-      width='180px'
-      height='200px'
-      padding='10px 6px 0'
-      alt=''
-    >
+    <ClassPostWrap src='' width='180px' padding='10px 6px' alt=''>
       <img src={mainImg} alt='' />
       <div>
         <p>{tag}</p>
@@ -20,16 +13,9 @@ export function ClassPost({mainImg, tag, title}) {
   );
 }
 
-export function ClassPostMini({miniImg, miniTag, miniName}) {
+export function ClassPostMini({ miniImg, miniTag, miniName }) {
   return (
-    <ClassPostWrap
-      src=''
-      width='140px'
-      height='136px'
-      padding='6px 4px 0'
-      alt=''
-      
-    >
+    <ClassPostWrap src='' width='140px' padding='6px 4px' alt=''>
       <img src={miniImg} alt='' />
       <div>
         <p>{miniTag}</p>
@@ -51,6 +37,8 @@ const ClassPostWrap = styled.article`
     object-fit: cover;
     aspect-ratio: 180 / 120;
     border-radius: 5px 5px 0 0;
+    vertical-align: top;
+    box-sizing: border-box;
   }
 
   div {
@@ -64,8 +52,8 @@ const ClassPostWrap = styled.article`
   h3 {
     font-size: var(--font-md);
     color: var(--font-color);
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;

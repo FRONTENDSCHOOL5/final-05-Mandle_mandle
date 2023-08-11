@@ -18,8 +18,6 @@ import {
 } from '../../components/Common/Account/AccountStyle';
 
 const SetProfile = () => {
-  const url = 'https://api.mandarin.weniv.co.kr/';
-
   const navigate = useNavigate();
   const signupInfo = useRecoilValue(SignUpAtom);
   const [userInfo, setUserInfo] = useState({ ...signupInfo });
@@ -30,7 +28,7 @@ const SetProfile = () => {
   const [usernameAlertMsg, setUsernameAlertMsg] = useState('');
   const { inputValues, handleInputChange, buttonImg } = useProfileInput(
     StartButtonImg,
-    DisabledButtonImg
+    DisabledButtonImg,
   );
   const { username, accountname, intro } = inputValues;
   const handleProfileImageResponse = (fileName) => {
@@ -121,7 +119,6 @@ const SetProfile = () => {
           type='text'
           placeholder='자신에 대해 소개해 주세요!'
           onChange={handleInputChange}
-          onBlur={handleAccountNameValid}
           borderColor='#dbdbdb'
         />
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import HeartIcon from '../../assets/img/icon-heart.svg';
 import HeartedIcon from '../../assets/img/icon-heart-clicked.svg';
 import { UserAtom } from '../../Store/userInfoAtoms';

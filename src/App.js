@@ -11,7 +11,6 @@ import Class from '../src/pages/Class/Class';
 import ClassDetail from '../src/pages/Class/ClassDetail/ClassDetail';
 import ClassRegistration from '../src/pages/Class/ClassRegistration/ClassRegistration';
 import ClassReservation from '../src/pages/Class/ClassReservation/ClassReservation';
-import Chatting from '../src/pages/Chatting/Chatting';
 import Posting from '../src/pages/Posting/Posting';
 import Profile from '../src/pages/Profile/MyProfile';
 import OtherProfile from '../src/pages/Profile/OtherProfile';
@@ -34,7 +33,7 @@ function App() {
   return (
     <Wrap>
       <GlobalStyle />
-      <Router>
+      <Router basename='/final-05-Mandle_mandle'>
         <Routes>
           <Route path='/' element={<Splash />} />
           <Route path='/intro' element={<Intro />} />
@@ -56,13 +55,10 @@ function App() {
 
           <Route path='/post' element={<Outlet />}>
             <Route path=':post_id' element={<PostDetail />} />
-            {/* post수정 경로 수정 */}
             <Route path=':post_id/edit' element={<EditPost />} />
             <Route path='upload' element={<Posting />} />
           </Route>
           <Route path='/chat' element={<Outlet />}>
-            <Route path='' element={<Chatting />} />
-            {/* 라우트 추가 부분 */}
             <Route path='chatlist' element={<ChatList />} />
             <Route path='chatroom' element={<ChatRoom />} />
           </Route>

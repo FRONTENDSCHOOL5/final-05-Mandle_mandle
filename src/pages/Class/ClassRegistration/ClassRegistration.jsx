@@ -61,7 +61,7 @@ export function Main() {
   };
 
   const isFormIncomplete =
-  !image || className.length < 2 || className.length > 15 || !classPrice || !classTag;
+  !image || className.length < 2 || className.length > 30 || !classPrice || !classTag;
 
 
   return (
@@ -82,7 +82,7 @@ export function Main() {
         </ImgBox>
       </label>
 
-      <label className='a11y-hidden'>클래스 이름</label>
+      <label>클래스 이름</label>
       <ClassInput
         type='text'
         onChange={(e) => {
@@ -90,13 +90,14 @@ export function Main() {
         }}
         placeholder='클래스 이름'
       />
-      {(className && (className.length < 2 || className.length > 15)) ? (
+      {(className && (className.length < 2 || className.length > 30)) ? (
         <InputValidationError>
-          클래스 이름은 2자 이상, 15자 이하여야 합니다.
+          클래스 이름은 2자 이상, 30자 이하여야 합니다.
         </InputValidationError>
       ) : null}
+      
 
-      <label className='a11y-hidden'>클래스 태그</label>
+      <label>클래스 태그</label>
       <ClassInput
         type='text'
         onChange={(e) => {
@@ -105,16 +106,30 @@ export function Main() {
         placeholder='클래스 태그'
       />
 
-      <label className='a11y-hidden'>클래스 가격</label>
+      <label>클래스 가격 (원)</label>
       <ClassInput
-        type='number'
-        step={500}
-        min={0}
+        type='text'
         onChange={(e) => {
-          setClassPrice(e.target.value.trim());
+          let inputValue = e.target.value;
+          let numericValue = inputValue.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
+          const maxValue = 9999999999999;
+      
+          if (numericValue > maxValue) {
+            numericValue = numericValue.slice(0, -1); // 최대값을 초과하는 경우 마지막 숫자 제거
+          }
+      
+          const formattedValue = Number(numericValue).toLocaleString(); // 천 단위마다 콤마 추가
+      
+          if (formattedValue !== inputValue) {
+            e.target.value = formattedValue; // 콤마가 추가된 값으로 입력란 갱신
+          }
+      
+          setClassPrice(numericValue);
         }}
         placeholder='클래스 가격'
+        
       />
+
 
       <AddBtn type='submit' disabled={isFormIncomplete}>저장</AddBtn>
     </ClassRegistrationForm>

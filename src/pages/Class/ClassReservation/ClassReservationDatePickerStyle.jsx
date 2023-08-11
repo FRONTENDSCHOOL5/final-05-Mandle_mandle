@@ -70,6 +70,10 @@ export const StyledCalendar = styled(Calendar)`
     }
   }
 
+  .react-calendar__tile--active {
+    background-color: #fff;
+  }
+
   .react-calendar__month-view__days__day--weekend {
     color: #000;
   }

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import MiniClassList from '../../components/Common/MiniClassList';
-import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
-import MoreIcon from '../../assets/img/icon-more-vertical.svg';
 import ChatImg from '../../assets/img/icon-chat-mini.svg';
 import ShareImg from '../../assets/img/icon-share.svg';
 import PostList from '../../components/Common/PostList/PostList';
@@ -24,7 +22,7 @@ import {
   PostListUl,
   FollowBtn,
 } from './ProfileStyle';
-import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import MenuBar from '../../components/Common/MenuBar';
 import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
 import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
@@ -34,12 +32,9 @@ import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
 export default function Profile() {
   const navigate = useNavigate();
 
-  const goBack = () => {
-    navigate(-1);
-  };
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
-  const location = useLocation();
+
   const { accountname } = useParams();
   const [profileData, setProfileData] = useState([]);
   const [classData, setClassData] = useState([]);
@@ -57,18 +52,17 @@ export default function Profile() {
         const userClassData = await fetchDataFromAPI(
           ClassData,
           accountname,
-          token
+          token,
         );
         const userPostData = await fetchDataFromAPI(
           PostData,
           accountname,
-          token
+          token,
         );
         setProfileData(userProfileData);
         setClassData(userClassData);
         setPostData(userPostData);
         SetIsfollow(userProfileData.isfollow);
-        console.log(userProfileData);
       } catch (error) {
         console.log(error);
       }
@@ -118,14 +112,7 @@ export default function Profile() {
   if (!profileData && !classData) {
     return <div>Loading...</div>;
   }
-  //프로필 수정페이지 이동
-  function handleClick(profileData) {
-    navigate(`edit/${profileData.accountname}`, {
-      state: {
-        profileData: profileData,
-      },
-    });
-  }
+
   const handleFollowClick = async () => {
     try {
       if (isfollow) {
@@ -148,7 +135,6 @@ export default function Profile() {
 
   const handlePostImgClick = (postId) => {
     navigate(`/post/${postId}`, { state: postId });
-    console.log(postId);
   };
   const handleButtonClick = (btnName) => {
     if (btnName === 'listBtn') {
@@ -377,7 +363,7 @@ async function follow(accountname, token) {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      }
+      },
     );
     return res.data; // Modify this based on the actual response structure
   } catch (err) {

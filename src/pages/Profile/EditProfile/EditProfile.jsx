@@ -1,23 +1,20 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import styled from 'styled-components';
 import ArrowImg from '../../../assets/img/icon-arrow-left.svg';
 import UploadProfile from '../../../components/Common/UploadProfile';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PostIdValid from '../../../api/PostIdValid';
 import PutProfileUpdate from '../../../api/PutProfileUpdate';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-import { useRecoilValue, useRecoilState } from 'recoil';
-
+import { useRecoilState } from 'recoil';
+import GoBackButton from '../../../components/Common/GoBackButton';
+import Input from '../../../components/Common/Account/Input';
+import { SignupHeader, Heading1, SignupDiv } from './EditProfileStyle';
 import {
-  SignupHeader,
-  Heading1,
-  SignupDiv,
-  SetProfileDiv,
-  SetProfileLabel,
-  SetProfileInputBox,
-  P,
-  Wrap,
-} from './EditProfileStyle';
+  AccountForm,
+  Description,
+  ErrorMessage,
+} from '../../../components/Common/Account/AccountStyle';
 
 const EditProfile = () => {
   //기존 가입한 유저 정보 가져오기
@@ -28,7 +25,7 @@ const EditProfile = () => {
   const token = userInfo.token;
   const navigate = useNavigate();
   //유저 정보 상태관리
-  const url = 'https://api.mandarin.weniv.co.kr/';
+
   const [username, setUsername] = useState(data.username);
   const accountType =
     data.accountname.substr(0, 7) === 'Student' ||
@@ -55,11 +52,6 @@ const EditProfile = () => {
     setButton(true);
   };
 
-  //이전 페이지 이동
-  const goBack = () => {
-    navigate(-1);
-  };
-
   // 입력란 값 변경 시 실행되는 함수x
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -76,7 +68,7 @@ const EditProfile = () => {
     // 두 입력란에 값이 모두 존재할 경우 버튼 활성화 함수 실행
   };
 
-  ////유저 이름 유효성 검사
+  //유저 이름 유효성 검사
   const handleUsernameValid = () => {
     if (username.length >= 2 && username.length <= 10) {
       setUsernameAlertMsg('');
@@ -142,66 +134,73 @@ const EditProfile = () => {
   return (
     <SignupDiv>
       <SignupHeader>
-        <button onClick={goBack}>
-          <img src={ArrowImg} alt='' />
-        </button>
+        <GoBackButton />
         <Heading1>프로필 수정</Heading1>
       </SignupHeader>
+      <Description>변경사항 입력 후 저장 버튼을 눌러주세요.</Description>
 
-      <Wrap>
-        <P>변경사항 입력 후 저장 버튼을 눌러주세요.</P>
+      <AccountForm first>
         <UploadProfile onResponse={handleProfileImageResponse} image={image} />
-
-        <SetProfileDiv first>
-          <SetProfileLabel>사용자 이름</SetProfileLabel>
-          <SetProfileInputBox
-            name='username'
-            onChange={handleInputChange}
-            placeholder='2-10자 이내 여야 합니다'
-            value={username}
-            onBlur={handleUsernameValid}
-          />
-        </SetProfileDiv>
+        <Input
+          label='사용자 이름'
+          type='text'
+          name='username'
+          onChange={handleInputChange}
+          placeholder='2-10자 이내 여야 합니다'
+          value={username}
+          onBlur={handleUsernameValid}
+          borderColor={usernameAlertMsg ? 'var(--error-color)' : '#dbdbdb'}
+        />
         {usernameAlertMsg && <ErrorMessage>{usernameAlertMsg}</ErrorMessage>}
-        <SetProfileDiv>
-          <SetProfileLabel>계정 ID</SetProfileLabel>
-          <SetProfileInputBox
-            name='accountname'
-            onChange={handleInputChange}
-            onBlur={handleAccountNameValid}
-            value={accountname}
-            placeholder='영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.'
-          />
-        </SetProfileDiv>
-        {accountAlertMsg && <ErrorMessage>{accountAlertMsg}</ErrorMessage>}
-        <SetProfileDiv>
-          <SetProfileLabel>소개</SetProfileLabel>
-          <SetProfileInputBox
-            name='intro'
-            onChange={handleInputChange}
-            value={intro}
-            placeholder='자신과 판매할 상품에 대해 소개해 주세요!'
-          />
-        </SetProfileDiv>
 
-        <button
+        <Input
+          label='계정 ID'
+          name='accountname'
+          onChange={handleInputChange}
+          onBlur={handleAccountNameValid}
+          value={accountname}
+          placeholder='영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.'
+          borderColor={accountAlertMsg ? 'var(--error-color)' : '#dbdbdb'}
+        />
+
+        {accountAlertMsg && <ErrorMessage>{accountAlertMsg}</ErrorMessage>}
+        <Input
+          label='소개'
+          name='intro'
+          type='text'
+          value={intro}
+          placeholder='자신에 대해 소개해 주세요!'
+          onChange={handleInputChange}
+          borderColor='#dbdbdb'
+        />
+        <Button
           id='submitBtn'
           className={button ? 'active' : ''}
           type='submit'
           onClick={handleCheckValid}
         >
           저장
-        </button>
-      </Wrap>
+        </Button>
+      </AccountForm>
     </SignupDiv>
   );
 };
 
 export default EditProfile;
 
-const ErrorMessage = styled.div`
-  padding-left: 34px;
-  align-self: stretch;
-  color: var(--error-color);
-  font-size: var(--font-sm);
+const Button = styled.button`
+  &#submitBtn {
+    display: block;
+    width: 100%;
+    height: 32px;
+    background-color: var(--sub-color);
+    color: rgb(255 255 255);
+    border-radius: 32px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  &#submitBtn.active {
+    background-color: var(--main-color);
+  }
 `;

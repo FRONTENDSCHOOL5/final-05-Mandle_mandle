@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { HomeNav } from '../../components/Common/TopNav';
 import { UserAtom } from '../../Store/userInfoAtoms';
@@ -12,7 +11,7 @@ import Loading from '../Loading/Loading';
 export default function Home({ to }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
   const token = userInfo.token; // token값 바인딩
-  const [postList, setpostList] = useState([]);
+  const [postList, setpostList] = useState(null);
 
   useEffect(() => {
     const response = async () => {
@@ -27,14 +26,9 @@ export default function Home({ to }) {
     <HomeWrap>
       <HomeNav title='홈' to='/home/search'></HomeNav>
       <MainWrap>
-        {postList === null && !postList.length ? (
+        {postList === null ? (
           <Loading />
-        ) : postList !== null && postList.length === 0 ? (
-          <PostBlank
-            text='아직 팔로워가 작성한 글이 없어요.'
-            text2='검색을 통해 팔로워를 더 만들어 볼까요?'
-          />
-        ) : postList.length === 0 ? (
+        ) : (postList !== null && postList.length) === 0 ? (
           <PostBlank text='유저를 검색해 팔로우 해보세요!' />
         ) : (
           <PostUlStyle>

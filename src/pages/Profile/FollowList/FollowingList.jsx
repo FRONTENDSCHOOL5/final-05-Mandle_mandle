@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import GlobalStyle from '../../../styles/GlobalStyles';
 import { GoBackNav } from '../../../components/Common/TopNav';
-import User from '../../../components/Common/User';
 import { FollowWrap } from './FollowListStyle';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { GetFollowingList } from '../../../api/GetFollowingList';
+import { useLocation } from 'react-router-dom';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
+import UserList from '../../../components/Common/UserList';
 import axios from 'axios';
-
 export default function FollowingList() {
-  const navigate = useNavigate();
   const location = useLocation();
-
-  const goBack = () => {
-    navigate(-1);
-  };
-
   const userInfo = useRecoilValue(UserAtom);
-  const userAccountname = userInfo.accountname;
+  const isMyProfile = location.pathname === '/my_profile/following'; // Check if it's my profile
+  const userAccountname = isMyProfile ? userInfo.accountname : location.state;
   const token = userInfo.token;
   // const followingCount = userInfo.followerCount;
 
@@ -39,10 +30,10 @@ export default function FollowingList() {
   return (
     <FollowWrap>
       <GoBackNav />
-      <h1>Followers</h1>
+      <h1>Followings</h1>
       <ul>
         {followingData &&
-          followingData.map((user) => <User key={user._id} user={user} />)}
+          followingData.map((user) => <UserList user={user} type='follow' />)}
       </ul>
     </FollowWrap>
   );
