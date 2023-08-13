@@ -18,7 +18,7 @@ import { PostImagesUpload } from '../../api/PostImagesUpload';
 import { useNavigate } from 'react-router-dom';
 import PostUploadPost from '../../api/PostUploadPost';
 import { GetUserProfileImage } from '../../api/GetUserProfileImage';
-
+import imageCompression from 'browser-image-compression';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -37,7 +37,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
 
   useEffect(() => {
@@ -62,12 +62,26 @@ export default function Posting() {
         alert('10MB 이상의 이미지는 업로드 할 수 없습니다.');
         return;
       }
-      if (!file.name.match(/\.(jpg|gif|png|jpeg|bmp|tif|heic)$/i)) {
+      if (!file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
         alert('이미지 파일만 업로드가 가능합니다.');
         return;
       }
 
-      imagesArray.push(file);
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
+
+      try {
+        const compressedFile = await imageCompression(file, options);
+        const convertedFile = new File([compressedFile], file.name, {
+          type: file.type,
+        });
+        imagesArray.push(convertedFile);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     setSelectedImages(imagesArray);
