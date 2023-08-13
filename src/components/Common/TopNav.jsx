@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import SearchIcon from '../../assets/img/icon-search.svg';
 import { ButtonStyle } from './Button';
 import GoBackButton from './GoBackButton';
+import GoBackProfileButton from './GoBackProfileButton';
 import MoreButton from './MoreButton';
 // home
 export function HomeNav({ title, to }) {
@@ -48,6 +49,15 @@ export function GoBackNav() {
   return (
     <TopNavWrap>
       <GoBackButton />
+    </TopNavWrap>
+  );
+}
+
+// 마이 프로필로 이동하는 버전
+export function GoBackProfileNav() {
+  return (
+    <TopNavWrap>
+      <GoBackProfileButton />
     </TopNavWrap>
   );
 }
