@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useLocation } from 'react-router-dom';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-import { GoBackNav } from '../../../components/Common/TopNav';
+import { GoBackProfileNav } from '../../../components/Common/TopNav';
 import PostList from '../../../components/Common/PostList/PostList';
 import CommentList from '../../../components/Common/Comment/CommentList';
 import CommentInput from '../../../components/Common/Comment/CommentInput';
@@ -33,7 +33,7 @@ export default function PostDetail() {
 
   return (
     <PostDetailWrap>
-      <GoBackNav />
+      <GoBackProfileNav />
       <MainWrap>
         {post && <PostList post={post} />}
         <CommentUl>
