@@ -31,7 +31,10 @@ export const UploadLabel = styled.label`
   cursor: pointer;
 `;
 
-export const UploadImg = styled.img``;
+export const UploadImg = styled.img`
+  width: 50px;
+  height: 50px;
+`;
 
 //업로드 될 이미지 스타일
 
