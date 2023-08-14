@@ -24,7 +24,7 @@ import {
 
 export default function EditPost() {
   const location = useLocation();
-  const post = location.state;
+  const post = location.state || {};
   const postId = post.id;
   const [selectedImages, setSelectedImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
@@ -39,9 +39,13 @@ export default function EditPost() {
     GetUserProfileImage(token, setUserImage);
   }, [token]);
   useEffect(() => {
-    setSelectedImages(post.image.split(','));
-    setPreviewImages(post.image.split(','));
-    setInputValue(post.content);
+    if (post.image) {
+      setSelectedImages(post.image.split(','));
+      setPreviewImages(post.image.split(','));
+    }
+    if (post.content) {
+      setInputValue(post.content);
+    }
   }, [post.image, post.content]);
 
   const { textarea, handleTextareaChange } = useTextareaResize(
