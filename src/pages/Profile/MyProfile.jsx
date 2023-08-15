@@ -244,28 +244,6 @@ export default function Profile() {
                   </div>
                 )}
                 {/* 포스트 앨범 버튼 클릭시 */}
-                {/* {isImgListBtnActive && postData && postData.post && (
-                  <div
-                    className={
-                      postData.post.length > 0 ? 'image-grid' : 'image-none'
-                    }
-                  >
-                    {postData.post.length > 0 ? (
-                      postData.post.map((post) => (
-                        <img
-                          key={post.id}
-                          src={post.image.split(',')[0]}
-                          alt='포스트 이미지'
-                        />
-                      ))
-                    ) : (
-                      <div>
-                        <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
-                        <p>작성된 게시물 이미지가 없습니다</p>
-                      </div>
-                    )}
-                  </div>
-                )} */}
                 {isImgListBtnActive && postData && postData.post && (
                   <div
                     className={
