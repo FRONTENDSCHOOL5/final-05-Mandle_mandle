@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Teacher from '../../assets/img/icon-teacher.svg';
+import speechBubble from '../../assets/img/speech-bubble.svg';
 
 const ProfilePage = styled.div`
   width: 100%;
@@ -54,6 +55,16 @@ const ProfileSection = styled.section`
     border-radius: 50%;
     object-fit: cover;
   }
+  .toolTip {
+    display: none;
+    position: absolute;
+    color: #fff;
+    padding: 6px;
+    z-index: 1;
+    top: 260px;
+    height: 37px;
+    background-image: url(${speechBubble});
+  }
 `;
 const Wrap = styled.div`
   display: flex;
@@ -105,6 +116,9 @@ const WrapBtn = styled.div`
     color: var(--main-color);
     width: 120px;
     height: 34px;
+  }
+  &:hover .toolTip {
+    display: block;
   }
 `;
 const PostSection = styled.section`
