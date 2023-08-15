@@ -198,6 +198,19 @@ const PostListUl = styled.ul`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  .image-grid > div {
+    position: relative;
+  }
+
+  .icon-overlay > img {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    top: 0;
+    right: 0;
+  }
 `;
 const FollowBtn = styled.button`
   width: 100px;
