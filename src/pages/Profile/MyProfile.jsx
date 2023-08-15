@@ -280,14 +280,12 @@ export default function Profile() {
           </div>
         )}
       </MainWrap>
-
       <MenuBar />
     </ProfilePage>
   );
 }
 async function ProfileData(accountname, token) {
   const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}`;
-
   try {
     const res = await axios.get(url, {
       headers: {
@@ -303,7 +301,6 @@ async function ProfileData(accountname, token) {
 }
 async function ClassData(accountname, token) {
   const url = `https://api.mandarin.weniv.co.kr/product/${accountname}`;
-
   try {
     const res = await axios.get(url, {
       headers: {
@@ -319,7 +316,6 @@ async function ClassData(accountname, token) {
 }
 async function PostData(accountname, token) {
   const url = `https://api.mandarin.weniv.co.kr/post/${accountname}/userpost`;
-
   try {
     const res = await axios.get(url, {
       headers: {
