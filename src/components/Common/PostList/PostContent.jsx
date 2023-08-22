@@ -30,14 +30,15 @@ export default function PostContent({ post }) {
         ) : (
           <PostImageWrap
             className={postImages.length > 1 ? 'postImgscroll' : ''}
+            height={
+              postImages.length > 1 || !postImages.length ? '100%' : '228px'
+            }
           >
-            {postImages &&
-              postImages.map((postImage, index) => (
+            {compressedImages.map((compressedImage, index) => (
                 <img
                   key={index}
-                  src={HandleNormalizeImage(postImage)}
+                src={compressedImage}
                   width={postImages.length > 1 ? '168px' : '304px'}
-                  height={postImages.length > 1 ? '126px' : '228px'}
                   alt=''
                 /> // comment객체가 'comment'라는 이름으로 또 감싸져 있어 안의 요소들로 바로 접근하기 위함
               ))}
@@ -77,7 +78,7 @@ const MovePostDetail = styled.button`
 
 const PostImageWrap = styled.div`
   width: 304px;
-  height: 100%;
+  height: ${(props) => props.height || '100%'};
 
   img {
     width: ${(props) => props.width};
