@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { UserAtom, IsLogin } from '../../Store/userInfoAtoms';
@@ -22,6 +22,12 @@ export default function Login() {
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate('/home');
+    }
+  });
 
   const {
     email,

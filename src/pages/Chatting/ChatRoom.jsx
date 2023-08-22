@@ -35,7 +35,7 @@ export default function ChatRoom() {
 
   const navigate = useNavigate();
   const handleChatRoomExit = () => {
-    navigate('/chat/chatlist');
+    navigate(-1);
   };
 
   return (

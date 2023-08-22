@@ -7,8 +7,8 @@ import Modal from '../../components/Common/Modal/Modal';
 import { MoreNav } from '../../components/Common/TopNav';
 import PostList from '../../components/Common/PostList/PostList';
 import MiniClassList from '../../components/Common/MiniClassList';
-
 import HomeLogo from '../../assets/img/home-logo.svg';
+import ImageMore from '../../assets/img/icon-img-more.svg';
 import MenuBar from '../../components/Common/MenuBar';
 import Loading from '../Loading/Loading';
 import {
@@ -86,7 +86,9 @@ export default function Profile() {
 
   return (
     <ProfilePage>
+      {/* 모달 버튼 */}
       <MoreNav onClick={handleModalOpen} />
+      {/* 모달 닫기 버튼 */}
       {isModalOpen && (
         <Modal
           setModalOpen={setModalOpen}
@@ -95,9 +97,11 @@ export default function Profile() {
         />
       )}
       <MainWrap>
+        {/* 로딩 페이지 */}
         {!profileData && !classData ? (
           <Loading />
         ) : (
+          // 프로필 페이지
           <div>
             <ProfileSection>
               <Wrap>
@@ -121,6 +125,7 @@ export default function Profile() {
               </Wrap>
               <div id='usernameWrap'>
                 <p id='NickName'>{profileData.username}</p>{' '}
+                {/* Teacher 아이콘 */}
                 <span
                   className={
                     profileData.accountname &&
@@ -130,6 +135,7 @@ export default function Profile() {
                   }
                 ></span>
               </div>
+              {/* 만들 아이디 예외처리 */}
               <p id='MandleId'>
                 @
                 {(profileData.accountname &&
@@ -141,12 +147,14 @@ export default function Profile() {
               </p>
               <p id='Introduce'>{profileData.intro}</p>
               <WrapBtn>
+                {/* 프로필 수정버튼 */}
                 <button
                   className='profileEditBtn'
                   onClick={() => handleClick(profileData)}
                 >
                   프로필 수정
                 </button>
+                {/* 클래스 등록버튼 */}
                 <button
                   className={
                     profileData.accountname &&
@@ -168,12 +176,14 @@ export default function Profile() {
               </WrapBtn>
             </ProfileSection>
             <ClassSection
+              // teacher일때만 보이게 설정
               className={
                 profileData.accountname.includes('Teacher') ? '' : 'a11y-hidden'
               }
             >
               <Title>클래스 리스트</Title>
               <ClassListUl>
+                {/* 클래스 리스트 데이터 뿌리기 */}
                 {profileData.accountname.includes('Teacher') &&
                   classData.product &&
                   classData.product.map((classItem, index) => (
@@ -187,9 +197,9 @@ export default function Profile() {
                   ))}
               </ClassListUl>
             </ClassSection>
-
             <PostSection>
               <div id='PostBtnWrap'>
+                {/* 포스트 리스트 버튼 */}
                 <button
                   id='ListBtn'
                   onClick={() => handleButtonClick('listBtn')}
@@ -200,6 +210,7 @@ export default function Profile() {
                     alt='포스트리스트 버튼'
                   />
                 </button>
+                {/* 포스트 앨범 버튼 */}
                 <button
                   id='ImgListBtn'
                   onClick={() => handleButtonClick('imgListBtn')}
@@ -213,6 +224,7 @@ export default function Profile() {
                 <span></span>
               </div>
               <PostListUl>
+                {/* 포스트 리스트 버튼 클릭시(기본값) */}
                 {isListBtnActive && postData && postData.post && (
                   <div className={postData.post.length > 0 ? '' : 'posts-none'}>
                     {postData.post.length > 0 ? (
@@ -231,6 +243,7 @@ export default function Profile() {
                     )}
                   </div>
                 )}
+                {/* 포스트 앨범 버튼 클릭시 */}
                 {isImgListBtnActive && postData && postData.post && (
                   <div
                     className={
@@ -239,11 +252,20 @@ export default function Profile() {
                   >
                     {postData.post.length > 0 ? (
                       postData.post.map((post) => (
-                        <img
-                          key={post.id}
-                          src={post.image.split(',')[0]}
-                          alt='포스트 이미지'
-                        />
+                        <div key={post.id}>
+                          <img
+                            src={post.image.split(',')[0]}
+                            alt='포스트 이미지'
+                          />
+                          {post.image.split(',')[1] && (
+                            <div className='icon-overlay'>
+                              <img
+                                src={ImageMore}
+                                alt='여러 장 이미지 아이콘'
+                              />
+                            </div>
+                          )}
+                        </div>
                       ))
                     ) : (
                       <div>
@@ -258,14 +280,12 @@ export default function Profile() {
           </div>
         )}
       </MainWrap>
-
       <MenuBar />
     </ProfilePage>
   );
 }
 async function ProfileData(accountname, token) {
   const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}`;
-
   try {
     const res = await axios.get(url, {
       headers: {
@@ -281,7 +301,6 @@ async function ProfileData(accountname, token) {
 }
 async function ClassData(accountname, token) {
   const url = `https://api.mandarin.weniv.co.kr/product/${accountname}`;
-
   try {
     const res = await axios.get(url, {
       headers: {
@@ -297,7 +316,6 @@ async function ClassData(accountname, token) {
 }
 async function PostData(accountname, token) {
   const url = `https://api.mandarin.weniv.co.kr/post/${accountname}/userpost`;
-
   try {
     const res = await axios.get(url, {
       headers: {

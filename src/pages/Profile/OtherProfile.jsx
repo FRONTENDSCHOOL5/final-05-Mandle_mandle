@@ -52,12 +52,12 @@ export default function Profile() {
         const userClassData = await fetchDataFromAPI(
           ClassData,
           accountname,
-          token,
+          token
         );
         const userPostData = await fetchDataFromAPI(
           PostData,
           accountname,
-          token,
+          token
         );
         setProfileData(userProfileData);
         setClassData(userClassData);
@@ -192,12 +192,23 @@ export default function Profile() {
                 <img src={ChatImg} alt='채팅 아이콘 이미지' />
               </button>
             </Link>
+            {/* <FollowBtn
+              className={isfollow ? 'following' : ''}
+              onClick={handleFollowClick}
+            >
+              {isfollow ? '취소' : '팔로우'}
+            </FollowBtn> */}
             <FollowBtn
               className={isfollow ? 'following' : ''}
               onClick={handleFollowClick}
             >
               {isfollow ? '취소' : '팔로우'}
             </FollowBtn>
+            {!isfollow && (
+              <span className={isfollow ? 'a11y-hidden' : 'toolTip'}>
+                친구 추가하고 소식을 받아보세요~
+              </span>
+            )}
             <button className='ShareBtn' onClick={handleCopy}>
               <img src={ShareImg} alt='공유 아이콘 이미지' />
             </button>
@@ -363,7 +374,7 @@ async function follow(accountname, token) {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      },
+      }
     );
     return res.data; // Modify this based on the actual response structure
   } catch (err) {
