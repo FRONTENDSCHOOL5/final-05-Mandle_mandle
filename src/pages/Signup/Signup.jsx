@@ -21,8 +21,8 @@ export default function Signup() {
   const [type, setType] = useState('Student');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [pwErrorMessage, setPwErrorMessage] = useState('');
-  const [emailValid, setEmailValid] = useState(true);
-  const [passwordValid, setPasswordValid] = useState(true);
+  const [emailValid, setEmailValid] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
 
   //회원가입 정보를 상태관리 할 setSignup
   const setSignup = useSetRecoilState(SignUpAtom);
@@ -85,7 +85,7 @@ export default function Signup() {
   const handleTeacherBtnClick = () => {
     setType('Teacher');
   };
-
+  console.log(emailValid);
   return (
     <>
       <AccountHeader title='이메일로 회원가입' />
@@ -126,9 +126,21 @@ export default function Signup() {
           placeholder='이메일을 입력해주세요'
           onChange={handleInputChange}
           onBlur={handleEmailValid}
-          borderColor={emailErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
+          borderColor={
+            emailValid
+              ? 'var(--main-color)'
+              : emailErrorMessage
+              ? 'var(--error-color)'
+              : '#dbdbdb'
+          }
         />
-        {emailErrorMessage && <ErrorMessage>{emailErrorMessage}</ErrorMessage>}
+        {emailErrorMessage && (
+          <ErrorMessage
+            color={emailValid ? 'var(--main-color)' : 'var(--error-color)'}
+          >
+            {emailErrorMessage}
+          </ErrorMessage>
+        )}
         <Input
           label='비밀번호'
           name='password'

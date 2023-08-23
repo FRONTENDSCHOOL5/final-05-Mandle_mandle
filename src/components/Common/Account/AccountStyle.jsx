@@ -42,7 +42,7 @@ export const ButtonImgStyle = styled.button`
 
 export const ErrorMessage = styled.div`
   align-self: stretch;
-  color: var(--error-color);
+  color: ${(props) => props.color || 'var(--error-color)'};
   font-size: var(--font-sm);
 `;
 export const MoveSignup = styled(Link)`
