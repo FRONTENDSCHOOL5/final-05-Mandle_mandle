@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Skeleton } from './Skeleton';
+import PostSkeleton from './PostSkeleton';
+import ClassSideSkeleton from './ClassSideSkeleton';
+import ChatBtn from '../../../assets/img/icon-chat-mini.svg';
+import ShareBtn from '../../../assets/img/icon-share.svg';
 import PostListBtnOn from '../../../assets/img/icon-post-list-on.svg';
 import PostAlbumBtnOff from '../../../assets/img/icon-post-album-off.svg';
-import PostSkeleton from './PostSkeleton';
-import ClassSkeleton from './ClassSkeleton';
 
-export default function ProfileSkeleton(status, type) {
+export default function ProfileSkeleton({ status, type }) {
+  console.log(status, type);
   return (
     <ProfileSkeletonWrap>
       <SkeletonProfileSection>
@@ -15,11 +18,32 @@ export default function ProfileSkeleton(status, type) {
         <SkeletonProfileID></SkeletonProfileID>
         <SkeletonProfileDesc></SkeletonProfileDesc>
         <SkeletonProfileBtnWrap>
-          <SkeletonProfileBtn></SkeletonProfileBtn>
-          {type === 'teacher' && <SkeletonProfileBtn></SkeletonProfileBtn>}
+          {status === 'other' && (
+            <>
+              <SkeletonCircleBtn>
+                <img src={ChatBtn} alt='채팅 버튼' />
+              </SkeletonCircleBtn>
+              <SkeletonProfileBtn></SkeletonProfileBtn>
+              <SkeletonCircleBtn>
+                <img src={ShareBtn} alt='공유 버튼' />
+              </SkeletonCircleBtn>
+            </>
+          )}
+          {status === 'my' && (
+            <>
+              <SkeletonProfileBtn></SkeletonProfileBtn>{' '}
+              <SkeletonProfileBtn></SkeletonProfileBtn>
+            </>
+          )}
         </SkeletonProfileBtnWrap>
       </SkeletonProfileSection>
-      <ClassSkeleton />
+      <ClassSideSkeletonWrap>
+        {
+          <ClassSideSkeleton scrollBgColor='#fff'>
+            클래스 리스트
+          </ClassSideSkeleton>
+        }
+      </ClassSideSkeletonWrap>
       <SkeletonPostSection>
         <SkeletonPostBtnWrap>
           <img src={PostListBtnOn} alt='목록으로 보기 버튼' />
@@ -76,8 +100,8 @@ const SkeletonProfileBtnWrap = styled.div`
   margin-top: 24px;
 `;
 const SkeletonProfileBtn = styled(Skeleton)`
-  width: 120px;
-  height: 34px;
+  width: ${(props) => props.witdh || '120px'};
+  height: ${(props) => props.height || '34px'};
   border-radius: 30px;
   border: 1px solid var(--border-color);
 `;
@@ -108,11 +132,17 @@ const SkeletonPostWrap = styled.div`
   padding: 0 11px;
 `;
 
-const SkeletonClassSection = styled.div`
-  width: 100%;
+const ClassSideSkeletonWrap = styled.div`
+  padding: 10px;
   background-color: #fff;
+`;
+
+const SkeletonCircleBtn = styled.div`
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-color);
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 5px;
 `;

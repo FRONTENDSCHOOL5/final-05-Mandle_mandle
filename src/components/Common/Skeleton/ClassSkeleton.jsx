@@ -1,52 +1,48 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Skeleton } from './Skeleton';
+
+import CardSkeleton from './CardSkeleton';
+import ClassSideSkeleton from './ClassSideSkeleton';
 
 export default function ClassSkeleton() {
   return (
-    <ClassSkeletonWrap>
-      <SkeletonClasstitle></SkeletonClasstitle>
-      <SkeletonClassListWrap>
-        <SkeletonClassContent></SkeletonClassContent>
-        <SkeletonClassContent></SkeletonClassContent>
-        <SkeletonClassContent></SkeletonClassContent>
-      </SkeletonClassListWrap>
-    </ClassSkeletonWrap>
+    <div>
+      <ClassSideSkeletonWrap>
+        <ClassSideSkeleton scrollBgColor='var(--background-color)'>
+          인기 클래스
+        </ClassSideSkeleton>
+      </ClassSideSkeletonWrap>
+      <SkeletonClassFeed>
+        <h2>새로운 클래스</h2>
+        <SkeletonClassFeedList>
+          <CardSkeleton width='180px' height='174px' imgHeight='120px' />
+          <CardSkeleton width='180px' height='174px' imgHeight='120px' />
+          <CardSkeleton width='180px' height='174px' imgHeight='120px' />
+          <CardSkeleton width='180px' height='174px' imgHeight='120px' />
+          <CardSkeleton width='180px' height='174px' imgHeight='120px' />
+          <CardSkeleton width='180px' height='174px' imgHeight='120px' />
+          <CardSkeleton width='180px' height='174px' imgHeight='120px' />
+          <CardSkeleton width='180px' height='174px' imgHeight='120px' />
+        </SkeletonClassFeedList>
+      </SkeletonClassFeed>
+    </div>
   );
 }
 
-const ClassSkeletonWrap = styled.div`
-  padding: 10px;
-  background-color: #fff;
+const ClassSideSkeletonWrap = styled.div`
+  padding: 20px 0 0 16px;
 `;
-const SkeletonClasstitle = styled.div`
-  width: 100%;
-  height: 14px;
-  margin-bottom: 16px;
+const SkeletonClassFeed = styled.div`
+  margin-top: 30px;
+  padding: 0 10px;
+  h2 {
+    font-size: var(--font-md);
+    margin-bottom: 16px;
+  }
 `;
-const SkeletonClassListWrap = styled.div`
-  padding-bottom: 10px;
-  display: flex;
-
+const SkeletonClassFeedList = styled.div`
+  width: 100px;
+  display: grid;
   gap: 10px;
-  overflow-x: scroll;
-
-  &::-webkit-scrollbar {
-    padding-top: 5px;
-    background-color: white;
-
-    height: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--border-color);
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid white;
-  }
-`;
-
-const SkeletonClassContent = styled(Skeleton)`
-  width: 140px;
-  height: 138px;
-  flex-shrink: 0;
+  grid-template-columns: repeat(2, 1fr);
 `;
