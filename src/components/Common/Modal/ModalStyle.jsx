@@ -22,6 +22,16 @@ export const ModalWrap = styled.div`
   transform: translate(-50%, 0);
   border-radius: 10px 10px 0 0;
   background-color: #fff;
+  animation: slideIn 0.5s ease;
+
+  @keyframes slideIn {
+    from {
+      bottom: -100px;
+    }
+    to {
+      bottom: 0%;
+    }
+  }
 
   p {
     font-size: var(--font-lg);
