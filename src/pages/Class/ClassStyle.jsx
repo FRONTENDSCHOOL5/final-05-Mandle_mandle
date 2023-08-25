@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import GlobalStyle from '../../styles/GlobalStyles';
 
 // Header
-export const HiddenContext = styled.h1`
+export const HiddenContext = styled.h2`
   ${GlobalStyle}
 `;
 // /Header
@@ -29,7 +29,7 @@ export const ClassSection = styled.section`
   background-color: var(--background-color);
   `;
 
-export const Title = styled.h3`
+export const Title = styled.h2`
   font-size: var(--font-md);
   font-weight: var(--font-regular);
   margin-bottom: 16px;
