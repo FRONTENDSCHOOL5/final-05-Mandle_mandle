@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import imageCompression from 'browser-image-compression';
 
 const useImageCompression = () => {
@@ -16,8 +15,7 @@ const useImageCompression = () => {
       const compressedBlob = await imageCompression(blob, options);
       return URL.createObjectURL(compressedBlob);
     } catch (error) {
-      console.error('이미지 압축 오류:', error);
-      return null;
+      return;
     }
   };
 

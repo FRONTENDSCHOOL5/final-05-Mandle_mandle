@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import MoreButton from '../MoreButton';
 import Modal from '../Modal/Modal';
+import useImageCompression from '../../../Hooks/useImageCompression';
 import PostReportPost from '../../../api/PostReportPost';
 import DeletePost from '../../../api/DeletePost';
 import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
@@ -13,6 +14,32 @@ export default function PostProfile({ post, setPostUpdated }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const navigate = useNavigate();
+  const [compressedImage, setCompressedImage] = useState(null);
+  const { compressImage } = useImageCompression(); // useImageCompression 훅 사용
+  const [isOptimized, setIsOptimized] = useState(false);
+
+  useEffect(() => {
+    if (!isOptimized) {
+      const optimizeProfileImage = async () => {
+        if (post?.author?.image) {
+          console.log('이미지 프로필 최적화 실행');
+
+          try {
+            const compressedImageUrl = await compressImage(post.author.image);
+            if (compressedImageUrl) {
+              console.log('압축된 이미지 URL:', compressedImageUrl);
+              setCompressedImage(compressedImageUrl);
+              setIsOptimized(true); // 최적화가 완료되었음을 표시
+            }
+          } catch (error) {
+            console.error('이미지 압축 오류:', error);
+          }
+        }
+      };
+
+      optimizeProfileImage();
+    }
+  }, [post.author.image, compressImage, isOptimized]);
 
   const handleProfileClick = () => {
     navigate(`/other_profile/${post.author.accountname}`, {
@@ -54,7 +81,7 @@ export default function PostProfile({ post, setPostUpdated }) {
     <PostProfileWrap>
       <button onClick={handleProfileClick}>
         <PostProfileImgWrap>
-          <img src={post.author.image} alt='프로필 이미지' />
+          <img src={compressedImage || post.author.image} alt='프로필 이미지' />{' '}
         </PostProfileImgWrap>
         <PostProfileInfo>
           <div>
