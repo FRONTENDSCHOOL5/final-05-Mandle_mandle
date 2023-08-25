@@ -72,10 +72,11 @@ export default function PostContent({ post }) {
               postImages.length > 1 || !postImages.length ? '100%' : '228px'
             }
           >
-            {compressedImages.map((compressedImage, index) => (
+            {postImages &&
+              postImages.map((postImage, index) => (
                 <img
                   key={index}
-                src={compressedImage}
+                  src={HandleNormalizeImage(postImage)}
                   width={postImages.length > 1 ? '168px' : '304px'}
                   alt=''
                 /> // comment객체가 'comment'라는 이름으로 또 감싸져 있어 안의 요소들로 바로 접근하기 위함
