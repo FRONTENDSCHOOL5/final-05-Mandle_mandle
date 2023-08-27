@@ -25,6 +25,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    //자동로그인 체크박스 기본값 false 설정
     setAutoLogin(false);
     if (isLogin) {
       navigate('/home');
@@ -71,7 +72,6 @@ export default function Login() {
       //로그인 실패
       if (loginInfo.status === 422) {
         setLoginErrorMessage(loginInfo.message);
-
         setEmail('');
         setPassword('');
         //성공시
