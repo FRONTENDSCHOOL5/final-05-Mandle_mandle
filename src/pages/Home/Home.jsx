@@ -30,16 +30,18 @@ export default function Home({ to }) {
     }
 
     const beforeUnloadHandler = () => {
+      //autoLogin 체크값이 false라면 로컬스토리지의 유저정보값 삭제
       if (autoLogin === false) {
         localStorage.removeItem('recoil-persist');
       }
     };
-
+    // "beforeunload" 이벤트 핸들러를 window에 등록합니다.
     window.addEventListener('beforeunload', beforeUnloadHandler);
 
+    // cleanup 함수 실행
     return () => {
       window.removeEventListener('beforeunload', beforeUnloadHandler);
-      //브라우조 종료 후 새롭게 브라우저 접근 시 유저 정보 없는 것 확인하고 intro 화면으로 보내기
+      //브라우저 종료 후 새롭게 브라우저 접근 시 유저 정보 없는 것 확인하고 intro 화면으로 보내기
       const storedValue = localStorage.getItem('recoil-persist');
       if (!storedValue) {
         navigate('/intro');
