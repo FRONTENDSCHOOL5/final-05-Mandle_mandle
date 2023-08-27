@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { UserAtom, IsLogin } from '../../Store/userInfoAtoms';
+import { UserAtom, IsLogin, AutoLogin } from '../../Store/userInfoAtoms';
 import PostLogin from '../../api/PostLogin';
 import UserInfoInput from '../../Hooks/UserInfoInput';
 import Input from '../../components/Common/Account/Input';
@@ -20,14 +21,16 @@ export default function Login() {
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [pwErrorMessage, setPwErrorMessage] = useState('');
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
-
+  const [autoLogin, setAutoLogin] = useRecoilState(AutoLogin);
   const navigate = useNavigate();
 
   useEffect(() => {
+    //자동로그인 체크박스 기본값 false 설정
+    setAutoLogin(false);
     if (isLogin) {
       navigate('/home');
     }
-  });
+  }, []);
 
   const {
     email,
@@ -45,6 +48,10 @@ export default function Login() {
     } else {
       setEmailErrorMessage('');
     }
+  };
+
+  const handleCheckboxChange = () => {
+    setAutoLogin((prevAutoLogin) => !prevAutoLogin);
   };
 
   const handlePasswordValid = () => {
@@ -65,7 +72,6 @@ export default function Login() {
       //로그인 실패
       if (loginInfo.status === 422) {
         setLoginErrorMessage(loginInfo.message);
-
         setEmail('');
         setPassword('');
         //성공시
@@ -114,6 +120,15 @@ export default function Login() {
         />
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
         {loginErrorMessage && <ErrorMessage>{loginErrorMessage}</ErrorMessage>}
+        <CheckboxContainer>
+          <CheckboxInput
+            type='checkbox'
+            checked={autoLogin}
+            onChange={handleCheckboxChange}
+          />
+          <CheckboxLabel>자동로그인 </CheckboxLabel>
+        </CheckboxContainer>
+
         <ButtonImgStyle type='submit'>
           <img src={buttonImg} alt='로그인하기 버튼' />
         </ButtonImgStyle>
@@ -122,3 +137,30 @@ export default function Login() {
     </>
   );
 }
+
+const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  margin-right: 220px;
+`;
+
+const CheckboxInput = styled.input.attrs({ type: 'checkbox' })`
+  margin-right: 8px;
+  width: 15px;
+  height: 15px;
+  background-color: #d3d3d3;
+  border-radius: 50%;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  &:checked {
+    background-color: #007bff;
+  }
+`;
+
+const CheckboxLabel = styled.label`
+  font-size: 12px;
+  color: #767676;
+  cursor: pointer;
+`;
