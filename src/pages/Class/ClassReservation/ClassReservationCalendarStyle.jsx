@@ -6,8 +6,6 @@ export const StyledCalendar = styled(Calendar)`
   border: none;
   text-align: center;
   margin: 0 auto;
-  /* -webkit-tap-highlight-color: transparent; */
-  /* outline: none; */
 
   .react-calendar__navigation button:disabled {
     background-color: #fff;
@@ -29,8 +27,6 @@ export const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__month-view__weekdays {
-    /* flex-direction: row; */
-    /* justify-content: space-between; */
     abbr {
       color: var(--sub-font-color);
       font-weight: var(--font-regular);
@@ -43,9 +39,6 @@ export const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__tile {
-    /* font-size: var(--font-md); */
-    /* width: 24px; */
-    /* height: 48px; */
     abbr {
       display: block;
       border: 1px solid var(--main-color);
@@ -54,10 +47,6 @@ export const StyledCalendar = styled(Calendar)`
       height: 32px;
       border-radius: 50%;
       margin: 0 auto;
-      /* overflow: hidden; */
-      /* text-align: center; */
-      /* white-space: nowrap; */
-      /* box-sizing: border-box; */
     }
     &--now {
       background-color: #fff;
@@ -69,20 +58,11 @@ export const StyledCalendar = styled(Calendar)`
     }
   }
 
-  /* 클릭후 날짜 파란상자 없애기 */
-  .react-calendar__tile--active {
-    background-color: #fff;
-  }
 
   /* 토요일 일요일 폰트 색상 변경 */
   .react-calendar__month-view__days__day--weekend {
     color: #000;
   }
-
-  /* .react-calendar__tile--now {
-    background: none;
-    color: var(--main-color);
-  } */
 
   /* 비활성화된 날짜의 배경색 설정 */
   .react-calendar__tile:disabled {
@@ -106,7 +86,8 @@ export const StyledCalendar = styled(Calendar)`
     }
   }
 
-  /* 호버 및 포커스 시 버튼 배경색 없애기 */
+  /* 클릭, 호버, 포커스 시 버튼 배경색 없애기 */
+  .react-calendar__tile--active,
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus {
     background: #fff;

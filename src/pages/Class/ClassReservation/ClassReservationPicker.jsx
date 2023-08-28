@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { PickerBox, Heading, TimeList, PeopleBox, BtnBox, BtnReserve, ToggleBtn } from './ClassReservationPickerStyle';
+import { PickerContainer, Heading, TimeList, BtnBox, BtnReserve, ToggleBtn } from './ClassReservationPickerStyle';
 
 export function TimePicker() {
   const [selectedTime, setSelectedTime] = useState('');
@@ -35,37 +35,37 @@ export function Time({ availableTimes, selectedTime, handleTimeChange }) {
   };
 
   return (
-    <PickerBox>
+    <PickerContainer>
       <Heading htmlFor='time-select'>시간 선택</Heading>
       <ToggleBtn onClick={() => setShowTimeList(!showTimeList)}>
-        {showTimeList ? '시간 선택 닫기' : '시간 선택 열기'}
+        {showTimeList ? '∧' : '∨'}
       </ToggleBtn>
       {showTimeList && (
       <TimeList>
         <li className={activeItem === 1 ? 'active' : ''} onClick={() => handleItemClick(1)}>
           <button>
-            <h3>오전 10:00 ~ 오전 12:00</h3>
+            <h3>{availableTimes[0]}</h3>
             <strong>{formattedPrice}원</strong>
             <p>0/6</p>
           </button>
         </li>
         <li className={activeItem === 2 ? 'active' : ''} onClick={() => handleItemClick(2)}>
           <button>
-            <h3>오후 1:00 ~ 오후 3:00</h3>
+            <h3>{availableTimes[1]}</h3>
             <strong>{formattedPrice}원</strong>
             <p>0/6</p>
           </button>
         </li>
         <li className={activeItem === 3 ? 'active' : ''} onClick={() => handleItemClick(3)}>
           <button>
-            <h3>오후 4:00 ~ 오후 6:00</h3>
+            <h3>{availableTimes[2]}</h3>
             <strong>{formattedPrice}원</strong>
             <p>0/6</p>
           </button>
         </li>
       </TimeList>
       )}
-    </PickerBox>
+    </PickerContainer>
   );
 }
 
@@ -109,7 +109,7 @@ export function People({ numOfPeople, handleNumOfPeopleChange }) {
 
   return (
     <>
-      <PeopleBox>
+      <PickerContainer className='People'>
         <label htmlFor='people-input'>인원</label>
         <BtnBox>
           <button onClick={handleDecrement}>-</button>
@@ -121,7 +121,7 @@ export function People({ numOfPeople, handleNumOfPeopleChange }) {
           </button>
         </BtnBox>
         <BtnReserve onClick={goBack}>예약하기</BtnReserve>
-      </PeopleBox>
+      </PickerContainer>
     </>
   );
 }

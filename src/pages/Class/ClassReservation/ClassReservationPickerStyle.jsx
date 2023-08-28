@@ -1,31 +1,27 @@
 import styled from 'styled-components';
-import 'react-calendar/dist/Calendar.css';
 
-export const PickerBox = styled.div`
-  width: 100%;
-  margin: 0 auto;
+export const PickerContainer = styled.div`
   border-bottom: 1px solid var(--sub-font-color);
-  overflow: hidden;
   position: relative;
+  &.People {
+    padding: 11px 12px;
+    label {
+      font-size: var(-font-lg);
+      line-height: calc(52px - 22px);
+    }
+  }
 `;
 
 export const Heading = styled.h2`
-  display: block;
-  font-size: 16px;
+  font-size: var(--font-lg);
   color: var(--font-color);
   padding: 16px 12px;
 `;
 
 export const ToggleBtn = styled.button`
-  content: '';
-  width: 10px;
-  height: 10px;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
   position: absolute;
-  top: 22px;
+  top: 18px;
   right: 15px;
-  rotate: 45deg;
 `;
 
 export const TimeList = styled.ul`
@@ -33,7 +29,6 @@ export const TimeList = styled.ul`
   background-color: var(--background-color);
   li {
     padding: 12px 21px 12px 16px;
-    min-height: 60px;
     position: relative;
     background-color: #fff;
     border: 0.5px solid var(--sub-font-color);
@@ -43,10 +38,6 @@ export const TimeList = styled.ul`
     &.active {
       box-shadow: inset 0 0 2px var(--main-color);
     }
-  }
-  button {
-    width: 300px;
-    box-sizing: border-box;
   }
   h3 {
     margin: 5px 0 3px;
@@ -62,20 +53,6 @@ export const TimeList = styled.ul`
   }
 `;
 
-
-export const PeopleBox = styled.div`
-  width: 100%;
-  height: 52px;
-  margin: 0 auto;
-  border-bottom: 0.5px solid var(--sub-font-color);
-  padding: 11px 12px;
-  position: relative;
-  label {
-    font-size: var(--font-lg);
-    line-height: calc(52px - 22px);
-  }
-`;
-
 export const BtnBox = styled.div`
   width: 93px;
   height: 30px;
@@ -86,7 +63,7 @@ export const BtnBox = styled.div`
   right: 12px;
   display: flex;
   justify-content: space-between;
-  overflow: hidden;
+  /* overflow: hidden; */
   button {
     width: calc(93px / 3);
     line-height: 30px;
@@ -96,16 +73,7 @@ export const BtnBox = styled.div`
       background-color: #c4c4c4;
       cursor: default;
     }
-    &:nth-child(1)::after {
-      content: '';
-      display: block;
-      width: 0.5px;
-      height: 29px;
-      background-color: var(--sub-font-color);
-      position: absolute;
-      top: 0;
-      left: 31px;
-    }
+    &:nth-child(1)::after,
     &:nth-child(3)::before {
       content: '';
       display: block;
@@ -114,6 +82,11 @@ export const BtnBox = styled.div`
       background-color: var(--sub-font-color);
       position: absolute;
       top: 0;
+    }
+    &:nth-child(1)::after {
+      left: 31px;
+    }
+    &:nth-child(3)::before {
       right: 31px;
     }
   }
