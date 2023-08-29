@@ -39,6 +39,7 @@ export default function EditPost() {
     GetUserProfileImage(token, setUserImage);
   }, [token]);
   useEffect(() => {
+
     if (post.image) {
       setSelectedImages(post.image.split(','));
       setPreviewImages(post.image.split(','));
@@ -47,6 +48,7 @@ export default function EditPost() {
       setInputValue(post.content);
     }
   }, [post.image, post.content]);
+
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,

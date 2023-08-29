@@ -21,8 +21,8 @@ export default function Class() {
       try {
         const data = await GetClassData(token);
         const filteredClasses = data.product.filter(classItem => classItem.author.accountname.includes('Teacher'));
-        const popularClasses = filteredClasses.slice(0, 3);
-        setPopularClasses(popularClasses);
+        
+        setPopularClasses(filteredClasses.slice(0, 3));
         setNewClasses(filteredClasses);
         setLoading(false);
       } catch (error) {
@@ -30,6 +30,7 @@ export default function Class() {
         setLoading(false);
       }
     };
+    
     fetchData();
   }, [token]);
   
@@ -39,9 +40,7 @@ export default function Class() {
         <HiddenContext>클래스 피드</HiddenContext>
       </HomeNav>
       <MainWrap>
-        {loading ? (
-          <Loading />
-        ) : (
+        {loading ? (<Loading />) : (
           <>
             <MiniSection>
               <Title>인기 클래스</Title>

@@ -53,7 +53,7 @@ export default function Profile() {
       setClassUpdated(false);
     };
     fetchData();
-  }, [postUpdated, classUpdated, userAccountname, token]);
+  }, [postUpdated, classUpdated]);
 
   //프로필 수정페이지 이동
   function handleClick(profileData) {

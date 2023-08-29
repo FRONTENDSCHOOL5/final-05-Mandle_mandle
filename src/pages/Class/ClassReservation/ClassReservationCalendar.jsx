@@ -1,5 +1,5 @@
-import { React, useState } from 'react';
-import { ReservationSection, StyledCalendar, SelectedDate } from './ClassReservationDatePickerStyle';
+import React, { useState } from 'react';
+import { StyledCalendar, SelectedDate } from './ClassReservationCalendarStyle';
 
 export function DatePicker() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -19,22 +19,33 @@ export function DatePicker() {
   };
 
   const tileDisabled = ({ date }) => {
-    // 토요일, 일요일, 그리고 지난 날짜는 비활성화
     const currentDate = new Date();
     const isSaturday = date.getDay() === 6;
     const isSunday = date.getDay() === 0;
-    const isPastDate = date < currentDate;
-    return isSaturday || isSunday || isPastDate;
+    const isTwoDaysAgo = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate() - 1
+    );
+  
+    return isSaturday || isSunday || date <= isTwoDaysAgo;
   };
+  
 
   const tileClassName = ({ date }) => {
-    // 지난달과 다음달의 토요일과 일요일에는 클래스 추가하지 않음
     const isPrevMonth = date.getMonth() < selectedDate.getMonth();
     const isNextMonth = date.getMonth() > selectedDate.getMonth();
     const isSaturday = date.getDay() === 6;
     const isSunday = date.getDay() === 0;
+    const isActiveDate =
+      date.getDate() === selectedDate.getDate() &&
+      date.getMonth() === selectedDate.getMonth() &&
+      date.getFullYear() === selectedDate.getFullYear();
+
     return isPrevMonth || isNextMonth || isSaturday || isSunday
       ? null
+      : isActiveDate
+      ? 'active-date-tile' // 이 클래스에 원하는 스타일을 추가
       : 'weekday-tile';
   };
 
@@ -49,25 +60,21 @@ export function DatePicker() {
   };
 
   return (
-    <ReservationSection>
+    <>
       <StyledCalendar
         onChange={handleDateChange}
-        value={selectedDate}
+        // value={selectedDate}
         onClickMonth={removeYearNavigation}
         calendarType='US'
-        formatDay={(locale, date) =>
-          date.toLocaleString('en', { day: 'numeric' })
-        }
+        formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
         tileDisabled={tileDisabled}
-        tileClassName={tileClassName} // 지난달과 다음달의 토요일과 일요일에는 클래스 추가하지 않음
-        minDetail="month" // 년도 선택 비활성화
-        // onMouseOver={handleDateHover}
-        // onFocus={handleDateHover}
+        tileClassName={tileClassName}
+        minDetail="month"
       />
       <SelectedDate>
         <span className='a11y-hidden'>선택한 날짜: </span>
         {formatDate(selectedDate, 'ko')}
       </SelectedDate>
-    </ReservationSection>
+    </>
   );
 }
