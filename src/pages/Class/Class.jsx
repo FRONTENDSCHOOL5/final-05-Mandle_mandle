@@ -15,16 +15,16 @@ export default function Class() {
   const [loading, setLoading] = useState(true);
   const [popularClasses, setPopularClasses] = useState([]);
   const [newClasses, setNewClasses] = useState([]);
-  const [page, setPage] = useState(1); // Track the current page
+  const [page, setPage] = useState(1);
 
-  const mainWrapRef = useRef(null); // Create a ref for the MainWrap element
+  const mainWrapRef = useRef(null);
 
   const handleScroll = () => {
     if (mainWrapRef.current) {
       const bottom = mainWrapRef.current.scrollHeight - mainWrapRef.current.scrollTop === mainWrapRef.current.clientHeight;
 
       if (bottom) {
-        setPage(page + 1); // Increment the page
+        setPage(page + 1);
       }
     }
   };
@@ -39,10 +39,10 @@ export default function Class() {
           setPopularClasses(filteredClasses.slice(0, 3));
           setNewClasses(filteredClasses.slice(0, 8));
         } else {
-          const startIndex = (page - 2) * 2 + 8; // Calculate the starting index
+          const startIndex = (page - 2) * 2 + 8;
           setNewClasses(prevClasses => [
             ...prevClasses,
-            ...filteredClasses.slice(startIndex, startIndex + 2) // Add 2 new classes
+            ...filteredClasses.slice(startIndex, startIndex + 2)
           ]);
         }
 
