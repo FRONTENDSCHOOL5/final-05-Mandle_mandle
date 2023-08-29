@@ -3,10 +3,11 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 export const StyledCalendar = styled(Calendar)`
-  border: none;
   text-align: center;
   margin: 0 auto;
-
+  && {
+    border: none;
+  }
   .react-calendar__navigation button:disabled {
     background-color: #fff;
     cursor: default;
