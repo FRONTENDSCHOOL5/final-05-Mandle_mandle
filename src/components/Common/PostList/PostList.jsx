@@ -16,5 +16,5 @@ const PostLiStyle = styled.li`
   font-size: var(--font-md);
   padding-bottom: 20px;
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
