@@ -9,6 +9,7 @@ import Input from '../../components/Common/Account/Input';
 import AccountHeader from '../../components/Common/Account/AccountHeader';
 import ButtonImg from '../../assets/img/L-login-button(clay).svg';
 import DisabledButtonImg from '../../assets/img/L-login-Disabled-button(clay).svg';
+import usePasswordToggle from '../../Hooks/usePasswordToggle';
 import {
   MoveSignup,
   AccountForm,
@@ -22,7 +23,10 @@ export default function Login() {
   const [pwErrorMessage, setPwErrorMessage] = useState('');
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const [autoLogin, setAutoLogin] = useRecoilState(AutoLogin);
+
   const navigate = useNavigate();
+
+  const { toggleShowPassword, showPassword } = usePasswordToggle();
 
   useEffect(() => {
     //자동로그인 체크박스 기본값 false 설정
@@ -117,6 +121,8 @@ export default function Login() {
           onChange={handleInputChange}
           onBlur={handlePasswordValid}
           borderColor={pwErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
+          showPassword={showPassword}
+          toggleShowPassword={toggleShowPassword}
         />
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
         {loginErrorMessage && <ErrorMessage>{loginErrorMessage}</ErrorMessage>}

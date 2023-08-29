@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-
+import hideEye from '../../../assets/img/eye-hidden.svg';
+import showEye from '../../../assets/img/eye-visible.svg';
 export default function Input({
   label,
   name,
@@ -9,13 +10,15 @@ export default function Input({
   onBlur,
   placeholder,
   borderColor,
+  showPassword,
+  toggleShowPassword,
 }) {
   return (
     <InputDiv>
       <Label>{label}</Label>
       <InputBox
         name={name}
-        type={type}
+        type={showPassword ? 'text' : type} // 비밀번호 보기 시 type을 'text'로 변경
         width='322px'
         height='40px'
         padding='15px'
@@ -25,12 +28,18 @@ export default function Input({
         borderColor={borderColor}
         value={value}
       />
+      {type === 'password' && (
+        <EyeIcon onClick={toggleShowPassword}>
+          <img src={showPassword ? showEye : hideEye} alt='눈 모양 아이콘' />
+        </EyeIcon>
+      )}
     </InputDiv>
   );
 }
 
 export const InputDiv = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   margin-top: 24px;
 `;
@@ -54,5 +63,18 @@ export const InputBox = styled.input`
   }
   &:focus {
     border-color: var(--main-color);
+  }
+`;
+
+const EyeIcon = styled.span`
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 30px;
+  width: 40px;
+  height: 40px;
+  img {
+    width: 100%;
+    height: 100%;
   }
 `;
