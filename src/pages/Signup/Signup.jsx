@@ -7,6 +7,7 @@ import PostEmailValid from '../../api/PostEmailVaild';
 import Input from '../../components/Common/Account/Input';
 import { ButtonStyle } from '../../components/Common/Button';
 import AccountHeader from '../../components/Common/Account/AccountHeader';
+import usePasswordToggle from '../../Hooks/usePasswordToggle';
 import ButtonImg from '../../assets/img/L-button(clay).svg';
 import DisabledButtonImg from '../../assets/img/L-Disabled-button(clay).svg';
 import {
@@ -23,6 +24,8 @@ export default function Signup() {
   const [pwErrorMessage, setPwErrorMessage] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+
+  const { toggleShowPassword, showPassword } = usePasswordToggle();
 
   //회원가입 정보를 상태관리 할 setSignup
   const setSignup = useSetRecoilState(SignUpAtom);
@@ -85,7 +88,7 @@ export default function Signup() {
   const handleTeacherBtnClick = () => {
     setType('Teacher');
   };
-  console.log(emailValid);
+
   return (
     <>
       <AccountHeader title='이메일로 회원가입' />
@@ -149,6 +152,8 @@ export default function Signup() {
           onChange={handleInputChange}
           onBlur={handlePasswordValid}
           borderColor={pwErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
+          showPassword={showPassword}
+          toggleShowPassword={toggleShowPassword}
         />
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
 
