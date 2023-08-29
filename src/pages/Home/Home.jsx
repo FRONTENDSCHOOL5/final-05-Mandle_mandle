@@ -10,7 +10,7 @@ import GetFollowPost from '../../api/GetFollowPost';
 import MenuBar from '../../components/Common/MenuBar';
 import PostList from '../../components/Common/PostList/PostList';
 import { HomeWrap, MainWrap, PostUlStyle } from './HomeStyle';
-
+import PostSkeleton from '../../components/Common/Skeleton/PostSkeleton';
 export default function Home({ to }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
   const autoLogin = useRecoilValue(AutoLogin);
@@ -54,26 +54,38 @@ export default function Home({ to }) {
       const data = await GetFollowPost(token, skip);
       if (data) {
         setPostList((prevData) => [...prevData, ...data]);
+        setTimeout(() => {
+          setLoading(false); // 2초 뒤에 setLoading(false) 실행
+        }, 1000); // 2000ms = 2초
         setSkip((prevSkip) => prevSkip + 5);
       }
     };
-
     response();
-  }, [token, skip]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isBottom]);
+
   return (
     <HomeWrap>
       <HomeNav title='홈' to='/home/search'></HomeNav>
       <MainWrap id='scroll-area'>
-        {postList !== null &&
+        {loading ? (
+          <div>
+            <PostSkeleton />
+            <PostSkeleton />
+            <PostSkeleton />
+          </div>
+        ) : (
+          postList !== null &&
           (postList.length === 0 ? (
-            <PostBlank />
+            <PostBlank text='유저를 검색해 팔로우 해보세요!' />
           ) : (
             <PostUlStyle>
               {postList.map((post) => (
                 <PostList key={post.id} post={post} />
               ))}
             </PostUlStyle>
-          ))}
+          ))
+        )}
       </MainWrap>
       <MenuBar />
     </HomeWrap>

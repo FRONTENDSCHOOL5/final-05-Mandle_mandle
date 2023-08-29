@@ -16,18 +16,18 @@ export const MainWrap = styled.main`
   &::-webkit-scrollbar {
     display: none;
   }
-  `;
+`;
 
 export const MiniSection = styled.section`
   padding: 20px 0 0 16px;
-  `
+`;
 
 export const ClassSection = styled.section`
   box-sizing: border-box;
   padding: 0 10px 30px;
   margin-top: 30px;
   background-color: var(--background-color);
-  `;
+`;
 
 export const Title = styled.h2`
   font-size: var(--font-md);
@@ -50,8 +50,9 @@ export const MiniList = styled.ul`
     background-color: var(--border-color);
     border-radius: 10px;
     background-clip: padding-box;
+    border: 2px solid var(--background-color);
   }
-  `
+`;
 
 export const ClassList = styled.ul`
   display: grid;
@@ -59,4 +60,3 @@ export const ClassList = styled.ul`
   grid-template-columns: repeat(2, 1fr);
 `;
 // /Main
-

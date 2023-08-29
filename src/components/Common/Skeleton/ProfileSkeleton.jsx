@@ -113,6 +113,7 @@ const SkeletonPostSection = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 5px;
+  padding: 16px;
 `;
 
 const SkeletonPostBtnWrap = styled.div`

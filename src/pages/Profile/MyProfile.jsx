@@ -7,6 +7,8 @@ import Modal from '../../components/Common/Modal/Modal';
 import { MoreNav } from '../../components/Common/TopNav';
 import PostList from '../../components/Common/PostList/PostList';
 import MiniClassList from '../../components/Common/MiniClassList';
+import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
+
 import HomeLogo from '../../assets/img/home-logo.svg';
 import ImageMore from '../../assets/img/icon-img-more.svg';
 import MenuBar from '../../components/Common/MenuBar';
@@ -83,6 +85,7 @@ export default function Profile() {
     navigate('/');
     window.location.reload();
   };
+  console.log(profileData?.accountname.includes('Teacher'));
 
   return (
     <ProfilePage>
@@ -98,10 +101,11 @@ export default function Profile() {
       )}
       <MainWrap>
         {/* 로딩 페이지 */}
-        {!profileData && !classData ? (
-          <Loading />
+        {!profileData || !classData || !postData ? (
+          <ProfileSkeleton status='my'>{}</ProfileSkeleton>
         ) : (
           // 프로필 페이지
+
           <div>
             <ProfileSection>
               <Wrap>
@@ -221,7 +225,6 @@ export default function Profile() {
                     alt='포스트 앨범 버튼'
                   />
                 </button>
-                <span></span>
               </div>
               <PostListUl>
                 {/* 포스트 리스트 버튼 클릭시(기본값) */}

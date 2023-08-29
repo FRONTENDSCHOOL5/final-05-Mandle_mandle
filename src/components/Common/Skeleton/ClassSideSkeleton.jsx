@@ -30,7 +30,7 @@ const SkeletonClassListWrap = styled.div`
 
   &::-webkit-scrollbar {
     padding-top: 5px;
-    background-color: white;
+    background-color: ${(props) => props.scrollBgColor};
 
     height: 10px;
   }
@@ -40,21 +40,4 @@ const SkeletonClassListWrap = styled.div`
     background-clip: padding-box;
     border: 2px solid ${(props) => props.scrollBgColor};
   }
-`;
-
-const SkeletonClassContent = styled(Skeleton)`
-  box-shadow: rgba(118, 118, 118, 0.25) 0px 1px 2px;
-  width: 140px;
-  height: 138px;
-`;
-const SkeletonImg = styled(Skeleton)`
-  width: 100%;
-  height: 90px;
-  border-radius: 5px 5px 0 0;
-`;
-const SkeletonDesc = styled.div`
-  width: 100%;
-  background-color: #fff;
-  height: calc(100% - 90px);
-  border-radius: 0 0 5px 5px;
 `;

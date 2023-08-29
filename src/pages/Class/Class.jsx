@@ -5,10 +5,17 @@ import { HomeNav } from '../../components/Common/TopNav';
 import { ClassPost, ClassPostMini } from '../../components/Common/ClassPost';
 import MenuBar from '../../components/Common/MenuBar';
 import { Link } from 'react-router-dom';
-import { HiddenContext, MainWrap, MiniSection, ClassSection, Title, MiniList, ClassList } from './ClassStyle';
+import {
+  HiddenContext,
+  MainWrap,
+  MiniSection,
+  ClassSection,
+  Title,
+  MiniList,
+  ClassList,
+} from './ClassStyle';
 import GetClassData from '../../api/GetClassData';
-import Loading from '../Loading/Loading';
-
+import ClassSkeleton from '../../components/Common/Skeleton/ClassSkeleton';
 export default function Class() {
   const UserInfo = useRecoilValue(UserAtom);
   const token = UserInfo.token;
@@ -20,32 +27,36 @@ export default function Class() {
     const fetchData = async () => {
       try {
         const data = await GetClassData(token);
-        const filteredClasses = data.product.filter(classItem => classItem.author.accountname.includes('Teacher'));
-        
-        setPopularClasses(filteredClasses.slice(0, 3));
+        const filteredClasses = data.product.filter((classItem) =>
+          classItem.author.accountname.includes('Teacher'),
+        );
+        console.log(filteredClasses);
+        const popularClasses = filteredClasses.slice(0, 3);
+        setPopularClasses(popularClasses);
         setNewClasses(filteredClasses);
         setLoading(false);
       } catch (error) {
-        console.log("Error", error);
+        console.log('Error', error);
         setLoading(false);
       }
     };
-    
+
     fetchData();
   }, [token]);
-  
   return (
     <>
       <HomeNav title={'클래스'}>
         <HiddenContext>클래스 피드</HiddenContext>
       </HomeNav>
       <MainWrap>
-        {loading ? (<Loading />) : (
+        {loading ? (
+          <ClassSkeleton />
+        ) : (
           <>
             <MiniSection>
               <Title>인기 클래스</Title>
               <MiniList>
-                {popularClasses.map(classItem => (
+                {popularClasses.map((classItem) => (
                   <li key={classItem._id}>
                     <Link to={`/class/detail/${classItem._id}`}>
                       <ClassPostMini
@@ -62,7 +73,7 @@ export default function Class() {
             <ClassSection>
               <Title>새로운 클래스</Title>
               <ClassList>
-                {newClasses.map(classItem => (
+                {newClasses.map((classItem) => (
                   <li key={classItem._id}>
                     <Link to={`/class/detail/${classItem._id}`}>
                       <ClassPost
