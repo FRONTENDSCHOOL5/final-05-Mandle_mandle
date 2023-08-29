@@ -9,6 +9,7 @@ import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 import { useLocation } from 'react-router-dom';
 import { PostImagesUpload } from '../../api/PostImagesUpload';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
+import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 import {
   TextInputContainer,
   ImagePreview,
@@ -50,7 +51,7 @@ export default function EditPost() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -88,7 +89,7 @@ export default function EditPost() {
       postId,
       token,
       inputValue,
-      selectedImages.join(',')
+      selectedImages.join(','),
     );
 
     if (editedPost) {
@@ -105,13 +106,15 @@ export default function EditPost() {
     updatedImages.splice(index, 1);
     setSelectedImages(updatedImages);
   };
-  console.log(selectedImages);
 
   return (
     <div>
       <EditUploadBtnNav
         handleUploadPost={handleUploadPost}
         buttonStyle={buttonStyle}
+        post={post}
+        currContent={inputValue}
+        currImg={selectedImages}
       />
       <ProfileContainer>
         <ProfileImage src={userImage} alt='유저 프로필 이미지' />
