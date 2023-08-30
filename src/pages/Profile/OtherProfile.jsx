@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import HomeLogo from '../../assets/img/home-logo.svg';
 import { MoreNav } from '../../components/Common/TopNav';
+import ImageMore from '../../assets/img/icon-img-more.svg';
 
 import {
   MainWrap,
@@ -286,31 +287,42 @@ export default function Profile() {
                         <p>작성된 게시물이 없습니다</p>
                       </div>
                     )}
-                  </div>
-                )}
-                {isImgListBtnActive && postData && postData.post && (
-                  <div
-                    className={
-                      postData.post.length > 0 ? 'image-grid' : 'image-none'
-                    }
-                  >
-                    {postData.post.length > 0 ? (
-                      postData.post.map((post) => (
-                        <img
-                          key={post.id}
-                          src={post.image.split(',')[0]}
-                          alt='포스트 이미지'
-                          onClick={() => handlePostImgClick(post.id)}
-                        />
-                      ))
-                    ) : (
-                      <div>
-                        <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
-                        <p>작성된 게시물 이미지가 없습니다</p>
+              </div>
+            )}
+            {isImgListBtnActive && postData && postData.post && (
+              <div
+                className={
+                  postData.post.length > 0 ? 'image-grid' : 'image-none'
+                }
+              >
+                {postData.post.length > 0 ? (
+                  postData.post.map((post) => (
+                    <div key={post.id}>
+                      {post.image && (
+                        <div>
+                          <img
+                            src={post.image.split(',')[0]}
+                            alt='포스트 이미지'
+                          />
+                          {post.image.split(',')[1] && (
+                            <div className='icon-overlay'>
+                              <img
+                                src={ImageMore}
+                                alt='여러 장 이미지 아이콘'
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <div>
+                    <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
+                    <p>작성된 게시물 이미지가 없습니다</p>
+
                       </div>
                     )}
-                  </div>
-                )}
               </PostListUl>
             </PostSection>
           </>

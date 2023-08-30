@@ -6,6 +6,8 @@ export const FollowWrap = styled.div`
     flex-direction: column;
     gap: 16px;
     padding: 24px 16px 0;
+    height: 765px;
+    overflow: scroll;
   }
   h1 {
     position: absolute;
