@@ -29,7 +29,7 @@ import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
 import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
 import PostAlbumBtnOn from '../../assets/img/icon-post-album-on.svg';
 import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
-
+import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
 export default function Profile() {
   const navigate = useNavigate();
 
@@ -37,9 +37,9 @@ export default function Profile() {
   const token = userInfo.token;
 
   const { accountname } = useParams();
-  const [profileData, setProfileData] = useState([]);
-  const [classData, setClassData] = useState([]);
-  const [postData, setPostData] = useState([]);
+  const [profileData, setProfileData] = useState(null);
+  const [classData, setClassData] = useState(null);
+  const [postData, setPostData] = useState(null);
   const [postUpdated, setPostUpdated] = useState(false);
   const [isListBtnActive, setListBtnActive] = useState(true);
   const [isImgListBtnActive, setImgListBtnActive] = useState(false);
@@ -53,12 +53,12 @@ export default function Profile() {
         const userClassData = await fetchDataFromAPI(
           ClassData,
           accountname,
-          token
+          token,
         );
         const userPostData = await fetchDataFromAPI(
           PostData,
           accountname,
-          token
+          token,
         );
         setProfileData(userProfileData);
         setClassData(userClassData);
@@ -110,9 +110,6 @@ export default function Profile() {
   const navigateToFollowing = () => {
     navigate(`/other_profile/${accountname}/following`, { state: accountname });
   };
-  if (!profileData && !classData) {
-    return <div>Loading...</div>;
-  }
 
   const handleFollowClick = async () => {
     try {
@@ -150,138 +147,146 @@ export default function Profile() {
     <ProfilePage>
       <MoreNav />
       <MainWrap>
-        <ProfileSection>
-          <Wrap>
-            <div className='follow'>
-              <button onClick={navigateToFollowers}>
-                <p>{profileData.followerCount}</p>
-                <p className='followNum'>followers</p>
-              </button>
-            </div>
-            <img src={profileData.image} id='profileImg' alt='프로필 이미지' />
-            <div className='follow'>
-              <button onClick={navigateToFollowing}>
-                <p>{profileData.followingCount}</p>
-                <p className='followNum'>followings</p>
-              </button>
-            </div>
-          </Wrap>
-          <div id='usernameWrap'>
-            <p id='NickName'>{profileData.username}</p>{' '}
-            <span
+        {!profileData || !classData || !postData ? (
+          <ProfileSkeleton status='other' />
+        ) : (
+          <>
+            <ProfileSection>
+              <Wrap>
+                <div className='follow'>
+                  <button onClick={navigateToFollowers}>
+                    <p>{profileData.followerCount}</p>
+                    <p className='followNum'>followers</p>
+                  </button>
+                </div>
+                <img
+                  src={profileData.image}
+                  id='profileImg'
+                  alt='프로필 이미지'
+                />
+                <div className='follow'>
+                  <button onClick={navigateToFollowing}>
+                    <p>{profileData.followingCount}</p>
+                    <p className='followNum'>followings</p>
+                  </button>
+                </div>
+              </Wrap>
+              <div id='usernameWrap'>
+                <p id='NickName'>{profileData.username}</p>{' '}
+                <span
+                  className={
+                    profileData.accountname &&
+                    profileData.accountname.includes('Teacher')
+                      ? ''
+                      : 'a11y-hidden'
+                  }
+                ></span>
+              </div>
+              <p id='MandleId'>
+                @
+                {(profileData.accountname &&
+                  profileData.accountname.includes('Teacher')) ||
+                (profileData.accountname &&
+                  profileData.accountname.includes('Student'))
+                  ? profileData.accountname.substr(7)
+                  : profileData.accountname}
+              </p>
+              <p id='Introduce'>{profileData.intro}</p>
+              <WrapBtn>
+                <Link to='/chat/chatroom'>
+                  <button className='ChatBtn'>
+                    <img src={ChatImg} alt='채팅 아이콘 이미지' />
+                  </button>
+                </Link>
+                {/* <FollowBtn
+                className={isfollow ? 'following' : ''}
+                onClick={handleFollowClick}
+              >
+                {isfollow ? '취소' : '팔로우'}
+              </FollowBtn> */}
+                <FollowBtn
+                  className={isfollow ? 'following' : ''}
+                  onClick={handleFollowClick}
+                >
+                  {isfollow ? '취소' : '팔로우'}
+                </FollowBtn>
+                {!isfollow && (
+                  <span className={isfollow ? 'a11y-hidden' : 'toolTip'}>
+                    친구 추가하고 소식을 받아보세요~
+                  </span>
+                )}
+                <button className='ShareBtn' onClick={handleCopy}>
+                  <img src={ShareImg} alt='공유 아이콘 이미지' />
+                </button>
+              </WrapBtn>
+            </ProfileSection>
+            <ClassSection
               className={
+                profileData &&
                 profileData.accountname &&
                 profileData.accountname.includes('Teacher')
                   ? ''
                   : 'a11y-hidden'
               }
-            ></span>
-          </div>
-          <p id='MandleId'>
-            @
-            {(profileData.accountname &&
-              profileData.accountname.includes('Teacher')) ||
-            (profileData.accountname &&
-              profileData.accountname.includes('Student'))
-              ? profileData.accountname.substr(7)
-              : profileData.accountname}
-          </p>
-          <p id='Introduce'>{profileData.intro}</p>
-          <WrapBtn>
-            <Link to='/chat/chatroom'>
-              <button className='ChatBtn'>
-                <img src={ChatImg} alt='채팅 아이콘 이미지' />
-              </button>
-            </Link>
-            {/* <FollowBtn
-              className={isfollow ? 'following' : ''}
-              onClick={handleFollowClick}
             >
-              {isfollow ? '취소' : '팔로우'}
-            </FollowBtn> */}
-            <FollowBtn
-              className={isfollow ? 'following' : ''}
-              onClick={handleFollowClick}
-            >
-              {isfollow ? '취소' : '팔로우'}
-            </FollowBtn>
-            {!isfollow && (
-              <span className={isfollow ? 'a11y-hidden' : 'toolTip'}>
-                친구 추가하고 소식을 받아보세요~
-              </span>
-            )}
-            <button className='ShareBtn' onClick={handleCopy}>
-              <img src={ShareImg} alt='공유 아이콘 이미지' />
-            </button>
-          </WrapBtn>
-        </ProfileSection>
-        <ClassSection
-          className={
-            profileData &&
-            profileData.accountname &&
-            profileData.accountname.includes('Teacher')
-              ? ''
-              : 'a11y-hidden'
-          }
-        >
-          <Title>클래스 리스트</Title>
-          <ClassListUl>
-            {profileData &&
-              profileData.accountname &&
-              profileData.accountname.includes('Teacher') &&
-              classData.product &&
-              classData.product.map((classItem, index) => (
-                <MiniClassList
-                  key={classItem.id}
-                  token={token}
-                  classItem={classItem}
-                  page='profile'
-                  setClassUpdated={setClassUpdated}
-                />
-              ))}
-          </ClassListUl>
-        </ClassSection>
-        <PostSection>
-          <div id='PostBtnWrap'>
-            <button
-              id='ListBtn'
-              onClick={() => handleButtonClick('listBtn')}
-              className={isListBtnActive ? 'active' : ''}
-            >
-              <img
-                src={isListBtnActive ? PostListBtnOn : PostListBtnOff}
-                alt='포스트리스트 버튼'
-              />
-            </button>
-            <button
-              id='ImgListBtn'
-              onClick={() => handleButtonClick('imgListBtn')}
-              className={isImgListBtnActive ? 'active' : ''}
-            >
-              <img
-                src={isImgListBtnActive ? PostAlbumBtnOn : PostAlbumBtnOff}
-                alt='포스트 앨범 버튼'
-              />
-            </button>
-            <span></span>
-          </div>
-          <PostListUl>
-            {isListBtnActive && postData && postData.post && (
-              <div className={postData.post.length > 0 ? '' : 'posts-none'}>
-                {postData.post.length > 0 ? (
-                  postData.post.map((post) => (
-                    <PostList
-                      key={post.id}
-                      setPostUpdated={setPostUpdated}
-                      post={post}
+              <Title>클래스 리스트</Title>
+              <ClassListUl>
+                {profileData &&
+                  profileData.accountname &&
+                  profileData.accountname.includes('Teacher') &&
+                  classData.product &&
+                  classData.product.map((classItem, index) => (
+                    <MiniClassList
+                      key={classItem.id}
+                      token={token}
+                      classItem={classItem}
+                      page='profile'
+                      setClassUpdated={setClassUpdated}
                     />
-                  ))
-                ) : (
-                  <div className='post-none'>
-                    <img src={HomeLogo} alt='포스트가 없습니다' />
-                    <p>작성된 게시물이 없습니다</p>
-                  </div>
-                )}
+                  ))}
+              </ClassListUl>
+            </ClassSection>
+            <PostSection>
+              <div id='PostBtnWrap'>
+                <button
+                  id='ListBtn'
+                  onClick={() => handleButtonClick('listBtn')}
+                  className={isListBtnActive ? 'active' : ''}
+                >
+                  <img
+                    src={isListBtnActive ? PostListBtnOn : PostListBtnOff}
+                    alt='포스트리스트 버튼'
+                  />
+                </button>
+                <button
+                  id='ImgListBtn'
+                  onClick={() => handleButtonClick('imgListBtn')}
+                  className={isImgListBtnActive ? 'active' : ''}
+                >
+                  <img
+                    src={isImgListBtnActive ? PostAlbumBtnOn : PostAlbumBtnOff}
+                    alt='포스트 앨범 버튼'
+                  />
+                </button>
+                <span></span>
+              </div>
+              <PostListUl>
+                {isListBtnActive && postData && postData.post && (
+                  <div className={postData.post.length > 0 ? '' : 'posts-none'}>
+                    {postData.post.length > 0 ? (
+                      postData.post.map((post) => (
+                        <PostList
+                          key={post.id}
+                          setPostUpdated={setPostUpdated}
+                          post={post}
+                        />
+                      ))
+                    ) : (
+                      <div className='post-none'>
+                        <img src={HomeLogo} alt='포스트가 없습니다' />
+                        <p>작성된 게시물이 없습니다</p>
+                      </div>
+                    )}
               </div>
             )}
             {isImgListBtnActive && postData && postData.post && (
@@ -315,12 +320,13 @@ export default function Profile() {
                   <div>
                     <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
                     <p>작성된 게시물 이미지가 없습니다</p>
-                  </div>
-                )}
-              </div>
-            )}
-          </PostListUl>
-        </PostSection>
+
+                      </div>
+                    )}
+              </PostListUl>
+            </PostSection>
+          </>
+        )}
       </MainWrap>
       <MenuBar />
     </ProfilePage>
@@ -387,7 +393,7 @@ async function follow(accountname, token) {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      }
+      },
     );
     return res.data; // Modify this based on the actual response structure
   } catch (err) {

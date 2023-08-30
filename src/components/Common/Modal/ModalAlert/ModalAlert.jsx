@@ -48,6 +48,19 @@ const AlertModalWrap = styled.div`
   border-radius: 10px;
   background-color: #fff;
   text-align: center;
+  animation: zoomIn 0.5s ease;
+
+  @keyframes zoomIn {
+    0% {
+      transform: translate(-50%, -50%) scale(0.7, 0.7);
+    }
+    60% {
+      transform: translate(-50%, -50%) scale(1.05, 1.05);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1, 1);
+    }
+  }
 
   p {
     font-size: var(--font-lg);

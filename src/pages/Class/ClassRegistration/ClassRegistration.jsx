@@ -130,7 +130,6 @@ export function Main() {
         
       />
 
-
       <AddBtn type='submit' disabled={isFormIncomplete}>저장</AddBtn>
     </ClassRegistrationForm>
   );

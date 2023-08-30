@@ -7,6 +7,7 @@ import PostEmailValid from '../../api/PostEmailVaild';
 import Input from '../../components/Common/Account/Input';
 import { ButtonStyle } from '../../components/Common/Button';
 import AccountHeader from '../../components/Common/Account/AccountHeader';
+import usePasswordToggle from '../../Hooks/usePasswordToggle';
 import ButtonImg from '../../assets/img/L-button(clay).svg';
 import DisabledButtonImg from '../../assets/img/L-Disabled-button(clay).svg';
 import {
@@ -21,8 +22,10 @@ export default function Signup() {
   const [type, setType] = useState('Student');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [pwErrorMessage, setPwErrorMessage] = useState('');
-  const [emailValid, setEmailValid] = useState(true);
-  const [passwordValid, setPasswordValid] = useState(true);
+  const [emailValid, setEmailValid] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
+
+  const { toggleShowPassword, showPassword } = usePasswordToggle();
 
   //회원가입 정보를 상태관리 할 setSignup
   const setSignup = useSetRecoilState(SignUpAtom);
@@ -126,9 +129,21 @@ export default function Signup() {
           placeholder='이메일을 입력해주세요'
           onChange={handleInputChange}
           onBlur={handleEmailValid}
-          borderColor={emailErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
+          borderColor={
+            emailValid
+              ? 'var(--main-color)'
+              : emailErrorMessage
+              ? 'var(--error-color)'
+              : '#dbdbdb'
+          }
         />
-        {emailErrorMessage && <ErrorMessage>{emailErrorMessage}</ErrorMessage>}
+        {emailErrorMessage && (
+          <ErrorMessage
+            color={emailValid ? 'var(--main-color)' : 'var(--error-color)'}
+          >
+            {emailErrorMessage}
+          </ErrorMessage>
+        )}
         <Input
           label='비밀번호'
           name='password'
@@ -137,6 +152,8 @@ export default function Signup() {
           onChange={handleInputChange}
           onBlur={handlePasswordValid}
           borderColor={pwErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
+          showPassword={showPassword}
+          toggleShowPassword={toggleShowPassword}
         />
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
 

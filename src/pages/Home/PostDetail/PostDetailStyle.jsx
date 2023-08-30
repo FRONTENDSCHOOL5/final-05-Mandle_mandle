@@ -9,7 +9,7 @@ export const PostDetailWrap = styled.div`
 export const MainWrap = styled.main`
   width: 100%;
   height: calc(100% - 48px - 60px);
-  padding: 0 16px;
+  padding: 16px;
   border-bottom: 1px solid var(--border-color);
   overflow-y: scroll;
   &::-webkit-scrollbar {

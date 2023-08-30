@@ -91,7 +91,7 @@ const WrapBtn = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
-  padding-bottom: 20px;
+  padding-bottom: 26px;
   align-items: center;
   .profileEditBtn,
   .profileBtn {
@@ -102,7 +102,6 @@ const WrapBtn = styled.div`
     text-align: center;
     color: var(--sub-font-color);
     font-size: var(--font-md);
-    margin-bottom: 26px;
   }
   .ChatBtn,
   .ShareBtn {
