@@ -224,7 +224,6 @@ export default function Profile() {
                 <span></span>
               </div>
               <PostListUl>
-                {/* 포스트 리스트 버튼 클릭시(기본값) */}
                 {isListBtnActive && postData && postData.post && (
                   <div className={postData.post.length > 0 ? '' : 'posts-none'}>
                     {postData.post.length > 0 ? (
@@ -243,7 +242,6 @@ export default function Profile() {
                     )}
                   </div>
                 )}
-                {/* 포스트 앨범 버튼 클릭시 */}
                 {isImgListBtnActive && postData && postData.post && (
                   <div
                     className={
@@ -253,16 +251,20 @@ export default function Profile() {
                     {postData.post.length > 0 ? (
                       postData.post.map((post) => (
                         <div key={post.id}>
-                          <img
-                            src={post.image.split(',')[0]}
-                            alt='포스트 이미지'
-                          />
-                          {post.image.split(',')[1] && (
-                            <div className='icon-overlay'>
+                          {post.image && (
+                            <div>
                               <img
-                                src={ImageMore}
-                                alt='여러 장 이미지 아이콘'
+                                src={post.image.split(',')[0]}
+                                alt='포스트 이미지'
                               />
+                              {post.image.split(',')[1] && (
+                                <div className='icon-overlay'>
+                                  <img
+                                    src={ImageMore}
+                                    alt='여러 장 이미지 아이콘'
+                                  />
+                                </div>
+                              )}
                             </div>
                           )}
                         </div>

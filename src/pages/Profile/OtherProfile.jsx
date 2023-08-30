@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import HomeLogo from '../../assets/img/home-logo.svg';
 import { MoreNav } from '../../components/Common/TopNav';
+import ImageMore from '../../assets/img/icon-img-more.svg';
 
 import {
   MainWrap,
@@ -291,12 +292,24 @@ export default function Profile() {
               >
                 {postData.post.length > 0 ? (
                   postData.post.map((post) => (
-                    <img
-                      key={post.id}
-                      src={post.image.split(',')[0]}
-                      alt='포스트 이미지'
-                      onClick={() => handlePostImgClick(post.id)}
-                    />
+                    <div key={post.id}>
+                      {post.image && (
+                        <div>
+                          <img
+                            src={post.image.split(',')[0]}
+                            alt='포스트 이미지'
+                          />
+                          {post.image.split(',')[1] && (
+                            <div className='icon-overlay'>
+                              <img
+                                src={ImageMore}
+                                alt='여러 장 이미지 아이콘'
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   ))
                 ) : (
                   <div>
