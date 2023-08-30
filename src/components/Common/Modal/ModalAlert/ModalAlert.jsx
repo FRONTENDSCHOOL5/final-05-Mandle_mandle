@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function ModalAlert({ setAlertModalOpen, onClick }) {
+export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
   const handleCancel = () => {
     setAlertModalOpen(false);
   };
@@ -10,13 +10,18 @@ export default function ModalAlert({ setAlertModalOpen, onClick }) {
     <>
       <AlertModalOverlay>
         <AlertModalWrap>
-          <p> 삭제할까요?</p>
+          <p>
+            {type === 'edit'
+              ? '저장하지 않은 변경 사항이 있습니다.'
+              : '삭제할까요?'}
+          </p>
+          {type === 'edit' && <p>정말로 나가시겠습니까?</p>}
           <div>
             <button type='button' onClick={handleCancel}>
               취소
             </button>
             <button onClick={onClick} type='button'>
-              삭제
+              {type === 'edit' ? '나가기' : '삭제'}
             </button>
           </div>
         </AlertModalWrap>
@@ -40,7 +45,7 @@ const AlertModalOverlay = styled.div`
 
 const AlertModalWrap = styled.div`
   width: 252px;
-  height: 110px;
+  padding: 24px 0 0;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -64,13 +69,13 @@ const AlertModalWrap = styled.div`
 
   p {
     font-size: var(--font-lg);
-    padding: 24px 0;
-    border-bottom: 1px solid var(--border-color);
   }
 
   div {
     display: flex;
     justify-content: space-between;
+    margin-top: 24px;
+    border-top: 1px solid var(--border-color);
 
     button {
       font-size: var(--font-md);
