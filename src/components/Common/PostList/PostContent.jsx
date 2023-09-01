@@ -1,51 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useImageCompression from '../../../Hooks/useImageCompression';
+import ProgressiveImg from '../ProgressiveImg/ProgressiveImg';
 import HeartButton from '../HeartButton';
 import HandleNormalizeImage from '..//HandleNormalizeImage';
 import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
+import PlaceholderImg from '../../../assets/img/placeholderImg.svg';
 export default function PostContent({ post }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [compressedImage, setCompressedImage] = useState(null);
-  const [isOptimized, setIsOptimized] = useState(false);
-  const { compressImage } = useImageCompression();
   const postImages = post.image ? post.image.split(',') : '';
-
-  useEffect(() => {
-    if (isOptimized) {
-      return; // 이미 최적화 되있을 시, 더 이상 작업하지 않고 실행 종료
-    }
-
-    const optimizePostImages = async () => {
-      const optimizedImages = [];
-      // postImages 배열에 포함된 각 이미지에 대해 작업을 수행
-      for (const postImage of postImages) {
-        try {
-          const compressedImageUrl = await compressImage(
-            HandleNormalizeImage(postImage)
-          );
-
-          // 압축된 이미지 URL이 유효한 경우 (압축 성공한 경우)
-          if (compressedImageUrl) {
-            // 최적화된 이미지 배열에 압축된 이미지 URL을 추가
-            optimizedImages.push(compressedImageUrl);
-            console.log('압축된 포스트 이미지 URL:', compressedImageUrl);
-          }
-        } catch (error) {
-          console.error('이미지 압축 오류:', error);
-        }
-      }
-
-      if (optimizedImages.length > 0) {
-        setCompressedImage(optimizedImages); // 압축된 이미지 배열을 상태에 설정
-        setIsOptimized(true); // 최적화 상태를 true로 설정
-      }
-    };
-
-    optimizePostImages();
-  }, []);
 
   const postDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -56,6 +20,7 @@ export default function PostContent({ post }) {
   const handlePostClick = () => {
     navigate(`/post/${post.id}`, { state: post.id });
   };
+
   return (
     <PostContentWrap>
       <MovePostDetail
@@ -74,12 +39,13 @@ export default function PostContent({ post }) {
           >
             {postImages &&
               postImages.map((postImage, index) => (
-                <img
+                <ProgressiveImg
                   key={index}
                   src={HandleNormalizeImage(postImage)}
                   width={postImages.length > 1 ? '168px' : '304px'}
-                  alt=''
-                /> // comment객체가 'comment'라는 이름으로 또 감싸져 있어 안의 요소들로 바로 접근하기 위함
+                  alt='게시글 이미지'
+                  placeholderSrc={PlaceholderImg}
+                />
               ))}
           </PostImageWrap>
         )}
