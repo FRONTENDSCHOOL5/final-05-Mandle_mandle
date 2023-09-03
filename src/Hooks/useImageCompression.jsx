@@ -7,8 +7,8 @@ const useImageCompression = () => {
       const blob = await response.blob();
 
       const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 42,
+        maxSizeMB: 10,
+        maxWidthOrHeight: 256,
         useWebWorker: true,
       };
 
