@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import './font.css';
+import BGIMG from '../assets/img/web_bg4.png';
 
 const GlobalStyle = createGlobalStyle`
 	
@@ -34,14 +35,14 @@ const GlobalStyle = createGlobalStyle`
   body {
       font-family: 'SpoqaHanSansNeo-Regular';
       font-size: 14px;
+      background-image:url(${BGIMG});
   }
 
   
   
   *{
       box-sizing: border-box;
-  
-  }
+    }
 
 	a{
 		text-decoration: none;
