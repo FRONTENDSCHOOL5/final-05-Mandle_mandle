@@ -56,12 +56,12 @@ export default function Profile() {
         const userClassData = await fetchDataFromAPI(
           ClassData,
           accountname,
-          token,
+          token
         );
         const userPostData = await fetchDataFromAPI(
           PostData,
           accountname,
-          token,
+          token
         );
         setProfileData(userProfileData);
         setClassData(userClassData);
@@ -293,15 +293,15 @@ export default function Profile() {
                   </div>
                 )}
                 {isImgListBtnActive && postData && postData.post && (
-                  <div
-                    className={
-                      postData.post.length > 0 ? 'image-grid' : 'image-none'
-                    }
-                  >
-                    {postData.post.length > 0 ? (
-                      postData.post.map((post) => (
-                        <div key={post.id}>
-                          {post.image && (
+                  <div className='image-grid'>
+                    {postData.post.map((post) => {
+                      // 게시물에 이미지가 있는지 확인
+                      const hasImage = post.image && post.image.split(',')[0];
+
+                      // 이미지가 있는 게시물만 렌더링
+                      if (hasImage) {
+                        return (
+                          <div key={post.id}>
                             <div>
                               <img
                                 src={post.image.split(',')[0]}
@@ -316,10 +316,13 @@ export default function Profile() {
                                 </div>
                               )}
                             </div>
-                          )}
-                        </div>
-                      ))
-                    ) : (
+                          </div>
+                        );
+                      } else {
+                        return null; // 이미지가 없는 게시물은 렌더링하지 않음
+                      }
+                    })}
+                    {postData.post.length === 0 && (
                       <div>
                         <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
                         <p>작성된 게시물 이미지가 없습니다</p>
@@ -397,7 +400,7 @@ async function follow(accountname, token) {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      },
+      }
     );
     return res.data; // Modify this based on the actual response structure
   } catch (err) {
