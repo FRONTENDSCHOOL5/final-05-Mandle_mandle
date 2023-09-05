@@ -177,6 +177,24 @@ export default function Profile() {
                 >
                   클래스 등록
                 </button>
+                <button
+                  className={
+                    profileData.accountname &&
+                    profileData.accountname.includes('Teacher')
+                      ? 'a11y-hidden'
+                      : 'profileBtn'
+                  }
+                  onClick={() => {
+                    if (
+                      profileData.accountname &&
+                      profileData.accountname.includes('Teacher')
+                    ) {
+                      navigate('/registration');
+                    }
+                  }}
+                >
+                  수강한 목록
+                </button>
               </WrapBtn>
             </ProfileSection>
             <ClassSection
