@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import MiniClassList from '../../components/Common/MiniClassList';
-import ChatImg from '../../assets/img/icon-chat-mini.svg';
-import ShareImg from '../../assets/img/icon-share.svg';
-import PostList from '../../components/Common/PostList/PostList';
-import { UserAtom } from '../../Store/userInfoAtoms';
-import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-import HomeLogo from '../../assets/img/home-logo.svg';
+import { useRecoilValue } from 'recoil';
+import { UserAtom } from '../../Store/userInfoAtoms';
+
 import { MoreNav } from '../../components/Common/TopNav';
+import PostList from '../../components/Common/PostList/PostList';
+import MiniClassList from '../../components/Common/MiniClassList';
+import NormalizeImage from '../../components/Common/NormalizeImage';
+
+import HomeLogo from '../../assets/img/home-logo.svg';
+import ShareImg from '../../assets/img/icon-share.svg';
+import ChatImg from '../../assets/img/icon-chat-mini.svg';
 import ImageMore from '../../assets/img/icon-img-more.svg';
 
 import {
@@ -53,12 +56,12 @@ export default function Profile() {
         const userClassData = await fetchDataFromAPI(
           ClassData,
           accountname,
-          token
+          token,
         );
         const userPostData = await fetchDataFromAPI(
           PostData,
           accountname,
-          token
+          token,
         );
         setProfileData(userProfileData);
         setClassData(userClassData);
@@ -160,7 +163,7 @@ export default function Profile() {
                   </button>
                 </div>
                 <img
-                  src={profileData.image}
+                  src={NormalizeImage(profileData.image)}
                   id='profileImg'
                   alt='프로필 이미지'
                 />
@@ -394,7 +397,7 @@ async function follow(accountname, token) {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      }
+      },
     );
     return res.data; // Modify this based on the actual response structure
   } catch (err) {

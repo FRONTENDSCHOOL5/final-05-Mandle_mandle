@@ -7,6 +7,7 @@ import Modal from '../../components/Common/Modal/Modal';
 import { MoreNav } from '../../components/Common/TopNav';
 import PostList from '../../components/Common/PostList/PostList';
 import MiniClassList from '../../components/Common/MiniClassList';
+import NormalizeImage from '../../components/Common/NormalizeImage';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
 
 import HomeLogo from '../../assets/img/home-logo.svg';
@@ -85,7 +86,6 @@ export default function Profile() {
     navigate('/');
     window.location.reload();
   };
-  console.log(profileData?.accountname.includes('Teacher'));
 
   return (
     <ProfilePage>
@@ -116,7 +116,7 @@ export default function Profile() {
                   </Link>
                 </div>
                 <img
-                  src={profileData.image}
+                  src={NormalizeImage(profileData.image)}
                   id='profileImg'
                   alt='프로필 이미지'
                 />

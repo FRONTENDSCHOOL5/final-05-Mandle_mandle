@@ -8,6 +8,8 @@ import Modal from '../Modal/Modal';
 import PostReportPost from '../../../api/PostReportPost';
 import DeletePost from '../../../api/DeletePost';
 import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
+import TeacherIcon from '../../../assets/img/icon-teacher.svg';
+import NormalizeImage from '../NormalizeImage';
 
 export default function PostProfile({ post, setPostUpdated }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
@@ -55,11 +57,14 @@ export default function PostProfile({ post, setPostUpdated }) {
     <PostProfileWrap>
       <button onClick={handleProfileClick}>
         <PostProfileImgWrap>
-          <img src={post.author.image} alt='프로필 이미지' />
+          <img src={NormalizeImage(post.author.image)} alt='프로필 이미지' />
         </PostProfileImgWrap>
         <PostProfileInfo>
           <div>
             <p>{post.author.username}</p>
+            {post.author.accountname.includes('Teacher') && (
+              <img src={TeacherIcon} alt='강사 아이콘' />
+            )}
           </div>
           <p>{post.author.accountname.substr(7)}</p>
         </PostProfileInfo>
@@ -120,7 +125,12 @@ const PostProfileImgWrap = styled.div`
 
 const PostProfileInfo = styled.div`
   div {
+    display: flex;
+    gap: 3px;
     margin-bottom: 6px;
+    img {
+      width: 12px;
+    }
   }
 
   div + p {

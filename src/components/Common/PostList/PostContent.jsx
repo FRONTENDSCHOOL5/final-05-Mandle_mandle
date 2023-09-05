@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProgressiveImg from '../ProgressiveImg/ProgressiveImg';
 import HeartButton from '../HeartButton';
-import HandleNormalizeImage from '..//HandleNormalizeImage';
+import NormalizeImage from '../NormalizeImage';
 import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
 import PlaceholderImg from '../../../assets/img/placeholderImg.svg';
 export default function PostContent({ post }) {
@@ -41,7 +41,7 @@ export default function PostContent({ post }) {
               postImages.map((postImage, index) => (
                 <ProgressiveImg
                   key={index}
-                  src={HandleNormalizeImage(postImage)}
+                  src={NormalizeImage(postImage)}
                   width={postImages.length > 1 ? '168px' : '304px'}
                   alt='게시글 이미지'
                   placeholderSrc={PlaceholderImg}
