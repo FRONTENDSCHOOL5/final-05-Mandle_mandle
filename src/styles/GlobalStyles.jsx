@@ -36,6 +36,7 @@ const GlobalStyle = createGlobalStyle`
       font-family: 'SpoqaHanSansNeo-Regular';
       font-size: 14px;
       background-image:url(${BGIMG});
+      background-size: cover;
   }
 
   

@@ -10,13 +10,13 @@ import styled from 'styled-components';
 
 const Class = lazy(() => import('../src/pages/Class/Class'));
 const ClassDetail = lazy(() =>
-  import('../src/pages/Class/ClassDetail/ClassDetail')
+  import('../src/pages/Class/ClassDetail/ClassDetail'),
 );
 const ClassRegistration = lazy(() =>
-  import('../src/pages/Class/ClassRegistration/ClassRegistration')
+  import('../src/pages/Class/ClassRegistration/ClassRegistration'),
 );
 const ClassReservation = lazy(() =>
-  import('../src/pages/Class/ClassReservation/ClassReservation')
+  import('../src/pages/Class/ClassReservation/ClassReservation'),
 );
 const Posting = lazy(() => import('../src/pages/Posting/Posting'));
 const Profile = lazy(() => import('../src/pages/Profile/MyProfile'));
@@ -29,15 +29,15 @@ const Intro = lazy(() => import('../src/pages/Intro/Intro'));
 const Home = lazy(() => import('../src/pages/Home/Home'));
 const Search = lazy(() => import('../src/pages/Home/Search/Search'));
 const PostDetail = lazy(() =>
-  import('../src/pages/Home/PostDetail/PostDetail')
+  import('../src/pages/Home/PostDetail/PostDetail'),
 );
 const NotFound = lazy(() => import('../src/pages/NotFound/NotFound'));
 const EditProfile = lazy(() =>
-  import('./pages/Profile/EditProfile/EditProfile')
+  import('./pages/Profile/EditProfile/EditProfile'),
 );
 const Follower = lazy(() => import('./pages/Profile/FollowList/FollowerList'));
 const Following = lazy(() =>
-  import('./pages/Profile/FollowList/FollowingList')
+  import('./pages/Profile/FollowList/FollowingList'),
 );
 const ChatRoom = lazy(() => import('../src/pages/Chatting/ChatRoom'));
 const EditPost = lazy(() => import('./pages/Posting/EditPost'));
@@ -102,7 +102,7 @@ const Wrap = styled.div`
   height: 100vh;
   position: relative;
   margin: 0 auto;
-  border: 1px solid var(--border-color);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   overflow: hidden;
   background-color: #fff;
 `;
