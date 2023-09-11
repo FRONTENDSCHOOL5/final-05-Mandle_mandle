@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { StyledCalendar, SelectedDate } from './ClassReservationCalendarStyle';
 
-export function DatePicker() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
+export function DatePicker({ selectedDate, onDateChange }) {
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    onDateChange(date);
   };
 
   const removeYearNavigation = (e) => {
@@ -28,9 +26,12 @@ export function DatePicker() {
       currentDate.getDate() - 1
     );
   
-    return isSaturday || isSunday || date <= isTwoDaysAgo;
+    const dateDifference = Math.floor(
+      (date - currentDate) / (1000 * 60 * 60 * 24)
+    );
+
+    return isSaturday || isSunday || date <= isTwoDaysAgo || dateDifference > 30;
   };
-  
 
   const tileClassName = ({ date }) => {
     const isPrevMonth = date.getMonth() < selectedDate.getMonth();
@@ -63,7 +64,6 @@ export function DatePicker() {
     <>
       <StyledCalendar
         onChange={handleDateChange}
-        // value={selectedDate}
         onClickMonth={removeYearNavigation}
         calendarType='US'
         formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
