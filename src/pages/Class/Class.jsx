@@ -10,6 +10,7 @@ import GetClassData from '../../api/GetClassData';
 import ClassSkeleton from '../../components/Common/Skeleton/ClassSkeleton';
 import { atom } from 'recoil';
 
+// atom 분리하기
 export const ClassDataAtom = atom({
   key: 'classData',
   default: {
