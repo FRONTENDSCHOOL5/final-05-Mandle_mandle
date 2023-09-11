@@ -7,6 +7,7 @@ import Modal from '../../components/Common/Modal/Modal';
 import { MoreNav } from '../../components/Common/TopNav';
 import PostList from '../../components/Common/PostList/PostList';
 import MiniClassList from '../../components/Common/MiniClassList';
+import NormalizeImage from '../../components/Common/NormalizeImage';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
 
 import HomeLogo from '../../assets/img/home-logo.svg';
@@ -85,7 +86,6 @@ export default function Profile() {
     navigate('/');
     window.location.reload();
   };
-  console.log(profileData?.accountname.includes('Teacher'));
 
   return (
     <ProfilePage>
@@ -116,7 +116,7 @@ export default function Profile() {
                   </Link>
                 </div>
                 <img
-                  src={profileData.image}
+                  src={NormalizeImage(profileData.image)}
                   id='profileImg'
                   alt='프로필 이미지'
                 />
@@ -177,6 +177,24 @@ export default function Profile() {
                 >
                   클래스 등록
                 </button>
+                <button
+                  className={
+                    profileData.accountname &&
+                    profileData.accountname.includes('Teacher')
+                      ? 'a11y-hidden'
+                      : 'profileBtn'
+                  }
+                  onClick={() => {
+                    if (
+                      profileData.accountname &&
+                      profileData.accountname.includes('Teacher')
+                    ) {
+                      navigate('/registration');
+                    }
+                  }}
+                >
+                  수강한 목록
+                </button>
               </WrapBtn>
             </ProfileSection>
             <ClassSection
@@ -227,7 +245,6 @@ export default function Profile() {
                 </button>
               </div>
               <PostListUl>
-                {/* 포스트 리스트 버튼 클릭시(기본값) */}
                 {isListBtnActive && postData && postData.post && (
                   <div className={postData.post.length > 0 ? '' : 'posts-none'}>
                     {postData.post.length > 0 ? (
@@ -246,31 +263,37 @@ export default function Profile() {
                     )}
                   </div>
                 )}
-                {/* 포스트 앨범 버튼 클릭시 */}
                 {isImgListBtnActive && postData && postData.post && (
-                  <div
-                    className={
-                      postData.post.length > 0 ? 'image-grid' : 'image-none'
-                    }
-                  >
-                    {postData.post.length > 0 ? (
-                      postData.post.map((post) => (
-                        <div key={post.id}>
-                          <img
-                            src={post.image.split(',')[0]}
-                            alt='포스트 이미지'
-                          />
-                          {post.image.split(',')[1] && (
-                            <div className='icon-overlay'>
+                  <div className='image-grid'>
+                    {postData.post.map((post) => {
+                      // 게시물에 이미지가 있는지 확인
+                      const hasImage = post.image && post.image.split(',')[0];
+
+                      // 이미지가 있는 게시물만 렌더링
+                      if (hasImage) {
+                        return (
+                          <div key={post.id}>
+                            <div>
                               <img
-                                src={ImageMore}
-                                alt='여러 장 이미지 아이콘'
+                                src={post.image.split(',')[0]}
+                                alt='포스트 이미지'
                               />
+                              {post.image.split(',')[1] && (
+                                <div className='icon-overlay'>
+                                  <img
+                                    src={ImageMore}
+                                    alt='여러 장 이미지 아이콘'
+                                  />
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </div>
-                      ))
-                    ) : (
+                          </div>
+                        );
+                      } else {
+                        return null; // 이미지가 없는 게시물은 렌더링하지 않음
+                      }
+                    })}
+                    {postData.post.length === 0 && (
                       <div>
                         <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
                         <p>작성된 게시물 이미지가 없습니다</p>

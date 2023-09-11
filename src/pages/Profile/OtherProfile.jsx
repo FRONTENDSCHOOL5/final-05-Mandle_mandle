@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import MiniClassList from '../../components/Common/MiniClassList';
-import ChatImg from '../../assets/img/icon-chat-mini.svg';
-import ShareImg from '../../assets/img/icon-share.svg';
-import PostList from '../../components/Common/PostList/PostList';
-import { UserAtom } from '../../Store/userInfoAtoms';
-import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-import HomeLogo from '../../assets/img/home-logo.svg';
+import { useRecoilValue } from 'recoil';
+import { UserAtom } from '../../Store/userInfoAtoms';
+
 import { MoreNav } from '../../components/Common/TopNav';
+import PostList from '../../components/Common/PostList/PostList';
+import MiniClassList from '../../components/Common/MiniClassList';
+import NormalizeImage from '../../components/Common/NormalizeImage';
+
+import HomeLogo from '../../assets/img/home-logo.svg';
+import ShareImg from '../../assets/img/icon-share.svg';
+import ChatImg from '../../assets/img/icon-chat-mini.svg';
+import ImageMore from '../../assets/img/icon-img-more.svg';
 
 import {
   MainWrap,
@@ -52,12 +56,12 @@ export default function Profile() {
         const userClassData = await fetchDataFromAPI(
           ClassData,
           accountname,
-          token,
+          token
         );
         const userPostData = await fetchDataFromAPI(
           PostData,
           accountname,
-          token,
+          token
         );
         setProfileData(userProfileData);
         setClassData(userClassData);
@@ -159,7 +163,7 @@ export default function Profile() {
                   </button>
                 </div>
                 <img
-                  src={profileData.image}
+                  src={NormalizeImage(profileData.image)}
                   id='profileImg'
                   alt='프로필 이미지'
                 />
@@ -289,21 +293,36 @@ export default function Profile() {
                   </div>
                 )}
                 {isImgListBtnActive && postData && postData.post && (
-                  <div
-                    className={
-                      postData.post.length > 0 ? 'image-grid' : 'image-none'
-                    }
-                  >
-                    {postData.post.length > 0 ? (
-                      postData.post.map((post) => (
-                        <img
-                          key={post.id}
-                          src={post.image.split(',')[0]}
-                          alt='포스트 이미지'
-                          onClick={() => handlePostImgClick(post.id)}
-                        />
-                      ))
-                    ) : (
+                  <div className='image-grid'>
+                    {postData.post.map((post) => {
+                      // 게시물에 이미지가 있는지 확인
+                      const hasImage = post.image && post.image.split(',')[0];
+
+                      // 이미지가 있는 게시물만 렌더링
+                      if (hasImage) {
+                        return (
+                          <div key={post.id}>
+                            <div>
+                              <img
+                                src={post.image.split(',')[0]}
+                                alt='포스트 이미지'
+                              />
+                              {post.image.split(',')[1] && (
+                                <div className='icon-overlay'>
+                                  <img
+                                    src={ImageMore}
+                                    alt='여러 장 이미지 아이콘'
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      } else {
+                        return null; // 이미지가 없는 게시물은 렌더링하지 않음
+                      }
+                    })}
+                    {postData.post.length === 0 && (
                       <div>
                         <img src={HomeLogo} alt='포스트 이미지가 없습니다' />
                         <p>작성된 게시물 이미지가 없습니다</p>
@@ -381,7 +400,7 @@ async function follow(accountname, token) {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      },
+      }
     );
     return res.data; // Modify this based on the actual response structure
   } catch (err) {

@@ -23,31 +23,49 @@ export default function Home({ to }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    //최초 로드시 유저 정보 없으면 intro화면으로 보내기
     const storedValue = localStorage.getItem('recoil-persist');
+    const lastAccessTime = localStorage.getItem('lastAccessTime'); // 유저의 마지막 접속 시간 가져오기
+    const currentTime = new Date().getTime(); // 현재 시간 가져오기
+
     if (!storedValue) {
       navigate('/intro');
+      return; // 추가된 부분: 나머지 로직을 실행하지 않고 종료
+    }
+
+    if (
+      lastAccessTime &&
+      currentTime - parseInt(lastAccessTime) > 24 * 60 * 60 * 1000
+    ) {
+      // 마지막 접속 시간과 현재 시간의 차이가 24시간 (86400000ms) 보다 크면..
+      if (!autoLogin) {
+        localStorage.removeItem('recoil-persist'); //유저정보 삭제
+        localStorage.removeItem('lastAccessTime'); // 마지막 접속 시간 삭제
+      }
+    } else {
+      // 24시간 이내에 접속한 경우, 현재 시간을 마지막 접속 시간으로 갱신
+      localStorage.setItem('lastAccessTime', currentTime.toString());
     }
 
     const beforeUnloadHandler = () => {
-      //autoLogin 체크값이 false라면 로컬스토리지의 유저정보값 삭제
-      if (autoLogin === false) {
+      if (
+        autoLogin === false &&
+        lastAccessTime &&
+        currentTime - parseInt(lastAccessTime) > 24 * 60 * 60 * 1000
+      ) {
         localStorage.removeItem('recoil-persist');
       }
     };
-    // "beforeunload" 이벤트 핸들러를 window에 등록합니다.
+
     window.addEventListener('beforeunload', beforeUnloadHandler);
 
-    // cleanup 함수 실행
     return () => {
       window.removeEventListener('beforeunload', beforeUnloadHandler);
-      //브라우저 종료 후 새롭게 브라우저 접근 시 유저 정보 없는 것 확인하고 intro 화면으로 보내기
-      const storedValue = localStorage.getItem('recoil-persist');
-      if (!storedValue) {
+      const storedValueAfter = localStorage.getItem('recoil-persist');
+      if (!storedValueAfter) {
         navigate('/intro');
       }
     };
-  }, []); //컴포넌트가 언마운트될 때 로컬스토리지에 저장된 유저 정보 삭제하여 로그인 해제
+  }, []);
 
   useEffect(() => {
     const response = async () => {

@@ -7,7 +7,7 @@ import { TopNavWrap } from '../../components/Common/TopNav';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 import { useNavigate } from 'react-router-dom';
 import DeletBtn from '../../assets/img/icon-x.svg';
-
+import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 export const ProfileContainer = styled.div`
   position: relative;
 `;
@@ -116,15 +116,33 @@ export function DisabledUploadBtnNav({ handleUploadPost, buttonStyle }) {
   );
 }
 
-export function EditUploadBtnNav({ handleUploadPost, buttonStyle }) {
+export function EditUploadBtnNav({
+  handleUploadPost,
+  buttonStyle,
+  post,
+  currContent,
+  currImg,
+}) {
   const navigate = useNavigate();
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const handleModalAlertOpen = () => {
+    if (
+      post.content === currContent &&
+      JSON.stringify(post.image.split(',')) === JSON.stringify(currImg)
+    ) {
+      navigate(-1);
+    } else {
+      setAlertModalOpen(true);
+    }
+  };
 
   const goBack = () => {
     navigate(-1);
   };
+
   return (
     <TopNavWrap>
-      <button onClick={goBack} className='go-back'>
+      <button onClick={handleModalAlertOpen} className='go-back'>
         <img src={ArrowIcon} alt='뒤로가기 아이콘' />
       </button>
       <ButtonStyle
@@ -140,6 +158,13 @@ export function EditUploadBtnNav({ handleUploadPost, buttonStyle }) {
       >
         수정하기
       </ButtonStyle>
+      {alertModalOpen && (
+        <ModalAlert
+          setAlertModalOpen={setAlertModalOpen}
+          onClick={goBack}
+          type='edit'
+        />
+      )}
     </TopNavWrap>
   );
 }

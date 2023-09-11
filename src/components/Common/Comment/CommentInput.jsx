@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-import ProfileImg from '../../../assets/img/basic-profile-img.svg';
+import NormalizeImage from '../NormalizeImage';
 import PostComment from '../../../api/PostComment';
+import ProfileImg from '../../../assets/img/basic-profile-img.svg';
 
 export default function CommentInput({
   postId,
@@ -31,16 +32,7 @@ export default function CommentInput({
   return (
     <CommentWrap>
       <div>
-        <img
-          src={
-            userImage
-              ? userImage === 'http://146.56.183.55:5050/Ellipse.png'
-                ? ProfileImg
-                : ProfileImg
-              : ProfileImg
-          }
-          alt=''
-        />
+        <img src={NormalizeImage(userImage)} alt='' />
       </div>
       <form onSubmit={handleCommentSubmit}>
         <input

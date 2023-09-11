@@ -102,8 +102,9 @@ const Wrap = styled.div`
   height: 100vh;
   position: relative;
   margin: 0 auto;
-  border: 1px solid var(--border-color);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   overflow: hidden;
+  background-color: #fff;
 `;
 
 export default App;

@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import FollowButtton from './FollowButtton';
-import HandleNormalizeImage from './HandleNormalizeImage';
-import BasicProfileImg from '../../assets/img/basic-profile-img.svg';
+import NormalizeImage from './NormalizeImage';
+import TeacherIcon from '../../assets/img/icon-teacher.svg';
+
 export default function SearchList({ user, type }) {
   const navigate = useNavigate();
   const userInfo = useRecoilValue(UserAtom);
@@ -27,14 +28,16 @@ export default function SearchList({ user, type }) {
     <SearchListWrap key={user._id}>
       <ProfileWrap onClick={handleMoveProfile}>
         <div>
-          <img
-            src={HandleNormalizeImage(user.image, BasicProfileImg)}
-            alt='프로필 이미지'
-          />
+          <img src={NormalizeImage(user.image)} alt='프로필 이미지' />
         </div>
         <ProfileInfo>
           <div>
-            <p>{user.username}</p>
+            <p>
+              <div> {user.username}</div>
+              {user.accountname.substr(0, 7) === 'Teacher' && (
+                <img src={TeacherIcon} alt='강사 아이콘' />
+              )}
+            </p>
           </div>
           <p>{type ? user.intro : validAccountname}</p>
         </ProfileInfo>
@@ -79,6 +82,15 @@ export const ProfileInfo = styled.div`
   div {
     display: flex;
     justify-content: space-between;
+    p {
+      display: flex;
+      gap: 3px;
+      align-items: c;
+      img {
+        width: 12px;
+        height: 12px;
+      }
+    }
   }
 
   img {
