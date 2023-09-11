@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 
 export const StyledCalendar = styled(Calendar)`
   text-align: center;
-  margin: 0 auto;
+  margin: 20px auto;
   && {
     border: none;
   }
@@ -37,9 +37,6 @@ export const StyledCalendar = styled(Calendar)`
 
   .react-calendar__tile {
     padding: 4px;
-  }
-
-  .react-calendar__tile {
     abbr {
       display: block;
       border: 1px solid var(--main-color);
@@ -53,7 +50,7 @@ export const StyledCalendar = styled(Calendar)`
       background-color: #fff;
       abbr {
         border-radius: 50%;
-        color: var(--main-color);
+        color: #000;
         border: 1px solid var(--main-color);
       }
     }
@@ -103,7 +100,7 @@ export const StyledCalendar = styled(Calendar)`
 
 export const SelectedDate = styled.p`
   margin-top: 6px;
-  padding: 16px 12px;
+  padding: 20px 12px;
   border: 0.5px solid var(--sub-font-color);
   border-right: none;
   border-left: none;

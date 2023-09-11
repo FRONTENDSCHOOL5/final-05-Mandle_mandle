@@ -9,35 +9,28 @@ import { MainWrap, ClassInfoSection, ClassImage, ClassName, ClassPrice, TopBtn, 
 import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData'
 
 export default function ClassDetail() {
+  const UserInfo = useRecoilValue(UserAtom);
+  const token = UserInfo.token;
+  const params = useParams();
+  const id = params.class_id;
   return (
     <>
       <GoBackNav />
       <MainWrap>
-        <ClassDetailInfo />
-        <ClassDetailMain />
+        <ClassDetailInfo id={id} token={token} />
+        <ClassDetailMain id={id} token={token} />
       </MainWrap>
       <MenuBar />
     </>
   );
 }
 
-
-
-
-export function ClassDetailInfo() {
+export function ClassDetailInfo({ id, token }) {
+  const [newClass, setNewClass] = useState([]);
   const [liked, setLiked] = useState(0);
   const handleLike = () => {
     setLiked((prevLiked) => (prevLiked === 0 ? 1 : 0));
   };
-  return <ClassInfo liked={liked} onLike={handleLike} />
-}
-
-export function ClassInfo({ liked, onLike }) {
-  const [newClass, setNewClass] = useState([]);
-  const UserInfo = useRecoilValue(UserAtom);
-  const token = UserInfo.token;
-  const params = useParams();
-  const id = params.class_id;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,7 +46,7 @@ export function ClassInfo({ liked, onLike }) {
 
   // 천단위 콤마를 추가하는 함수
   const addCommas = (value) => {
-    return value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "";
+    return value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
   };
 
   if (!newClass) {
@@ -63,18 +56,18 @@ export function ClassInfo({ liked, onLike }) {
   return (
     <ClassInfoSection>
       <ClassImage src={newClass.itemImage} alt='클래스 이미지' />
-      <p>{newClass.link}</p>
+      <p>{newClass.link ? newClass.link.split('@')[0] : ''}</p>
       <ClassName>{newClass.itemName}</ClassName>
       <ClassPrice>
         <span className='a11y-hidden'>가격</span>
         {addCommas(newClass.price)}원
       </ClassPrice>
-      <BtnContainer liked={liked} onLike={onLike} price={newClass.price} />
+      <BtnContainer liked={liked} onLike={handleLike} price={newClass.price} img={newClass.itemImage} name={newClass.itemName} id={id}/>
     </ClassInfoSection>
   );
 }
 
-export function BtnContainer({ liked, onLike, price }) {
+export function BtnContainer({ liked, onLike, price, img, name, id }) {
   const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
   const handleLikeClick = () => {
@@ -84,9 +77,13 @@ export function BtnContainer({ liked, onLike, price }) {
 
   const handleReservationClick = () => {
     const state = {
-      price: price
+      price: price,
+      img: img,
+      name: name,
+      id: id
     }
     navigate('/reservation', {state:state})
+    console.log(state);
   }
 
   return (
@@ -102,7 +99,9 @@ export function BtnContainer({ liked, onLike, price }) {
         <Link to='/chat/chatList'>
           <AskBtn>작가문의</AskBtn>
         </Link>
-          <ReverseBtn onClick={handleReservationClick}>예약하기</ReverseBtn>
+        <ReverseBtn onClick={handleReservationClick}>
+          예약하기
+        </ReverseBtn>
       </BottomBtn>
     </div>
   );

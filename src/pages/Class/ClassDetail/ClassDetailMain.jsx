@@ -6,13 +6,14 @@ import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { ClassPostMini } from '../../../components/Common/ClassPost';
 import GetClassData from '../../../api/GetClassData';
+import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData'
 import UserIcon from '../../../assets/img/basic-profile-img.svg';
 
-export default function ClassDetailMain() {
+export default function ClassDetailMain({ id, token }) {
   return (
     <>
       <ClassDetailIntro />
-      <ClassDetailLocation />
+      <ClassDetailLocation id={id} token={token} />
       <ClassDetailReview />
       <ClassDetailOtherClass />
     </>
@@ -47,14 +48,26 @@ export function ClassDetailIntro() {
 // /classintro
 
 // classlocation
-export function ClassDetailLocation() {
+export function ClassDetailLocation({ id, token }) {
+  const[address, setAddress] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await GetClassDetailInfoData(id, token);
+        setAddress(data.link);
+      } catch (error) {
+        console.log("Error", error);
+      }
+    };
+    fetchData();
+  }, [id, token]);
   return (
     <ClassSection className='location' id='class-location'>
       <ClassWrap>
         <h3>장소</h3>
         <img src={location} alt="지도 위치" />
         <LocAddress>
-          서울특별시 관악구 봉천동 911-11 (2층)
+          {address ? address.split('@')[1] : ''}
         </LocAddress>
       </ClassWrap>
     </ClassSection>
@@ -126,22 +139,26 @@ export function ClassDetailOtherClass() {
   });
 
   const classList = newClass.filter(classItem => String(classItem.author.accountname).includes('Teacher'));
-
+  
   return (
     <ClassSection className='others'>
       <Title>다른 클래스</Title>
       <MiniList>
-        {classList.map(classItem => (
-          <li key={classItem._id}>
-            <a href={`/class/detail/${classItem._id}`}>
-              <ClassPostMini
-                miniImg={classItem.itemImage}
-                miniName={classItem.itemName}
-                miniTag={classItem.link}
-              />
-            </a>
-          </li>
-        ))}
+        {classList.map(classItem => {
+          const parts = classItem.link.split('@');
+          const truncatedLink = parts[0] || '';
+          return (
+            <li key={classItem._id}>
+              <a href={`/final-05-Mandle_mandle/class/detail/${classItem._id}`}>
+                <ClassPostMini
+                  miniImg={classItem.itemImage}
+                  miniName={classItem.itemName}
+                  miniTag={truncatedLink}
+                />
+              </a>
+            </li>
+          );
+        })}
       </MiniList>
     </ClassSection>
   );
