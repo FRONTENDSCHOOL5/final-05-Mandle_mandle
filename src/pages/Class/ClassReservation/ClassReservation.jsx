@@ -1,22 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom'
 import { GoBackNav } from '../../../components/Common/TopNav';
 import { DatePicker } from './ClassReservationCalendar';
-import { TimePicker, PeoplePicker } from './ClassReservationPicker';
-import { Heading } from './ClassReservationStyle';
+import { TimePicker } from './ClassReservationPicker';
+import { Heading, ClassIntro, ClassBanner } from './ClassReservationStyle';
 
 export default function ClassReservation() {
   const location = useLocation();
   const state = location.state;
-  
+
   return (
     <>
     <Header />
-    <Main state={state}/>
+    <Main state={state} />
     </>
   )
 }
-
 
 export function Header() {
   return (
@@ -27,16 +26,30 @@ export function Header() {
   );
 }
 
-
 export function Main() {
   const location = useLocation();
   const state = location.state
+  const backgroundImg = state.img;
+
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  }
 
   return (
     <>
-      <DatePicker />
-      <TimePicker state={state}/>
-      <PeoplePicker />
+      <ClassIntro>
+        <img src={state.img} alt="클래스 이미지" />
+        <h2>{state.name}</h2>
+      </ClassIntro>
+      
+      {/* <ClassBanner backgroundImage={backgroundImg}>
+        <h2>{state.name}</h2>
+      </ClassBanner> */}
+
+      <DatePicker selectedDate={selectedDate} onDateChange={handleDateChange} />
+      <TimePicker state={state} selectedDate={selectedDate} />
     </>
   );
 }

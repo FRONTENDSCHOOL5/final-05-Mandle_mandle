@@ -1,4 +1,6 @@
-export default function HandleNormalizeImage(image, basicImg) {
+import BasicImg from '../../assets/img/basic-profile-img.svg';
+
+export default function NormalizeImage(image) {
   const regex = /^\d/;
   const accountImage = image
     .replace('https://mandarin.api.weniv.co.kr/', '')
@@ -7,6 +9,6 @@ export default function HandleNormalizeImage(image, basicImg) {
   if (regex.test(accountImage)) {
     return `https://api.mandarin.weniv.co.kr/${accountImage}`;
   } else {
-    return basicImg;
+    return BasicImg;
   }
 }

@@ -5,10 +5,11 @@ import { UserAtom } from '../../../Store/userInfoAtoms';
 import MoreButton from '../MoreButton';
 import CalTimeAgo from '../CalTimeAgo';
 import Modal from '../../Common/Modal/Modal';
+import NormalizeImage from '../NormalizeImage';
 import DeleteComment from '../../../api/DeleteComment';
 import ModalAlert from '../Modal/ModalAlert/ModalAlert';
 import PostReportComment from '../../../api/PostReportComment';
-import ProfileImg from '../../../assets/img/basic-profile-img.svg';
+
 export default function CommentList({ postId, comment, setCommentUpdated }) {
   const userInfo = useRecoilValue(UserAtom);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -46,7 +47,7 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
       <ProfileWrap>
         <ProfileInfo>
           <ProfileImgwrap>
-            <img src={comment.author.image || ProfileImg} alt='' />
+            <img src={NormalizeImage(comment.author.image)} alt='' />
           </ProfileImgwrap>
 
           <div>
