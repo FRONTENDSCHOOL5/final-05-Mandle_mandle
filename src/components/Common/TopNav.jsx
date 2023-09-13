@@ -45,10 +45,11 @@ export function MoreNav({ onClick }) {
 }
 
 // 뒤로가기만 있는 버전
-export function GoBackNav() {
+export function GoBackNav({ children }) {
   return (
     <TopNavWrap>
       <GoBackButton />
+      {children}
     </TopNavWrap>
   );
 }
