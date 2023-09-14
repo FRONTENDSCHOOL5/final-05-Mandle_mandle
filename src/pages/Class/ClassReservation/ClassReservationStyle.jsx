@@ -6,6 +6,9 @@ export const Heading = styled.h1`
   position: absolute;
   top: 16px;
   left: 48px;
+  h1 {
+    /* 작업중 */
+  }
 `;
 
 export const ClassIntro = styled.div`
@@ -39,6 +42,7 @@ export const ClassBanner = styled.div`
   font-size: var(--font-lg);
   color: var(--main-color);
   font-weight: var(--font--bold);
+  z-index: 1;
   
   &::before {
     content: '';
@@ -47,7 +51,7 @@ export const ClassBanner = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: ${({ backgroundImage }) => `url(${backgroundImage})`};
+    background-image: ${({ backgroundImg }) => `url(${ backgroundImg })`};
     background-size: cover;
     background-position: center;
     z-index: -1;
