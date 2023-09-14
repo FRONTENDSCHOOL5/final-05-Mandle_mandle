@@ -20,8 +20,10 @@ export default function ClassReservation() {
 export function Header() {
   return (
     <>
-    <GoBackNav />
-    <Heading>언제 참여하고 싶나요?</Heading>
+    <GoBackNav>
+      <h1>언제 참여하고 싶나요?</h1>
+    </GoBackNav>
+    {/* <Heading>언제 참여하고 싶나요?</Heading> */}
     </>
   );
 }
@@ -30,9 +32,9 @@ export function Main() {
   const location = useLocation();
   const state = location.state
   const backgroundImg = state.img;
+  console.log(backgroundImg);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-
   const handleDateChange = (date) => {
     setSelectedDate(date);
   }
@@ -44,11 +46,11 @@ export function Main() {
         <h2>{state.name}</h2>
       </ClassIntro>
       
-      {/* <ClassBanner backgroundImage={backgroundImg}>
+      <ClassBanner backgroundImg = {backgroundImg}>
         <h2>{state.name}</h2>
-      </ClassBanner> */}
+      </ClassBanner>
 
-      <DatePicker selectedDate={selectedDate} onDateChange={handleDateChange} />
+      <DatePicker selectedDate = {selectedDate} onDateChange = {handleDateChange} />
       <TimePicker state={state} selectedDate={selectedDate} />
     </>
   );
