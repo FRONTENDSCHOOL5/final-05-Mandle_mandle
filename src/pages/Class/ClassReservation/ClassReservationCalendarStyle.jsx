@@ -50,7 +50,7 @@ export const StyledCalendar = styled(Calendar)`
       background-color: #fff;
       abbr {
         border-radius: 50%;
-        color: #000;
+        color: var(--main-color);
         border: 1px solid var(--main-color);
       }
     }
@@ -59,7 +59,9 @@ export const StyledCalendar = styled(Calendar)`
 
   /* 토요일 일요일 폰트 색상 변경 */
   .react-calendar__month-view__days__day--weekend {
-    color: #000;
+    abbr {
+      color: #000;
+    }
   }
 
   /* 비활성화된 날짜의 배경색 설정 */

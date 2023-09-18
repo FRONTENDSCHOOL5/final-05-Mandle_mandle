@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const PickerContainer = styled.div`
+  border-bottom: 1px solid var(--sub-font-color);
+  position: relative;
+`;
 
 export const TimeTitle = styled.p`
   font-size: var(--font-md);
@@ -9,7 +13,7 @@ export const TimeTitle = styled.p`
 
 export const ToggleBtn = styled.button`
   position: absolute;
-  top: 22px;
+  top: 20px;
   right: 15px;
 `;
 
@@ -42,12 +46,6 @@ export const TimeList = styled.ul`
   }
 `;
 
-export const PickerContainer = styled.div`
-  border-bottom: 1px solid var(--sub-font-color);
-  position: relative;
-`;
-
-
 export const BtnReserve = styled.button`
   width: 90%;
   font-size: var(--font-md);
@@ -56,6 +54,5 @@ export const BtnReserve = styled.button`
   text-align: center;
   color: #fff;
   border-radius: 44px;
-  position: absolute;
   margin: 20px;
 `;

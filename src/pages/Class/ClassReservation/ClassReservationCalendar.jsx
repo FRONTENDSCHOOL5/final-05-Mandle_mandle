@@ -46,7 +46,7 @@ export function DatePicker({ selectedDate, onDateChange }) {
     return isPrevMonth || isNextMonth || isSaturday || isSunday
       ? null
       : isActiveDate
-      ? 'active-date-tile' // 이 클래스에 원하는 스타일을 추가
+      ? 'active-date-tile'
       : 'weekday-tile';
   };
 

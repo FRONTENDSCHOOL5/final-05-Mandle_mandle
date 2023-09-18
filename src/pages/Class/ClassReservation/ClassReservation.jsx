@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { GoBackNav } from '../../../components/Common/TopNav';
 import { DatePicker } from './ClassReservationCalendar';
 import { TimePicker } from './ClassReservationPicker';
-import { Heading, ClassIntro, ClassBanner } from './ClassReservationStyle';
+import { Heading, Reservations, ClassIntro } from './ClassReservationStyle';
 
 export default function ClassReservation() {
   const location = useLocation();
@@ -21,9 +21,8 @@ export function Header() {
   return (
     <>
     <GoBackNav>
-      <h1>언제 참여하고 싶나요?</h1>
+      <Heading>언제 참여하고 싶나요??</Heading>
     </GoBackNav>
-    {/* <Heading>언제 참여하고 싶나요?</Heading> */}
     </>
   );
 }
@@ -40,18 +39,14 @@ export function Main() {
   }
 
   return (
-    <>
+    <Reservations>
       <ClassIntro>
         <img src={state.img} alt="클래스 이미지" />
         <h2>{state.name}</h2>
       </ClassIntro>
-      
-      <ClassBanner backgroundImg = {backgroundImg}>
-        <h2>{state.name}</h2>
-      </ClassBanner>
 
       <DatePicker selectedDate = {selectedDate} onDateChange = {handleDateChange} />
       <TimePicker state={state} selectedDate={selectedDate} />
-    </>
+    </Reservations>
   );
 }

@@ -6,10 +6,15 @@ export const Heading = styled.h1`
   position: absolute;
   top: 16px;
   left: 48px;
-  h1 {
-    /* 작업중 */
-  }
 `;
+
+export const Reservations = styled.main`
+  height: calc(100% - 48px);
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
 
 export const ClassIntro = styled.div`
   width: 84%;
@@ -24,6 +29,7 @@ export const ClassIntro = styled.div`
     border-radius: 10px;
     vertical-align: top;
     box-shadow: 3px 3px 5px var(--sub-font-color);
+    object-fit: cover;
   }
   h2 {
     font-size: var(--font-md);
@@ -33,28 +39,3 @@ export const ClassIntro = styled.div`
     top: 0;
   }
 `
-
-export const ClassBanner = styled.div`
-  position: relative;
-  height: 100px;
-  text-align: center;
-  line-height: 100px;
-  font-size: var(--font-lg);
-  color: var(--main-color);
-  font-weight: var(--font--bold);
-  z-index: 1;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: ${({ backgroundImg }) => `url(${ backgroundImg })`};
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-    opacity: 0.5;
-  }
-`;

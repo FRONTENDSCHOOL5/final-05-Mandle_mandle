@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PickerContainer, TimeTitle, TimeList, BtnReserve, ToggleBtn } from './ClassReservationPickerStyle';
 import { useRecoilState } from 'recoil';
 import { ReserveDataState } from '../../../Store/ReserveStateAtom'
@@ -21,6 +21,7 @@ export function Time({ selectedDate, availableTimes }) {
   const [showTimeList, setShowTimeList] = useState(false);
   const location = useLocation();
   const state = location.state;
+  const navigate = useNavigate();
 
   const formattedPrice = state && typeof state.price === 'number' ? state.price.toLocaleString() : '';
   const [activeItem, setActiveItem] = useState();
@@ -50,6 +51,12 @@ export function Time({ selectedDate, availableTimes }) {
   });
 
     console.log(reserveData);
+
+    // 알림창이 뜬다.
+    alert('예약되었습니다.');
+
+    // 이전페이지로 이동
+    navigate(-1);
   }
 
     // 날짜를 한국 표기로 형식화하는 함수를 정의합니다.
@@ -66,6 +73,7 @@ export function Time({ selectedDate, availableTimes }) {
   }
 
   return (
+    <>
     <PickerContainer>
       <TimeTitle>시간 선택</TimeTitle>
       <ToggleBtn onClick={() => setShowTimeList(!showTimeList)}>
@@ -93,7 +101,10 @@ export function Time({ selectedDate, availableTimes }) {
           </li>
         </TimeList>
       )}
-      <BtnReserve onClick={handleReservation}>예약하기</BtnReserve>
     </PickerContainer>
+    <BtnReserve onClick={handleReservation}>
+      예약하기
+    </BtnReserve>
+    </>
   );
 }
