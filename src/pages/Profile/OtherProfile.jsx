@@ -56,12 +56,12 @@ export default function Profile() {
         const userClassData = await fetchDataFromAPI(
           ClassData,
           accountname,
-          token
+          token,
         );
         const userPostData = await fetchDataFromAPI(
           PostData,
           accountname,
-          token
+          token,
         );
         setProfileData(userProfileData);
         setClassData(userClassData);
@@ -297,11 +297,13 @@ export default function Profile() {
                     {postData.post.map((post) => {
                       // 게시물에 이미지가 있는지 확인
                       const hasImage = post.image && post.image.split(',')[0];
-
+                      const handleAlbumBtnClick = () => {
+                        navigate(`/post/${post.id}`, { state: post.id });
+                      };
                       // 이미지가 있는 게시물만 렌더링
                       if (hasImage) {
                         return (
-                          <div key={post.id}>
+                          <button key={post.id} onClick={handleAlbumBtnClick}>
                             <div>
                               <img
                                 src={post.image.split(',')[0]}
@@ -316,7 +318,7 @@ export default function Profile() {
                                 </div>
                               )}
                             </div>
-                          </div>
+                          </button>
                         );
                       } else {
                         return null; // 이미지가 없는 게시물은 렌더링하지 않음
@@ -400,7 +402,7 @@ async function follow(accountname, token) {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      }
+      },
     );
     return res.data; // Modify this based on the actual response structure
   } catch (err) {

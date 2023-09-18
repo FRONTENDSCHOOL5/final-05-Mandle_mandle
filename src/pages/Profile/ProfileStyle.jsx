@@ -212,7 +212,7 @@ const PostListUl = styled.ul`
     display: none;
   }
 
-  .image-grid > div {
+  .image-grid > button {
     position: relative;
   }
 
