@@ -15,7 +15,7 @@ export const ModalOverlay = styled.div`
 
 export const ModalWrap = styled.div`
   width: 100%;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   position: absolute;
   bottom: 0;
   left: 50%;

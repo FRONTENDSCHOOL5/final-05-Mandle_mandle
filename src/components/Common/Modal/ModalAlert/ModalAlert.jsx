@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
   const handleCancel = () => {
-    setAlertModalOpen(false);
+    setAlertModalOpen(null);
   };
 
   return (
@@ -13,6 +13,10 @@ export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
           <p>
             {type === 'edit'
               ? '저장하지 않은 변경 사항이 있습니다.'
+              : type === 'logout'
+              ? '정말 로그아웃 하시겠습니까?'
+              : type === 'report'
+              ? '신고하시겠습니까?'
               : '삭제할까요?'}
           </p>
           {type === 'edit' && <p>정말로 나가시겠습니까?</p>}
@@ -21,7 +25,13 @@ export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
               취소
             </button>
             <button onClick={onClick} type='button'>
-              {type === 'edit' ? '나가기' : '삭제'}
+              {type === 'edit'
+                ? '나가기'
+                : type === 'logout'
+                ? '로그아웃'
+                : type === 'report'
+                ? '신고하기'
+                : '삭제'}
             </button>
           </div>
         </AlertModalWrap>
