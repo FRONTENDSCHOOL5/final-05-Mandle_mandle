@@ -193,7 +193,7 @@ export default function Profile() {
                     }
                   }}
                 >
-                  수강한 목록
+                  예약한 클래스
                 </button>
               </WrapBtn>
             </ProfileSection>
@@ -268,26 +268,26 @@ export default function Profile() {
                     {postData.post.map((post) => {
                       // 게시물에 이미지가 있는지 확인
                       const hasImage = post.image && post.image.split(',')[0];
-
+                      const handleAlbumBtnClick = () => {
+                        navigate(`/post/${post.id}`, { state: post.id });
+                      };
                       // 이미지가 있는 게시물만 렌더링
                       if (hasImage) {
                         return (
-                          <div key={post.id}>
-                            <div>
-                              <img
-                                src={post.image.split(',')[0]}
-                                alt='포스트 이미지'
-                              />
-                              {post.image.split(',')[1] && (
-                                <div className='icon-overlay'>
-                                  <img
-                                    src={ImageMore}
-                                    alt='여러 장 이미지 아이콘'
-                                  />
-                                </div>
-                              )}
-                            </div>
-                          </div>
+                          <button key={post.id} onClick={handleAlbumBtnClick}>
+                            <img
+                              src={post.image.split(',')[0]}
+                              alt='포스트 이미지'
+                            />
+                            {post.image.split(',')[1] && (
+                              <div className='icon-overlay'>
+                                <img
+                                  src={ImageMore}
+                                  alt='여러 장 이미지 아이콘'
+                                />
+                              </div>
+                            )}
+                          </button>
                         );
                       } else {
                         return null; // 이미지가 없는 게시물은 렌더링하지 않음

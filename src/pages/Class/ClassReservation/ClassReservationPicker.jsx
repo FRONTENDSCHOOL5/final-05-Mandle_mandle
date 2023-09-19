@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PickerContainer, TimeTitle, TimeList, BtnReserve, ToggleBtn } from './ClassReservationPickerStyle';
-import { atom, useRecoilState } from 'recoil';
-
-export const regDataState = atom({
-  key: 'regDataState',
-  default: null,
-});
+import { useRecoilState } from 'recoil';
+import { ReserveDataState } from '../../../Store/ReserveStateAtom'
 
 export function TimePicker({ selectedDate }) {
   return (
@@ -25,30 +21,59 @@ export function Time({ selectedDate, availableTimes }) {
   const [showTimeList, setShowTimeList] = useState(false);
   const location = useLocation();
   const state = location.state;
+  const navigate = useNavigate();
 
   const formattedPrice = state && typeof state.price === 'number' ? state.price.toLocaleString() : '';
   const [activeItem, setActiveItem] = useState();
 
-  const [, setReservation] = useRecoilState(regDataState); // reservation 변수를 사용하지 않으므로 [, setReservation] 형태로 수정
+  const [reservationData, setReservationData] = useRecoilState(ReserveDataState);
 
   const handleItemClick = (index) => {
     setActiveItem(index);
   };
 
   const handleReservation = () => {
-    const regData = {
+    const reserveData = {
       class_id: state.id,
-      reg_date: selectedDate,
-      reg_time: availableTimes[activeItem - 1]
+      reserve_date: formatKoreanDate(selectedDate),
+      reserve_time: availableTimes[activeItem - 1]
     }
 
-    // Recoil을 통해 상태 업데이트
-    setReservation(regData);
+  // 현재 예약 데이터를 가져옵니다.
+  const currentReservations = reservationData.reservations || [];
 
-    console.log(regData);
+  // 새로운 예약 데이터를 배열에 추가합니다.
+  const updatedReservations = [...currentReservations, reserveData];
+
+  // Recoil을 통해 상태를 업데이트합니다.
+  setReservationData({
+    reservations: updatedReservations,
+  });
+
+    console.log(reserveData);
+
+    // 알림창이 뜬다.
+    alert('예약되었습니다.');
+
+    // 이전페이지로 이동
+    navigate(-1);
+  }
+
+    // 날짜를 한국 표기로 형식화하는 함수를 정의합니다.
+  function formatKoreanDate(date) {
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+      timeZoneName: 'short',
+    };
+    const koreanDate = new Date(date).toLocaleDateString('ko-KR', options);
+    return koreanDate;
   }
 
   return (
+    <>
     <PickerContainer>
       <TimeTitle>시간 선택</TimeTitle>
       <ToggleBtn onClick={() => setShowTimeList(!showTimeList)}>
@@ -76,7 +101,10 @@ export function Time({ selectedDate, availableTimes }) {
           </li>
         </TimeList>
       )}
-      <BtnReserve onClick={handleReservation}>예약하기</BtnReserve>
     </PickerContainer>
+    <BtnReserve onClick={handleReservation}>
+      예약하기
+    </BtnReserve>
+    </>
   );
 }
