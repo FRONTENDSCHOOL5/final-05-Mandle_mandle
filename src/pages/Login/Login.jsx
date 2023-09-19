@@ -132,7 +132,7 @@ export default function Login() {
             checked={autoLogin}
             onChange={handleCheckboxChange}
           />
-          <CheckboxLabel>자동로그인 </CheckboxLabel>
+          <CheckboxLabel>자동 로그인</CheckboxLabel>
         </CheckboxContainer>
 
         <ButtonImgStyle type='submit'>
@@ -146,17 +146,17 @@ export default function Login() {
 
 const CheckboxContainer = styled.div`
   display: flex;
+  margin: 10px 0 3px;
   align-items: center;
-  padding-top: 10px;
-  margin-right: 220px;
+  justify-self: flex-start;
 `;
 
 const CheckboxInput = styled.input`
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 1.5px solid gainsboro;
-  margin-right: 10px;
+  margin-right: 6px;
   border-radius: 0.35rem;
   cursor: pointer;
   &:checked {
@@ -166,12 +166,12 @@ const CheckboxInput = styled.input`
     background-size: 100% 100%;
     background-position: 50%;
     background-repeat: no-repeat;
-    background-color: #007bff;
+    background-color: #036635;
   }
 `;
 
 const CheckboxLabel = styled.label`
-  font-size: 12px;
+  font-size: 14px;
   color: #767676;
   cursor: pointer;
 `;

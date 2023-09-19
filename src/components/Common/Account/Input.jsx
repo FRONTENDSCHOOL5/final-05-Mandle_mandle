@@ -69,7 +69,7 @@ export const InputBox = styled.input`
 const EyeIcon = styled.span`
   cursor: pointer;
   position: absolute;
-  right: 5px;
+  right: 0%;
   top: 30px;
   width: 40px;
   height: 40px;

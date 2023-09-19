@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 export const AccountForm = styled.form`
   display: flex;
-  align-items: center;
   flex-direction: column;
   padding: 0 34px;
   font-size: var(--font-mds);
@@ -37,6 +36,8 @@ export const Description = styled.p`
 `;
 
 export const ButtonImgStyle = styled.button`
+  display: flex;
+  justify-content: center;
   margin: 16px 0 8px;
 `;
 
