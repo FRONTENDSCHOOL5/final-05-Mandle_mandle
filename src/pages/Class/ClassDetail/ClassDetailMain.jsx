@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react';
-import { ClassSection, ClassNav, ClassWrap, CommentP,  ClassExplainImg, LocAddress, Title, MiniList, Profile, UserImg, UserInfo, UserName, Review, ReviewImg } from './ClassDetailMainStyle'
+import axios from 'axios';
+import { ClassSection, ClassNav, ClassWrap, CommentP,  ClassExplainImg, MapBtn, LocAddress, Title, MiniList, Profile, UserImg, UserInfo, UserName, Review, ReviewImg } from './ClassDetailMainStyle'
 import ExplainImg from '../../../assets/img/temp/soapT5.png';
 import location from '../../../assets/img/temp/location.png'
 import { useRecoilValue } from 'recoil';
@@ -49,7 +50,8 @@ export function ClassDetailIntro() {
 
 // classlocation
 export function ClassDetailLocation({ id, token }) {
-  const[address, setAddress] = useState();
+  const [address, setAddress] = useState('');
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,11 +63,26 @@ export function ClassDetailLocation({ id, token }) {
     };
     fetchData();
   }, [id, token]);
+
+  const handleClick = () => {
+    if (address) {
+      const parts = address.split('@');
+      if (parts.length >= 2) {
+        const location = parts[1];
+        // 이동할 URL을 생성합니다.
+        const mapURL = `https://map.kakao.com/?q=${encodeURIComponent(location)}`;
+        // 새 탭에서 카카오맵 링크를 엽니다.
+        window.open(mapURL, '_blank');
+      }
+    }
+  };
+
   return (
     <ClassSection className='location' id='class-location'>
       <ClassWrap>
         <h3>장소</h3>
-        <img src={location} alt="지도 위치" />
+        <MapBtn onClick={handleClick}>지도 바로가기</MapBtn>
+        <img src={location} alt="지도 위치" onClick={handleClick} style={{ cursor: 'pointer' }} />
         <LocAddress>
           {address ? address.split('@')[1] : ''}
         </LocAddress>

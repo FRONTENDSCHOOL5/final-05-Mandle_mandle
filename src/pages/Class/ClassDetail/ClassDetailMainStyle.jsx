@@ -74,6 +74,15 @@ export const LocAddress = styled.address`
   font-weight: var(--font-regular);
   color: var(--sub-font-color);
 `;
+
+export const MapBtn = styled.button`
+  position: absolute;
+  bottom: 66px;
+  left: 35px;
+  background-color: var(--border-color);
+  padding: 10px 10px 10px 0;
+  opacity: .9;
+`;
 // /classlocation
 
 
