@@ -5,8 +5,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { GoBackNav } from '../../../components/Common/TopNav';
 import MenuBar from '../../../components/Common/MenuBar';
 import ClassDetailMain from './ClassDetailMain';
-import { MainWrap, ClassInfoSection, ClassImage, ClassName, ClassPrice, TopBtn, LikeBtn, LikeNum, ShareBtn, BottomBtn, AskBtn, ReverseBtn } from './ClassDetailStyle';
+import { MainWrap, ClassInfoSection, ClassImage, ClassName, ClassTeacher, ClassPrice, TopBtn, LikeBtn, LikeNum, ShareBtn, BottomBtn, AskBtn, ReverseBtn } from './ClassDetailStyle';
 import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData'
+import ClassDetailSkeleton from '../../../components/Common/Skeleton/ClassDetailSkeleton';
 
 export default function ClassDetail() {
   const UserInfo = useRecoilValue(UserAtom);
@@ -28,6 +29,8 @@ export default function ClassDetail() {
 export function ClassDetailInfo({ id, token }) {
   const [newClass, setNewClass] = useState([]);
   const [liked, setLiked] = useState(0);
+
+  const navigate = useNavigate();
   const handleLike = () => {
     setLiked((prevLiked) => (prevLiked === 0 ? 1 : 0));
   };
@@ -37,6 +40,7 @@ export function ClassDetailInfo({ id, token }) {
       try {
         const data = await GetClassDetailInfoData(id, token);
         setNewClass(data);
+        console.log(data.author);
       } catch (error) {
         console.log("Error", error);
       }
@@ -53,15 +57,36 @@ export function ClassDetailInfo({ id, token }) {
     return null;
   }
 
+  const txtLength = newClass?.author?.username?.length;
+  const handleTeacherClick = () => {
+    const accountname = newClass.author.accountname;
+    navigate(`/other_profile/${accountname}`);
+  }
+
   return (
     <ClassInfoSection>
-      <ClassImage src={newClass.itemImage} alt='클래스 이미지' />
-      <p>{newClass.link ? newClass.link.split('@')[0] : ''}</p>
-      <ClassName>{newClass.itemName}</ClassName>
-      <ClassPrice>
-        <span className='a11y-hidden'>가격</span>
-        {addCommas(newClass.price)}원
-      </ClassPrice>
+      {newClass.length === 0 ?
+      ( <ClassDetailSkeleton /> ) : ( 
+        <>
+        <ClassImage src={newClass.itemImage} alt='클래스 이미지' />
+        <div>
+          <ClassTeacher txtLength={txtLength} onClick={handleTeacherClick}>
+            <img src={newClass.author.image} alt='강사 프로필' />
+            <h3>
+            {newClass.author.username}
+            </h3>
+          </ClassTeacher>
+          <p>
+            {newClass.link ? newClass.link.split('@')[0] : ''}
+          </p>
+          <ClassName>{newClass.itemName}</ClassName>
+          <ClassPrice>
+            <span className='a11y-hidden'>가격</span>
+            {addCommas(newClass.price)}원
+          </ClassPrice>
+        </div>
+      </>
+      )}
       <BtnContainer liked={liked} onLike={handleLike} price={newClass.price} img={newClass.itemImage} name={newClass.itemName} id={id}/>
     </ClassInfoSection>
   );
