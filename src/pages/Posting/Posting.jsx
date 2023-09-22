@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
+import Dropdown from '../../components/Common/Dropdown/Dropdown';
+import useDetectClose from '../../Hooks/useDetectClose';
+import {
+  DropdownContainer,
+  DropdownButton,
+  DropdownMenu,
+} from '../../components/Common/Dropdown/Dropdown';
 import {
   DisabledUploadBtnNav,
   ProfileContainer,
@@ -14,6 +21,7 @@ import {
 } from './PostingStyle';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
+import { ReserveDataState } from '../../Store/ReserveStateAtom'; // 수강 클래스 id, 시간 정보
 import { PostImagesUpload } from '../../api/PostImagesUpload';
 import { useNavigate } from 'react-router-dom';
 import PostUploadPost from '../../api/PostUploadPost';
@@ -25,11 +33,29 @@ export default function Posting() {
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
+  const reservationData = useRecoilValue(ReserveDataState);
+  const dropDownRef = useRef();
+  const [classIdentify, setClassIdentify] = useState('');
+  const classList = ['수강한 클래스1', '수강한 클래스2', '수강한 클래스3'];
+  const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
 
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // 예약 데이터에서 class_id 값을 확인
+    const hasClassId = reservationData.reservations.some(
+      (reservation) => reservation.class_id != null
+    );
+
+    // 만약 class_id 값이 없으면 '/class'로 이동
+    if (!hasClassId) {
+      alert('먼저 클래스를 수강한 후 후기를 작성해주세요!');
+      navigate('/class');
+    }
+  }, [reservationData, navigate]);
 
   useEffect(() => {
     GetUserProfileImage(token, setUserImage);
@@ -123,6 +149,26 @@ export default function Posting() {
           onChange={handleTextareaChange}
           ref={textarea}
         ></TextInputContainer>
+
+        <DropdownContainer ref={dropDownRef}>
+          <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
+            {classIdentify || '수강한 클래스를 선택해 주세요'}{' '}
+            {/* Display the selected value here */}
+          </DropdownButton>
+          {isOpen && (
+            <DropdownMenu>
+              {classList.map((value, index) => (
+                <Dropdown
+                  key={index}
+                  value={value}
+                  setIsOpen={setIsOpen}
+                  setClassIdentify={setClassIdentify}
+                  isOpen={isOpen}
+                />
+              ))}
+            </DropdownMenu>
+          )}
+        </DropdownContainer>
         <ImgWrapStyle>
           {selectedImages.map((image, index) => (
             <PreviewImgWrapStyle key={index}>
