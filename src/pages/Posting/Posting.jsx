@@ -28,21 +28,55 @@ import PostUploadPost from '../../api/PostUploadPost';
 import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 import imageCompression from 'browser-image-compression';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
+import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
   const reservationData = useRecoilValue(ReserveDataState);
+  const userInfo = useRecoilValue(UserAtom);
   const dropDownRef = useRef();
   const [classIdentify, setClassIdentify] = useState('');
-  const classList = ['수강한 클래스1', '수강한 클래스2', '수강한 클래스3'];
+  const [classList, setClassList] = useState([]);
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
-
-  const userInfo = useRecoilValue(UserAtom);
+  const navigate = useNavigate();
   const token = userInfo.token;
 
-  const navigate = useNavigate();
+  //해야 할 것
+  //드롭박스 컴포넌트 사진 추가 + ui 수정하기
+  //이미 수강한 클래스만 드롭박스에 보이게 코드 수정하기
+
+  //Recoil에 저장된 예약한 클래스 아이디
+  const classId = reservationData.reservations.map(
+    (reservation) => reservation.class_id
+  );
+
+  //Recoil에 저장된 예약한 클래스 날짜/시간 정보
+  const classDate = reservationData.reservations.map(
+    (reservation) => reservation.reserve_date
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      //배열로 저장된 각각의 classId map으로 순회하여 setClassList에 저장
+      try {
+        const allData = await Promise.all(
+          classId.map(async (id, index) => {
+            const data = await GetClassDetailInfoData(id, token);
+            return {
+              itemName: data.itemName,
+              date: classDate[index],
+            };
+          })
+        );
+        setClassList(allData);
+      } catch (error) {
+        console.log('Error', error);
+      }
+    };
+    fetchData();
+  }, [classId, token]);
 
   useEffect(() => {
     // 예약 데이터에서 class_id 값을 확인
@@ -59,6 +93,7 @@ export default function Posting() {
 
   useEffect(() => {
     GetUserProfileImage(token, setUserImage);
+    console.log(classDate);
   }, [token]);
 
   const { textarea, handleTextareaChange } = useTextareaResize(
@@ -149,18 +184,17 @@ export default function Posting() {
           onChange={handleTextareaChange}
           ref={textarea}
         ></TextInputContainer>
-
+        {/* 드롭다운 컴포넌트 */}
         <DropdownContainer ref={dropDownRef}>
           <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
             {classIdentify || '수강한 클래스를 선택해 주세요'}{' '}
-            {/* Display the selected value here */}
           </DropdownButton>
           {isOpen && (
             <DropdownMenu>
-              {classList.map((value, index) => (
+              {classList.map((item, index) => (
                 <Dropdown
                   key={index}
-                  value={value}
+                  value={`${item.itemName} - ${item.date}`}
                   setIsOpen={setIsOpen}
                   setClassIdentify={setClassIdentify}
                   isOpen={isOpen}

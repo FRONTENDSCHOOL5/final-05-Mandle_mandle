@@ -1,5 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+
+export default function Dropdown(props) {
+  const { value, setClassIdentify, setIsOpen, isOpen } = props;
+  const ValueClick = () => {
+    setClassIdentify(value);
+    setIsOpen(!isOpen);
+  };
+  return <DropdownItem onClick={ValueClick}>{value}</DropdownItem>;
+}
+
+export { DropdownContainer, DropdownButton, DropdownMenu };
+
 const DropdownItem = styled.li`
   padding: 10px;
   cursor: pointer;
@@ -32,14 +44,3 @@ const DropdownMenu = styled.ul`
   background-color: white;
   z-index: 1000;
 `;
-
-export default function Dropdown(props) {
-  const { value, setClassIdentify, setIsOpen, isOpen } = props;
-  const ValueClick = () => {
-    setClassIdentify(value);
-    setIsOpen(!isOpen);
-  };
-  return <DropdownItem onClick={ValueClick}>{value}</DropdownItem>;
-}
-
-export { DropdownContainer, DropdownButton, DropdownMenu };
