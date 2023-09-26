@@ -80,7 +80,32 @@ const Header = styled.header`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 2px;
   padding: 144px 0 112px;
+  position: absolute;
+  left: 50%;
+  bottom: 52%;
+  transform: translate(-50%, 50%);
+  animation: fade-in-logo 0.5s ease-in-out forwards,
+    slide-up-logo 0.8s ease-out 0.2s forwards;
+
+  @keyframes slide-up-logo {
+    from {
+      bottom: 52%;
+    }
+    to {
+      bottom: 65%;
+    }
+  }
+
+  @keyframes fade-in-logo {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 const LoginChooseList = styled.div`
@@ -90,15 +115,25 @@ const LoginChooseList = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 0;
+  bottom: -40%;
   width: 390px;
   height: 341px;
   background-color: #ffffff;
   border-radius: 20px 20px 0 0;
+  animation: slide-up-list 0.8s ease-out 0.2s forwards;
   ul {
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  @keyframes slide-up-list {
+    from {
+      bottom: -40%;
+    }
+    to {
+      bottom: 0%;
+    }
   }
 `;
 
