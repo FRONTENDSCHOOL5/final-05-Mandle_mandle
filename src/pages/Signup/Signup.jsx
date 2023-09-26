@@ -5,6 +5,7 @@ import { SignUpAtom } from '../../Store/AtomSignupState';
 import UserInfoInput from '../../Hooks/UserInfoInput';
 import PostEmailValid from '../../api/PostEmailVaild';
 import Input from '../../components/Common/Account/Input';
+import usePasswordConfirm from '../../Hooks/usePasswordConfirm';
 import { ButtonStyle } from '../../components/Common/Button';
 import AccountHeader from '../../components/Common/Account/AccountHeader';
 import usePasswordToggle from '../../Hooks/usePasswordToggle';
@@ -16,13 +17,13 @@ import {
   Label,
   ButtonImgStyle,
   ErrorMessage,
+  ValidMessage,
 } from '../../components/Common/Account/AccountStyle';
 
 export default function Signup() {
   const [type, setType] = useState('Student');
-  const [emailErrorMessage, setEmailErrorMessage] = useState('');
-  const [pwErrorMessage, setPwErrorMessage] = useState('');
-  const [emailValid, setEmailValid] = useState(false);
+  const [confirmPWErrorMessage, setConfirmPwErrorMessage] = useState('');
+  const [emailValidMessage, setEmailValidMessage] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
 
   const { toggleShowPassword, showPassword } = usePasswordToggle();
@@ -37,9 +38,17 @@ export default function Signup() {
     setEmail,
     password,
     setPassword,
+    confirmedPassword,
+    setConfirmedPassword,
     buttonImg,
     handleInputChange,
-  } = UserInfoInput(ButtonImg, DisabledButtonImg);
+    emailErrorMessage,
+    setEmailErrorMessage,
+    pwErrorMessage,
+    setPwErrorMessage,
+  } = UserInfoInput(ButtonImg, DisabledButtonImg, 'signup');
+
+  const passwordConfirmed = usePasswordConfirm(password, confirmedPassword);
 
   const handleEmailValid = async () => {
     const emailPattern = /^\S+@\S+\.\S+$/;
@@ -49,10 +58,14 @@ export default function Signup() {
       setEmail('');
     } else {
       const validMessage = await PostEmailValid(email);
-      setEmailErrorMessage(validMessage);
-      validMessage === '사용 가능한 이메일 입니다.'
-        ? setEmailValid(true)
-        : setEmailValid(false);
+
+      if (validMessage === '사용 가능한 이메일 입니다.') {
+        setEmailValidMessage(validMessage);
+        setEmailErrorMessage('');
+      } else {
+        setEmailErrorMessage(validMessage);
+        setEmailValidMessage('');
+      }
     }
   };
 
@@ -66,14 +79,20 @@ export default function Signup() {
       setPasswordValid(false);
     }
   };
-
+  const handleConfirmedPasswordValid = () => {
+    if (confirmedPassword && !passwordConfirmed) {
+      setConfirmPwErrorMessage('비밀번호가 일치하지 않습니다.');
+    } else {
+      setConfirmPwErrorMessage('');
+    }
+  };
   const handleSignupSubmit = (event) => {
     event.preventDefault();
 
     if (buttonImg === DisabledButtonImg) {
       return; // 버튼 비활성화일 때 기능 막기
     }
-    if (email && password && emailValid && passwordValid) {
+    if (email && password && emailValidMessage && passwordValid) {
       setSignup({ email, password, type });
       navigate('/account/set_profile');
     } else {
@@ -88,6 +107,8 @@ export default function Signup() {
   const handleTeacherBtnClick = () => {
     setType('Teacher');
   };
+
+  console.log(confirmedPassword, confirmPWErrorMessage);
 
   return (
     <>
@@ -130,33 +151,42 @@ export default function Signup() {
           onChange={handleInputChange}
           onBlur={handleEmailValid}
           borderColor={
-            emailValid
+            emailValidMessage
               ? 'var(--main-color)'
               : emailErrorMessage
               ? 'var(--error-color)'
               : '#dbdbdb'
           }
         />
-        {emailErrorMessage && (
-          <ErrorMessage
-            color={emailValid ? 'var(--main-color)' : 'var(--error-color)'}
-          >
-            {emailErrorMessage}
-          </ErrorMessage>
-        )}
+        {emailErrorMessage && <ErrorMessage>{emailErrorMessage}</ErrorMessage>}
+        {emailValidMessage && <ValidMessage>{emailValidMessage}</ValidMessage>}
         <Input
           label='비밀번호'
-          name='password'
+          name='password-initial'
           type='password'
           placeholder='비밀번호를 입력해주세요'
           onChange={handleInputChange}
           onBlur={handlePasswordValid}
           borderColor={pwErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
           showPassword={showPassword}
-          toggleShowPassword={toggleShowPassword}
+          passwordValid={passwordValid}
+          passwordConfirmed={passwordConfirmed}
         />
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
-
+        <Input
+          label='비밀번호 재확인'
+          name='password-confirm'
+          type='password'
+          placeholder='비밀번호를 다시 한번 입력해주세요'
+          onChange={handleInputChange}
+          onBlur={handleConfirmedPasswordValid}
+          borderColor={confirmPWErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
+          showPassword={showPassword}
+          passwordConfirmed={passwordConfirmed}
+        />
+        {confirmedPassword && confirmPWErrorMessage && (
+          <ErrorMessage>{confirmPWErrorMessage}</ErrorMessage>
+        )}
         <ButtonImgStyle type='submit' onClick={handleSignupSubmit}>
           <img src={buttonImg} alt='이메일,비밀번호 등록 버튼' />
         </ButtonImgStyle>

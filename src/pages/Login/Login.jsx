@@ -19,8 +19,6 @@ import {
 export default function Login() {
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const [isLogin, setIsLogin] = useRecoilState(IsLogin);
-  const [emailErrorMessage, setEmailErrorMessage] = useState('');
-  const [pwErrorMessage, setPwErrorMessage] = useState('');
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const [autoLogin, setAutoLogin] = useRecoilState(AutoLogin);
 
@@ -43,7 +41,11 @@ export default function Login() {
     setPassword,
     buttonImg,
     handleInputChange,
-  } = UserInfoInput(ButtonImg, DisabledButtonImg);
+    emailErrorMessage,
+    setEmailErrorMessage,
+    pwErrorMessage,
+    setPwErrorMessage,
+  } = UserInfoInput(ButtonImg, DisabledButtonImg, 'login');
 
   const handleEmailValid = () => {
     const emailPattern = /^\S+@\S+\.\S+$/;

@@ -43,9 +43,16 @@ export const ButtonImgStyle = styled.button`
 
 export const ErrorMessage = styled.div`
   align-self: stretch;
-  color: ${(props) => props.color || 'var(--error-color)'};
+  color: var(--error-color);
   font-size: var(--font-sm);
 `;
+
+export const ValidMessage = styled.div`
+  align-self: stretch;
+  color: var(--main-color);
+  font-size: var(--font-sm);
+`;
+
 export const MoveSignup = styled(Link)`
   display: block;
   color: var(--sub-font-color);
