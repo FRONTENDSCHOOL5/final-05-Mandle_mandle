@@ -6,6 +6,7 @@ import {
   DropdownContainer,
   DropdownButton,
   DropdownMenu,
+  ImageBox,
 } from '../../components/Common/Dropdown/Dropdown';
 import {
   DisabledUploadBtnNav,
@@ -29,16 +30,18 @@ import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 import imageCompression from 'browser-image-compression';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
+
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
-  const reservationData = useRecoilValue(ReserveDataState);
+  const reservationData = useRecoilValue(ReserveDataState); // 리코일에 저장된 클래스 id 값
+
   const userInfo = useRecoilValue(UserAtom);
   const dropDownRef = useRef();
-  const [classIdentify, setClassIdentify] = useState('');
-  const [classList, setClassList] = useState([]);
+  const [classIdentify, setClassIdentify] = useState(''); //  선택한 클래스 정보 상태를 담을 status
+  const [classList, setClassList] = useState([]); // 수강후기를 작성할 클래스 리스트
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
   const navigate = useNavigate();
   const token = userInfo.token;
@@ -64,8 +67,10 @@ export default function Posting() {
         const allData = await Promise.all(
           classId.map(async (id, index) => {
             const data = await GetClassDetailInfoData(id, token);
+
             return {
               itemName: data.itemName,
+              itemImage: data.itemImage,
               date: classDate[index],
             };
           })
@@ -195,6 +200,7 @@ export default function Posting() {
                 <Dropdown
                   key={index}
                   value={`${item.itemName} - ${item.date}`}
+                  img={item.itemImage}
                   setIsOpen={setIsOpen}
                   setClassIdentify={setClassIdentify}
                   isOpen={isOpen}
