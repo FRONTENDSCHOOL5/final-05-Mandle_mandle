@@ -80,6 +80,7 @@ export function Main() {
             <img src={UploadImgBtn} alt='이미지 업로드' />
             <input
               type='file'
+              accept='.jpeg, .jpg, .png'
               style={{ display: 'none' }}
               onChange={handleImageUpload}
             />
