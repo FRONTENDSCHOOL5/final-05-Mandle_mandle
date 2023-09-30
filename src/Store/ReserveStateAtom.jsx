@@ -9,5 +9,3 @@ export const ReserveDataState = atom({
   },
   effects_UNSTABLE: [persistAtom],
 });
-
-// Mandletest2!
