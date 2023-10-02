@@ -171,6 +171,7 @@ export default function Signup() {
           showPassword={showPassword}
           passwordValid={passwordValid}
           passwordConfirmed={passwordConfirmed}
+          maxLength={30}
         />
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
         <Input
@@ -183,6 +184,7 @@ export default function Signup() {
           borderColor={confirmPWErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
           showPassword={showPassword}
           passwordConfirmed={passwordConfirmed}
+          maxLength={30}
         />
         {confirmedPassword && confirmPWErrorMessage && (
           <ErrorMessage>{confirmPWErrorMessage}</ErrorMessage>

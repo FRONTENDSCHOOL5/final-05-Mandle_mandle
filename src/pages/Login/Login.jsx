@@ -125,6 +125,7 @@ export default function Login() {
           borderColor={pwErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
           showPassword={showPassword}
           toggleShowPassword={toggleShowPassword}
+          maxLength={30}
         />
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
         {loginErrorMessage && <ErrorMessage>{loginErrorMessage}</ErrorMessage>}

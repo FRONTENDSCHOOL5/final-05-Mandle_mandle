@@ -8,8 +8,9 @@ export default function Input({
   name,
   type,
   value,
-  onChange,
   onBlur,
+  onChange,
+  maxLength,
   placeholder,
   borderColor,
   showPassword,
@@ -31,6 +32,7 @@ export default function Input({
         placeholder={placeholder}
         borderColor={borderColor}
         value={value}
+        maxLength={maxLength}
       />
       {type === 'password' &&
         (name === 'password' ? (

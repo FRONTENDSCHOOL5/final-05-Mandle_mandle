@@ -4,7 +4,12 @@ import PostContent from './PostContent';
 import PostProfile from './PostProfile';
 export default function PostList({ post, setPostUpdated }) {
   return (
-    <PostLiStyle>
+    <PostLiStyle
+      $bgColor={
+        post.author.accountname.substr(0, 7) === 'Teacher' &&
+        'rgba(226, 238, 232,0.5)'
+      }
+    >
       <PostProfile setPostUpdated={setPostUpdated} post={post} />
       <PostContent post={post} />
     </PostLiStyle>
@@ -17,4 +22,6 @@ const PostLiStyle = styled.li`
   padding-bottom: 20px;
   gap: 16px;
   margin-top: 10px;
+  background-color: ${(props) => props.$bgColor};
+  border-radius: 20px 0 0 0;
 `;
