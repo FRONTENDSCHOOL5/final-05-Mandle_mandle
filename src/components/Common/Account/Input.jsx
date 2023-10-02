@@ -8,8 +8,8 @@ export default function Input({
   name,
   type,
   value,
-  onBlur,
   onChange,
+  onBlur,
   maxLength,
   placeholder,
   borderColor,
@@ -34,26 +34,27 @@ export default function Input({
         value={value}
         maxLength={maxLength}
       />
-      {type === 'password' &&
-        (name === 'password' ? (
-          <EyeIcon onClick={toggleShowPassword}>
-            <img src={showPassword ? showEye : hideEye} alt='눈 모양 아이콘' />
-          </EyeIcon>
-        ) : name === 'password-initial' ? (
-          <ConfirmIcon>
-            <img
-              src={passwordValid ? checkOn : checkOff}
-              alt='체크 모양 아이콘'
-            />
-          </ConfirmIcon>
-        ) : (
-          <ConfirmIcon>
-            <img
-              src={passwordConfirmed ? checkOn : checkOff}
-              alt='체크 모양 아이콘'
-            />
-          </ConfirmIcon>
-        ))}
+      {type === 'password' && (
+        <EyeIcon onClick={toggleShowPassword}>
+          <img src={showPassword ? showEye : hideEye} alt='눈 모양 아이콘' />
+        </EyeIcon>
+      )}
+      {type === 'text' && name === 'password-initial' && (
+        <ConfirmIcon>
+          <img
+            src={passwordValid ? checkOn : checkOff}
+            alt='체크 모양 아이콘'
+          />
+        </ConfirmIcon>
+      )}
+      {type === 'text' && name === 'password-confirm' && (
+        <ConfirmIcon>
+          <img
+            src={passwordConfirmed ? checkOn : checkOff}
+            alt='체크 모양 아이콘'
+          />
+        </ConfirmIcon>
+      )}
     </InputDiv>
   );
 }

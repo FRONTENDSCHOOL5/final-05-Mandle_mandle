@@ -163,7 +163,7 @@ export default function Signup() {
         <Input
           label='비밀번호'
           name='password-initial'
-          type='password'
+          type='text'
           placeholder='비밀번호를 입력해주세요'
           onChange={handleInputChange}
           onBlur={handlePasswordValid}
@@ -177,7 +177,7 @@ export default function Signup() {
         <Input
           label='비밀번호 재확인'
           name='password-confirm'
-          type='password'
+          type='text'
           placeholder='비밀번호를 다시 한번 입력해주세요'
           onChange={handleInputChange}
           onBlur={handleConfirmedPasswordValid}
