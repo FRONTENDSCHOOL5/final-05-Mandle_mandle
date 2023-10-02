@@ -1,20 +1,39 @@
 import { useState, useEffect } from 'react';
 
-export default function UserInfoInput(button, disabledButton) {
+export default function UserInfoInput(button, disabledButton, type) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmedPassword, setConfirmedPassword] = useState('');
   const [buttonImg, setButtonImg] = useState(disabledButton);
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [pwErrorMessage, setPwErrorMessage] = useState('');
   useEffect(() => {
     handleActiveButton();
-  }, [email, password, emailErrorMessage, pwErrorMessage]);
+  }, [email, password, confirmedPassword, emailErrorMessage, pwErrorMessage]);
 
   const handleActiveButton = () => {
     const isFormFilled = email.trim().length > 0 && password.trim().length > 0;
     const isFormValid = emailErrorMessage === '' && pwErrorMessage === '';
+    const isFormConfirmed =
+      password && confirmedPassword && password === confirmedPassword;
 
-    setButtonImg(isFormFilled && isFormValid ? button : disabledButton);
+    console.log(
+      isFormFilled,
+      isFormValid,
+      isFormConfirmed,
+      emailErrorMessage,
+      pwErrorMessage,
+    );
+
+    setButtonImg(
+      type === 'signup'
+        ? isFormFilled && isFormValid && isFormConfirmed
+          ? button
+          : disabledButton
+        : isFormFilled && isFormValid
+        ? button
+        : disabledButton,
+    );
   };
 
   const handleInputChange = (e) => {
@@ -22,8 +41,10 @@ export default function UserInfoInput(button, disabledButton) {
 
     if (name === 'email') {
       setEmail(value.trim());
-    } else if (name === 'password') {
+    } else if (name === 'password' || name === 'password-initial') {
       setPassword(value.trim());
+    } else if (name === 'password-confirm') {
+      setConfirmedPassword(value.trim());
     }
 
     handleActiveButton();
@@ -35,7 +56,8 @@ export default function UserInfoInput(button, disabledButton) {
     password,
     setPassword,
     buttonImg,
-
+    confirmedPassword,
+    setConfirmedPassword,
     handleInputChange,
     emailErrorMessage,
     pwErrorMessage,

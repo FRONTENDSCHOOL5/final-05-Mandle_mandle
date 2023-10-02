@@ -13,7 +13,7 @@ import PostReportComment from '../../../api/PostReportComment';
 export default function CommentList({ postId, comment, setCommentUpdated }) {
   const userInfo = useRecoilValue(UserAtom);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(null);
 
   const handleClick = () => {
     setModalOpen(true);
@@ -37,11 +37,11 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
     const response = await DeleteComment(postId, comment.id, userInfo.token); // Call the API component
     if (response) {
       alert(`해당 댓글이 삭제되었습니다.`);
-      setAlertModalOpen(false);
+      setAlertModalOpen(null);
       setCommentUpdated(true);
     }
   };
-
+  console.log(alertModalOpen);
   return (
     <CommentListWrap>
       <ProfileWrap>
@@ -63,19 +63,26 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
           <Modal
             setModalOpen={setModalOpen}
             setAlertModalOpen={setAlertModalOpen}
+            type='delete'
             text='삭제'
           />
         ) : (
           <Modal
             setModalOpen={setModalOpen}
-            onClick={handleReportSubmit}
+            setAlertModalOpen={setAlertModalOpen}
+            type='report'
             text='신고하기'
           />
         ))}
       {alertModalOpen && (
         <ModalAlert
           setAlertModalOpen={setAlertModalOpen}
-          onClick={handleDeleteSubmit}
+          onClick={
+            alertModalOpen === 'delete'
+              ? handleDeleteSubmit
+              : handleReportSubmit
+          }
+          type={alertModalOpen}
         />
       )}
     </CommentListWrap>

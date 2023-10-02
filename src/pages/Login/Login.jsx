@@ -19,8 +19,6 @@ import {
 export default function Login() {
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const [isLogin, setIsLogin] = useRecoilState(IsLogin);
-  const [emailErrorMessage, setEmailErrorMessage] = useState('');
-  const [pwErrorMessage, setPwErrorMessage] = useState('');
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const [autoLogin, setAutoLogin] = useRecoilState(AutoLogin);
 
@@ -43,7 +41,11 @@ export default function Login() {
     setPassword,
     buttonImg,
     handleInputChange,
-  } = UserInfoInput(ButtonImg, DisabledButtonImg);
+    emailErrorMessage,
+    setEmailErrorMessage,
+    pwErrorMessage,
+    setPwErrorMessage,
+  } = UserInfoInput(ButtonImg, DisabledButtonImg, 'login');
 
   const handleEmailValid = () => {
     const emailPattern = /^\S+@\S+\.\S+$/;
@@ -123,6 +125,7 @@ export default function Login() {
           borderColor={pwErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
           showPassword={showPassword}
           toggleShowPassword={toggleShowPassword}
+          maxLength={30}
         />
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
         {loginErrorMessage && <ErrorMessage>{loginErrorMessage}</ErrorMessage>}
@@ -132,10 +135,13 @@ export default function Login() {
             checked={autoLogin}
             onChange={handleCheckboxChange}
           />
-          <CheckboxLabel>자동로그인 </CheckboxLabel>
+          <CheckboxLabel>자동 로그인</CheckboxLabel>
         </CheckboxContainer>
 
-        <ButtonImgStyle type='submit'>
+        <ButtonImgStyle
+          type='submit'
+          disabled={buttonImg === ButtonImg ? false : true}
+        >
           <img src={buttonImg} alt='로그인하기 버튼' />
         </ButtonImgStyle>
       </AccountForm>
@@ -146,17 +152,17 @@ export default function Login() {
 
 const CheckboxContainer = styled.div`
   display: flex;
+  margin: 10px 0 3px;
   align-items: center;
-  padding-top: 10px;
-  margin-right: 220px;
+  justify-self: flex-start;
 `;
 
 const CheckboxInput = styled.input`
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 1.5px solid gainsboro;
-  margin-right: 10px;
+  margin-right: 6px;
   border-radius: 0.35rem;
   cursor: pointer;
   &:checked {
@@ -166,12 +172,12 @@ const CheckboxInput = styled.input`
     background-size: 100% 100%;
     background-position: 50%;
     background-repeat: no-repeat;
-    background-color: #007bff;
+    background-color: #036635;
   }
 `;
 
 const CheckboxLabel = styled.label`
-  font-size: 12px;
+  font-size: 14px;
   color: #767676;
   cursor: pointer;
 `;

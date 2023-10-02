@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
+import { ClassDataAtom } from '../../Store/ClassDataAtom';
 import { HomeNav } from '../../components/Common/TopNav';
 import { ClassPost, ClassPostMini } from '../../components/Common/ClassPost';
 import MenuBar from '../../components/Common/MenuBar';
@@ -8,26 +9,14 @@ import { Link } from 'react-router-dom';
 import { HiddenContext, MainWrap, MiniSection, ClassSection, Title, MiniList, ClassList } from './ClassStyle';
 import GetClassData from '../../api/GetClassData';
 import ClassSkeleton from '../../components/Common/Skeleton/ClassSkeleton';
-import { atom } from 'recoil';
 
-// atom 분리하기
-export const ClassDataAtom = atom({
-  key: 'classData',
-  default: {
-    popularClasses: [],
-    newClasses: [],
-    page: 1,
-  },
-});
 
 export default function Class() {
   const UserInfo = useRecoilValue(UserAtom);
   const token = UserInfo.token;
   const [loading, setLoading] = useState(true);
-
-  const mainWrapRef = useRef(null);
-
   const [classData, setClassData] = useRecoilState(ClassDataAtom);
+  const mainWrapRef = useRef(null);
 
   const handleScroll = () => {
     if (mainWrapRef.current) {
@@ -50,7 +39,7 @@ export default function Class() {
       try {
         const data = await GetClassData(token, classData.page); 
         const filteredClasses = data.product.filter(classItem => classItem.author.accountname.includes('Teacher'));
-
+        
         if (classData.page === 1) {
           setClassData({
             ...classData,

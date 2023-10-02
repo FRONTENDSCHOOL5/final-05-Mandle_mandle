@@ -8,6 +8,7 @@ import { MoreNav } from '../../components/Common/TopNav';
 import PostList from '../../components/Common/PostList/PostList';
 import MiniClassList from '../../components/Common/MiniClassList';
 import NormalizeImage from '../../components/Common/NormalizeImage';
+import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
 import { ReserveDataState } from '../../Store/ReserveStateAtom';
 import HomeLogo from '../../assets/img/home-logo.svg';
@@ -44,12 +45,11 @@ export default function Profile() {
   const [classUpdated, setClassUpdated] = useState(false);
   const [isListBtnActive, setListBtnActive] = useState(true);
   const [isImgListBtnActive, setImgListBtnActive] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(null);
   const reservations = useRecoilValue(ReserveDataState);
   const [introText, setIntroText] = useState('');
-
   const [backgroundColor, setBackgroundColor] = useState('');
-
+  
   useEffect(() => {
     const fetchData = async () => {
       const userProfileData = await ProfileData(userAccountname, token);
@@ -100,6 +100,7 @@ export default function Profile() {
   const handleLogout = () => {
     setUserInfo({});
     alert('로그아웃 되었습니다. 다음에 또 만나요!');
+    setAlertModalOpen(null);
     localStorage.removeItem('recoil-persist');
     navigate('/');
     window.location.reload();
@@ -112,8 +113,16 @@ export default function Profile() {
       {isModalOpen && (
         <Modal
           setModalOpen={setModalOpen}
-          onClick={handleLogout}
+          setAlertModalOpen={setAlertModalOpen}
+          type='logout'
           text='로그아웃'
+        />
+      )}
+      {alertModalOpen && (
+        <ModalAlert
+          setAlertModalOpen={setAlertModalOpen}
+          onClick={handleLogout}
+          type={alertModalOpen}
         />
       )}
       <MainWrap>

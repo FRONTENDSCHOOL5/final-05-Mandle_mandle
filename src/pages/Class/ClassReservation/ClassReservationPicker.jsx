@@ -5,6 +5,9 @@ import { useRecoilState } from 'recoil';
 import { ReserveDataState } from '../../../Store/ReserveStateAtom'
 
 export function TimePicker({ selectedDate }) {
+  const currentDate = new Date();
+  console.log(currentDate);
+  console.log(selectedDate);
   return (
     <Time
       selectedDate={selectedDate}
@@ -16,6 +19,8 @@ export function TimePicker({ selectedDate }) {
     />
   );
 }
+
+
 
 export function Time({ selectedDate, availableTimes }) {
   const [showTimeList, setShowTimeList] = useState(false);
@@ -35,7 +40,9 @@ export function Time({ selectedDate, availableTimes }) {
   const handleReservation = () => {
     const reserveData = {
       class_id: state.id,
-      reserve_date: formatKoreanDate(selectedDate),
+      reserve_ko_date: formatKoreanDate(selectedDate),
+      reserve_en_date: formatSelectedDate(selectedDate),
+      reserve_common_date: selectedDate,
       reserve_time: availableTimes[activeItem - 1]
     }
 
@@ -59,7 +66,7 @@ export function Time({ selectedDate, availableTimes }) {
     navigate(-1);
   }
 
-    // 날짜를 한국 표기로 형식화하는 함수를 정의합니다.
+    // 날짜를 한국 표기로 형식화하는 함수
   function formatKoreanDate(date) {
     const options = {
       year: 'numeric',
@@ -71,6 +78,18 @@ export function Time({ selectedDate, availableTimes }) {
     const koreanDate = new Date(date).toLocaleDateString('ko-KR', options);
     return koreanDate;
   }
+
+  // 날짜를 영어 표기로 형식화하는 함수
+  function formatSelectedDate(date) {
+    const options = {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    };
+    return new Date(date).toLocaleDateString('en-US', options);
+  }
+  console.log(selectedDate);
 
   return (
     <>

@@ -43,8 +43,17 @@ export const SplashWrap = styled.div`
     }
   }
 
+  @keyframes fade-out-logo {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
   .twist {
-    animation: twist 3s infinite alternate;
+    animation: twist 3s alternate, fade-out-logo 0.3s ease-in 3s;
   }
 
   .bounce {
