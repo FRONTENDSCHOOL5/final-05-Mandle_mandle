@@ -9,7 +9,7 @@ import PostList from '../../components/Common/PostList/PostList';
 import MiniClassList from '../../components/Common/MiniClassList';
 import NormalizeImage from '../../components/Common/NormalizeImage';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
-
+import { ReserveDataState } from '../../Store/ReserveStateAtom';
 import HomeLogo from '../../assets/img/home-logo.svg';
 import ImageMore from '../../assets/img/icon-img-more.svg';
 import MenuBar from '../../components/Common/MenuBar';
@@ -30,6 +30,7 @@ import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
 import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
 import PostAlbumBtnOn from '../../assets/img/icon-post-album-on.svg';
 import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
+import { useRecoilValue } from 'recoil';
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -44,6 +45,11 @@ export default function Profile() {
   const [isListBtnActive, setListBtnActive] = useState(true);
   const [isImgListBtnActive, setImgListBtnActive] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
+  const reservations = useRecoilValue(ReserveDataState);
+  const [introText, setIntroText] = useState('');
+
+  const [backgroundColor, setBackgroundColor] = useState('');
+
   useEffect(() => {
     const fetchData = async () => {
       const userProfileData = await ProfileData(userAccountname, token);
@@ -54,10 +60,22 @@ export default function Profile() {
       setClassData(userClassData);
       setPostUpdated(false);
       setClassUpdated(false);
+
+      // Extract text part of intro before the '#' character and set it to introText
+      if (userProfileData && userProfileData.intro) {
+        const introParts = userProfileData.intro.split('#');
+        if (introParts.length > 1) {
+          setIntroText(introParts[0]);
+          setBackgroundColor(`#${introParts[1]}`);
+        } else {
+          setIntroText(userProfileData.intro); // If no '#', set introText to the entire intro
+        }
+      }
     };
+
     fetchData();
   }, [postUpdated, classUpdated]);
-
+  console.log(reservations);
   //프로필 수정페이지 이동
   function handleClick(profileData) {
     navigate(`edit/${profileData.accountname}`, {
@@ -86,7 +104,6 @@ export default function Profile() {
     navigate('/');
     window.location.reload();
   };
-
   return (
     <ProfilePage>
       {/* 모달 버튼 */}
@@ -107,7 +124,7 @@ export default function Profile() {
           // 프로필 페이지
 
           <div>
-            <ProfileSection>
+            <ProfileSection style={{ backgroundColor }}>
               <Wrap>
                 <div className='follow'>
                   <Link to='/my_profile/follower'>
@@ -149,7 +166,7 @@ export default function Profile() {
                   ? profileData.accountname.substr(7)
                   : profileData.accountname}
               </p>
-              <p id='Introduce'>{profileData.intro}</p>
+              <p id='Introduce'>{introText}</p>
               <WrapBtn>
                 {/* 프로필 수정버튼 */}
                 <button
@@ -180,16 +197,16 @@ export default function Profile() {
                 <button
                   className={
                     profileData.accountname &&
-                    profileData.accountname.includes('Teacher')
-                      ? 'a11y-hidden'
-                      : 'profileBtn'
+                    profileData.accountname.includes('Student')
+                      ? 'profileBtn'
+                      : 'a11y-hidden'
                   }
                   onClick={() => {
                     if (
                       profileData.accountname &&
-                      profileData.accountname.includes('Teacher')
+                      profileData.accountname.includes('Student')
                     ) {
-                      navigate('/registration');
+                      navigate('/my_profile/my_reservation_list');
                     }
                   }}
                 >
