@@ -108,8 +108,6 @@ export default function Signup() {
     setType('Teacher');
   };
 
-  console.log(confirmedPassword, confirmPWErrorMessage);
-
   return (
     <>
       <AccountHeader title='이메일로 회원가입' />
@@ -189,7 +187,11 @@ export default function Signup() {
         {confirmedPassword && confirmPWErrorMessage && (
           <ErrorMessage>{confirmPWErrorMessage}</ErrorMessage>
         )}
-        <ButtonImgStyle type='submit' onClick={handleSignupSubmit}>
+        <ButtonImgStyle
+          type='submit'
+          onClick={handleSignupSubmit}
+          disabled={buttonImg === ButtonImg ? false : true}
+        >
           <img src={buttonImg} alt='이메일,비밀번호 등록 버튼' />
         </ButtonImgStyle>
       </AccountForm>

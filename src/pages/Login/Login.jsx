@@ -138,7 +138,10 @@ export default function Login() {
           <CheckboxLabel>자동 로그인</CheckboxLabel>
         </CheckboxContainer>
 
-        <ButtonImgStyle type='submit'>
+        <ButtonImgStyle
+          type='submit'
+          disabled={buttonImg === ButtonImg ? false : true}
+        >
           <img src={buttonImg} alt='로그인하기 버튼' />
         </ButtonImgStyle>
       </AccountForm>

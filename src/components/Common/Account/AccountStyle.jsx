@@ -39,6 +39,10 @@ export const ButtonImgStyle = styled.button`
   display: flex;
   justify-content: center;
   margin: 16px 0 8px;
+
+  &:disabled {
+    cursor: default;
+  }
 `;
 
 export const ErrorMessage = styled.div`
