@@ -38,9 +38,16 @@ const EditProfile = () => {
       ? data.accountname.substr(0, 7)
       : '';
   const [accountname, setAccountname] = useState(
-    accountType ? data.accountname.substr(7) : data.accountname
+    accountType ? data.accountname.substr(7) : data.accountname,
   );
-  const [intro, setIntro] = useState(data.intro);
+  const intro = data.intro;
+  const colorMatch = intro.match(/#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})/);
+  const [backgroundColor, setBackgroundColor] = useState(
+    colorMatch ? colorMatch[0] : '',
+  );
+  const [introText, setIntroText] = useState(
+    intro.replace(backgroundColor, ''),
+  );
   const [button, setButton] = useState(false);
   const [image, setImage] = useState(data.image);
 
@@ -66,13 +73,13 @@ const EditProfile = () => {
     } else if (name === 'accountname') {
       setAccountname(value.trim());
     } else if (name === 'intro') {
-      setIntro(value.trim());
+      setIntroText(value);
     }
 
     handleActiveButton();
     // 두 입력란에 값이 모두 존재할 경우 버튼 활성화 함수 실행
   };
-
+  console.log(intro, colorMatch, introText);
   //유저 이름 유효성 검사
   const handleUsernameValid = () => {
     if (username.length >= 2 && username.length <= 10) {
@@ -109,11 +116,6 @@ const EditProfile = () => {
       setButton(false);
     }
   };
-  const colorMatch = intro.match(/#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})/);
-  const [backgroundColor, setBackgroundColor] = useState(
-    colorMatch ? colorMatch[0] : ''
-  );
-  const introText = intro.replace(backgroundColor, '');
 
   const handleColorChange = (event) => {
     setBackgroundColor(event.target.value);
@@ -124,7 +126,7 @@ const EditProfile = () => {
       ...userInfo,
       username: username,
       accountname: accountType + accountname,
-      intro: intro + backgroundColor,
+      intro: introText + backgroundColor,
       image: image,
     };
 

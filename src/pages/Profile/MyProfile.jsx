@@ -44,12 +44,13 @@ export default function Profile() {
   const [postUpdated, setPostUpdated] = useState(false);
   const [classUpdated, setClassUpdated] = useState(false);
   const [isListBtnActive, setListBtnActive] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
   const [isImgListBtnActive, setImgListBtnActive] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(null);
   const reservations = useRecoilValue(ReserveDataState);
   const [introText, setIntroText] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('');
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const userProfileData = await ProfileData(userAccountname, token);
