@@ -1,17 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
 import { MoreNav } from '../../components/Common/TopNav';
 import { useNavigate } from 'react-router-dom';
 import profileimg from '../../assets/img/mini-basic-progile-img.svg';
 import MenuBar from '../../components/Common/MenuBar';
-
+import { ChatListLayout, ChatListBox } from './ChatListStyle';
 export default function ChatList() {
   const navigate = useNavigate();
   return (
     <>
       <MoreNav />
-      <ChatListStyle>
-        <ChatContainerStyle
+      <ChatListLayout>
+        <ChatListBox
           onClick={() => {
             navigate('/chat/chatroom');
           }}
@@ -24,8 +23,8 @@ export default function ChatList() {
               <div className='date'>2023.06.17</div>
             </div>
           </div>
-        </ChatContainerStyle>
-        <ChatContainerStyle
+        </ChatListBox>
+        <ChatListBox
           onClick={() => {
             navigate('/chat/chatroom');
           }}
@@ -38,8 +37,8 @@ export default function ChatList() {
               <div className='date'>2023.06.15</div>
             </div>
           </div>
-        </ChatContainerStyle>
-        <ChatContainerStyle
+        </ChatListBox>
+        <ChatListBox
           onClick={() => {
             navigate('/chat/chatroom');
           }}
@@ -53,68 +52,9 @@ export default function ChatList() {
               <div className='date'>2023.06.11</div>
             </div>
           </div>
-        </ChatContainerStyle>
-      </ChatListStyle>
+        </ChatListBox>
+      </ChatListLayout>
       <MenuBar />
     </>
   );
 }
-
-const ChatListStyle = styled.div`
-  width: var(--basic-width);
-  height: var(--screen-nav-height);
-  background-color: white;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  ::-webkit-scrollbar {
-    background-color: white;
-  }
-`;
-
-const ChatContainerStyle = styled.div`
-  height: 66px;
-  display: flex;
-  align-items: center;
-  background-color: white;
-  cursor: pointer;
-
-  img {
-    width: 42px;
-    height: 42px;
-    margin: 0 16px;
-  }
-
-  .text {
-    flex: 1;
-  }
-
-  span {
-    display: block;
-    height: 19px;
-    font-weight: bold;
-    font-size: var(--font--size-md);
-  }
-
-  .chatInfo {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  p {
-    display: inline-block;
-    height: 16px;
-    line-height: 16px;
-    font-size: var(--font-md);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 220px;
-    color: var(--sub-font-color);
-  }
-
-  .date {
-    color: var(--border-color);
-    font-size: 10px;
-    margin-right: 7px;
-  }
-`;
