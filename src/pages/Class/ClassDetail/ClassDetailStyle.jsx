@@ -109,7 +109,7 @@ export const LikeBtn = styled.button`
     display: block;
     position: absolute;
     top: ${(props) => (props.isClicked ? '9px' : '7px')};
-    left: ${(props) => (props.isClicked ? '45px' : '44px')};
+    left: ${(props) => (props.isClicked ? '32px' : '31px')};
   }
 
   &::after {
@@ -122,6 +122,11 @@ export const LikeBtn = styled.button`
     top: 0;
     left: 50%;
   }
+`;
+
+export const LikeNum = styled.span`
+  font-size: var(--font-md);
+  margin-left: 5px;
 `;
 
 export const ShareBtn = styled.button`
