@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 export const ClassDataAtom = atom({
-  key: 'classData',
+  key: 'classDataList',
   default: {
     popularClasses: [],
     newClasses: [],
