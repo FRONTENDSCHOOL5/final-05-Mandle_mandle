@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import Dropdown from '../../components/Common/Dropdown/Dropdown';
 import useDetectClose from '../../Hooks/useDetectClose';
 import {
@@ -20,6 +19,7 @@ import {
   ImagePreview,
   TextInputContainer,
 } from './PostingStyle';
+import whiteImg from '../../assets/img/whiteImg.webp';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { ReserveDataState } from '../../Store/ReserveStateAtom'; // 수강 클래스 id, 시간 정보
@@ -41,7 +41,9 @@ export default function Posting() {
   const userInfo = useRecoilValue(UserAtom);
   const dropDownRef = useRef();
   const [classIdentify, setClassIdentify] = useState(''); //  선택한 클래스 정보 상태를 담을 status
+
   const [classList, setClassList] = useState([]); // 수강후기를 작성할 클래스 리스트
+  const [classImg, setClassImg] = useState(whiteImg);
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
   const navigate = useNavigate();
   const token = userInfo.token;
@@ -57,9 +59,17 @@ export default function Posting() {
   );
 
   //Recoil에 저장된 예약한 클래스 날짜/시간 정보
-  const classDate = reservationData.reservations.map(
-    (reservation) => reservation.reserve_date
-  );
+  const classDate = reservationData.reservations.map((reservation) => {
+    const reserveDate = reservation.reserve_date;
+
+    // 만약 reserveDate에 GMT+9가 포함되어 있다면 제거하고 저장
+    if (reserveDate.includes('GMT+9')) {
+      const dateWithoutGMT = reserveDate.replace('GMT+9', '');
+      return dateWithoutGMT;
+    }
+    // GMT+9가 포함되어 있지 않으면 그대로 저장
+    return reserveDate;
+  });
 
   const classTime = reservationData.reservations.map(
     (reservation) => reservation.reserve_time
@@ -72,7 +82,7 @@ export default function Posting() {
         const allData = await Promise.all(
           classId.map(async (id, index) => {
             const data = await GetClassDetailInfoData(id, token);
-            console.log('클래스 이미지:', data.itemImage);
+
             return {
               itemName: data.itemName,
               itemImage: data.itemImage,
@@ -104,7 +114,6 @@ export default function Posting() {
 
   useEffect(() => {
     GetUserProfileImage(token, setUserImage);
-    console.log(classDate);
   }, [token]);
 
   const { textarea, handleTextareaChange } = useTextareaResize(
@@ -161,7 +170,7 @@ export default function Posting() {
 
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
-
+    console.log(classIdentify);
     const response = await PostUploadPost(token, inputValue, images);
 
     if (response) {
@@ -169,6 +178,7 @@ export default function Posting() {
       setSelectedImages([]);
       navigate(`/post/${response.post.id}`, {
         state: response.post.id,
+        classIdentify: classIdentify,
       });
     }
   };
@@ -192,6 +202,7 @@ export default function Posting() {
       {/* 드롭다운 컴포넌트 */}
       <DropdownContainer ref={dropDownRef}>
         <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
+          <ImageBox src={classImg} />
           {classIdentify || '클래스 선택하기'}{' '}
         </DropdownButton>
         {isOpen && (
@@ -199,11 +210,14 @@ export default function Posting() {
             {classList.map((item, index) => (
               <Dropdown
                 key={index}
-                value={`${item.itemName} - ${item.date}  ${item.time}`}
+                value={item.itemName}
+                date={item.date}
+                time={item.time}
                 img={item.itemImage}
                 setIsOpen={setIsOpen}
                 setClassIdentify={setClassIdentify}
                 isOpen={isOpen}
+                setClassImg={setClassImg}
               />
             ))}
           </DropdownMenu>
