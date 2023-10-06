@@ -7,6 +7,8 @@ import {
   DropdownMenu,
   ImageBox,
 } from '../../components/Common/Dropdown/Dropdown';
+import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
+import { DropdonwTextContainer } from '../../components/Common/Dropdown/DropItem';
 import {
   DisabledUploadBtnNav,
   ProfileContainer,
@@ -20,6 +22,7 @@ import {
   TextInputContainer,
 } from './PostingStyle';
 import whiteImg from '../../assets/img/whiteImg.webp';
+
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { ReserveDataState } from '../../Store/ReserveStateAtom'; // 수강 클래스 id, 시간 정보
@@ -37,30 +40,25 @@ export default function Posting() {
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
   const reservationData = useRecoilValue(ReserveDataState); // 리코일에 저장된 클래스 id 값
-
   const userInfo = useRecoilValue(UserAtom);
   const dropDownRef = useRef();
-  const [classIdentify, setClassIdentify] = useState(''); //  선택한 클래스 정보 상태를 담을 status
-
+  const [classIdentify, setClassIdentify] = useState('클래스 선택하기'); //  선택한 클래스 정보 상태를 담을 status
+  const [selectDate, setSelectDate] = useState('');
+  const [selectTime, setSelectTime] = useState('');
   const [classList, setClassList] = useState([]); // 수강후기를 작성할 클래스 리스트
   const [classImg, setClassImg] = useState(whiteImg);
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
   const navigate = useNavigate();
   const token = userInfo.token;
 
-  //해야 할 것
-  //드롭박스 컴포넌트 사진 추가 + ui 수정하기
-  //이미 수강한 클래스만 드롭박스에 보이게 코드 수정하기
-  //선택한 클래스가 있어야만 글 작성되게 수정
-
   //Recoil에 저장된 예약한 클래스 아이디
   const classId = reservationData.reservations.map(
     (reservation) => reservation.class_id
   );
 
-  //Recoil에 저장된 예약한 클래스 날짜/시간 정보
+  // Recoil에 저장된 예약한 클래스 날짜/시간 정보
   const classDate = reservationData.reservations.map((reservation) => {
-    const reserveDate = reservation.reserve_date;
+    const reserveDate = reservation.reserve_ko_date;
 
     // 만약 reserveDate에 GMT+9가 포함되어 있다면 제거하고 저장
     if (reserveDate.includes('GMT+9')) {
@@ -82,7 +80,6 @@ export default function Posting() {
         const allData = await Promise.all(
           classId.map(async (id, index) => {
             const data = await GetClassDetailInfoData(id, token);
-
             return {
               itemName: data.itemName,
               itemImage: data.itemImage,
@@ -170,7 +167,7 @@ export default function Posting() {
 
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
-    console.log(classIdentify);
+
     const response = await PostUploadPost(token, inputValue, images);
 
     if (response) {
@@ -178,7 +175,10 @@ export default function Posting() {
       setSelectedImages([]);
       navigate(`/post/${response.post.id}`, {
         state: response.post.id,
-        classIdentify: classIdentify,
+        //클래스 이름,시간, 날짜 넘겨주기
+        className: classIdentify,
+        classTime: selectTime,
+        classDate: selectDate,
       });
     }
   };
@@ -197,13 +197,17 @@ export default function Posting() {
       />
       <ProfileContainer>
         <ProfileImage src={userImage} alt='유저 프로필 이미지' />
-        <FileUploadButton handleImageChange={handleImageChange} />
       </ProfileContainer>
-      {/* 드롭다운 컴포넌트 */}
+
       <DropdownContainer ref={dropDownRef}>
         <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
           <ImageBox src={classImg} />
-          {classIdentify || '클래스 선택하기'}{' '}
+          <DropdonwTextContainer>
+            {classIdentify}
+            {selectDate && selectTime ? (
+              <DropdownDate date={selectDate} time={selectTime} />
+            ) : null}
+          </DropdonwTextContainer>
         </DropdownButton>
         {isOpen && (
           <DropdownMenu>
@@ -218,6 +222,8 @@ export default function Posting() {
                 setClassIdentify={setClassIdentify}
                 isOpen={isOpen}
                 setClassImg={setClassImg}
+                setSelectDate={setSelectDate}
+                setSelectTime={setSelectTime}
               />
             ))}
           </DropdownMenu>
@@ -244,6 +250,7 @@ export default function Posting() {
             </PreviewImgWrapStyle>
           ))}
         </ImgWrapStyle>
+        <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>
     </div>
   );
