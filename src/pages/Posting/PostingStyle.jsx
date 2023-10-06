@@ -22,9 +22,9 @@ export const ProfileImage = styled.img`
 `;
 
 export const UploadButton = styled.div`
-  position: absolute;
-  top: 300px;
-  left: 324px;
+  position: relative;
+
+  left: 320px;
 `;
 
 export const UploadLabel = styled.label`
@@ -45,6 +45,7 @@ export const PostFormStyle = styled.form`
 
 export const ImgWrapStyle = styled.ul`
   display: flex;
+
   overflow-x: scroll;
 
   padding-top: 200px;

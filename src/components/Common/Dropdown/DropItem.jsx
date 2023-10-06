@@ -11,16 +11,16 @@ const DropdownItem = styled.li`
   }
 `;
 
-const DropdonwTextContainer = styled.div`
+export const DropdonwTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px;
 `;
 
 export const ImageBox = styled.img`
-  min-width: 52px;
-  object-fit: cover;
+  width: 52px;
   height: 52px;
+  object-fit: cover;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin: 10px;
@@ -33,6 +33,8 @@ export default function DropItem(props) {
     date,
     time,
     setClassImg,
+    setSelectDate,
+    setSelectTime,
     img,
     setIsOpen,
     isOpen,
@@ -40,6 +42,8 @@ export default function DropItem(props) {
   const handleItemClick = () => {
     setClassIdentify(value);
     setClassImg(img);
+    setSelectDate(date);
+    setSelectTime(time);
     setIsOpen(!isOpen);
   };
 

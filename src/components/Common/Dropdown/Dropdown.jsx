@@ -38,6 +38,8 @@ export default function Dropdown(props) {
   const {
     value,
     setClassIdentify,
+    setSelectDate,
+    setSelectTime,
     date,
     time,
     setClassImg,
@@ -56,6 +58,8 @@ export default function Dropdown(props) {
         setIsOpen={setIsOpen}
         isOpen={isOpen}
         date={date}
+        setSelectDate={setSelectDate}
+        setSelectTime={setSelectTime}
         time={time}
       />
     </>
