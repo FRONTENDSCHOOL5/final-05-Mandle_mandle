@@ -14,7 +14,7 @@ export const ProfileContainer = styled.div`
 
 export const ProfileImage = styled.img`
   position: absolute;
-  top: 20px;
+  top: 120px;
   left: 16px;
   width: 42px;
   height: 42px;
@@ -22,9 +22,9 @@ export const ProfileImage = styled.img`
 `;
 
 export const UploadButton = styled.div`
-  position: absolute;
-  top: 750px;
-  left: 324px;
+  position: relative;
+
+  left: 320px;
 `;
 
 export const UploadLabel = styled.label`
@@ -40,12 +40,16 @@ export const UploadImg = styled.img`
 
 export const PostFormStyle = styled.form`
   width: 100%;
+  position: relative;
 `;
 
 export const ImgWrapStyle = styled.ul`
   display: flex;
+
   overflow-x: scroll;
 
+  padding-top: 200px;
+  padding-left: 30px;
   &::-webkit-scrollbar {
     padding-top: 5px;
     background-color: white;
@@ -193,24 +197,25 @@ export const ImagePreview = styled.img`
   max-height: 228px;
   object-fit: cover;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
-  top: 20px;
-  left: 50px;
 `;
 
 export const TextInputContainer = styled.textarea`
+  position: absolute;
+  left: 70px;
   font-family: 'SpoqaHanSansNeo-Regular';
   margin: 30px 0 50px 0;
-  width: 100%;
+  width: 304px;
+  min-height: 161px;
+  border-radius: 10px;
   overflow-y: hidden;
   display: block;
-  /* min-height: 80px; */
-  height: 100%;
   font-size: var(--font-md);
   color: var(--font-color);
-  padding-left: 71px;
+  padding-left: 15px;
+  border: 1px solid var(--border-color);
   resize: none;
   outline: none;
-  border: none;
+
   &::placeholder {
     color: var(--sub-font-color);
     font-size: var(--font-md);

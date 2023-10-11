@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import Dropdown from '../../components/Common/Dropdown/Dropdown';
 import useDetectClose from '../../Hooks/useDetectClose';
 import {
@@ -8,6 +7,8 @@ import {
   DropdownMenu,
   ImageBox,
 } from '../../components/Common/Dropdown/Dropdown';
+import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
+import { DropdonwTextContainer } from '../../components/Common/Dropdown/DropItem';
 import {
   DisabledUploadBtnNav,
   ProfileContainer,
@@ -20,6 +21,8 @@ import {
   ImagePreview,
   TextInputContainer,
 } from './PostingStyle';
+import whiteImg from '../../assets/img/whiteImg.webp';
+
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { PostImagesUpload } from '../../api/PostImagesUpload';
@@ -35,22 +38,28 @@ export default function Posting() {
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
+
   const userInfo = useRecoilValue(UserAtom);
   const resData = JSON.parse(localStorage.getItem('resInfo'))[userInfo.id]; // 리코일에 저장된 클래스 id 값
 
   const dropDownRef = useRef();
-  const [classIdentify, setClassIdentify] = useState(''); //  선택한 클래스 정보 상태를 담을 status
+  const [classIdentify, setClassIdentify] = useState('클래스 선택하기'); //  선택한 클래스 정보 상태를 담을 status
+  const [selectDate, setSelectDate] = useState('');
+  const [selectTime, setSelectTime] = useState('');
   const [classList, setClassList] = useState([]); // 수강후기를 작성할 클래스 리스트
+  const [classImg, setClassImg] = useState(whiteImg);
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
   const navigate = useNavigate();
   const token = userInfo.token;
-  console.log(resData);
+
   //Recoil에 저장된 예약한 클래스 아이디
   const classId = resData.map((reservation) => reservation.class_id);
 
   // Recoil에 저장된 예약한 클래스 날짜/시간 정보
+
   const classDate = resData.map((reservation) => reservation.reserve_ko_date);
   const classTime = resData.map((reservation) => reservation.reserve_time);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,11 +68,11 @@ export default function Posting() {
         const allData = await Promise.all(
           classId.map(async (id, index) => {
             const data = await GetClassDetailInfoData(id, token);
-
             return {
               itemName: data.itemName,
               itemImage: data.itemImage,
               date: classDate[index],
+              time: classTime[index],
             };
           }),
         );
@@ -73,7 +82,7 @@ export default function Posting() {
       }
     };
     fetchData();
-  }, [classId, token]);
+  }, []);
 
   useEffect(() => {
     // 예약 데이터에서 class_id 값을 확인
@@ -90,7 +99,6 @@ export default function Posting() {
 
   useEffect(() => {
     GetUserProfileImage(token, setUserImage);
-    console.log(classDate);
   }, [token]);
 
   const { textarea, handleTextareaChange } = useTextareaResize(
@@ -155,6 +163,10 @@ export default function Posting() {
       setSelectedImages([]);
       navigate(`/post/${response.post.id}`, {
         state: response.post.id,
+        //클래스 이름,시간, 날짜 넘겨주기
+        className: classIdentify,
+        classTime: selectTime,
+        classDate: selectDate,
       });
     }
   };
@@ -173,34 +185,45 @@ export default function Posting() {
       />
       <ProfileContainer>
         <ProfileImage src={userImage} alt='유저 프로필 이미지' />
-        <FileUploadButton handleImageChange={handleImageChange} />
       </ProfileContainer>
+
+      <DropdownContainer ref={dropDownRef}>
+        <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
+          <ImageBox src={classImg} />
+          <DropdonwTextContainer>
+            {classIdentify}
+            {selectDate && selectTime ? (
+              <DropdownDate date={selectDate} time={selectTime} />
+            ) : null}
+          </DropdonwTextContainer>
+        </DropdownButton>
+        {isOpen && (
+          <DropdownMenu>
+            {classList.map((item, index) => (
+              <Dropdown
+                key={index}
+                value={item.itemName}
+                date={item.date}
+                time={item.time}
+                img={item.itemImage}
+                setIsOpen={setIsOpen}
+                setClassIdentify={setClassIdentify}
+                isOpen={isOpen}
+                setClassImg={setClassImg}
+                setSelectDate={setSelectDate}
+                setSelectTime={setSelectTime}
+              />
+            ))}
+          </DropdownMenu>
+        )}
+      </DropdownContainer>
       <PostFormStyle>
         <TextInputContainer
           placeholder='게시글 입력하기..'
           onChange={handleTextareaChange}
           ref={textarea}
         ></TextInputContainer>
-        {/* 드롭다운 컴포넌트 */}
-        <DropdownContainer ref={dropDownRef}>
-          <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
-            {classIdentify || '수강한 클래스를 선택해 주세요'}{' '}
-          </DropdownButton>
-          {isOpen && (
-            <DropdownMenu>
-              {classList.map((item, index) => (
-                <Dropdown
-                  key={index}
-                  value={`${item.itemName} - ${item.date}`}
-                  img={item.itemImage}
-                  setIsOpen={setIsOpen}
-                  setClassIdentify={setClassIdentify}
-                  isOpen={isOpen}
-                />
-              ))}
-            </DropdownMenu>
-          )}
-        </DropdownContainer>
+
         <ImgWrapStyle>
           {selectedImages.map((image, index) => (
             <PreviewImgWrapStyle key={index}>
@@ -215,6 +238,7 @@ export default function Posting() {
             </PreviewImgWrapStyle>
           ))}
         </ImgWrapStyle>
+        <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>
     </div>
   );
