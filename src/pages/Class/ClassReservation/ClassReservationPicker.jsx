@@ -94,13 +94,14 @@ export function Time({ selectedDate, availableTimes }) {
   return (
     <>
     <PickerContainer>
-      <TimeTitle>시간 선택</TimeTitle>
+        <TimeTitle>
+          시간 선택
       <ToggleBtn onClick={() => setShowTimeList(!showTimeList)}>
-        {showTimeList ? '∧' : '∨'}
+            <img src={showTimeList ? arrowUpIcon : arrowDownIcon} alt='' />
       </ToggleBtn>
-      {showTimeList && (
-        <TimeList>
-          <li className={activeItem === 1 ? 'active' : ''} onClick={() => handleItemClick(1)}>
+        </TimeTitle>
+
+        <TimeList display={showTimeList ? `block` : `none`}>
             <button>
               <h3>{availableTimes[0]}</h3>
               <strong>{formattedPrice}원</strong>
@@ -121,7 +122,11 @@ export function Time({ selectedDate, availableTimes }) {
         </TimeList>
       )}
     </PickerContainer>
-    <BtnReserve onClick={handleReservation}>
+      <BtnReserve
+        onClick={handleReservation}
+        bg={selectedTime ? `var(--main-color)` : 'var(--sub-color)'}
+        disabled={selectedTime ? false : true}
+      >
       예약하기
     </BtnReserve>
     </>

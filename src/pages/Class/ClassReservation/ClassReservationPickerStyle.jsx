@@ -1,24 +1,27 @@
 import styled from 'styled-components';
 
 export const PickerContainer = styled.div`
-  border-bottom: 1px solid var(--sub-font-color);
+  border: 0.5px solid var(--sub-font-color);
+  border-radius: 10px;
   position: relative;
+  margin-bottom: 30px;
 `;
 
 export const TimeTitle = styled.p`
   font-size: var(--font-md);
   color: var(--font-color);
-  padding: 20px 12px;
-  `;
-
-export const ToggleBtn = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 15px;
+  padding: 16px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
+export const ToggleBtn = styled.button``;
+
 export const TimeList = styled.ul`
+  display: ${(props) => props.display};
   padding: 16px 15px;
+  border-radius: 0 0 10px 10px;
   background-color: var(--background-color);
   li {
     padding: 12px 21px 12px 16px;
@@ -29,13 +32,22 @@ export const TimeList = styled.ul`
       border-bottom: none;
     }
     &.active {
-      box-shadow: inset 0 0 2px var(--main-color);
+      box-shadow: inset 0 0 3px var(--main-color);
     }
+    @keyframes dropdown {
+      0% {
+        transform: translateY(-20%);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    animation: dropdown 0.4s ease-out;
   }
   h3 {
     margin: 5px 0 3px;
   }
-  strong { 
+  strong {
     color: var(--main-color);
   }
   p {
@@ -47,12 +59,15 @@ export const TimeList = styled.ul`
 `;
 
 export const BtnReserve = styled.button`
-  width: 90%;
+  width: 100%;
   font-size: var(--font-md);
-  background-color: var(--main-color);
+  background-color: ${(props) => props.bg};
   padding: 14px 0;
   text-align: center;
   color: #fff;
   border-radius: 44px;
-  margin: 20px;
+
+  &:disabled {
+    cursor: default;
+  }
 `;
