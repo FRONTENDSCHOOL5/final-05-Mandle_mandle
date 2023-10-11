@@ -22,7 +22,6 @@ import {
 } from './PostingStyle';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
-import { ReserveDataState } from '../../Store/ReserveStateAtom'; // 수강 클래스 id, 시간 정보
 import { PostImagesUpload } from '../../api/PostImagesUpload';
 import { useNavigate } from 'react-router-dom';
 import PostUploadPost from '../../api/PostUploadPost';
@@ -36,29 +35,22 @@ export default function Posting() {
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
-  const reservationData = useRecoilValue(ReserveDataState); // 리코일에 저장된 클래스 id 값
-
   const userInfo = useRecoilValue(UserAtom);
+  const resData = JSON.parse(localStorage.getItem('resInfo'))[userInfo.id]; // 리코일에 저장된 클래스 id 값
+
   const dropDownRef = useRef();
   const [classIdentify, setClassIdentify] = useState(''); //  선택한 클래스 정보 상태를 담을 status
   const [classList, setClassList] = useState([]); // 수강후기를 작성할 클래스 리스트
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
   const navigate = useNavigate();
   const token = userInfo.token;
-
-  //해야 할 것
-  //드롭박스 컴포넌트 사진 추가 + ui 수정하기
-  //이미 수강한 클래스만 드롭박스에 보이게 코드 수정하기
-
+  console.log(resData);
   //Recoil에 저장된 예약한 클래스 아이디
-  const classId = reservationData.reservations.map(
-    (reservation) => reservation.class_id
-  );
+  const classId = resData.map((reservation) => reservation.class_id);
 
-  //Recoil에 저장된 예약한 클래스 날짜/시간 정보
-  const classDate = reservationData.reservations.map(
-    (reservation) => reservation.reserve_date
-  );
+  // Recoil에 저장된 예약한 클래스 날짜/시간 정보
+  const classDate = resData.map((reservation) => reservation.reserve_ko_date);
+  const classTime = resData.map((reservation) => reservation.reserve_time);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,7 +65,7 @@ export default function Posting() {
               itemImage: data.itemImage,
               date: classDate[index],
             };
-          })
+          }),
         );
         setClassList(allData);
       } catch (error) {
@@ -85,8 +77,8 @@ export default function Posting() {
 
   useEffect(() => {
     // 예약 데이터에서 class_id 값을 확인
-    const hasClassId = reservationData.reservations.some(
-      (reservation) => reservation.class_id != null
+    const hasClassId = resData.some(
+      (reservation) => reservation.class_id != null,
     );
 
     // 만약 class_id 값이 없으면 '/class'로 이동
@@ -94,7 +86,7 @@ export default function Posting() {
       alert('먼저 클래스를 수강한 후 후기를 작성해주세요!');
       navigate('/class');
     }
-  }, [reservationData, navigate]);
+  }, [resData, navigate]);
 
   useEffect(() => {
     GetUserProfileImage(token, setUserImage);
@@ -103,7 +95,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
 
   useEffect(() => {

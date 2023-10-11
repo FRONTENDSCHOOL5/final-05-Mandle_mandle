@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { UserAtom, IsLogin, AutoLogin } from '../../Store/userInfoAtoms';
+import { UseUserState } from '../../Store/ReserveStateAtom';
 import PostLogin from '../../api/PostLogin';
 import UserInfoInput from '../../Hooks/UserInfoInput';
 import Input from '../../components/Common/Account/Input';
@@ -74,6 +75,7 @@ export default function Login() {
       return; // 버튼 비활성화일 때 기능 막기
     }
     const loginInfo = await PostLogin(email, password);
+
     if (!isLogin) {
       //로그인 실패
       if (loginInfo.status === 422) {
@@ -83,15 +85,27 @@ export default function Login() {
         //성공시
       } else {
         //로그인 성공
-        const { accountname, token, refreshToken, image, username, intro } =
-          loginInfo.user;
+
+        const {
+          _id,
+          accountname,
+          token,
+          refreshToken,
+          image,
+          username,
+          intro,
+        } = loginInfo.user;
+
         setUserInfo({
+          id: _id,
           accountname,
           username,
           token,
           refreshToken,
           image,
           intro,
+          resInfo: userInfo.resInfo || [],
+          liked: userInfo.liked || [],
         });
         setIsLogin(true);
         setLoginErrorMessage('');

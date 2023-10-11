@@ -48,8 +48,10 @@ export function MoreNav({ onClick }) {
 export function GoBackNav({ children }) {
   return (
     <TopNavWrap>
-      <GoBackButton />
-      {children}
+      <div>
+        <GoBackButton />
+        <h1>{children}</h1>
+      </div>
     </TopNavWrap>
   );
 }
@@ -115,7 +117,10 @@ export const TopNavWrap = styled.header`
   justify-content: space-between;
   padding: 0 16px;
 
-  h1 {
+  div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   input {

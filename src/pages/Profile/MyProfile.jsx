@@ -47,7 +47,7 @@ export default function Profile() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isImgListBtnActive, setImgListBtnActive] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(null);
-  const reservations = useRecoilValue(ReserveDataState);
+
   const [introText, setIntroText] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('');
 
@@ -76,7 +76,7 @@ export default function Profile() {
 
     fetchData();
   }, [postUpdated, classUpdated]);
-  console.log(reservations);
+
   //프로필 수정페이지 이동
   function handleClick(profileData) {
     navigate(`edit/${profileData.accountname}`, {
@@ -99,7 +99,6 @@ export default function Profile() {
     setModalOpen(true);
   };
   const handleLogout = () => {
-    setUserInfo({});
     alert('로그아웃 되었습니다. 다음에 또 만나요!');
     setAlertModalOpen(null);
     localStorage.removeItem('recoil-persist');
