@@ -10,6 +10,8 @@ import { MainWrap, ClassInfoSection, ClassImage, ClassName, ClassTeacher, ClassP
 import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData';
 import ClassDetailSkeleton from '../../../components/Common/Skeleton/ClassDetailSkeleton';
 import { ClassLikeAtom } from '../../../Store/ClassLikedAtom';
+import NormalizeImage from  '../../../components/Common/NormalizeImage'
+import PostClassLike from '../../../api/PostClassLike'
 
 export default function ClassDetail() {
   const UserInfo = useRecoilValue(UserAtom);
@@ -31,17 +33,7 @@ export default function ClassDetail() {
 
 export function ClassDetailInfo({ id, token }) {
   const [newClass, setNewClass] = useState([]);
-  const [liked, setLiked] = useRecoilState(ClassLikeAtom);
   const navigate = useNavigate();
-  
-  const handleLike = () => {
-    // 찜하기 버튼 토글
-    if (!liked.some(item => item.class_id === id)) {
-      setLiked(prevLiked => [...prevLiked, { class_id: id }]);
-    } else {
-      setLiked(prevLiked => prevLiked.filter(item => item.class_id !== id));
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,21 +52,12 @@ export function ClassDetailInfo({ id, token }) {
     return value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
   };
 
-  if (!newClass) {
-    return null;
-  }
-
   const txtLength = newClass?.author?.username?.length;
 
   const handleTeacherClick = () => {
     const accountname = newClass.author.accountname;
     navigate(`/other_profile/${accountname}`);
   }
-
-  // 강사 이미지가 없는 경우 기본 프로필 이미지로 대체
-  const teacherImage = !newClass.author?.image || newClass.author.image === "https://api.mandarin.weniv.co.kr/"
-    ? BasicProfile
-    : newClass.author.image;
 
   return (
     <ClassInfoSection>
@@ -86,7 +69,7 @@ export function ClassDetailInfo({ id, token }) {
               <ClassTeacher
                 txtLength={txtLength}
                 onClick={handleTeacherClick}>
-                <img src={teacherImage} alt='강사 프로필' />
+                <img src={NormalizeImage(newClass.author.image)} alt='강사 프로필' />
                 <h3>
                   {newClass.author.username}
                 </h3>
@@ -102,22 +85,56 @@ export function ClassDetailInfo({ id, token }) {
             </div>
           </>
         )}
-      <BtnContainer liked={liked} onLike={handleLike} price={newClass.price} img={newClass.itemImage} name={newClass.itemName} id={id} />
+      <BtnContainer price={newClass.price} img={newClass.itemImage} name={newClass.itemName} link={newClass.link} id={id} />
     </ClassInfoSection>
   );
 }
 
-export function BtnContainer({ likeCount, liked, onLike, price, img, name, id }) {
+export function BtnContainer({ price, img, name, link, id }) {
   const [isClicked, setIsClicked] = useState(false);
-  const navigate = useNavigate();
-
-  const handleLikeClick = () => {
-    setIsClicked(prevState => !prevState);
-    onLike();
-  };
-
+  const [liked, setLiked] = useRecoilState(ClassLikeAtom);
+  const [likeCount, setLikeCount] = useState(0);
   const isLiked = liked.some(item => item.class_id === id);
+  const UserInfo = useRecoilValue(UserAtom);
+  const token = UserInfo.token;
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    setLikeCount(isLiked ? 1 : 0);
+  }, [isLiked]);
 
+  const handleLikeClick = async () => {
+    setIsClicked(prevState => !prevState);
+  
+    setLiked(prevLiked => {
+      if (!prevLiked.some(item => item.class_id === id)) {
+        return [...prevLiked, { class_id: id }];
+      } else {
+        return prevLiked.filter(item => item.class_id !== id);
+      }
+    });
+  
+    // 찜하기 API 호출
+
+
+    const requestBody = {
+      product: {itemName: `${name}@${likeCount}`,
+      price: price,
+      link: link,
+      itemImage: img}
+    };
+  
+    try {
+      const response = await PostClassLike(id, token, requestBody );
+      console.log(response);
+      setLikeCount(prevCount => (isLiked ? prevCount - 1 : prevCount + 1));
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+  
+
+  // 예약 기능
   const handleReservationClick = () => {
     const state = {
       price: price,
@@ -132,8 +149,9 @@ export function BtnContainer({ likeCount, liked, onLike, price, img, name, id })
   return (
     <div>
       <TopBtn>
-        <LikeBtn onClick={handleLikeClick} isClicked={isLiked}>
+        <LikeBtn type='submit' onClick={handleLikeClick} isClicked={isLiked}>
           <span>찜하기</span>
+          <LikeNum>{likeCount}</LikeNum>
         </LikeBtn>
         <ShareBtn>공유하기</ShareBtn>
       </TopBtn>
