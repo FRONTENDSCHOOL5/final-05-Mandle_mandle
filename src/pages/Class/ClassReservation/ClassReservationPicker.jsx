@@ -1,129 +1,171 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { PickerContainer, TimeTitle, TimeList, BtnReserve, ToggleBtn } from './ClassReservationPickerStyle';
-import { useRecoilState } from 'recoil';
-import { ReserveDataState } from '../../../Store/ReserveStateAtom'
+
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { UserAtom } from '../../../Store/userInfoAtoms';
+
+import arrowUpIcon from '../../../assets/img/icon-arrow-up.svg';
+import arrowDownIcon from '../../../assets/img/icon-arrow-down.svg';
+import {
+  PickerContainer,
+  TimeTitle,
+  TimeList,
+  BtnReserve,
+  ToggleBtn,
+} from './ClassReservationPickerStyle';
 
 export function TimePicker({ selectedDate }) {
-  const currentDate = new Date();
-  console.log(currentDate);
-  console.log(selectedDate);
-  return (
-    <Time
-      selectedDate={selectedDate}
-      availableTimes={[
-        '오전 10:00 ~ 오전 12:00',
-        '오후 1:00 ~ 오후 3:00',
-        '오후 4:00 ~ 오후 6:00',
-      ]}
-    />
-  );
-}
-
-
-
-export function Time({ selectedDate, availableTimes }) {
   const [showTimeList, setShowTimeList] = useState(false);
   const location = useLocation();
   const state = location.state;
   const navigate = useNavigate();
+  const userInfo = useRecoilValue(UserAtom);
 
-  const formattedPrice = state && typeof state.price === 'number' ? state.price.toLocaleString() : '';
-  const [activeItem, setActiveItem] = useState();
+  const [selectedTime, setSelectedTime] = useState(null);
 
-  const [reservationData, setReservationData] = useRecoilState(ReserveDataState);
+  const availableTimes = [
+    '오전 10:00 ~ 오전 12:00',
+    '오후 1:00 ~ 오후 3:00',
+    '오후 4:00 ~ 오후 6:00',
+  ];
+  const formattedPrice =
+    state && typeof state.price === 'number'
+      ? state.price.toLocaleString()
+      : '';
 
-  const handleItemClick = (index) => {
-    setActiveItem(index);
+  const handleTimeClick = (time) => {
+    setSelectedTime(time);
+    selectedDate.setHours(time, 0, 0);
   };
 
   const handleReservation = () => {
-    const reserveData = {
-      class_id: state.id,
-      reserve_ko_date: formatKoreanDate(selectedDate),
-      reserve_en_date: formatSelectedDate(selectedDate),
-      reserve_common_date: selectedDate,
-      reserve_time: availableTimes[activeItem - 1]
+    const resData = {
+      class_id: state.class_id,
+      className: state.name,
+      image: state.image,
+      reserve_ko_date: formatKorDate(selectedDate),
+      reserve_common_date: formatEngDate(selectedDate),
+      reserve_time: formatTime(selectedTime),
+    };
+
+    console.log(resData);
+
+    const userId = userInfo.id;
+    const userReservations = JSON.parse(localStorage.getItem('resInfo')) || {};
+    if (!userReservations[userId]) {
+      userReservations[userId] = [];
     }
 
-  // 현재 예약 데이터를 가져옵니다.
-  const currentReservations = reservationData.reservations || [];
+    // 저장된 예약 내역에서
+    // 예약하려는 클래스와 같은 일자의 클래스 정보가 존재하는지 확인
+    const date = userReservations[userId].find((item) => {
+      return item.reserve_ko_date === resData.reserve_ko_date;
+    });
 
-  // 새로운 예약 데이터를 배열에 추가합니다.
-  const updatedReservations = [...currentReservations, reserveData];
+    if (date) {
+      alert('해당 일자에 이미 예약된 클래스 내역이 존재합니다.');
+      return;
+    }
 
-  // Recoil을 통해 상태를 업데이트합니다.
-  setReservationData({
-    reservations: updatedReservations,
-  });
+    // 새로운 예약 정보를 배열에 추가
+    userReservations[userId] = [...userReservations[userId], resData];
 
-    console.log(reserveData);
+    // 로컬 스토리지에 업데이트된 예약 정보를 저장
+    localStorage.setItem('resInfo', JSON.stringify(userReservations));
 
     // 알림창이 뜬다.
     alert('예약되었습니다.');
-
     // 이전페이지로 이동
     navigate(-1);
-  }
+  };
 
-    // 날짜를 한국 표기로 형식화하는 함수
-  function formatKoreanDate(date) {
+  // 날짜를 한국 표기로 형식화하는 함수
+  function formatKorDate(date) {
     const options = {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
       weekday: 'long',
-      timeZoneName: 'short',
+      hour: 'numeric',
     };
     const koreanDate = new Date(date).toLocaleDateString('ko-KR', options);
     return koreanDate;
   }
 
   // 날짜를 영어 표기로 형식화하는 함수
-  function formatSelectedDate(date) {
+  function formatEngDate(date) {
     const options = {
       weekday: 'short',
       month: 'short',
       day: 'numeric',
       year: 'numeric',
+      hour: 'numeric',
+      timeZoneName: 'short',
     };
     return new Date(date).toLocaleDateString('en-US', options);
   }
-  console.log(selectedDate);
+
+  const formatTime = (hour) => {
+    let timeStr = '';
+    if (hour <= 10) {
+      timeStr = '오전 ' + hour + ':00 ~ 오전 ' + (hour + 2) + ':00';
+    } else if (hour === 11) {
+      timeStr = '오전 ' + hour + ':00 ~ 오후 ' + (hour - 10) + ':00';
+    } else if (hour === 12) {
+      timeStr = '오후 ' + hour + ':00 ~ 오후 ' + (hour - 10) + ':00';
+    } else {
+      timeStr = '오후 ' + (hour - 12) + ':00 ~ 오후 ' + (hour - 10) + ':00';
+    }
+    return timeStr;
+  };
 
   return (
     <>
-    <PickerContainer>
-      <TimeTitle>시간 선택</TimeTitle>
-      <ToggleBtn onClick={() => setShowTimeList(!showTimeList)}>
-        {showTimeList ? '∧' : '∨'}
-      </ToggleBtn>
-      {showTimeList && (
-        <TimeList>
-          <li className={activeItem === 1 ? 'active' : ''} onClick={() => handleItemClick(1)}>
+      <PickerContainer>
+        <TimeTitle>
+          시간 선택
+          <ToggleBtn onClick={() => setShowTimeList(!showTimeList)}>
+            <img src={showTimeList ? arrowUpIcon : arrowDownIcon} alt='' />
+          </ToggleBtn>
+        </TimeTitle>
+
+        <TimeList display={showTimeList ? `block` : `none`}>
+          <li
+            className={selectedTime === 10 ? 'active' : ''}
+            onClick={() => handleTimeClick(10)}
+          >
             <button>
               <h3>{availableTimes[0]}</h3>
               <strong>{formattedPrice}원</strong>
             </button>
           </li>
-          <li className={activeItem === 2 ? 'active' : ''} onClick={() => handleItemClick(2)}>
+          <li
+            className={selectedTime === 13 ? 'active' : ''}
+            onClick={() => handleTimeClick(13)}
+          >
             <button>
               <h3>{availableTimes[1]}</h3>
               <strong>{formattedPrice}원</strong>
             </button>
           </li>
-          <li className={activeItem === 3 ? 'active' : ''} onClick={() => handleItemClick(3)}>
+          <li
+            className={selectedTime === 16 ? 'active' : ''}
+            onClick={() => handleTimeClick(16)}
+          >
             <button>
               <h3>{availableTimes[2]}</h3>
               <strong>{formattedPrice}원</strong>
             </button>
           </li>
         </TimeList>
-      )}
-    </PickerContainer>
-    <BtnReserve onClick={handleReservation}>
-      예약하기
-    </BtnReserve>
+      </PickerContainer>
+      <BtnReserve
+        onClick={handleReservation}
+        bg={selectedTime ? `var(--main-color)` : 'var(--sub-color)'}
+        disabled={selectedTime ? false : true}
+      >
+        예약하기
+      </BtnReserve>
     </>
   );
 }
