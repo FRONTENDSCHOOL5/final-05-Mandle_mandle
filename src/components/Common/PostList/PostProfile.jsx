@@ -92,7 +92,9 @@ export default function PostProfile({ post, setPostUpdated }) {
         <ModalAlert
           setAlertModalOpen={setAlertModalOpen}
           onClick={
-            alertModalOpen === 'post' ? handleDeleteSubmit : handleReportSubmit
+            alertModalOpen === 'delete'
+              ? handleDeleteSubmit
+              : handleReportSubmit
           }
           type={alertModalOpen}
         />

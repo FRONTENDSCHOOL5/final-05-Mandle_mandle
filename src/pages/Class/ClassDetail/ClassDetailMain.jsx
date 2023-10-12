@@ -1,14 +1,33 @@
 import { React, useState, useEffect } from 'react';
-import axios from 'axios';
-import { ClassSection, ClassNav, ClassWrap, CommentP,  ClassExplainImg, MapBtn, LocAddress, Title, MiniList, Profile, UserImg, UserInfo, UserName, Review, ReviewImg } from './ClassDetailMainStyle'
-import ExplainImg from '../../../assets/img/temp/soapT5.png';
-import location from '../../../assets/img/temp/location.png'
+
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-import { ClassPostMini } from '../../../components/Common/ClassPost';
+
 import GetClassData from '../../../api/GetClassData';
-import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData'
+import { ClassPostMini } from '../../../components/Common/ClassPost';
+import NormalizeImage from '../../../components/Common/NormalizeImage';
+import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData';
+
+import ExplainImg from '../../../assets/img/temp/soapT5.png';
+import location from '../../../assets/img/temp/location.png';
 import UserIcon from '../../../assets/img/basic-profile-img.svg';
+import {
+  ClassSection,
+  ClassNav,
+  ClassWrap,
+  CommentP,
+  ClassExplainImg,
+  MapBtn,
+  LocAddress,
+  Title,
+  MiniList,
+  Profile,
+  UserImg,
+  UserInfo,
+  UserName,
+  Review,
+  ReviewImg,
+} from './ClassDetailMainStyle';
 
 export default function ClassDetailMain({ id, token }) {
   return (
@@ -18,7 +37,7 @@ export default function ClassDetailMain({ id, token }) {
       <ClassDetailReview />
       <ClassDetailOtherClass />
     </>
-  )
+  );
 }
 
 // classintro
@@ -44,7 +63,7 @@ export function ClassDetailIntro() {
         <ClassExplainImg src={ExplainImg} alt='비누 만드는 클래스의 모습' />
       </ClassWrap>
     </ClassSection>
-  )
+  );
 }
 // /classintro
 
@@ -58,7 +77,7 @@ export function ClassDetailLocation({ id, token }) {
         const data = await GetClassDetailInfoData(id, token);
         setAddress(data.link);
       } catch (error) {
-        console.log("Error", error);
+        console.log('Error', error);
       }
     };
     fetchData();
@@ -70,7 +89,9 @@ export function ClassDetailLocation({ id, token }) {
       if (parts.length >= 2) {
         const location = parts[1];
         // 이동할 URL을 생성합니다.
-        const mapURL = `https://map.kakao.com/?q=${encodeURIComponent(location)}`;
+        const mapURL = `https://map.kakao.com/?q=${encodeURIComponent(
+          location,
+        )}`;
         // 새 탭에서 카카오맵 링크를 엽니다.
         window.open(mapURL, '_blank');
       }
@@ -82,16 +103,18 @@ export function ClassDetailLocation({ id, token }) {
       <ClassWrap>
         <h3>장소</h3>
         <MapBtn onClick={handleClick}>지도 바로가기</MapBtn>
-        <img src={location} alt="지도 위치" onClick={handleClick} style={{ cursor: 'pointer' }} />
-        <LocAddress>
-          {address ? address.split('@')[1] : ''}
-        </LocAddress>
+        <img
+          src={location}
+          alt='지도 위치'
+          onClick={handleClick}
+          style={{ cursor: 'pointer' }}
+        />
+        <LocAddress>{address ? address.split('@')[1] : ''}</LocAddress>
       </ClassWrap>
     </ClassSection>
-  )
+  );
 }
 // /classlocation
-
 
 // Classreview
 export function ClassDetailReview() {
@@ -103,7 +126,7 @@ export function ClassDetailReview() {
         <ReviewContent />
       </ClassWrap>
     </ClassSection>
-  )
+  );
 }
 
 // UserProfile part
@@ -136,7 +159,6 @@ export function ReviewContent() {
 // /ReviewPart
 // /Classreview
 
-
 // classothers
 export function ClassDetailOtherClass() {
   const [newClass, setNewClass] = useState([]);
@@ -149,19 +171,21 @@ export function ClassDetailOtherClass() {
         const data = await GetClassData(token, UserInfo.accountname);
         setNewClass(data.product);
       } catch (error) {
-        console.log("Error", error);
+        console.log('Error', error);
       }
     };
     fetchData();
   });
 
-  const classList = newClass.filter(classItem => String(classItem.author.accountname).includes('Teacher'));
-  
+  const classList = newClass.filter((classItem) =>
+    String(classItem.author.accountname).includes('Teacher'),
+  );
+
   return (
     <ClassSection className='others'>
       <Title>다른 클래스</Title>
       <MiniList>
-        {classList.map(classItem => {
+        {classList.map((classItem) => {
           const parts = classItem.link.split('@');
           const truncatedLink = parts[0] || '';
           return (

@@ -56,7 +56,6 @@ export const StyledCalendar = styled(Calendar)`
     }
   }
 
-
   /* 토요일 일요일 폰트 색상 변경 */
   .react-calendar__month-view__days__day--weekend {
     abbr {
@@ -92,7 +91,7 @@ export const StyledCalendar = styled(Calendar)`
   .react-calendar__tile:enabled:focus {
     background: #fff;
   }
-  
+
   /* 날짜 클릭 시 abbr 배경색 및 폰트 색상 변경 */
   .react-calendar__tile--active abbr {
     background-color: var(--main-color);
@@ -101,9 +100,8 @@ export const StyledCalendar = styled(Calendar)`
 `;
 
 export const SelectedDate = styled.p`
-  margin-top: 6px;
+  margin-bottom: 30px;
   padding: 20px 12px;
   border: 0.5px solid var(--sub-font-color);
-  border-right: none;
-  border-left: none;
+  border-radius: 10px;
 `;

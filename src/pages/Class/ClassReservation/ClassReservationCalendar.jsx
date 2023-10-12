@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyledCalendar, SelectedDate } from './ClassReservationCalendarStyle';
 
 export function DatePicker({ selectedDate, onDateChange }) {
@@ -9,7 +9,7 @@ export function DatePicker({ selectedDate, onDateChange }) {
   const removeYearNavigation = (e) => {
     e.preventDefault();
     const yearNavigation = document.querySelector(
-      '.react-calendar__navigation__arrow'
+      '.react-calendar__navigation__arrow',
     );
     if (yearNavigation) {
       yearNavigation.style.display = 'none';
@@ -23,14 +23,16 @@ export function DatePicker({ selectedDate, onDateChange }) {
     const isTwoDaysAgo = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
-      currentDate.getDate() - 1
-    );
-  
-    const dateDifference = Math.floor(
-      (date - currentDate) / (1000 * 60 * 60 * 24)
+      currentDate.getDate() - 1,
     );
 
-    return isSaturday || isSunday || date <= isTwoDaysAgo || dateDifference > 30;
+    const dateDifference = Math.floor(
+      (date - currentDate) / (1000 * 60 * 60 * 24),
+    );
+
+    return (
+      isSaturday || isSunday || date <= isTwoDaysAgo || dateDifference > 30
+    );
   };
 
   const tileClassName = ({ date }) => {
@@ -66,10 +68,12 @@ export function DatePicker({ selectedDate, onDateChange }) {
         onChange={handleDateChange}
         onClickMonth={removeYearNavigation}
         calendarType='US'
-        formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
+        formatDay={(locale, date) =>
+          date.toLocaleString('en', { day: 'numeric' })
+        }
         tileDisabled={tileDisabled}
         tileClassName={tileClassName}
-        minDetail="month"
+        minDetail='month'
       />
       <SelectedDate>
         <span className='a11y-hidden'>선택한 날짜: </span>
