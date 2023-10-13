@@ -1,5 +1,10 @@
 import React, { lazy, Suspense } from 'react';
-import { HashRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyles';
 import styled from 'styled-components';
 
@@ -42,52 +47,50 @@ function App() {
   return (
     <Wrap>
       <GlobalStyle />
-      <Router basename={process.env.PUBLIC_URL}>
-        <Suspense fallback={<div>로딩중입니다...</div>}>
-          <Routes>
-            <Route path='/' element={<Splash />} />
-            <Route path='/intro' element={<Intro />} />
-            <Route path='/account' element={<Outlet />}>
-              <Route path='login' element={<Login />} />
-              <Route path='signup' element={<Signup />} />
-              <Route path='set_profile' element={<SetProfile />} />
-            </Route>
-            <Route path='/home' element={<Outlet />}>
-              <Route path='' element={<Home />} />
-              <Route path='search' element={<Search />} />
-            </Route>
-            <Route path='/class' element={<Outlet />}>
-              <Route path='' element={<Class />} />
-              <Route path='detail/:class_id' element={<ClassDetail />} />
-            </Route>
-            <Route path='registration' element={<ClassRegistration />} />
-            <Route path='reservation' element={<ClassReservation />} />
+      <Suspense fallback={<div>로딩중입니다...</div>}>
+        <Routes>
+          <Route path='/' element={<Splash />} />
+          <Route path='/intro' element={<Intro />} />
+          <Route path='/account' element={<Outlet />}>
+            <Route path='login' element={<Login />} />
+            <Route path='signup' element={<Signup />} />
+            <Route path='set_profile' element={<SetProfile />} />
+          </Route>
+          <Route path='/home' element={<Outlet />}>
+            <Route path='' element={<Home />} />
+            <Route path='search' element={<Search />} />
+          </Route>
+          <Route path='/class' element={<Outlet />}>
+            <Route path='' element={<Class />} />
+            <Route path='detail/:class_id' element={<ClassDetail />} />
+          </Route>
+          <Route path='registration' element={<ClassRegistration />} />
+          <Route path='reservation' element={<ClassReservation />} />
 
-            <Route path='/post' element={<Outlet />}>
-              <Route path=':post_id' element={<PostDetail />} />
-              <Route path=':post_id/edit' element={<EditPost />} />
-              <Route path='upload' element={<Posting />} />
-            </Route>
-            <Route path='/chat' element={<Outlet />}>
-              <Route path='chatlist' element={<ChatList />} />
-              <Route path='chatroom' element={<ChatRoom />} />
-            </Route>
+          <Route path='/post' element={<Outlet />}>
+            <Route path=':post_id' element={<PostDetail />} />
+            <Route path=':post_id/edit' element={<EditPost />} />
+            <Route path='upload' element={<Posting />} />
+          </Route>
+          <Route path='/chat' element={<Outlet />}>
+            <Route path='chatlist' element={<ChatList />} />
+            <Route path='chatroom' element={<ChatRoom />} />
+          </Route>
 
-            <Route path='/my_profile' element={<Outlet />}>
-              <Route path='' element={<Profile />} />
-              <Route path='follower' element={<Follower />} />
-              <Route path='following' element={<Following />} />
-              <Route path='edit/:accountname' element={<EditProfile />} />
-            </Route>
-            <Route path='/other_profile/:accountname' element={<Outlet />}>
-              <Route path='' element={<OtherProfile />} />
-              <Route path='follower' element={<Follower />} />
-              <Route path='following' element={<Following />} />
-            </Route>
-            <Route path='/*' element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </Router>
+          <Route path='/my_profile' element={<Outlet />}>
+            <Route path='' element={<Profile />} />
+            <Route path='follower' element={<Follower />} />
+            <Route path='following' element={<Following />} />
+            <Route path='edit/:accountname' element={<EditProfile />} />
+          </Route>
+          <Route path='/other_profile/:accountname' element={<Outlet />}>
+            <Route path='' element={<OtherProfile />} />
+            <Route path='follower' element={<Follower />} />
+            <Route path='following' element={<Following />} />
+          </Route>
+          <Route path='/*' element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </Wrap>
   );
 }
