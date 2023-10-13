@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import './font.css';
-import BGIMG from '../assets/img/web_bg4.png';
+import BGIMG from '../assets/img/background.png';
 
 const GlobalStyle = createGlobalStyle`
 	

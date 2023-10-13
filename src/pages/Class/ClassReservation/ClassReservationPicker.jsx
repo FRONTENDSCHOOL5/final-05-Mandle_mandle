@@ -86,7 +86,6 @@ export function TimePicker({ selectedDate }) {
       month: 'long',
       day: 'numeric',
       weekday: 'long',
-      hour: 'numeric',
     };
     const koreanDate = new Date(date).toLocaleDateString('ko-KR', options);
     return koreanDate;
