@@ -11,57 +11,92 @@ const MyReservationList = () => {
   const location = useLocation();
   const userInfo = useRecoilValue(UserAtom);
 
-  const resData = JSON.parse(localStorage.getItem('resInfo'))[userInfo.id]; // 리코일에 저장된 클래스 id 값
-  //Recoil에 저장된 예약한 클래스 아이디
-  const classId = resData.map((reservation) => reservation.class_id);
+  const resInfo = JSON.parse(localStorage.getItem('resInfo'));
+  const resData = resInfo && resInfo[userInfo.id] ? resInfo[userInfo.id] : [];
 
-  // Recoil에 저장된 예약한 클래스 날짜/시간 정보
-
-  const classDate = resData.map((reservation) => reservation.reserve_ko_date);
-  const classTime = resData.map((reservation) => reservation.reserve_time);
-  const classImage = resData.map((reservation) => reservation.image);
-  console.log(resData);
   // 현재 날짜 및 시간 가져오기
   const currentDate = new Date();
+  function parseReserveDate(dateStr) {
+    const regex = /(\w+), (\w+ \d{1,2}, \d{4}), (\d+) (AM|PM) GMT\+9/;
+    const matches = dateStr.match(regex);
+
+    if (matches) {
+      const [, , baseDate, hour, meridiem] = matches;
+
+      let convertedHour = parseInt(hour, 10);
+      if (meridiem === 'PM' && convertedHour !== 12) {
+        convertedHour += 12;
+      } else if (meridiem === 'AM' && convertedHour === 12) {
+        convertedHour = 0;
+      }
+
+      const formattedDate = `${baseDate} ${convertedHour}:00:00 GMT+0900`;
+      return new Date(formattedDate);
+    }
+
+    // 일치하지 않는 경우, 올바르지 않은 날짜 형식이거나 예상치 못한 경우입니다.
+    console.error('Invalid date format:', dateStr);
+    return null;
+  }
 
   // 수강한 클래스와 예약한 클래스를 구분하기 위한 배열 초기화
   const attendedClasses = [];
   const reservedClasses = [];
+  if (resData && resData.length > 0) {
+    resData.forEach((reservation) => {
+      const reservationDate = parseReserveDate(reservation.reserve_common_date);
+
+      if (currentDate > reservationDate) {
+        attendedClasses.push(reservation);
+      } else {
+        reservedClasses.push(reservation);
+      }
+    });
+  }
+  console.log(attendedClasses, reservedClasses);
+  const ReservationItem = ({ reservation }) => (
+    <li key={reservation.class_id}>
+      <img className='classImg' src={reservation.image} alt='Class Image' />
+      <div className='textWrap'>
+        <p>클래스: {reservation.className}</p>
+        <p>예약 날짜: {reservation.reserve_ko_date}</p>
+        <p>예약 시간: {reservation.reserve_time}</p>
+      </div>
+    </li>
+  );
 
   return (
-    <div>
-      <ReservationList>
-        <GoBackNav />
-        <h1>예약한 클래스</h1>
-        <h2>수강예정 클래스</h2>
-        {resData.length > 0 ? (
-          <ul>
-            {resData.map((classItem, index) => (
-              <li key={classId + index}>
-                <p>예약 날짜: {classDate}</p>
-                <image src={classImage} />
-                <p>예약 시간: {classTime}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>예약한 클래스가 없습니다.</p>
-        )}
-      </ReservationList>
+    <ReservationList>
+      <GoBackNav />
+      <h1>예약한 클래스</h1>
+      <h2>수강예정 클래스</h2>
+      {reservedClasses.length > 0 ? (
+        <ul className='reserved'>
+          {reservedClasses.map((reservation) => (
+            <ReservationItem
+              key={reservation.class_id}
+              reservation={reservation}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p>예약한 클래스가 없습니다.</p>
+      )}
+
       <h2>수강한 클래스</h2>
       {attendedClasses.length > 0 ? (
-        <ul>
-          {attendedClasses.map((classItem, index) => (
-            <li key={classItem.class_id + index}>
-              <p>예약 날짜: {classItem.reserve_date}</p>
-              <p>예약 시간: {classItem.reserve_time}</p>
-            </li>
+        <ul className='attended'>
+          {attendedClasses.map((reservation) => (
+            <ReservationItem
+              key={reservation.class_id}
+              reservation={reservation}
+            />
           ))}
         </ul>
       ) : (
         <p>수강한 클래스가 없습니다.</p>
       )}
-    </div>
+    </ReservationList>
   );
 };
 export default MyReservationList;
