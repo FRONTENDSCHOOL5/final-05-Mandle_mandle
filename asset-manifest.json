@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/final-05-Mandle_mandle/static/css/main.78fb4394.css",
-    "main.js": "/final-05-Mandle_mandle/static/js/main.0c2f354e.js",
+    "main.js": "/final-05-Mandle_mandle/static/js/main.cdd7b20f.js",
     "static/js/272.6fea6c79.chunk.js": "/final-05-Mandle_mandle/static/js/272.6fea6c79.chunk.js",
     "static/js/974.a02b8088.chunk.js": "/final-05-Mandle_mandle/static/js/974.a02b8088.chunk.js",
     "static/js/848.f06f6c8d.chunk.js": "/final-05-Mandle_mandle/static/js/848.f06f6c8d.chunk.js",
@@ -97,7 +97,7 @@
     "static/media/icon-check-off.svg": "/final-05-Mandle_mandle/static/media/icon-check-off.99d8fbae6925f87ba79d5e44c647be41.svg",
     "static/media/icon-check-on.svg": "/final-05-Mandle_mandle/static/media/icon-check-on.c5476f59505975575e4185e3bb77b492.svg",
     "main.78fb4394.css.map": "/final-05-Mandle_mandle/static/css/main.78fb4394.css.map",
-    "main.0c2f354e.js.map": "/final-05-Mandle_mandle/static/js/main.0c2f354e.js.map",
+    "main.cdd7b20f.js.map": "/final-05-Mandle_mandle/static/js/main.cdd7b20f.js.map",
     "272.6fea6c79.chunk.js.map": "/final-05-Mandle_mandle/static/js/272.6fea6c79.chunk.js.map",
     "974.a02b8088.chunk.js.map": "/final-05-Mandle_mandle/static/js/974.a02b8088.chunk.js.map",
     "848.f06f6c8d.chunk.js.map": "/final-05-Mandle_mandle/static/js/848.f06f6c8d.chunk.js.map",
@@ -139,6 +139,6 @@
   },
   "entrypoints": [
     "static/css/main.78fb4394.css",
-    "static/js/main.0c2f354e.js"
+    "static/js/main.cdd7b20f.js"
   ]
 }
