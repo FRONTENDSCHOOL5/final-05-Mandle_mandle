@@ -1,7 +1,7 @@
 {
   "homepage": "https://FRONTENDSCHOOL5.github.io/final-05-Mandle_mandle/",
   "name": "mandle_mandle",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
