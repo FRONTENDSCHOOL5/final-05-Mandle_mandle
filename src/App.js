@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyles';
 import styled from 'styled-components';
-
 import Class from '../src/pages/Class/Class';
 import ClassDetail from '../src/pages/Class/ClassDetail/ClassDetail';
 import ClassRegistration from '../src/pages/Class/ClassRegistration/ClassRegistration';
@@ -64,20 +63,25 @@ function App() {
           <Route path='chatlist' element={<ChatList />} />
           <Route path='chatroom' element={<ChatRoom />} />
         </Route>
-
-        <Route path='/my_profile' element={<Outlet />}>
-          <Route path='' element={<Profile />} />
-          <Route path='follower' element={<Follower />} />
-          <Route path='following' element={<Following />} />
-          <Route path='edit/:accountname' element={<EditProfile />} />
-        </Route>
-        <Route path='/other_profile/:accountname' element={<Outlet />}>
-          <Route path='' element={<OtherProfile />} />
-          <Route path='follower' element={<Follower />} />
-          <Route path='following' element={<Following />} />
-        </Route>
-        <Route path='/*' element={<NotFound />} />
-      </Routes>
+            <Route path='/my_profile' element={<Outlet />}>
+              <Route path='' element={<Profile />} />
+              <Route path='follower' element={<Follower />} />
+              <Route path='following' element={<Following />} />
+              <Route path='edit/:accountname' element={<EditProfile />} />
+              <Route
+                path='my_reservation_list'
+                element={<MyReservationList />}
+              />
+            </Route>
+            <Route path='/other_profile/:accountname' element={<Outlet />}>
+              <Route path='' element={<OtherProfile />} />
+              <Route path='follower' element={<Follower />} />
+              <Route path='following' element={<Following />} />
+            </Route>
+            <Route path='/*' element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </Router>
     </Wrap>
   );
 }
