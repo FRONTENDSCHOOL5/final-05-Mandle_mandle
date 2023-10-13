@@ -9,8 +9,6 @@ import { ClassRegistrationForm, ImgBox, StyledImg, ImgBtn, ClassInput, InputVali
 import { PostImagesUpload } from '../../../api/PostImagesUpload';
 import PostClassRegistration from '../../../api/PostClassRegistration'
 
-
-
 export default function ClassRegistration() {
   return (
     <>
@@ -29,6 +27,7 @@ export function Main() {
   const [classPrice, setClassPrice] = useState('');
   const [classTag, setClassTag] = useState('');
   const [image, setImage] = useState('');
+  const [additionalValue, setAdditionalValue] = useState('');
   const UserInfo = useRecoilValue(UserAtom);
   const token = UserInfo.token;
   const navigate = useNavigate();
@@ -41,28 +40,34 @@ export function Main() {
 
   const handleRegisterSubmit = async (event) => {
     event.preventDefault();
-
+  
+    const locationTag = `${classTag}@${additionalValue}`;
+  
     const product = {
       itemName: className,
       price: Number(classPrice),
-      link: classTag,
-      itemImage: image
+      link: locationTag,
+      itemImage: image,
     };
-
+  
     const requestBody = {
       product: product,
     };
-    
+  
     try {
       await PostClassRegistration({ token, navigate, requestBody });
     } catch (error) {
       console.log('Error:', error);
     }
   };
-
+  
   const isFormIncomplete =
-  !image || className.length < 2 || className.length > 30 || !classPrice || !classTag;
-
+    !image ||
+    className.length < 2 ||
+    className.length > 20 ||
+    !classTag|| 
+    !classPrice ||
+    !additionalValue;
 
   return (
     <ClassRegistrationForm onSubmit={handleRegisterSubmit}>
@@ -75,6 +80,7 @@ export function Main() {
             <img src={UploadImgBtn} alt='이미지 업로드' />
             <input
               type='file'
+              accept='.jpeg, .jpg, .png'
               style={{ display: 'none' }}
               onChange={handleImageUpload}
             />
@@ -90,9 +96,9 @@ export function Main() {
         }}
         placeholder='클래스 이름'
       />
-      {(className && (className.length < 2 || className.length > 30)) ? (
+      {(className && (className.length < 2 || className.length > 20)) ? (
         <InputValidationError>
-          클래스 이름은 2자 이상, 30자 이하여야 합니다.
+          클래스 이름은 2자 이상, 20자 이하여야 합니다.
         </InputValidationError>
       ) : null}
       
@@ -111,25 +117,36 @@ export function Main() {
         type='text'
         onChange={(e) => {
           let inputValue = e.target.value;
-          let numericValue = inputValue.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
+          let numericValue = inputValue.replace(/[^0-9]/g, ''); 
+          // 숫자 이외의 문자 제거
           const maxValue = 9999999999999;
       
           if (numericValue > maxValue) {
-            numericValue = numericValue.slice(0, -1); // 최대값을 초과하는 경우 마지막 숫자 제거
+            numericValue = numericValue.slice(0, -1); 
+            // 최대값을 초과하는 경우 마지막 숫자 제거
           }
       
-          const formattedValue = Number(numericValue).toLocaleString(); // 천 단위마다 콤마 추가
+          const formattedValue = Number(numericValue).toLocaleString(); 
+          // 천 단위마다 콤마 추가
       
           if (formattedValue !== inputValue) {
-            e.target.value = formattedValue; // 콤마가 추가된 값으로 입력란 갱신
+            e.target.value = formattedValue;
+            // 콤마가 추가된 값으로 입력란 갱신
           }
       
           setClassPrice(numericValue);
         }}
         placeholder='클래스 가격'
-        
       />
 
+      <label>장소</label>
+      <ClassInput
+        type='text'
+        onChange={(e) => {
+          setAdditionalValue(e.target.value.trim());
+        }}
+        placeholder='상세 주소'
+      />
 
       <AddBtn type='submit' disabled={isFormIncomplete}>저장</AddBtn>
     </ClassRegistrationForm>

@@ -1,23 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import ProgressiveImg from '../ProgressiveImg/ProgressiveImg';
 import HeartButton from '../HeartButton';
-import HandleNormalizeImage from '..//HandleNormalizeImage';
+import NormalizeImage from '../NormalizeImage';
 import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
+import PlaceholderImg from '../../../assets/img/placeholderImg.svg';
 export default function PostContent({ post }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const postImages = post.image ? post.image.split(',') : '';
 
   const postDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateString);
     return date.toLocaleDateString('ko-KR', options); // '2023년 6월 20일' 형식으로 변환
   };
-  const postImages = post.image ? post.image.split(',') : '';
+
   const handlePostClick = () => {
     navigate(`/post/${post.id}`, { state: post.id });
   };
+
   return (
     <PostContentWrap>
       <MovePostDetail
@@ -30,16 +33,19 @@ export default function PostContent({ post }) {
         ) : (
           <PostImageWrap
             className={postImages.length > 1 ? 'postImgscroll' : ''}
+            height={
+              postImages.length > 1 || !postImages.length ? '100%' : '228px'
+            }
           >
             {postImages &&
               postImages.map((postImage, index) => (
-                <img
+                <ProgressiveImg
                   key={index}
-                  src={HandleNormalizeImage(postImage)}
+                  src={NormalizeImage(postImage)}
                   width={postImages.length > 1 ? '168px' : '304px'}
-                  height={postImages.length > 1 ? '126px' : '228px'}
-                  alt=''
-                /> // comment객체가 'comment'라는 이름으로 또 감싸져 있어 안의 요소들로 바로 접근하기 위함
+                  alt='게시글 이미지'
+                  placeholderSrc={PlaceholderImg}
+                />
               ))}
           </PostImageWrap>
         )}
@@ -77,7 +83,7 @@ const MovePostDetail = styled.button`
 
 const PostImageWrap = styled.div`
   width: 304px;
-  height: 100%;
+  height: ${(props) => props.height || '100%'};
 
   img {
     width: ${(props) => props.width};

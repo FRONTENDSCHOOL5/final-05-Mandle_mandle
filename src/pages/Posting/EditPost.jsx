@@ -9,6 +9,7 @@ import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 import { useLocation } from 'react-router-dom';
 import { PostImagesUpload } from '../../api/PostImagesUpload';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
+import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 import {
   TextInputContainer,
   ImagePreview,
@@ -24,7 +25,7 @@ import {
 
 export default function EditPost() {
   const location = useLocation();
-  const post = location.state;
+  const post = location.state || {};
   const postId = post.id;
   const [selectedImages, setSelectedImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
@@ -39,14 +40,20 @@ export default function EditPost() {
     GetUserProfileImage(token, setUserImage);
   }, [token]);
   useEffect(() => {
-    setSelectedImages(post.image.split(','));
-    setPreviewImages(post.image.split(','));
-    setInputValue(post.content);
-  }, [post.image]);
+
+    if (post.image) {
+      setSelectedImages(post.image.split(','));
+      setPreviewImages(post.image.split(','));
+    }
+    if (post.content) {
+      setInputValue(post.content);
+    }
+  }, [post.image, post.content]);
+
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -62,6 +69,11 @@ export default function EditPost() {
     try {
       const imageUrl = await PostImagesUpload(files);
       setSelectedImages((prevImages) => [...prevImages, imageUrl]);
+      const imagesArray = [...selectedImages, imageUrl];
+      if (imagesArray.length > 3) {
+        alert('이미지는 최대 3개까지 업로드가 가능합니다.');
+        return;
+      }
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -79,7 +91,7 @@ export default function EditPost() {
       postId,
       token,
       inputValue,
-      selectedImages.join(',')
+      selectedImages.join(','),
     );
 
     if (editedPost) {
@@ -96,13 +108,15 @@ export default function EditPost() {
     updatedImages.splice(index, 1);
     setSelectedImages(updatedImages);
   };
-  console.log(selectedImages);
 
   return (
     <div>
       <EditUploadBtnNav
         handleUploadPost={handleUploadPost}
         buttonStyle={buttonStyle}
+        post={post}
+        currContent={inputValue}
+        currImg={selectedImages}
       />
       <ProfileContainer>
         <ProfileImage src={userImage} alt='유저 프로필 이미지' />

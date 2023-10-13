@@ -15,7 +15,7 @@ export default function Modal({
   };
   const handleAlertModalOpen = () => {
     setModalOpen(false);
-    setAlertModalOpen(true);
+    setAlertModalOpen(type);
   };
 
   return (
@@ -24,14 +24,12 @@ export default function Modal({
         <div></div>
         <ul>
           <li>
-            <button onClick={text === '삭제' ? handleAlertModalOpen : onClick}>
-              {type ? '삭제' : text}
-            </button>
+            <button onClick={handleAlertModalOpen}>{text}</button>
           </li>
-          {type && (
+          {(type === 'delete' || type === 'class') && (
             <li>
               <button onClick={type && onClick}>
-                {type === 'post'
+                {type === 'delete'
                   ? '수정'
                   : type === 'class'
                   ? '클래스 상세 페이지로 이동'

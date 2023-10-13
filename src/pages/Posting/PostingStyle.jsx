@@ -7,14 +7,14 @@ import { TopNavWrap } from '../../components/Common/TopNav';
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 import { useNavigate } from 'react-router-dom';
 import DeletBtn from '../../assets/img/icon-x.svg';
-
+import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 export const ProfileContainer = styled.div`
   position: relative;
 `;
 
 export const ProfileImage = styled.img`
   position: absolute;
-  top: 20px;
+  top: 120px;
   left: 16px;
   width: 42px;
   height: 42px;
@@ -22,27 +22,34 @@ export const ProfileImage = styled.img`
 `;
 
 export const UploadButton = styled.div`
-  position: absolute;
-  top: 750px;
-  left: 324px;
+  position: relative;
+
+  left: 320px;
 `;
 
 export const UploadLabel = styled.label`
   cursor: pointer;
 `;
 
-export const UploadImg = styled.img``;
+export const UploadImg = styled.img`
+  width: 50px;
+  height: 50px;
+`;
 
 //업로드 될 이미지 스타일
 
 export const PostFormStyle = styled.form`
   width: 100%;
+  position: relative;
 `;
 
 export const ImgWrapStyle = styled.ul`
   display: flex;
+
   overflow-x: scroll;
 
+  padding-top: 200px;
+  padding-left: 30px;
   &::-webkit-scrollbar {
     padding-top: 5px;
     background-color: white;
@@ -113,15 +120,33 @@ export function DisabledUploadBtnNav({ handleUploadPost, buttonStyle }) {
   );
 }
 
-export function EditUploadBtnNav({ handleUploadPost, buttonStyle }) {
+export function EditUploadBtnNav({
+  handleUploadPost,
+  buttonStyle,
+  post,
+  currContent,
+  currImg,
+}) {
   const navigate = useNavigate();
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const handleModalAlertOpen = () => {
+    if (
+      post.content === currContent &&
+      JSON.stringify(post.image.split(',')) === JSON.stringify(currImg)
+    ) {
+      navigate(-1);
+    } else {
+      setAlertModalOpen(true);
+    }
+  };
 
   const goBack = () => {
     navigate(-1);
   };
+
   return (
     <TopNavWrap>
-      <button onClick={goBack} className='go-back'>
+      <button onClick={handleModalAlertOpen} className='go-back'>
         <img src={ArrowIcon} alt='뒤로가기 아이콘' />
       </button>
       <ButtonStyle
@@ -137,6 +162,13 @@ export function EditUploadBtnNav({ handleUploadPost, buttonStyle }) {
       >
         수정하기
       </ButtonStyle>
+      {alertModalOpen && (
+        <ModalAlert
+          setAlertModalOpen={setAlertModalOpen}
+          onClick={goBack}
+          type='edit'
+        />
+      )}
     </TopNavWrap>
   );
 }
@@ -165,24 +197,25 @@ export const ImagePreview = styled.img`
   max-height: 228px;
   object-fit: cover;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
-  top: 20px;
-  left: 50px;
 `;
 
 export const TextInputContainer = styled.textarea`
+  position: absolute;
+  left: 70px;
   font-family: 'SpoqaHanSansNeo-Regular';
   margin: 30px 0 50px 0;
-  width: 100%;
+  width: 304px;
+  min-height: 161px;
+  border-radius: 10px;
   overflow-y: hidden;
   display: block;
-  /* min-height: 80px; */
-  height: 100%;
   font-size: var(--font-md);
   color: var(--font-color);
-  padding-left: 71px;
+  padding-left: 15px;
+  border: 1px solid var(--border-color);
   resize: none;
   outline: none;
-  border: none;
+
   &::placeholder {
     color: var(--sub-font-color);
     font-size: var(--font-md);

@@ -9,7 +9,12 @@ import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilState } from 'recoil';
 import GoBackButton from '../../../components/Common/GoBackButton';
 import Input from '../../../components/Common/Account/Input';
-import { SignupHeader, Heading1, SignupDiv } from './EditProfileStyle';
+import {
+  SignupHeader,
+  Heading1,
+  SignupDiv,
+  ColorSet,
+} from './EditProfileStyle';
 import {
   AccountForm,
   Description,
@@ -35,7 +40,14 @@ const EditProfile = () => {
   const [accountname, setAccountname] = useState(
     accountType ? data.accountname.substr(7) : data.accountname,
   );
-  const [intro, setIntro] = useState(data.intro);
+  const intro = data.intro;
+  const colorMatch = intro.match(/#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})/);
+  const [backgroundColor, setBackgroundColor] = useState(
+    colorMatch ? colorMatch[0] : '',
+  );
+  const [introText, setIntroText] = useState(
+    intro.replace(backgroundColor, ''),
+  );
   const [button, setButton] = useState(false);
   const [image, setImage] = useState(data.image);
 
@@ -61,13 +73,13 @@ const EditProfile = () => {
     } else if (name === 'accountname') {
       setAccountname(value.trim());
     } else if (name === 'intro') {
-      setIntro(value.trim());
+      setIntroText(value);
     }
 
     handleActiveButton();
     // 두 입력란에 값이 모두 존재할 경우 버튼 활성화 함수 실행
   };
-
+  console.log(intro, colorMatch, introText);
   //유저 이름 유효성 검사
   const handleUsernameValid = () => {
     if (username.length >= 2 && username.length <= 10) {
@@ -105,12 +117,16 @@ const EditProfile = () => {
     }
   };
 
+  const handleColorChange = (event) => {
+    setBackgroundColor(event.target.value);
+  };
+  // console.log(colorMatch[0]);
   const handleSetProfileSubmit = async () => {
     const updatedUserValue = {
       ...userInfo,
       username: username,
       accountname: accountType + accountname,
-      intro: intro,
+      intro: introText + backgroundColor,
       image: image,
     };
 
@@ -138,9 +154,22 @@ const EditProfile = () => {
         <Heading1>프로필 수정</Heading1>
       </SignupHeader>
       <Description>변경사항 입력 후 저장 버튼을 눌러주세요.</Description>
-
+      <div className='App' style={{ backgroundColor }}>
+        <ColorSet>
+          <UploadProfile
+            onResponse={handleProfileImageResponse}
+            image={image}
+          />
+          <div id='colorPicker'>
+            <input
+              type='color'
+              value={backgroundColor}
+              onChange={handleColorChange}
+            />
+          </div>
+        </ColorSet>
+      </div>
       <AccountForm first>
-        <UploadProfile onResponse={handleProfileImageResponse} image={image} />
         <Input
           label='사용자 이름'
           type='text'
@@ -152,7 +181,6 @@ const EditProfile = () => {
           borderColor={usernameAlertMsg ? 'var(--error-color)' : '#dbdbdb'}
         />
         {usernameAlertMsg && <ErrorMessage>{usernameAlertMsg}</ErrorMessage>}
-
         <Input
           label='계정 ID'
           name='accountname'
@@ -162,13 +190,12 @@ const EditProfile = () => {
           placeholder='영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.'
           borderColor={accountAlertMsg ? 'var(--error-color)' : '#dbdbdb'}
         />
-
         {accountAlertMsg && <ErrorMessage>{accountAlertMsg}</ErrorMessage>}
         <Input
           label='소개'
           name='intro'
           type='text'
-          value={intro}
+          value={introText}
           placeholder='자신에 대해 소개해 주세요!'
           onChange={handleInputChange}
           borderColor='#dbdbdb'

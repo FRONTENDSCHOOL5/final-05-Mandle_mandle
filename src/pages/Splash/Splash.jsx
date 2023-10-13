@@ -15,7 +15,7 @@ export default function Loading() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -28,7 +28,7 @@ export default function Loading() {
         } else {
           navigate('/intro');
         }
-      }, 3000);
+      }, 3300);
 
       return () => clearTimeout(introTimer);
     }

@@ -15,13 +15,23 @@ export const ModalOverlay = styled.div`
 
 export const ModalWrap = styled.div`
   width: 100%;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
   border-radius: 10px 10px 0 0;
   background-color: #fff;
+  animation: slideIn 0.5s ease;
+
+  @keyframes slideIn {
+    from {
+      bottom: -100px;
+    }
+    to {
+      bottom: 0%;
+    }
+  }
 
   p {
     font-size: var(--font-lg);

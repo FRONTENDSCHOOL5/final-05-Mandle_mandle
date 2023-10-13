@@ -4,13 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import FollowButtton from './FollowButtton';
-import HandleNormalizeImage from './HandleNormalizeImage';
-import BasicProfileImg from '../../assets/img/basic-profile-img.svg';
-export default function SearchList({ user, type }) {
+import NormalizeImage from './NormalizeImage';
+import TeacherIcon from '../../assets/img/icon-teacher.svg';
+
+export default function SearchList({ user, type, keyword }) {
   const navigate = useNavigate();
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
   const [isfollow, SetFollow] = useState(user.isfollow);
+  const parts = user.username.split(new RegExp(`(${keyword})`));
 
   const handleMoveProfile = () => {
     navigate(`/other_profile/${user.accountname}`, {
@@ -27,14 +29,20 @@ export default function SearchList({ user, type }) {
     <SearchListWrap key={user._id}>
       <ProfileWrap onClick={handleMoveProfile}>
         <div>
-          <img
-            src={HandleNormalizeImage(user.image, BasicProfileImg)}
-            alt='프로필 이미지'
-          />
+          <img src={NormalizeImage(user.image)} alt='프로필 이미지' />
         </div>
         <ProfileInfo>
           <div>
-            <p>{user.username}</p>
+            <div>
+              <p>
+                {parts.map((part, i) =>
+                  part === keyword ? <span key={i}>{part}</span> : part,
+                )}
+              </p>
+              {user.accountname.substr(0, 7) === 'Teacher' && (
+                <img src={TeacherIcon} alt='강사 아이콘' />
+              )}
+            </div>
           </div>
           <p>{type ? user.intro : validAccountname}</p>
         </ProfileInfo>
@@ -79,6 +87,19 @@ export const ProfileInfo = styled.div`
   div {
     display: flex;
     justify-content: space-between;
+    div {
+      display: flex;
+      gap: 3px;
+      align-items: c;
+      span {
+        font-weight: 700;
+        color: var(--main-color);
+      }
+      img {
+        width: 12px;
+        height: 12px;
+      }
+    }
   }
 
   img {

@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { MoreNav } from '../../components/Common/TopNav';
-import profileimg from '../../assets/img/mini-basic-progile-img.svg';
+import { UserAtom } from '../../Store/userInfoAtoms';
+import { useRecoilValue } from 'recoil';
 import Modal from '../../components/Common/Modal/Modal';
+import { MoreNav } from '../../components/Common/TopNav';
+import NormalizeImage from '../../components/Common/NormalizeImage';
+import profileimg from '../../assets/img/mini-basic-progile-img.svg';
 export default function ChatRoom() {
   const [inputValue, setInputValue] = useState('');
   const [textValue, settextValue] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
+  const userInfo = useRecoilValue(UserAtom);
+  const userImage = userInfo.image;
+
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -35,7 +41,7 @@ export default function ChatRoom() {
 
   const navigate = useNavigate();
   const handleChatRoomExit = () => {
-    navigate('/chat/chatlist');
+    navigate(-1);
   };
 
   return (
@@ -80,7 +86,7 @@ export default function ChatRoom() {
         ))}
 
         <ChatInputDiv>
-          <UserImage src={profileimg} alt='유저 프로필 이미지' />
+          <UserImage src={NormalizeImage(userImage)} alt='유저 프로필 이미지' />
           <ChatInput
             value={inputValue}
             onChange={handleInputChange}
@@ -118,6 +124,8 @@ const UserImage = styled.img`
   width: 42px;
   height: 42px;
   margin-right: 12px;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 
 const ChatContent = styled.p`

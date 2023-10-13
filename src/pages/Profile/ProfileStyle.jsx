@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Teacher from '../../assets/img/icon-teacher.svg';
+import speechBubble from '../../assets/img/speech-bubble.svg';
 
 const ProfilePage = styled.div`
   width: 100%;
@@ -54,6 +55,16 @@ const ProfileSection = styled.section`
     border-radius: 50%;
     object-fit: cover;
   }
+  .toolTip {
+    display: none;
+    position: absolute;
+    color: #fff;
+    padding: 6px;
+    z-index: 1;
+    top: 260px;
+    height: 37px;
+    background-image: url(${speechBubble});
+  }
 `;
 const Wrap = styled.div`
   display: flex;
@@ -80,7 +91,7 @@ const WrapBtn = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
-  padding-bottom: 20px;
+  padding-bottom: 26px;
   align-items: center;
   .profileEditBtn,
   .profileBtn {
@@ -91,7 +102,6 @@ const WrapBtn = styled.div`
     text-align: center;
     color: var(--sub-font-color);
     font-size: var(--font-md);
-    margin-bottom: 26px;
   }
   .ChatBtn,
   .ShareBtn {
@@ -105,6 +115,9 @@ const WrapBtn = styled.div`
     color: var(--main-color);
     width: 120px;
     height: 34px;
+  }
+  &:hover .toolTip {
+    display: block;
   }
 `;
 const PostSection = styled.section`
@@ -197,6 +210,19 @@ const PostListUl = styled.ul`
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  .image-grid > button {
+    position: relative;
+  }
+
+  .icon-overlay > img {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    top: 0;
+    right: 0;
   }
 `;
 const FollowBtn = styled.button`

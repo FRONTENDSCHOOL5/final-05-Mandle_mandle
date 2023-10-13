@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import SearchIcon from '../../assets/img/icon-search.svg';
 import { ButtonStyle } from './Button';
 import GoBackButton from './GoBackButton';
+import GoBackProfileButton from './GoBackProfileButton';
 import MoreButton from './MoreButton';
 // home
 export function HomeNav({ title, to }) {
@@ -44,10 +45,22 @@ export function MoreNav({ onClick }) {
 }
 
 // 뒤로가기만 있는 버전
-export function GoBackNav() {
+export function GoBackNav({ children }) {
   return (
     <TopNavWrap>
-      <GoBackButton />
+      <div>
+        <GoBackButton />
+        <h1>{children}</h1>
+      </div>
+    </TopNavWrap>
+  );
+}
+
+// 마이 프로필로 이동하는 버전
+export function GoBackProfileNav() {
+  return (
+    <TopNavWrap>
+      <GoBackProfileButton />
     </TopNavWrap>
   );
 }
@@ -104,7 +117,10 @@ export const TopNavWrap = styled.header`
   justify-content: space-between;
   padding: 0 16px;
 
-  h1 {
+  div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   input {
