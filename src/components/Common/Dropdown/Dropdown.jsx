@@ -6,10 +6,8 @@ import { ImageBox } from './DropItem';
 const DropdownContainer = styled.div`
   width: 358px;
   height: 100%;
-  border: 1px solid var(--sub-font-color);
   position: relative;
   margin: 0 auto;
-  border-radius: 8px;
   margin-top: 16px;
 `;
 
@@ -17,8 +15,9 @@ const DropdownButton = styled.button`
   width: 100%;
   height: 100%;
   background-color: white;
-  border: none;
+  border: 1px solid var(--sub-font-color);
   text-align: left;
+  border-radius: 8px;
   display: flex;
   align-items: center;
 `;

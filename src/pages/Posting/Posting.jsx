@@ -165,6 +165,7 @@ export default function Posting() {
         state: response.post.id,
         //클래스 이름,시간, 날짜 넘겨주기
         className: classIdentify,
+        classImg: classImg,
         classTime: selectTime,
         classDate: selectDate,
       });
