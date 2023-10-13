@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmandle_mandle=self.webpackChunkmandle_mandle||[]).push([[706],{2706:function(e,a,c){c(2791);a.Z=c.p+"static/media/mini-basic-progile-img.c51c34a18b400e5332e127bd6a13dcfa.svg"}}]);
+//# sourceMappingURL=706.7339947d.chunk.js.map

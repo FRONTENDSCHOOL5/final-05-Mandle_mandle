@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmandle_mandle=self.webpackChunkmandle_mandle||[]).push([[135],{8135:function(e,a,d){d(2791);a.Z=d.p+"static/media/home-logo.b7433c3ef6a18ab4171114886e11dadd.svg"}}]);
+//# sourceMappingURL=135.31402aaf.chunk.js.map
