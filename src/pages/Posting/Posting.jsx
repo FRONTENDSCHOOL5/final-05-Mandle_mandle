@@ -40,7 +40,8 @@ export default function Posting() {
   const [userImage, setUserImage] = useState('');
 
   const userInfo = useRecoilValue(UserAtom);
-  const resData = JSON.parse(localStorage.getItem('resInfo'))[userInfo.id]; // 리코일에 저장된 클래스 id 값
+  const resInfo = JSON.parse(localStorage.getItem('resInfo'));
+  const resData = resInfo && resInfo[userInfo.id] ? resInfo[userInfo.id] : [];
 
   const dropDownRef = useRef();
   const [classIdentify, setClassIdentify] = useState('클래스 선택하기'); //  선택한 클래스 정보 상태를 담을 status
@@ -60,7 +61,6 @@ export default function Posting() {
   const classDate = resData.map((reservation) => reservation.reserve_ko_date);
   const classTime = resData.map((reservation) => reservation.reserve_time);
 
-
   useEffect(() => {
     const fetchData = async () => {
       //배열로 저장된 각각의 classId map으로 순회하여 setClassList에 저장
@@ -74,7 +74,7 @@ export default function Posting() {
               date: classDate[index],
               time: classTime[index],
             };
-          }),
+          })
         );
         setClassList(allData);
       } catch (error) {
@@ -87,7 +87,7 @@ export default function Posting() {
   useEffect(() => {
     // 예약 데이터에서 class_id 값을 확인
     const hasClassId = resData.some(
-      (reservation) => reservation.class_id != null,
+      (reservation) => reservation.class_id != null
     );
 
     // 만약 class_id 값이 없으면 '/class'로 이동
@@ -103,7 +103,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
 
   useEffect(() => {
@@ -163,11 +163,6 @@ export default function Posting() {
       setSelectedImages([]);
       navigate(`/post/${response.post.id}`, {
         state: response.post.id,
-        //클래스 이름,시간, 날짜 넘겨주기
-        className: classIdentify,
-        classImg: classImg,
-        classTime: selectTime,
-        classDate: selectDate,
       });
     }
   };
