@@ -40,7 +40,8 @@ export default function Posting() {
   const [userImage, setUserImage] = useState('');
 
   const userInfo = useRecoilValue(UserAtom);
-  const resData = JSON.parse(localStorage.getItem('resInfo'))[userInfo.id]; // 리코일에 저장된 클래스 id 값
+  const resInfo = JSON.parse(localStorage.getItem('resInfo'));
+  const resData = resInfo && resInfo[userInfo.id] ? resInfo[userInfo.id] : [];
 
   const dropDownRef = useRef();
   const [classIdentify, setClassIdentify] = useState('클래스 선택하기'); //  선택한 클래스 정보 상태를 담을 status
@@ -52,18 +53,41 @@ export default function Posting() {
   const navigate = useNavigate();
   const token = userInfo.token;
 
-  //Recoil에 저장된 예약한 클래스 아이디
   const classId = resData.map((reservation) => reservation.class_id);
-
-  // Recoil에 저장된 예약한 클래스 날짜/시간 정보
-
   const classDate = resData.map((reservation) => reservation.reserve_ko_date);
   const classTime = resData.map((reservation) => reservation.reserve_time);
 
+  // 현재 날짜 및 시간 가져오기
+  const currentDate = new Date();
+  function parseReserveDate(dateStr) {
+    const regex = /(\w+), (\w+ \d{1,2}, \d{4}), (\d+) (AM|PM) GMT\+9/;
+    const matches = dateStr.match(regex);
+
+    if (matches) {
+      const [, , baseDate, hour, meridiem] = matches;
+
+      let convertedHour = parseInt(hour, 10);
+      if (meridiem === 'PM' && convertedHour !== 12) {
+        convertedHour += 12;
+      } else if (meridiem === 'AM' && convertedHour === 12) {
+        convertedHour = 0;
+      }
+
+      const formattedDate = `${baseDate} ${convertedHour}:00:00 GMT+0900`;
+      return new Date(formattedDate);
+    }
+
+    // 일치하지 않는 경우, 올바르지 않은 날짜 형식이거나 예상치 못한 경우입니다.
+    console.error('Invalid date format:', dateStr);
+    return null;
+  }
+
+  const reserveDate = resData.map((reservation) =>
+    parseReserveDate(reservation.reserve_common_date)
+  );
 
   useEffect(() => {
     const fetchData = async () => {
-      //배열로 저장된 각각의 classId map으로 순회하여 setClassList에 저장
       try {
         const allData = await Promise.all(
           classId.map(async (id, index) => {
@@ -74,9 +98,15 @@ export default function Posting() {
               date: classDate[index],
               time: classTime[index],
             };
-          }),
+          })
         );
-        setClassList(allData);
+
+        // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
+        const filteredData = allData.filter(
+          //현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
+          (data, index) => currentDate > reserveDate[index]
+        );
+        setClassList(filteredData);
       } catch (error) {
         console.log('Error', error);
       }
@@ -87,7 +117,7 @@ export default function Posting() {
   useEffect(() => {
     // 예약 데이터에서 class_id 값을 확인
     const hasClassId = resData.some(
-      (reservation) => reservation.class_id != null,
+      (reservation) => reservation.class_id != null
     );
 
     // 만약 class_id 값이 없으면 '/class'로 이동
@@ -103,7 +133,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
 
   useEffect(() => {
@@ -163,11 +193,6 @@ export default function Posting() {
       setSelectedImages([]);
       navigate(`/post/${response.post.id}`, {
         state: response.post.id,
-        //클래스 이름,시간, 날짜 넘겨주기
-        className: classIdentify,
-        classImg: classImg,
-        classTime: selectTime,
-        classDate: selectDate,
       });
     }
   };
