@@ -17,21 +17,48 @@ const ReservationList = styled.div`
     border-radius: 10px;
     margin: 0 30px;
   }
+  .reserved {
+    background-color: rgb(177 212 195 / 20%);
+  }
+  .attended {
+    background-color: #f2f2f2;
+  }
+
   li {
     width: 300px;
-    height: 52px;
+    height: 72px;
     display: felx;
     margin: 15px;
-    gap: 10px;
+    gap: 5px;
+    background-color: white;
   }
   .textWrap {
     width: 300px;
     display: grid;
-    align-content: space-evenly;
+    align-content: center;
+    gap: 2px;
+  }
+  .classItem {
+    box-shadow: rgba(118, 118, 118, 0.25) 0px 1px 2px;
+    border-radius: 10px;
   }
   .classImg {
     width: 52px;
     height: 52px;
+    margin: 10px;
+  }
+  .reservationClass {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  .reservationDate {
+    font-size: 12px;
+    color: #767676;
+  }
+  .reservationTime {
+    font-size: 12px;
+    color: #767676;
   }
 `;
 
