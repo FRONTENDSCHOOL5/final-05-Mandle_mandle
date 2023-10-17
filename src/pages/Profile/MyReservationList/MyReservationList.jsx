@@ -80,7 +80,11 @@ const MyReservationList = () => {
           ))}
         </ul>
       ) : (
-        <p>예약한 클래스가 없습니다.</p>
+        <ul className='reserved'>
+          <li className='classItem'>
+            <p className='classNone'>수강예정인 클래스가 없습니다.</p>
+          </li>
+        </ul>
       )}
 
       <h2>수강한 클래스</h2>
@@ -94,7 +98,11 @@ const MyReservationList = () => {
           ))}
         </ul>
       ) : (
-        <p>수강한 클래스가 없습니다.</p>
+        <ul className='attended'>
+          <li className='classItem'>
+            <p className='classNone'>수강한 클래스가 없습니다.</p>
+          </li>
+        </ul>
       )}
     </ReservationList>
   );

@@ -60,6 +60,9 @@ const ReservationList = styled.div`
     font-size: 12px;
     color: #767676;
   }
+  .classNone {
+    margin: 10px;
+  }
 `;
 
 export default ReservationList; // 스타일된 컴포넌트를 내보냄
