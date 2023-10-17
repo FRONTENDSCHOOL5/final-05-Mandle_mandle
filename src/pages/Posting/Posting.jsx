@@ -186,8 +186,20 @@ export default function Posting() {
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
 
-    const response = await PostUploadPost(token, inputValue, images);
+    const classData = {
+      classImg,
+      classIdentify,
+      selectDate,
+      selectTime,
+    };
+    const classInfo = JSON.stringify(classData);
 
+    const postData = {
+      inputValue,
+      classInfo,
+    };
+    console.log(postData);
+    const response = await PostUploadPost(token, postData, images);
     if (response) {
       setInputValue('');
       setSelectedImages([]);
