@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import arrow from '../../../assets/img/icon-arrow-right.svg';
 
 // ReservationList라는 스타일된 컴포넌트 정의
 const ReservationList = styled.div`
@@ -33,7 +34,6 @@ const ReservationList = styled.div`
     background-color: white;
   }
   .textWrap {
-    width: 300px;
     display: grid;
     align-content: center;
     gap: 2px;
@@ -41,6 +41,7 @@ const ReservationList = styled.div`
   .classItem {
     box-shadow: rgba(118, 118, 118, 0.25) 0px 1px 2px;
     border-radius: 10px;
+    position: relative;
   }
   .classImg {
     width: 52px;
@@ -62,6 +63,14 @@ const ReservationList = styled.div`
   }
   .classNone {
     margin: 10px;
+  }
+  .moreIcon {
+    width: 22px;
+    height: 22px;
+    background-image: url(${arrow});
+    position: absolute;
+    top: 25px;
+    right: 10px;
   }
 `;
 
