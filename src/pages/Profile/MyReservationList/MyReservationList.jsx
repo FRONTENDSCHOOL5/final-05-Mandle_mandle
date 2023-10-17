@@ -55,12 +55,12 @@ const MyReservationList = () => {
   }
   console.log(attendedClasses, reservedClasses);
   const ReservationItem = ({ reservation }) => (
-    <li key={reservation.class_id}>
+    <li key={reservation.class_id} className='classItem'>
       <img className='classImg' src={reservation.image} alt='Class Image' />
       <div className='textWrap'>
-        <p>클래스: {reservation.className}</p>
-        <p>예약 날짜: {reservation.reserve_ko_date}</p>
-        <p>예약 시간: {reservation.reserve_time}</p>
+        <p className='reservationClass'>{reservation.className}</p>
+        <p className='reservationDate'>{reservation.reserve_ko_date}</p>
+        <p className='reservationTime'>{reservation.reserve_time}</p>
       </div>
     </li>
   );
