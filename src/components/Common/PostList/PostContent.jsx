@@ -6,6 +6,7 @@ import HeartButton from '../HeartButton';
 import NormalizeImage from '../NormalizeImage';
 import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
 import PlaceholderImg from '../../../assets/img/placeholderImg.svg';
+
 export default function PostContent({ post }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,13 +22,29 @@ export default function PostContent({ post }) {
     navigate(`/post/${post.id}`, { state: post.id });
   };
 
+  const handleClassInfo = () => {
+    navigate('/my_profile/my_reservation_list');
+  };
+
   return (
     <PostContentWrap>
+      <ReservationtWrap onClick={handleClassInfo}>
+        <ClassImage
+          src={'https://api.mandarin.weniv.co.kr/1693549473375.jpg'}
+          alt='클래스 이미지'
+        />
+        <TextWrap>
+          <ReservationClass>{'예시'}</ReservationClass>
+          <ReservationDate> {'2023 9월 1일 수요일'}</ReservationDate>
+          <ReservationTime>{'오후 1:00~ 오후 2:30'}</ReservationTime>
+        </TextWrap>
+      </ReservationtWrap>
       <MovePostDetail
         cursor={location.pathname.startsWith('/post') ? 'default ' : 'pointer'}
         onClick={handlePostClick}
       >
         {post.content && <p>{post.content}</p>}
+
         {postImages[0] === '' ? (
           ''
         ) : (
@@ -67,7 +84,7 @@ export default function PostContent({ post }) {
   );
 }
 
-const PostContentWrap = styled.div`
+const PostContentWrap = styled.button`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -131,6 +148,47 @@ const CommentButton = styled.button`
 `;
 
 const PostDate = styled.p`
+  font-size: var(--font-sm);
+  color: var(--sub-font-color);
+`;
+
+//클래스 리스트 스타일링
+const ReservationtWrap = styled.div`
+  width: 300px;
+  height: 72px;
+  display: flex;
+  margin-bottom: 10px;
+  gap: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background-color: white;
+`;
+
+const ClassImage = styled.img`
+  width: 52px;
+  /* height: 52px; */
+  margin: 10px;
+`;
+
+const TextWrap = styled.div`
+  width: 300px;
+  display: grid;
+  align-content: center;
+  gap: 2px;
+`;
+
+const ReservationClass = styled.p`
+  display: block;
+  font-size: var(--font-md);
+  margin-bottom: 5px;
+`;
+
+const ReservationDate = styled.p`
+  font-size: var(--font-sm);
+  color: var(--sub-font-color);
+`;
+
+const ReservationTime = styled.p`
   font-size: var(--font-sm);
   color: var(--sub-font-color);
 `;
