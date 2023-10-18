@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProgressiveImg from '../ProgressiveImg/ProgressiveImg';
@@ -6,28 +6,50 @@ import HeartButton from '../HeartButton';
 import NormalizeImage from '../NormalizeImage';
 import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
 import PlaceholderImg from '../../../assets/img/placeholderImg.svg';
+
 export default function PostContent({ post }) {
   const navigate = useNavigate();
   const location = useLocation();
   const postImages = post.image ? post.image.split(',') : '';
-
+  const postInfo = post.content;
   const postDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateString);
     return date.toLocaleDateString('ko-KR', options); // '2023년 6월 20일' 형식으로 변환
   };
 
+  let parsedData;
+  try {
+    parsedData = JSON.parse(postInfo);
+  } catch (error) {
+    // 클래스데이터가 없는경우 or  JSON 파싱에 실패한 경우, 그냥 postInfo를 사용
+    parsedData = { inputValue: postInfo }; // 일반 inputValue만 전달
+  }
+
   const handlePostClick = () => {
     navigate(`/post/${post.id}`, { state: post.id });
   };
 
+  const handleClassInfo = () => {
+    navigate(`/class/detail/${parsedData.selectId}`);
+  };
+
   return (
     <PostContentWrap>
+      <ReservationtWrap onClick={handleClassInfo}>
+        <ClassImage src={parsedData.classImg} alt='클래스 이미지' />
+        <TextWrap>
+          <ReservationClass>{parsedData.classIdentify}</ReservationClass>
+          <ReservationDate> {parsedData.selectDate}</ReservationDate>
+          <ReservationTime>{parsedData.selectTime}</ReservationTime>
+        </TextWrap>
+      </ReservationtWrap>
       <MovePostDetail
         cursor={location.pathname.startsWith('/post') ? 'default ' : 'pointer'}
         onClick={handlePostClick}
       >
-        {post.content && <p>{post.content}</p>}
+        {parsedData.inputValue && <p>{parsedData.inputValue}</p>}
+
         {postImages[0] === '' ? (
           ''
         ) : (
@@ -67,7 +89,7 @@ export default function PostContent({ post }) {
   );
 }
 
-const PostContentWrap = styled.div`
+const PostContentWrap = styled.button`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -131,6 +153,47 @@ const CommentButton = styled.button`
 `;
 
 const PostDate = styled.p`
+  font-size: var(--font-sm);
+  color: var(--sub-font-color);
+`;
+
+//클래스 리스트 스타일링
+const ReservationtWrap = styled.div`
+  width: 300px;
+  height: 72px;
+  display: flex;
+  margin-bottom: 10px;
+  gap: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background-color: white;
+`;
+
+const ClassImage = styled.img`
+  width: 52px;
+  /* height: 52px; */
+  margin: 10px;
+`;
+
+const TextWrap = styled.div`
+  width: 300px;
+  display: grid;
+  align-content: center;
+  gap: 2px;
+`;
+
+const ReservationClass = styled.p`
+  display: block;
+  font-size: var(--font-md);
+  margin-bottom: 5px;
+`;
+
+const ReservationDate = styled.p`
+  font-size: var(--font-sm);
+  color: var(--sub-font-color);
+`;
+
+const ReservationTime = styled.p`
   font-size: var(--font-sm);
   color: var(--sub-font-color);
 `;

@@ -38,6 +38,8 @@ export default function DropItem(props) {
     img,
     setIsOpen,
     isOpen,
+    id,
+    setSelectId,
   } = props;
   const handleItemClick = () => {
     setClassIdentify(value);
@@ -45,6 +47,7 @@ export default function DropItem(props) {
     setSelectDate(date);
     setSelectTime(time);
     setIsOpen(!isOpen);
+    setSelectId(id);
   };
 
   return (

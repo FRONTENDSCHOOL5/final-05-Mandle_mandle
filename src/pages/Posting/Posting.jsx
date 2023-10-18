@@ -47,6 +47,7 @@ export default function Posting() {
   const [classIdentify, setClassIdentify] = useState('클래스 선택하기'); //  선택한 클래스 정보 상태를 담을 status
   const [selectDate, setSelectDate] = useState('');
   const [selectTime, setSelectTime] = useState('');
+  const [selectId, setSelectId] = useState('');
   const [classList, setClassList] = useState([]); // 수강후기를 작성할 클래스 리스트
   const [classImg, setClassImg] = useState(whiteImg);
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
@@ -92,18 +93,20 @@ export default function Posting() {
         const allData = await Promise.all(
           classId.map(async (id, index) => {
             const data = await GetClassDetailInfoData(id, token);
-            return {
+            const classInfo = {
               itemName: data.itemName,
               itemImage: data.itemImage,
               date: classDate[index],
               time: classTime[index],
+              classId: id,
             };
+            return classInfo;
           })
         );
 
         // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
         const filteredData = allData.filter(
-          //현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
+          // 현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
           (data, index) => currentDate > reserveDate[index]
         );
         setClassList(filteredData);
@@ -111,6 +114,7 @@ export default function Posting() {
         console.log('Error', error);
       }
     };
+    console.log(selectId);
     fetchData();
   }, []);
 
@@ -125,7 +129,7 @@ export default function Posting() {
       alert('먼저 클래스를 수강한 후 후기를 작성해주세요!');
       navigate('/class');
     }
-  }, [resData, navigate]);
+  }, []);
 
   useEffect(() => {
     GetUserProfileImage(token, setUserImage);
@@ -186,8 +190,20 @@ export default function Posting() {
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
 
-    const response = await PostUploadPost(token, inputValue, images);
+    const classData = {
+      inputValue,
+      classImg,
+      classIdentify,
+      selectDate,
+      selectTime,
+      selectId,
+    };
 
+    console.log(classData);
+
+    const classReview = JSON.stringify(classData);
+
+    const response = await PostUploadPost(token, classReview, images);
     if (response) {
       setInputValue('');
       setSelectedImages([]);
@@ -238,6 +254,8 @@ export default function Posting() {
                 setClassImg={setClassImg}
                 setSelectDate={setSelectDate}
                 setSelectTime={setSelectTime}
+                id={item.classId}
+                setSelectId={setSelectId}
               />
             ))}
           </DropdownMenu>

@@ -1,15 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
-
+import useDetectClose from '../../Hooks/useDetectClose';
+import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
 // import { PostImagesUpload } from '../../api/PostImagesUpload';
 import PutPostEdit from '../../api/PutPostEdit';
 import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 import { useLocation } from 'react-router-dom';
 import { PostImagesUpload } from '../../api/PostImagesUpload';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
-import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
+
+import whiteImg from '../../assets/img/whiteImg.webp';
+import {
+  DropdownContainer,
+  DropdownButton,
+  DropdownMenu,
+  ImageBox,
+} from '../../components/Common/Dropdown/Dropdown';
+import Dropdown from '../../components/Common/Dropdown/Dropdown';
+import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
+import { DropdonwTextContainer } from '../../components/Common/Dropdown/DropItem';
+
 import {
   TextInputContainer,
   ImagePreview,
@@ -32,28 +44,107 @@ export default function EditPost() {
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
+  const [classIdentify, setClassIdentify] = useState('클래스 선택하기'); //  선택한 클래스 정보 상태를 담을 status
+  const [selectDate, setSelectDate] = useState('');
+  const [selectTime, setSelectTime] = useState('');
+  const [selectId, setSelectId] = useState('');
+  const [classList, setClassList] = useState([]); // 수강후기를 작성할 클래스 리스트
+  const [classImg, setClassImg] = useState(whiteImg);
+  const dropDownRef = useRef();
+  const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
   const navigate = useNavigate();
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
+  const resInfo = JSON.parse(localStorage.getItem('resInfo'));
+  const resData = resInfo && resInfo[userInfo.id] ? resInfo[userInfo.id] : [];
+
+  const classId = resData.map((reservation) => reservation.class_id);
+  const classDate = resData.map((reservation) => reservation.reserve_ko_date);
+  const classTime = resData.map((reservation) => reservation.reserve_time);
+  const postInfo = post.content;
+  let parsedData;
+  try {
+    parsedData = JSON.parse(postInfo);
+  } catch (error) {
+    // JSON 파싱에 실패한 경우, 그냥 postInfo를 사용
+    parsedData = { inputValue: postInfo }; // 또는 원하는 대체 내용을 설정
+  }
+
+  const currentDate = new Date();
+  function parseReserveDate(dateStr) {
+    const regex = /(\w+), (\w+ \d{1,2}, \d{4}), (\d+) (AM|PM) GMT\+9/;
+    const matches = dateStr.match(regex);
+    if (matches) {
+      const [, , baseDate, hour, meridiem] = matches;
+      let convertedHour = parseInt(hour, 10);
+      if (meridiem === 'PM' && convertedHour !== 12) {
+        convertedHour += 12;
+      } else if (meridiem === 'AM' && convertedHour === 12) {
+        convertedHour = 0;
+      }
+      const formattedDate = `${baseDate} ${convertedHour}:00:00 GMT+0900`;
+      return new Date(formattedDate);
+    }
+    // 일치하지 않는 경우, 올바르지 않은 날짜 형식이거나 예상치 못한 경우입니다.
+    console.error('Invalid date format:', dateStr);
+    return null;
+  }
+
+  const reserveDate = resData.map((reservation) =>
+    parseReserveDate(reservation.reserve_common_date)
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allData = await Promise.all(
+          classId.map(async (id, index) => {
+            const data = await GetClassDetailInfoData(id, token);
+            const classInfo = {
+              itemName: data.itemName,
+              itemImage: data.itemImage,
+              date: classDate[index],
+              time: classTime[index],
+              classId: id,
+            };
+            return classInfo;
+          })
+        );
+
+        // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
+        const filteredData = allData.filter(
+          // 현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
+          (data, index) => currentDate > reserveDate[index]
+        );
+        setClassList(filteredData);
+      } catch (error) {
+        console.log('Error', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    GetUserProfileImage(token, setUserImage);
+  }, [token]);
 
   useEffect(() => {
     GetUserProfileImage(token, setUserImage);
   }, [token]);
   useEffect(() => {
-
     if (post.image) {
       setSelectedImages(post.image.split(','));
       setPreviewImages(post.image.split(','));
     }
-    if (post.content) {
-      setInputValue(post.content);
+    if (parsedData.inputValue) {
+      setInputValue(parsedData.inputValue);
     }
   }, [post.image, post.content]);
 
-
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -87,11 +178,20 @@ export default function EditPost() {
   };
 
   const handleUploadPost = async () => {
+    const classData = {
+      inputValue,
+      classImg,
+      classIdentify,
+      selectDate,
+      selectTime,
+      selectId,
+    };
+    const classReview = JSON.stringify(classData);
     const editedPost = await PutPostEdit(
       postId,
       token,
-      inputValue,
-      selectedImages.join(','),
+      classReview,
+      selectedImages.join(',')
     );
 
     if (editedPost) {
@@ -120,8 +220,39 @@ export default function EditPost() {
       />
       <ProfileContainer>
         <ProfileImage src={userImage} alt='유저 프로필 이미지' />
-        <FileUploadButton handleImageChange={handleImageChange} />
       </ProfileContainer>
+      <DropdownContainer ref={dropDownRef}>
+        <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
+          <ImageBox src={classImg} />
+          <DropdonwTextContainer>
+            {classIdentify}
+            {selectDate && selectTime ? (
+              <DropdownDate date={selectDate} time={selectTime} />
+            ) : null}
+          </DropdonwTextContainer>
+        </DropdownButton>
+        {isOpen && (
+          <DropdownMenu>
+            {classList.map((item, index) => (
+              <Dropdown
+                key={index}
+                value={item.itemName}
+                date={item.date}
+                time={item.time}
+                img={item.itemImage}
+                setIsOpen={setIsOpen}
+                setClassIdentify={setClassIdentify}
+                isOpen={isOpen}
+                setClassImg={setClassImg}
+                setSelectDate={setSelectDate}
+                setSelectTime={setSelectTime}
+                id={item.classId}
+                setSelectId={setSelectId}
+              />
+            ))}
+          </DropdownMenu>
+        )}
+      </DropdownContainer>
       <PostFormStyle>
         <TextInputContainer
           placeholder='게시글 입력하기..'
@@ -145,6 +276,7 @@ export default function EditPost() {
             </PreviewImgWrapStyle>
           ))}
         </ImgWrapStyle>
+        <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>
     </div>
   );
