@@ -45,14 +45,15 @@ export default function PostProfile({ post, setPostUpdated }) {
       setAlertModalOpen(null);
       alert(`해당 게시글이 삭제되었습니다.`);
       const currentURL = window.location.pathname;
-      if (currentURL.startsWith('/post')) {
+
+      if (currentURL.includes('/post')) {
         navigate(-1); // 이전 페이지로 이동
-      } else {
-        setPostUpdated(true); // 새로고침(상태변경으로 바꿀 예정)
+        return;
       }
+      setPostUpdated(true);
     }
   };
-  console.log(alertModalOpen);
+
   return (
     <PostProfileWrap>
       <button onClick={handleProfileClick}>

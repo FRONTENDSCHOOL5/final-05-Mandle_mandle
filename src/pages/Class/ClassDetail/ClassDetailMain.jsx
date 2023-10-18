@@ -190,7 +190,7 @@ export function ClassDetailOtherClass() {
           const truncatedLink = parts[0] || '';
           return (
             <li key={classItem._id}>
-              <a href={`/final-05-Mandle_mandle/class/detail/${classItem._id}`}>
+              <a href={`/class/detail/${classItem._id}`}>
                 <ClassPostMini
                   miniImg={classItem.itemImage}
                   miniName={classItem.itemName}
