@@ -46,7 +46,9 @@ export default function Profile() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isImgListBtnActive, setImgListBtnActive] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(null);
-
+  const likedInfo = JSON.parse(localStorage.getItem('likedInfo'));
+  const likedInfoData =
+    likedInfo && likedInfo[userInfo.id] ? likedInfo[userInfo.id] : [];
   const [introText, setIntroText] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('');
   const [textColor, setTextColor] = useState(''); // 'textColor' 상태 변수 정의
@@ -116,6 +118,18 @@ export default function Profile() {
     navigate('/');
     window.location.reload();
   };
+  const LikedItem = ({ Liked }) => (
+    <Link to={`/class/detail/${Liked.class_id}`}>
+      <li className='likedItem'>
+        <img className='likedImg' src={Liked.image} alt='Class Image' />
+        <div className='likedClassTextWrap'>
+          <p className='likedClassCategory'>{Liked.category}</p>
+          <p className='likedClassName'>{Liked.class_name}</p>
+        </div>
+      </li>
+    </Link>
+  );
+
   return (
     <ProfilePage>
       {/* 모달 버튼 */}
@@ -271,6 +285,20 @@ export default function Profile() {
                   ))}
               </ClassListUl>
             </ClassSection>
+            <ClassSection
+              // Student일때만 보이게 설정
+              className={
+                profileData.accountname.includes('Student') ? '' : 'a11y-hidden'
+              }
+            >
+              <Title>찜한 클래스 리스트</Title>
+              <ClassListUl>
+                {likedInfoData.map((liked, index) => (
+                  <LikedItem key={index} Liked={liked} />
+                ))}
+              </ClassListUl>
+            </ClassSection>
+
             <PostSection>
               <div id='PostBtnWrap'>
                 {/* 포스트 리스트 버튼 */}
