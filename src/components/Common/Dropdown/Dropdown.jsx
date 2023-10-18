@@ -45,6 +45,8 @@ export default function Dropdown(props) {
     img,
     setIsOpen,
     isOpen,
+    id,
+    setSelectId,
   } = props;
 
   return (
@@ -59,6 +61,8 @@ export default function Dropdown(props) {
         date={date}
         setSelectDate={setSelectDate}
         setSelectTime={setSelectTime}
+        id={id}
+        setSelectId={setSelectId}
         time={time}
       />
     </>
