@@ -44,11 +44,11 @@ const SkeletonUserDetails = styled.div`
 `;
 
 const SkeletonUserName = styled(Skeleton)`
-  width: 100px;
+  width: 90px;
   height: 14px;
 `;
 const SkeletonUserID = styled(Skeleton)`
-  width: 80px;
+  width: 70px;
   height: 12px;
 `;
 

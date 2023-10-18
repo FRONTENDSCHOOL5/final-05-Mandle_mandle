@@ -31,7 +31,7 @@ export default function ProfileSkeleton({ status, type }) {
           )}
           {status === 'my' && (
             <>
-              <SkeletonProfileBtn></SkeletonProfileBtn>{' '}
+              <SkeletonProfileBtn></SkeletonProfileBtn>
               <SkeletonProfileBtn></SkeletonProfileBtn>
             </>
           )}
