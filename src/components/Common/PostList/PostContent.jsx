@@ -69,7 +69,10 @@ export default function PostContent({ post }) {
           <div>
             <p>{parsedData.classIdentify}</p>
             {post.author.accountname.startsWith('Teacher') ? (
-              <p>해당 클래스 보러가기</p>
+              <>
+                <ReservationDate> {parsedData.classTag}</ReservationDate>
+                <ReservationTime>{parsedData.classPrice}</ReservationTime>
+              </>
             ) : (
               <>
                 <ReservationDate> {parsedData.selectDate}</ReservationDate>
@@ -99,7 +102,7 @@ export default function PostContent({ post }) {
   );
 }
 
-const PostContentWrap = styled.button`
+const PostContentWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -135,7 +138,7 @@ const PostImageWrap = styled.div`
 
   &.postImgscroll::-webkit-scrollbar {
     padding-top: 5px;
-    background-color: white;
+    background-color: none;
 
     height: 10px;
   }
