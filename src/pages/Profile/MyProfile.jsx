@@ -10,7 +10,6 @@ import MiniClassList from '../../components/Common/MiniClassList';
 import NormalizeImage from '../../components/Common/NormalizeImage';
 import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
-import { ReserveDataState } from '../../Store/ReserveStateAtom';
 import HomeLogo from '../../assets/img/home-logo.svg';
 import ImageMore from '../../assets/img/icon-img-more.svg';
 import MenuBar from '../../components/Common/MenuBar';
@@ -50,7 +49,17 @@ export default function Profile() {
 
   const [introText, setIntroText] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('');
-
+  const [textColor, setTextColor] = useState(''); // 'textColor' 상태 변수 정의
+  function getTextColorByBackgroundColor(hexColor) {
+    const c = hexColor.substring(1); // 색상 앞의 # 제거
+    const rgb = parseInt(c, 16); // rrggbb를 10진수로 변환
+    const r = (rgb >> 16) & 0xff; // red 추출
+    const g = (rgb >> 8) & 0xff; // green 추출
+    const b = (rgb >> 0) & 0xff; // blue 추출
+    const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+    // 색상 선택
+    return luma < 127.5 ? 'white' : 'black'; // 글자색이
+  }
   useEffect(() => {
     const fetchData = async () => {
       const userProfileData = await ProfileData(userAccountname, token);
@@ -62,14 +71,16 @@ export default function Profile() {
       setPostUpdated(false);
       setClassUpdated(false);
 
-      // Extract text part of intro before the '#' character and set it to introText
+      // '#' 문자 이전의 intro 텍스트 추출하고 'introText' 상태 변수에 설정
       if (userProfileData && userProfileData.intro) {
         const introParts = userProfileData.intro.split('#');
         if (introParts.length > 1) {
           setIntroText(introParts[0]);
           setBackgroundColor(`#${introParts[1]}`);
+          const textColor = getTextColorByBackgroundColor(`#${introParts[1]}`);
+          setTextColor(textColor); // 여기서 'textColor'의 값을 설정합니다.
         } else {
-          setIntroText(userProfileData.intro); // If no '#', set introText to the entire intro
+          setIntroText(userProfileData.intro); // '#'가 없다면 전체 intro를 'introText'로 설정
         }
       }
     };
@@ -137,8 +148,12 @@ export default function Profile() {
               <Wrap>
                 <div className='follow'>
                   <Link to='/my_profile/follower'>
-                    <p>{profileData.followerCount}</p>
-                    <p className='followNum'>followers</p>
+                    <p style={{ color: textColor }}>
+                      {profileData.followerCount}
+                    </p>
+                    <p className='followNum' style={{ color: textColor }}>
+                      followers
+                    </p>
                   </Link>
                 </div>
                 <img
@@ -148,13 +163,19 @@ export default function Profile() {
                 />
                 <div className='follow'>
                   <Link to='/my_profile/following'>
-                    <p>{profileData.followingCount}</p>
-                    <p className='followNum'>followings</p>
+                    <p style={{ color: textColor }}>
+                      {profileData.followingCount}
+                    </p>
+                    <p className='followNum' style={{ color: textColor }}>
+                      followings
+                    </p>
                   </Link>
                 </div>
               </Wrap>
               <div id='usernameWrap'>
-                <p id='NickName'>{profileData.username}</p>{' '}
+                <p id='NickName' style={{ color: textColor }}>
+                  {profileData.username}
+                </p>{' '}
                 {/* Teacher 아이콘 */}
                 <span
                   className={
@@ -166,7 +187,7 @@ export default function Profile() {
                 ></span>
               </div>
               {/* 만들 아이디 예외처리 */}
-              <p id='MandleId'>
+              <p id='MandleId' style={{ color: textColor }}>
                 @
                 {(profileData.accountname &&
                   profileData.accountname.includes('Teacher')) ||
@@ -175,17 +196,21 @@ export default function Profile() {
                   ? profileData.accountname.substr(7)
                   : profileData.accountname}
               </p>
-              <p id='Introduce'>{introText}</p>
+              <p id='Introduce' style={{ color: textColor }}>
+                {introText}
+              </p>
               <WrapBtn>
                 {/* 프로필 수정버튼 */}
                 <button
                   className='profileEditBtn'
                   onClick={() => handleClick(profileData)}
+                  style={{ color: textColor, borderColor: textColor }}
                 >
                   프로필 수정
                 </button>
                 {/* 클래스 등록버튼 */}
                 <button
+                  style={{ color: textColor, borderColor: textColor }}
                   className={
                     profileData.accountname &&
                     profileData.accountname.includes('Teacher')
@@ -204,6 +229,7 @@ export default function Profile() {
                   클래스 등록
                 </button>
                 <button
+                  style={{ color: textColor, borderColor: textColor }}
                   className={
                     profileData.accountname &&
                     profileData.accountname.includes('Student')

@@ -5,6 +5,7 @@ import { GoBackNav } from '../../../components/Common/TopNav';
 import ReservationList from '../MyReservationList/MyReservationListStyle';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserAtom } from '../../../Store/userInfoAtoms';
+import { Link } from 'react-router-dom';
 
 const MyReservationList = () => {
   const navigate = useNavigate();
@@ -55,14 +56,17 @@ const MyReservationList = () => {
   }
   console.log(attendedClasses, reservedClasses);
   const ReservationItem = ({ reservation }) => (
-    <li key={reservation.class_id} className='classItem'>
-      <img className='classImg' src={reservation.image} alt='Class Image' />
-      <div className='textWrap'>
-        <p className='reservationClass'>{reservation.className}</p>
-        <p className='reservationDate'>{reservation.reserve_ko_date}</p>
-        <p className='reservationTime'>{reservation.reserve_time}</p>
-      </div>
-    </li>
+    <Link to={`/class/detail/${reservation.class_id}`}>
+      <li className='classItem'>
+        <img className='classImg' src={reservation.image} alt='Class Image' />
+        <div className='textWrap'>
+          <p className='reservationClass'>{reservation.className}</p>
+          <p className='reservationDate'>{reservation.reserve_ko_date}</p>
+          <p className='reservationTime'>{reservation.reserve_time}</p>
+          <span className='moreIcon'></span>
+        </div>
+      </li>
+    </Link>
   );
 
   return (
@@ -72,29 +76,37 @@ const MyReservationList = () => {
       <h2>수강예정 클래스</h2>
       {reservedClasses.length > 0 ? (
         <ul className='reserved'>
-          {reservedClasses.map((reservation) => (
+          {reservedClasses.map((reservation, index) => (
             <ReservationItem
-              key={reservation.class_id}
+              key={index} // 고유한 키를 인덱스로 설정
               reservation={reservation}
             />
           ))}
         </ul>
       ) : (
-        <p>예약한 클래스가 없습니다.</p>
+        <ul className='reserved'>
+          <li className='classItem'>
+            <p className='classNone'>수강예정인 클래스가 없습니다.</p>
+          </li>
+        </ul>
       )}
 
       <h2>수강한 클래스</h2>
       {attendedClasses.length > 0 ? (
         <ul className='attended'>
-          {attendedClasses.map((reservation) => (
+          {attendedClasses.map((reservation, index) => (
             <ReservationItem
-              key={reservation.class_id}
+              key={index} // 고유한 키를 인덱스로 설정
               reservation={reservation}
             />
           ))}
         </ul>
       ) : (
-        <p>수강한 클래스가 없습니다.</p>
+        <ul className='attended'>
+          <li className='classItem'>
+            <p className='classNone'>수강한 클래스가 없습니다.</p>
+          </li>
+        </ul>
       )}
     </ReservationList>
   );
