@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import DropdownDate from './DropdownDate';
 const DropdownItem = styled.li`
   cursor: pointer;
-  border-bottom: 1px solid var(--border-color);
+  /* border-bottom: 1px solid var(--border-color); */
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  border-top: none;
   display: flex;
   align-items: center;
   &:hover {

@@ -99,7 +99,7 @@ export default function PostContent({ post }) {
   );
 }
 
-const PostContentWrap = styled.button`
+const PostContentWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -135,7 +135,7 @@ const PostImageWrap = styled.div`
 
   &.postImgscroll::-webkit-scrollbar {
     padding-top: 5px;
-    background-color: white;
+    background-color: none;
 
     height: 10px;
   }
@@ -143,7 +143,7 @@ const PostImageWrap = styled.div`
     background-color: var(--border-color);
     border-radius: 10px;
     background-clip: padding-box;
-    border: 2px solid white;
+    border: 2px solid rgba(0, 0, 0, 0);
   }
 `;
 
