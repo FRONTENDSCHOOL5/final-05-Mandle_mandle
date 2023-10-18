@@ -33,16 +33,14 @@ export default function SearchList({ user, type, keyword }) {
         </div>
         <ProfileInfo>
           <div>
-            <div>
-              <p>
-                {parts.map((part, i) =>
-                  part === keyword ? <span key={i}>{part}</span> : part,
-                )}
-              </p>
-              {user.accountname.substr(0, 7) === 'Teacher' && (
-                <img src={TeacherIcon} alt='강사 아이콘' />
+            <p>
+              {parts.map((part, i) =>
+                part === keyword ? <span key={i}>{part}</span> : part,
               )}
-            </div>
+            </p>
+            {user.accountname.substr(0, 7) === 'Teacher' && (
+              <img src={TeacherIcon} alt='강사 아이콘' />
+            )}
           </div>
           <p>{type ? user.intro : validAccountname}</p>
         </ProfileInfo>

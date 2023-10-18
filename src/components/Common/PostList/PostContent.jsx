@@ -146,7 +146,7 @@ const PostImageWrap = styled.div`
     background-color: var(--border-color);
     border-radius: 10px;
     background-clip: padding-box;
-    border: 2px solid white;
+    border: 2px solid rgba(0, 0, 0, 0);
   }
 `;
 
