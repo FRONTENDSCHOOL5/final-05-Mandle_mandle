@@ -32,7 +32,7 @@ import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 import imageCompression from 'browser-image-compression';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
-
+import { Toast } from '../../components/Common/Toast/Toast';
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -51,6 +51,7 @@ export default function Posting() {
   const [classList, setClassList] = useState([]); // 수강후기를 작성할 클래스 리스트
   const [classImg, setClassImg] = useState(whiteImg);
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
+  const [toastMessage, setToastMessage] = useState('');
   const navigate = useNavigate();
   const token = userInfo.token;
 
@@ -84,7 +85,7 @@ export default function Posting() {
   }
 
   const reserveDate = resData.map((reservation) =>
-    parseReserveDate(reservation.reserve_common_date)
+    parseReserveDate(reservation.reserve_common_date),
   );
 
   useEffect(() => {
@@ -101,13 +102,13 @@ export default function Posting() {
               classId: id,
             };
             return classInfo;
-          })
+          }),
         );
 
         // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
         const filteredData = allData.filter(
           // 현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
-          (data, index) => currentDate > reserveDate[index]
+          (data, index) => currentDate > reserveDate[index],
         );
         setClassList(filteredData);
       } catch (error) {
@@ -121,12 +122,12 @@ export default function Posting() {
   useEffect(() => {
     // 예약 데이터에서 class_id 값을 확인
     const hasClassId = resData.some(
-      (reservation) => reservation.class_id != null
+      (reservation) => reservation.class_id != null,
     );
 
     // 만약 class_id 값이 없으면 '/class'로 이동
     if (!hasClassId) {
-      alert('먼저 클래스를 수강한 후 후기를 작성해주세요!');
+      setToastMessage('먼저 클래스를 수강한 후 후기를 작성해주세요!');
       navigate('/class');
     }
   }, []);
@@ -137,7 +138,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
 
   useEffect(() => {
@@ -152,18 +153,18 @@ export default function Posting() {
     const files = event.target.files;
     let imagesArray = [...selectedImages];
     if (imagesArray.length + files.length > 3) {
-      alert('이미지는 최대 3개까지 업로드가 가능합니다.');
+      setToastMessage('이미지는 최대 3개까지 업로드가 가능합니다.');
       return;
     }
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
 
       if (file.size > 1024 * 1024 * 10) {
-        alert('10MB 이상의 이미지는 업로드 할 수 없습니다.');
+        setToastMessage('10MB 이상의 이미지는 업로드 할 수 없습니다.');
         return;
       }
       if (!file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
-        alert('이미지 파일만 업로드가 가능합니다.');
+        setToastMessage('이미지 파일만 업로드가 가능합니다.');
         return;
       }
 
@@ -228,7 +229,6 @@ export default function Posting() {
       <ProfileContainer>
         <ProfileImage src={userImage} alt='유저 프로필 이미지' />
       </ProfileContainer>
-
       <DropdownContainer ref={dropDownRef}>
         <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
           <ImageBox src={classImg} />
@@ -283,7 +283,10 @@ export default function Posting() {
           ))}
         </ImgWrapStyle>
         <FileUploadButton handleImageChange={handleImageChange} />
-      </PostFormStyle>
+      </PostFormStyle>{' '}
+      {toastMessage && (
+        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
+      )}
     </div>
   );
 }

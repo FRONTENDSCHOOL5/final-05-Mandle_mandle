@@ -22,6 +22,7 @@ import Dropdown from '../../components/Common/Dropdown/Dropdown';
 import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
 import { DropdonwTextContainer } from '../../components/Common/Dropdown/DropItem';
 
+import { Toast } from '../../components/Common/Toast/Toast';
 import {
   TextInputContainer,
   ImagePreview,
@@ -57,7 +58,7 @@ export default function EditPost() {
   const token = userInfo.token;
   const resInfo = JSON.parse(localStorage.getItem('resInfo'));
   const resData = resInfo && resInfo[userInfo.id] ? resInfo[userInfo.id] : [];
-
+  const [toastMessage, setToastMessage] = useState('');
   const classId = resData.map((reservation) => reservation.class_id);
   const classDate = resData.map((reservation) => reservation.reserve_ko_date);
   const classTime = resData.map((reservation) => reservation.reserve_time);
@@ -91,7 +92,7 @@ export default function EditPost() {
   }
 
   const reserveDate = resData.map((reservation) =>
-    parseReserveDate(reservation.reserve_common_date)
+    parseReserveDate(reservation.reserve_common_date),
   );
 
   useEffect(() => {
@@ -108,13 +109,13 @@ export default function EditPost() {
               classId: id,
             };
             return classInfo;
-          })
+          }),
         );
 
         // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
         const filteredData = allData.filter(
           // 현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
-          (data, index) => currentDate > reserveDate[index]
+          (data, index) => currentDate > reserveDate[index],
         );
         setClassList(filteredData);
       } catch (error) {
@@ -130,9 +131,6 @@ export default function EditPost() {
   }, [token]);
 
   useEffect(() => {
-    GetUserProfileImage(token, setUserImage);
-  }, [token]);
-  useEffect(() => {
     if (post.image) {
       setSelectedImages(post.image.split(','));
       setPreviewImages(post.image.split(','));
@@ -144,7 +142,7 @@ export default function EditPost() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -162,7 +160,7 @@ export default function EditPost() {
       setSelectedImages((prevImages) => [...prevImages, imageUrl]);
       const imagesArray = [...selectedImages, imageUrl];
       if (imagesArray.length > 3) {
-        alert('이미지는 최대 3개까지 업로드가 가능합니다.');
+        setToastMessage('이미지는 최대 3개까지 업로드가 가능합니다.');
         return;
       }
 
@@ -191,7 +189,7 @@ export default function EditPost() {
       postId,
       token,
       classReview,
-      selectedImages.join(',')
+      selectedImages.join(','),
     );
 
     if (editedPost) {
@@ -278,6 +276,10 @@ export default function EditPost() {
         </ImgWrapStyle>
         <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>
+
+      {toastMessage && (
+        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
+      )}
     </div>
   );
 }

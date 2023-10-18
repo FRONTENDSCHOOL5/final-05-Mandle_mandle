@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-
+import { Toast } from '../../../components/Common/Toast/Toast';
 import arrowUpIcon from '../../../assets/img/icon-arrow-up.svg';
 import arrowDownIcon from '../../../assets/img/icon-arrow-down.svg';
 import {
@@ -22,6 +22,7 @@ export function TimePicker({ selectedDate }) {
   const userInfo = useRecoilValue(UserAtom);
 
   const [selectedTime, setSelectedTime] = useState(null);
+  const [toastMessage, setToastMessage] = useState('');
 
   const availableTimes = [
     '오전 10:00 ~ 오전 12:00',
@@ -63,7 +64,7 @@ export function TimePicker({ selectedDate }) {
     });
 
     if (date) {
-      alert('해당 일자에 이미 예약된 클래스 내역이 존재합니다.');
+      setToastMessage('해당 일자에 이미 예약된 클래스 내역이 존재합니다.');
       return;
     }
 
@@ -165,6 +166,9 @@ export function TimePicker({ selectedDate }) {
       >
         예약하기
       </BtnReserve>
+      {toastMessage && (
+        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
+      )}
     </>
   );
 }
