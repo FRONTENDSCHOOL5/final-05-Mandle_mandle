@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 
 import ClassDetailMain from './ClassDetailMain';
@@ -102,6 +102,7 @@ export function ClassDetailInfo({ id, token }) {
       )}
       <BtnContainer
         price={newClass.price}
+        category={newClass.link && newClass.link.split('@')[0]}
         img={newClass.itemImage}
         name={newClass.itemName}
         id={id}
@@ -110,15 +111,22 @@ export function ClassDetailInfo({ id, token }) {
   );
 }
 
-export function BtnContainer({ price, img, name, id }) {
-  const [userInfo, setUserInfo] = useRecoilState(UserAtom);
-  const [isClicked, setIsClicked] = useState(false);
+export function BtnContainer({ price, category, img, name, id }) {
+  const userInfo = useRecoilValue(UserAtom);
+  const likedInfo = JSON.parse(localStorage.getItem('likedInfo')) || {};
+
+  const [isClicked, setIsClicked] = useState(() =>
+    likedInfo[userInfo.id]
+      ? likedInfo[userInfo.id].some((item) => item.class_id === id)
+      : false,
+  );
+
   const navigate = useNavigate();
 
   const likedData = {
     class_id: id,
     class_name: name,
-    price: price,
+    category: category,
     image: img,
   };
 
