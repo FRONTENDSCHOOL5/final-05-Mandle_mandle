@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
+export const ClassRegistrationWrap = styled.main`
+  height: calc(100% - 48px);
+`;
+
 export const ClassRegistrationForm = styled.form`
-  padding: 0 34px;
+  height: 100%;
+  padding: 0px 34px 50px;
+  overflow-y: scroll;
   label {
     font-size: var(--font-sm);
     color: var(--sub-font-color);
@@ -13,6 +19,10 @@ export const ClassRegistrationForm = styled.form`
       top: 30.5px;
       right: 64%;
     }
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
@@ -31,7 +41,6 @@ export const StyledImg = styled.img`
   height: 100%;
   border-radius: 10px;
   object-fit: cover;
-
 `;
 
 export const ImgBtn = styled.div`
@@ -55,13 +64,14 @@ export const InputValidationError = styled.p`
   font-size: var(--font-sm);
   color: var(--error-color);
   margin-top: 6px;
-`
+`;
 
 export const AddBtn = styled.button`
   width: 90px;
   text-align: center;
   font-size: var(--font-md);
-  background-color: ${props => props.disabled ? '#B1D4C3' : 'var(--main-color)'};
+  background-color: ${(props) =>
+    props.disabled ? '#B1D4C3' : 'var(--main-color)'};
   color: #fff;
   padding: 7px 32px;
   box-sizing: border-box;
@@ -70,4 +80,3 @@ export const AddBtn = styled.button`
   top: 8px;
   right: 16px;
 `;
-

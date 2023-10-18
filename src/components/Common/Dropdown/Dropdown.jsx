@@ -28,8 +28,9 @@ const DropdownMenu = styled.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   background-color: white;
+
   z-index: 1000;
 `;
 

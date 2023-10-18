@@ -127,7 +127,7 @@ export default function Posting() {
 
     // 만약 class_id 값이 없으면 '/class'로 이동
     if (!hasClassId) {
-      setToastMessage('먼저 클래스를 수강한 후 후기를 작성해주세요!');
+      alert('먼저 클래스를 수강한 후 후기를 작성해주세요!');
       navigate('/class');
     }
   }, []);
