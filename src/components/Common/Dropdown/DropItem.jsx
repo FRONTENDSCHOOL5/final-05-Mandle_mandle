@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import DropdownDate from './DropdownDate';
+import DropdownTag from './DropdownTag';
 const DropdownItem = styled.li`
   cursor: pointer;
   /* border-bottom: 1px solid var(--border-color); */
@@ -65,3 +66,45 @@ export default function DropItem(props) {
     </>
   );
 }
+
+export function TeacherDropItem(props) {
+  const {
+    value,
+    setClassIdentify,
+    img,
+    classTag,
+    setClassTag,
+    setClassImg,
+    setIsOpen,
+    isOpen,
+    id,
+    setSelectId,
+    price,
+    setPrice,
+  } = props;
+  const handleItemClick = () => {
+    setClassIdentify(value);
+    setClassTag(classTag);
+    setClassImg(img);
+    setIsOpen(!isOpen);
+    setSelectId(id);
+    setPrice(price);
+  };
+
+  return (
+    <>
+      <DropdownItem onClick={handleItemClick}>
+        <ImageBox src={img} />
+        <DropdonwTextContainer>
+          {value}
+          <DropdownTag classTag={classTag} price={price} />
+        </DropdonwTextContainer>
+      </DropdownItem>
+    </>
+  );
+}
+
+export const DropdownP = styled.p`
+  font-size: 12px;
+  color: var(--sub-font-color);
+`;

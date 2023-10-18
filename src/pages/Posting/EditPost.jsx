@@ -10,16 +10,18 @@ import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 import { useLocation } from 'react-router-dom';
 import { PostImagesUpload } from '../../api/PostImagesUpload';
 import useTextareaResize from '../../Hooks/useTextareaResizeHook';
-
+import { ClassData } from '../Profile/MyProfile';
 import whiteImg from '../../assets/img/whiteImg.webp';
 import {
   DropdownContainer,
   DropdownButton,
   DropdownMenu,
+  TeacherDropdown,
   ImageBox,
 } from '../../components/Common/Dropdown/Dropdown';
 import Dropdown from '../../components/Common/Dropdown/Dropdown';
 import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
+import DropdownTag from '../../components/Common/Dropdown/DropdownTag';
 import { DropdonwTextContainer } from '../../components/Common/Dropdown/DropItem';
 
 import { Toast } from '../../components/Common/Toast/Toast';
@@ -45,7 +47,7 @@ export default function EditPost() {
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
-  const [classIdentify, setClassIdentify] = useState('클래스 선택하기'); //  선택한 클래스 정보 상태를 담을 status
+  const [classIdentify, setClassIdentify] = useState('수정할 클래스 선택하기'); //  선택한 클래스 정보 상태를 담을 status
   const [selectDate, setSelectDate] = useState('');
   const [selectTime, setSelectTime] = useState('');
   const [selectId, setSelectId] = useState('');
@@ -55,6 +57,7 @@ export default function EditPost() {
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
   const navigate = useNavigate();
   const userInfo = useRecoilValue(UserAtom);
+  const userAccountname = userInfo.accountname;
   const token = userInfo.token;
   const resInfo = JSON.parse(localStorage.getItem('resInfo'));
   const resData = resInfo && resInfo[userInfo.id] ? resInfo[userInfo.id] : [];
@@ -62,6 +65,9 @@ export default function EditPost() {
   const classId = resData.map((reservation) => reservation.class_id);
   const classDate = resData.map((reservation) => reservation.reserve_ko_date);
   const classTime = resData.map((reservation) => reservation.reserve_time);
+  const [TeacherData, setTeacherData] = useState(null);
+  const [classTag, setClassTag] = useState('');
+  const [classPrice, setClassPrice] = useState('');
   const postInfo = post.content;
   let parsedData;
   try {
@@ -92,7 +98,7 @@ export default function EditPost() {
   }
 
   const reserveDate = resData.map((reservation) =>
-    parseReserveDate(reservation.reserve_common_date),
+    parseReserveDate(reservation.reserve_common_date)
   );
 
   useEffect(() => {
@@ -109,20 +115,24 @@ export default function EditPost() {
               classId: id,
             };
             return classInfo;
-          }),
+          })
         );
 
         // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
         const filteredData = allData.filter(
           // 현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
-          (data, index) => currentDate > reserveDate[index],
+          (data, index) => currentDate > reserveDate[index]
         );
         setClassList(filteredData);
       } catch (error) {
         console.log('Error', error);
       }
-    };
 
+      const TClassData = await ClassData(userAccountname, token);
+      console.log(TClassData);
+      setTeacherData(TClassData);
+    };
+    console.log(selectId);
     fetchData();
   }, []);
 
@@ -142,7 +152,7 @@ export default function EditPost() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -180,16 +190,18 @@ export default function EditPost() {
       inputValue,
       classImg,
       classIdentify,
-      selectDate,
-      selectTime,
+      ...(selectDate && selectTime
+        ? { selectDate, selectTime }
+        : { classTag, classPrice }),
       selectId,
     };
+    console.log(classData);
     const classReview = JSON.stringify(classData);
     const editedPost = await PutPostEdit(
       postId,
       token,
       classReview,
-      selectedImages.join(','),
+      selectedImages.join(',')
     );
 
     if (editedPost) {
@@ -207,6 +219,14 @@ export default function EditPost() {
     setSelectedImages(updatedImages);
   };
 
+  function removeAfterAt(string) {
+    if (string.includes('@')) {
+      return string.split('@')[0];
+    } else {
+      return string;
+    }
+  }
+
   return (
     <div>
       <EditUploadBtnNav
@@ -219,38 +239,78 @@ export default function EditPost() {
       <ProfileContainer>
         <ProfileImage src={userImage} alt='유저 프로필 이미지' />
       </ProfileContainer>
-      <DropdownContainer ref={dropDownRef}>
-        <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
-          <ImageBox src={classImg} />
-          <DropdonwTextContainer>
-            {classIdentify}
-            {selectDate && selectTime ? (
-              <DropdownDate date={selectDate} time={selectTime} />
-            ) : null}
-          </DropdonwTextContainer>
-        </DropdownButton>
-        {isOpen && (
-          <DropdownMenu>
-            {classList.map((item, index) => (
-              <Dropdown
-                key={index}
-                value={item.itemName}
-                date={item.date}
-                time={item.time}
-                img={item.itemImage}
-                setIsOpen={setIsOpen}
-                setClassIdentify={setClassIdentify}
-                isOpen={isOpen}
-                setClassImg={setClassImg}
-                setSelectDate={setSelectDate}
-                setSelectTime={setSelectTime}
-                id={item.classId}
-                setSelectId={setSelectId}
-              />
-            ))}
-          </DropdownMenu>
-        )}
-      </DropdownContainer>
+      {userAccountname.includes('Teacher') ? (
+        //  (강사용 드롭다운)
+        <DropdownContainer ref={dropDownRef}>
+          <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
+            <ImageBox src={classImg} />
+            <DropdonwTextContainer>
+              {classIdentify}
+              {classTag && classPrice ? (
+                <DropdownTag classTag={classTag} price={classPrice} />
+              ) : null}
+            </DropdonwTextContainer>
+          </DropdownButton>
+          {isOpen && (
+            <DropdownMenu>
+              {TeacherData.product &&
+                TeacherData.product.map((item, index) => (
+                  <TeacherDropdown
+                    key={index}
+                    id={item.id}
+                    img={item.itemImage}
+                    price={item.price + '원'}
+                    value={item.itemName}
+                    token={token}
+                    classTag={removeAfterAt(item.link)}
+                    isOpen={isOpen}
+                    setClassIdentify={setClassIdentify}
+                    setClassImg={setClassImg}
+                    setSelectId={setSelectId}
+                    setClassTag={setClassTag}
+                    setIsOpen={setIsOpen}
+                    setPrice={setClassPrice}
+                  />
+                ))}
+              ;
+            </DropdownMenu>
+          )}
+        </DropdownContainer>
+      ) : (
+        //  (수강생용 드롭다운)
+        <DropdownContainer ref={dropDownRef}>
+          <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
+            <ImageBox src={classImg} />
+            <DropdonwTextContainer>
+              {classIdentify}
+              {selectDate && selectTime ? (
+                <DropdownDate date={selectDate} time={selectTime} />
+              ) : null}
+            </DropdonwTextContainer>
+          </DropdownButton>
+          {isOpen && (
+            <DropdownMenu>
+              {classList.map((item, index) => (
+                <Dropdown
+                  key={index}
+                  value={item.itemName}
+                  date={item.date}
+                  time={item.time}
+                  img={item.itemImage}
+                  setIsOpen={setIsOpen}
+                  setClassIdentify={setClassIdentify}
+                  isOpen={isOpen}
+                  setClassImg={setClassImg}
+                  setSelectDate={setSelectDate}
+                  setSelectTime={setSelectTime}
+                  id={item.classId}
+                  setSelectId={setSelectId}
+                />
+              ))}
+            </DropdownMenu>
+          )}
+        </DropdownContainer>
+      )}
       <PostFormStyle>
         <TextInputContainer
           placeholder='게시글 입력하기..'
