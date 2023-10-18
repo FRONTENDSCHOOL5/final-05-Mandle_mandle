@@ -6,7 +6,7 @@ import HeartButton from '../HeartButton';
 import NormalizeImage from '../NormalizeImage';
 import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
 import PlaceholderImg from '../../../assets/img/placeholderImg.svg';
-
+import ArrowIcon from '../../../assets/img/icon-arrow-right.svg';
 export default function PostContent({ post }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,7 +17,6 @@ export default function PostContent({ post }) {
     const date = new Date(dateString);
     return date.toLocaleDateString('ko-KR', options); // '2023년 6월 20일' 형식으로 변환
   };
-
   let parsedData;
   try {
     parsedData = JSON.parse(postInfo);
@@ -36,14 +35,6 @@ export default function PostContent({ post }) {
 
   return (
     <PostContentWrap>
-      <ReservationtWrap onClick={handleClassInfo}>
-        <ClassImage src={parsedData.classImg} alt='클래스 이미지' />
-        <TextWrap>
-          <ReservationClass>{parsedData.classIdentify}</ReservationClass>
-          <ReservationDate> {parsedData.selectDate}</ReservationDate>
-          <ReservationTime>{parsedData.selectTime}</ReservationTime>
-        </TextWrap>
-      </ReservationtWrap>
       <MovePostDetail
         cursor={location.pathname.startsWith('/post') ? 'default ' : 'pointer'}
         onClick={handlePostClick}
@@ -72,19 +63,38 @@ export default function PostContent({ post }) {
           </PostImageWrap>
         )}
       </MovePostDetail>
+      {parsedData.classIdentify && (
+        <ClassLinkBtn onClick={handleClassInfo}>
+          <img src={parsedData.classImg} alt='클래스 이미지' />
+          <div>
+            <p>{parsedData.classIdentify}</p>
+            {post.author.accountname.startsWith('Teacher') ? (
+              <p>해당 클래스 보러가기</p>
+            ) : (
+              <>
+                <ReservationDate> {parsedData.selectDate}</ReservationDate>
+                <ReservationTime>{parsedData.selectTime}</ReservationTime>
+              </>
+            )}
+          </div>
+        </ClassLinkBtn>
+      )}
+
       <PostIconWrap>
-        <HeartButton post={post} />
-        <CommentButton
-          onClick={handlePostClick}
-          cursor={
-            location.pathname.startsWith('/post') ? 'default ' : 'pointer'
-          }
-        >
-          <img src={ChatIcon} alt='댓글 버튼' />
-          <p>{post.commentCount}</p>
-        </CommentButton>
+        <BtnWrap>
+          <HeartButton post={post} />
+          <CommentButton
+            onClick={handlePostClick}
+            cursor={
+              location.pathname.startsWith('/post') ? 'default ' : 'pointer'
+            }
+          >
+            <img src={ChatIcon} alt='댓글 버튼' />
+            <p>{post.commentCount}</p>
+          </CommentButton>
+        </BtnWrap>
+        <PostDate>{postDate(post.createdAt)}</PostDate>
       </PostIconWrap>
-      <PostDate>{postDate(post.createdAt)}</PostDate>
     </PostContentWrap>
   );
 }
@@ -92,7 +102,7 @@ export default function PostContent({ post }) {
 const PostContentWrap = styled.button`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   padding-left: calc(42px + 6px);
 `;
 
@@ -101,6 +111,8 @@ const MovePostDetail = styled.button`
   flex-direction: column;
   gap: 16px;
   cursor: ${(props) => props.cursor};
+  line-height: 110%;
+  word-break: keep-all;
 `;
 
 const PostImageWrap = styled.div`
@@ -136,9 +148,11 @@ const PostImageWrap = styled.div`
 `;
 
 const PostIconWrap = styled.div`
-  width: 85px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
 
   button,
   a {
@@ -146,6 +160,12 @@ const PostIconWrap = styled.div`
     align-items: center;
     gap: 6px;
   }
+`;
+const BtnWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 86px;
 `;
 
 const CommentButton = styled.button`
@@ -157,35 +177,43 @@ const PostDate = styled.p`
   color: var(--sub-font-color);
 `;
 
-//클래스 리스트 스타일링
-const ReservationtWrap = styled.div`
-  width: 300px;
-  height: 72px;
+const ClassLinkBtn = styled.button`
+  position: relative;
   display: flex;
-  margin-bottom: 10px;
-  gap: 5px;
-  border: 1px solid var(--border-color);
+  align-items: center;
+  width: 304px;
+  height: 68px;
+  border: 0;
   border-radius: 10px;
-  background-color: white;
-`;
+  box-sizing: border-box;
+  border: 1px solid var(--border-color);
+  background: #fff;
+  box-shadow: 0px 1px 2px 0px rgba(118, 118, 118, 0.15);
+  overflow: hidden;
+  margin-bottom: 6px;
+  img {
+    width: 68px;
+    height: 100%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
 
-const ClassImage = styled.img`
-  width: 52px;
-  /* height: 52px; */
-  margin: 10px;
-`;
+  div p:first-child {
+    width: 200px;
+    font-size: var(--font-md);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+  }
 
-const TextWrap = styled.div`
-  width: 300px;
-  display: grid;
-  align-content: center;
-  gap: 2px;
-`;
-
-const ReservationClass = styled.p`
-  display: block;
-  font-size: var(--font-md);
-  margin-bottom: 5px;
+  &::after {
+    content: url(${ArrowIcon});
+    font-size: 20px;
+    position: absolute;
+    color: var(--sub-font-color);
+    right: 16px;
+  }
 `;
 
 const ReservationDate = styled.p`
@@ -194,6 +222,7 @@ const ReservationDate = styled.p`
 `;
 
 const ReservationTime = styled.p`
+  margin-top: 2px;
   font-size: var(--font-sm);
   color: var(--sub-font-color);
 `;
