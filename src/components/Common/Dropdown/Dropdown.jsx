@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import DropdownItem from './DropItem';
 import { ImageBox } from './DropItem';
-
+import { TeacherDropItem } from './DropItem';
 const DropdownContainer = styled.div`
   width: 358px;
   height: 100%;
@@ -28,7 +28,10 @@ const DropdownMenu = styled.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
+<<<<<<< HEAD
   /* border: 1px solid #ccc; */
+=======
+>>>>>>> e2c5263 ([✨Feat] 강사용 드롭박스 구현& 강사 or 수강생인지에 따라 드롭박스에 정보 달르게 전달 #251)
   background-color: white;
 
   z-index: 1000;
@@ -65,6 +68,41 @@ export default function Dropdown(props) {
         id={id}
         setSelectId={setSelectId}
         time={time}
+      />
+    </>
+  );
+}
+
+export function TeacherDropdown(props) {
+  const {
+    value,
+    setClassIdentify,
+    img,
+    classTag,
+    setClassTag,
+    setClassImg,
+    setIsOpen,
+    isOpen,
+    id,
+    setSelectId,
+    price,
+    setPrice,
+  } = props;
+  return (
+    <>
+      <TeacherDropItem
+        value={value}
+        classTag={classTag}
+        setClassTag={setClassTag}
+        setClassIdentify={setClassIdentify}
+        setClassImg={setClassImg}
+        img={img}
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
+        id={id}
+        setSelectId={setSelectId}
+        price={price}
+        setPrice={setPrice}
       />
     </>
   );

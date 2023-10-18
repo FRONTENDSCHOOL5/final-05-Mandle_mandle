@@ -405,7 +405,7 @@ async function ProfileData(accountname, token) {
   }
   return null;
 }
-async function ClassData(accountname, token) {
+export async function ClassData(accountname, token) {
   const url = `https://api.mandarin.weniv.co.kr/product/${accountname}`;
   try {
     const res = await axios.get(url, {

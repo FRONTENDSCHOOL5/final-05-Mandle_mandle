@@ -69,7 +69,10 @@ export default function PostContent({ post }) {
           <div>
             <p>{parsedData.classIdentify}</p>
             {post.author.accountname.startsWith('Teacher') ? (
-              <p>해당 클래스 보러가기</p>
+              <>
+                <ReservationDate> {parsedData.classTag}</ReservationDate>
+                <ReservationTime>{parsedData.classPrice}</ReservationTime>
+              </>
             ) : (
               <>
                 <ReservationDate> {parsedData.selectDate}</ReservationDate>
