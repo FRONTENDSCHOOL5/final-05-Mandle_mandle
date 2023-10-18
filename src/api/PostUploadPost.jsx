@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-export default async function PutPostEdit(token, postData, images) {
+export default async function PutPostEdit(token, classReview, images) {
   try {
     const response = await axios.post(
       `https://api.mandarin.weniv.co.kr/post`,
       {
         post: {
-          content: `${postData.inputValue} ${postData.classInfo} `,
+          content: classReview,
           image: images,
         },
       },
