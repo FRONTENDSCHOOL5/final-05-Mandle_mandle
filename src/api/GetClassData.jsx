@@ -12,8 +12,12 @@ export default async function GetClassData(token) {
       },
     );
 
-    return response.data;
+    const data = response.data;
+    const filteredClasses = data.product.filter(classItem => classItem.author.accountname.includes('Teacher'));
+    return filteredClasses;
+    
   } catch (error) {
     console.error(error);
+    return []
   }
 }
