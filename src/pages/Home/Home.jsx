@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { HomeNav } from '../../components/Common/TopNav';
 import { useNavigate } from 'react-router-dom'; // Assuming you're using React Router
 
+import { useRecoilValue } from 'recoil';
 import { AutoLogin, UserAtom } from '../../Store/userInfoAtoms';
+
 import useScroll from '../../Hooks/useScroll';
+
 import PostBlank from './PostBlank/PostBlank';
 import GetFollowPost from '../../api/GetFollowPost';
 import MenuBar from '../../components/Common/MenuBar';
+import { HomeNav } from '../../components/Common/TopNav';
 import PostList from '../../components/Common/PostList/PostList';
-import { HomeWrap, MainWrap, PostUlStyle } from './HomeStyle';
 import PostSkeleton from '../../components/Common/Skeleton/PostSkeleton';
+
+import { HomeWrap, MainWrap, PostUlStyle } from './HomeStyle';
+
 export default function Home({ to }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
   const autoLogin = useRecoilValue(AutoLogin);
