@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import DropdownItem from './DropItem';
 import { ImageBox } from './DropItem';
-
+import { TeacherDropItem } from './DropItem';
 const DropdownContainer = styled.div`
   width: 358px;
   height: 100%;
@@ -28,7 +28,6 @@ const DropdownMenu = styled.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* border: 1px solid #ccc; */
   background-color: white;
 
   z-index: 1000;
@@ -65,6 +64,41 @@ export default function Dropdown(props) {
         id={id}
         setSelectId={setSelectId}
         time={time}
+      />
+    </>
+  );
+}
+
+export function TeacherDropdown(props) {
+  const {
+    value,
+    setClassIdentify,
+    img,
+    classTag,
+    setClassTag,
+    setClassImg,
+    setIsOpen,
+    isOpen,
+    id,
+    setSelectId,
+    price,
+    setPrice,
+  } = props;
+  return (
+    <>
+      <TeacherDropItem
+        value={value}
+        classTag={classTag}
+        setClassTag={setClassTag}
+        setClassIdentify={setClassIdentify}
+        setClassImg={setClassImg}
+        img={img}
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
+        id={id}
+        setSelectId={setSelectId}
+        price={price}
+        setPrice={setPrice}
       />
     </>
   );
