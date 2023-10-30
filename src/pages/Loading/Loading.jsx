@@ -1,7 +1,10 @@
 import React from 'react';
-import { LoadingWrap } from './LoadingStyle';
+
 import LoadingImg from '../../assets/img/home-logo.svg';
 import LoadingText from '../../assets/img/loading-text.svg';
+
+import { LoadingWrap } from './LoadingStyle';
+
 export default function Loading() {
   return (
     <LoadingWrap>
