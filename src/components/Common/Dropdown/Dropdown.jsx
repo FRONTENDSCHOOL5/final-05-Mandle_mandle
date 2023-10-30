@@ -22,7 +22,7 @@ const DropdownButton = styled.button`
   align-items: center;
 `;
 
-const DropdownMenu = styled.ul`
+const DropdownList = styled.ul`
   position: absolute;
   top: 100%;
   display: flex;
@@ -104,4 +104,4 @@ export function TeacherDropdown(props) {
   );
 }
 
-export { DropdownContainer, DropdownButton, DropdownMenu, ImageBox };
+export { DropdownContainer, DropdownButton, DropdownList, ImageBox };

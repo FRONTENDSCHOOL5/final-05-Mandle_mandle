@@ -43,7 +43,7 @@ export const PostFormStyle = styled.form`
   position: relative;
 `;
 
-export const ImgWrapStyle = styled.ul`
+export const ImgList = styled.ul`
   display: flex;
 
   overflow-x: scroll;
@@ -70,7 +70,7 @@ export const ImgWrapStyle = styled.ul`
   }
 `;
 
-export const PreviewImgWrapStyle = styled.li`
+export const PreviewImgItem = styled.li`
   position: relative;
 `;
 
@@ -199,7 +199,7 @@ export const ImagePreview = styled.img`
   box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
 `;
 
-export const TextInputContainer = styled.textarea`
+export const TextInputBox = styled.textarea`
   position: absolute;
   left: 70px;
   font-family: 'SpoqaHanSansNeo-Regular';
