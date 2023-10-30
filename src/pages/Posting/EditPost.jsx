@@ -15,25 +15,25 @@ import whiteImg from '../../assets/img/whiteImg.webp';
 import {
   DropdownContainer,
   DropdownButton,
-  DropdownMenu,
+  DropdownList,
   TeacherDropdown,
   ImageBox,
 } from '../../components/Common/Dropdown/Dropdown';
 import Dropdown from '../../components/Common/Dropdown/Dropdown';
 import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
 import DropdownTag from '../../components/Common/Dropdown/DropdownTag';
-import { DropdonwTextContainer } from '../../components/Common/Dropdown/DropItem';
+import { DropdonwTextBox } from '../../components/Common/Dropdown/DropItem';
 
 import { Toast } from '../../components/Common/Toast/Toast';
 import {
-  TextInputContainer,
+  TextInputBox,
   ImagePreview,
   EditUploadBtnNav,
   ProfileContainer,
   ProfileImage,
   FileUploadButton,
-  ImgWrapStyle,
-  PreviewImgWrapStyle,
+  ImgList,
+  PreviewImgItem,
   DeleteImgBtn,
   PostFormStyle,
 } from './PostingStyle';
@@ -244,15 +244,15 @@ export default function EditPost() {
         <DropdownContainer ref={dropDownRef}>
           <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
             <ImageBox src={classImg} />
-            <DropdonwTextContainer>
+            <DropdonwTextBox>
               {classIdentify}
               {classTag && classPrice ? (
                 <DropdownTag classTag={classTag} price={classPrice} />
               ) : null}
-            </DropdonwTextContainer>
+            </DropdonwTextBox>
           </DropdownButton>
           {isOpen && (
-            <DropdownMenu>
+            <DropdownList>
               {TeacherData.product &&
                 TeacherData.product.map((item, index) => (
                   <TeacherDropdown
@@ -273,7 +273,7 @@ export default function EditPost() {
                   />
                 ))}
               ;
-            </DropdownMenu>
+            </DropdownList>
           )}
         </DropdownContainer>
       ) : (
@@ -281,15 +281,15 @@ export default function EditPost() {
         <DropdownContainer ref={dropDownRef}>
           <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
             <ImageBox src={classImg} />
-            <DropdonwTextContainer>
+            <DropdonwTextBox>
               {classIdentify}
               {selectDate && selectTime ? (
                 <DropdownDate date={selectDate} time={selectTime} />
               ) : null}
-            </DropdonwTextContainer>
+            </DropdonwTextBox>
           </DropdownButton>
           {isOpen && (
-            <DropdownMenu>
+            <DropdownList>
               {classList.map((item, index) => (
                 <Dropdown
                   key={index}
@@ -307,20 +307,20 @@ export default function EditPost() {
                   setSelectId={setSelectId}
                 />
               ))}
-            </DropdownMenu>
+            </DropdownList>
           )}
         </DropdownContainer>
       )}
       <PostFormStyle>
-        <TextInputContainer
+        <TextInputBox
           placeholder='게시글 입력하기..'
           onChange={handleTextareaChange}
           ref={textarea}
           value={inputValue}
-        ></TextInputContainer>
-        <ImgWrapStyle>
+        ></TextInputBox>
+        <ImgList>
           {selectedImages.map((image, index) => (
-            <PreviewImgWrapStyle key={index}>
+            <PreviewImgItem key={index}>
               <ImagePreview
                 src={
                   typeof image === 'string' ? image : URL.createObjectURL(image)
@@ -331,9 +331,9 @@ export default function EditPost() {
                 onClick={() => handleDeleteImage(index)}
                 type='button'
               />
-            </PreviewImgWrapStyle>
+            </PreviewImgItem>
           ))}
-        </ImgWrapStyle>
+        </ImgList>
         <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>
 

@@ -4,7 +4,6 @@ import DropdownDate from './DropdownDate';
 import DropdownTag from './DropdownTag';
 const DropdownItem = styled.li`
   cursor: pointer;
-  /* border-bottom: 1px solid var(--border-color); */
   border: 1px solid var(--border-color);
   border-radius: 8px;
   border-top: none;
@@ -15,7 +14,7 @@ const DropdownItem = styled.li`
   }
 `;
 
-export const DropdonwTextContainer = styled.div`
+export const DropdonwTextBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -58,10 +57,10 @@ export default function DropItem(props) {
     <>
       <DropdownItem onClick={handleItemClick}>
         <ImageBox src={img} />
-        <DropdonwTextContainer>
+        <DropdonwTextBox>
           {value}
           <DropdownDate date={date} time={time} />
-        </DropdonwTextContainer>
+        </DropdonwTextBox>
       </DropdownItem>
     </>
   );
@@ -95,10 +94,10 @@ export function TeacherDropItem(props) {
     <>
       <DropdownItem onClick={handleItemClick}>
         <ImageBox src={img} />
-        <DropdonwTextContainer>
+        <DropdonwTextBox>
           {value}
           <DropdownTag classTag={classTag} price={price} />
-        </DropdonwTextContainer>
+        </DropdonwTextBox>
       </DropdownItem>
     </>
   );
