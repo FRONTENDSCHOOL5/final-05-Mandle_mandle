@@ -143,14 +143,14 @@ export default function Login() {
         />
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
         {loginErrorMessage && <ErrorMessage>{loginErrorMessage}</ErrorMessage>}
-        <CheckboxContainer>
+        <CheckboxBox>
           <CheckboxInput
             type='checkbox'
             checked={autoLogin}
             onChange={handleCheckboxChange}
           />
           <CheckboxLabel>자동 로그인</CheckboxLabel>
-        </CheckboxContainer>
+        </CheckboxBox>
 
         <ButtonImgStyle
           type='submit'
@@ -164,7 +164,7 @@ export default function Login() {
   );
 }
 
-const CheckboxContainer = styled.div`
+const CheckboxBox = styled.div`
   display: flex;
   margin: 10px 0 3px;
   align-items: center;
