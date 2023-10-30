@@ -77,11 +77,11 @@ export default MenuBar;
 
 const MenuBarWrap = styled.footer`
   border-top: 1px solid var(--border-color);
-  width: 100%;
+  width: 390px;
   height: 60px;
   background-color: #fff;
   text-align: center;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   padding-top: 12px;
   ul {
