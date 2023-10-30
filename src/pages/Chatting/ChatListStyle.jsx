@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ChatListLayout = styled.div`
+export const ChatListWrap = styled.div`
   width: var(--basic-width);
   height: var(--screen-nav-height);
   background-color: white;
