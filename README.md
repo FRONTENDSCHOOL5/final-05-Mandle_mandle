@@ -8,6 +8,8 @@
 | ---------------------------------- | ------------------------------------------ | ---------------------------------- |
 | https://mandle-mandle.netlify.app/ | ID: mandle2@mandle.com<br>PW: Mandletest2! | ID: dodo@mandle.com<br>PW: dodo123 |
 
+<br>
+
 ## 0. 목차
 
 1.  [프로젝트 소개](#1-프로젝트-소개)
@@ -19,12 +21,16 @@
 7.  [주요 기능](#7-주요-기능)
 8.  [팀원 소개](#8-팀원-소개)
 
+<br>
+
 ## 1. 프로젝트 소개
 
 > - 만들만들은 원데이 클래스 서비스를 제공하는 참여형 소셜 커머스 플랫폼 입니다.
 > - 클래스 예약기능과 홍보를 지원해 강사들이 자유롭게 자신의 역량을 발휘하고 창의적인 활동을 할 수 있는 공간을 제공합니다.
 > - 강사와 수강생이 서로 소통하고, 수강생이 자신의 관심 분야나 취미를 발전시키는 동시에 다른 사람들과 교류하며 함께 즐길 수 있는 SNS 공간을 제공합니다.
 > - 역량을 나누고, 함께 성장하며, 자신의 능력을 발전시키는 공간을 통해 우리는 사용자들의 라이프 스타일을 더욱 풍요롭게 만들고자 합니다.
+
+<br>
 
 ## 2. 기술 및 개발환경
 
@@ -244,6 +250,8 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
  </div>
 </details>
 
+<br>
+
 ## 3. 협업 방식
 
 - [**🌱 순서도 & 와이어 프레임**](https://www.figma.com/file/jEF9l7HGVDSYXRsvSwXqIY/%EC%88%9C%EC%84%9C%EB%8F%84?type=whiteboard&node-id=0%3A1&t=oeO5DurA19XcAwMW-1)
@@ -269,6 +277,8 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
 - **📈 깃헙 프로젝트**
 
   `깃헙 프로젝트` 기능으로 전체 프로젝트의 일정과 구현해야 하는 기능들을 일목요연하게 정리할 수 있었고 원활한 커뮤니케이션으로 작업 속도와 안정성을 동시에 획득할 수 있었습니다.
+
+<br>
 
 ## 4. 폴더구조
 
@@ -309,6 +319,8 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
 │ └─ 📂 Splash<br>
 └─ 📂 styles
 </details>
+
+<br>
 
 ## 5. 기능 UI
 
@@ -371,6 +383,8 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
 <br/>
 
 ## 6. 피드백
+
+<br>
 
 ## 7. 주요 기능
 
@@ -543,6 +557,8 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
 
   한 장의 이미지인 경우에는 해당 이미지 파일명 앞에 기본 URL을 추가하여 전송하도록 구현했습니다.
 
+<br>
+
 ## 8. 팀원 소개
 
 ### [만들5️⃣조]
@@ -554,6 +570,8 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
 | <img width="180" alt="Dayeon_profile_img" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/85ec0387-21f3-4f1c-868e-32bc1d97812c"> | <img width="180"  alt="Yegi_profile_img" src="https://likelion.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F23901406-5d30-4f87-a166-03a79e52a991%2FKakaoTalk_Photo_2023-02-28-20-38-30.jpeg?table=block&id=f41783c9-bc51-4c24-ad37-de2caf59e1bd&spaceId=c69962b0-3951-485b-b10a-5bb29576bba8&width=2000&userId=&cache=v2"> | <img width="180" alt="kyungseuk_profile_img" src="https://cdn.discordapp.com/attachments/1114083723663650887/1114083747642482728/1668348982968.jpg"> | <img width="180" alt="seojun_profile_img" src="https://avatars.githubusercontent.com/u/72855681?v=4" > |
 | [Da-Yeon](https://github.com/dayannne) | [ yeji_kim ](https://github.com/yejify) | [5647kr](https://github.com/5647kr) | [junny97](https://github.com/junny97) |
 | 팀장 | 팀원 | 팀원 | 팀원 |
+
+<br>
 
 ### [역할 분담]
 
