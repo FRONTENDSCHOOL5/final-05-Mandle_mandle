@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import UserSkeleton from './UserSkeleton';
+
 import { Skeleton } from './Skeleton';
+import UserSkeleton from './UserSkeleton';
+
 import HeartBtn from '../../../assets/img/icon-heart.svg';
 import ChatBtn from '../../../assets/img/icon-chat-mini.svg';
+
 export default function PostSkeleton() {
   return (
     <SkeletonWrap>

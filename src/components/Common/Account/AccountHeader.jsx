@@ -1,6 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
+import React from 'react';
+
 import GoBackButton from '../GoBackButton';
+
 export default function AccountHeader({ title }) {
   return (
     <AccountHeaderStlye>

@@ -1,8 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
+
 import { PostImagesUpload } from '../../api/PostImagesUpload';
+
 import BasicProfile from '../../assets/img/basic-profile-img.svg';
 import UploadBtnImg from '../../assets/img/img-upload-button.svg';
+
 export default function UploadProfile({ onResponse, image }) {
   const fileInputRef = useRef(null);
   const [previewImage, setPreviewImage] = useState(image || BasicProfile);

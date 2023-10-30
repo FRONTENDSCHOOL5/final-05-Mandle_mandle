@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ModalOverlay, ModalWrap } from './ModalStyle';
 
 export default function Modal({

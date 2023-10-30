@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { Skeleton } from './Skeleton';
+
 import MoreIcon from '../../../assets/img/icon-more-vertical.svg';
+
 export default function UserSkeleton() {
   return (
     <SkeletonUserWrapper>

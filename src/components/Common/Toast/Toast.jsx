@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components';
 import { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 
 export const Toast = ({ toastMessage, setToastMessage }) => {
   const [isFadeOut, setIsFadeOut] = useState(false);

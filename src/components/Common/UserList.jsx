@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
+
 import FollowButtton from './FollowButtton';
 import NormalizeImage from './NormalizeImage';
+
 import TeacherIcon from '../../assets/img/icon-teacher.svg';
 
 export default function SearchList({ user, type, keyword }) {
@@ -76,6 +79,8 @@ export const ProfileWrap = styled.button`
   }
 `;
 
+const ProfileName = styled.div``;
+
 export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -84,8 +89,13 @@ export const ProfileInfo = styled.div`
   gap: 6px;
   div {
     display: flex;
-    justify-content: space-between;
-    div {
+    align-items: center;
+    gap: 4px;
+    img {
+      width: 12px;
+      height: 12px;
+    }
+    /* div {
       display: flex;
       gap: 3px;
       align-items: c;
@@ -93,11 +103,8 @@ export const ProfileInfo = styled.div`
         font-weight: 700;
         color: var(--main-color);
       }
-      img {
-        width: 12px;
-        height: 12px;
-      }
-    }
+
+    } */
   }
 
   img {

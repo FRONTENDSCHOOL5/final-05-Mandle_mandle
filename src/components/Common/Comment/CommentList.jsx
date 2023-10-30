@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-import MoreButton from '../MoreButton';
+
 import CalTimeAgo from '../CalTimeAgo';
+import MoreButton from '../MoreButton';
 import Modal from '../../Common/Modal/Modal';
 import NormalizeImage from '../NormalizeImage';
 import DeleteComment from '../../../api/DeleteComment';
@@ -41,7 +43,7 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
       setCommentUpdated(true);
     }
   };
-  console.log(alertModalOpen);
+
   return (
     <CommentListWrap>
       <ProfileWrap>

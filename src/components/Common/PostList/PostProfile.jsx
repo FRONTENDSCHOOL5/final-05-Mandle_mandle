@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { UserAtom } from '../../../Store/userInfoAtoms';
+import styled from 'styled-components';
+
 import { useRecoilValue } from 'recoil';
-import MoreButton from '../MoreButton';
+import { UserAtom } from '../../../Store/userInfoAtoms';
+
 import Modal from '../Modal/Modal';
-import PostReportPost from '../../../api/PostReportPost';
-import DeletePost from '../../../api/DeletePost';
-import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
-import TeacherIcon from '../../../assets/img/icon-teacher.svg';
+import MoreButton from '../MoreButton';
 import NormalizeImage from '../NormalizeImage';
+import DeletePost from '../../../api/DeletePost';
+import PostReportPost from '../../../api/PostReportPost';
+import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
+
+import TeacherIcon from '../../../assets/img/icon-teacher.svg';
 
 export default function PostProfile({ post, setPostUpdated }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
