@@ -91,13 +91,9 @@ export default function PostContent({ post }) {
           <HeartButton post={post} />
           <CommentButton
             onClick={handlePostClick}
-            cursor={
-              location.pathname.startsWith('/post') ? 'default ' : 'pointer'
-            }
-          >
-            <img src={ChatIcon} alt='댓글 버튼' />
-            <p>{post.commentCount}</p>
-          </CommentButton>
+            pathname={location.pathname}
+            post={post}
+          />
         </BtnWrap>
         <PostDate>{postDate(post.createdAt)}</PostDate>
       </PostIconWrap>

@@ -40,8 +40,11 @@ export default function HeartButton({ post }) {
 
   return (
     <HeartButtonWrap>
-      <button onClick={handleHeartButtonClick}>
-        <img src={isHearted ? HeartedIcon : HeartIcon} alt='' />
+      <button
+        onClick={handleHeartButtonClick}
+        aria-label={isHearted ? 'Unheart' : 'Heart'}
+      >
+        <img src={isHearted ? HeartedIcon : HeartIcon} alt='좋아요 버튼' />
       </button>
       <p>{heartCount ? heartCount : 0}</p>
     </HeartButtonWrap>
