@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import IntroImg from '../../assets/img/full-logo(intro).svg';
+
 import LogoImg from '../../assets/img/logo-white.svg';
 import EmailIcon from '../../assets/img/icon-email.svg';
-import GoogleIcon from '../../assets/img/google-logo.svg';
 import KaKaoIcon from '../../assets/img/kakao-logo.svg';
+import GoogleIcon from '../../assets/img/google-logo.svg';
+import IntroImg from '../../assets/img/full-logo(intro).svg';
 import FaceBookIcon from '../../assets/img/facebook-logo.svg';
-import { Link } from 'react-router-dom';
-export default function Intro() {
+
+const preloadImage = (src) => {
+  const img = new Image();
+  img.src = src;
+};
+
+function Intro() {
+  useEffect(() => {
+    preloadImage(IntroImg);
+    preloadImage(LogoImg);
+    preloadImage(EmailIcon);
+    preloadImage(GoogleIcon);
+    preloadImage(KaKaoIcon);
+    preloadImage(FaceBookIcon);
+  }, []);
+
   return (
     <IntroWrap>
       <Header>
@@ -64,6 +80,8 @@ export default function Intro() {
     </IntroWrap>
   );
 }
+
+export default React.memo(Intro);
 
 const IntroWrap = styled.div`
   position: relative;
