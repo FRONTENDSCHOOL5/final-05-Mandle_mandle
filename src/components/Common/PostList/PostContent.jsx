@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import ProgressiveImg from '../ProgressiveImg/ProgressiveImg';
+import styled from 'styled-components';
+
 import HeartButton from '../HeartButton';
+import CommentButton from '../CommentButton';
 import NormalizeImage from '../NormalizeImage';
-import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
+import ProgressiveImg from '../ProgressiveImg/ProgressiveImg';
+
 import PlaceholderImg from '../../../assets/img/placeholderImg.svg';
 import ArrowIcon from '../../../assets/img/icon-arrow-right.svg';
+
 export default function PostContent({ post }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -169,10 +172,6 @@ const BtnWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 86px;
-`;
-
-const CommentButton = styled.button`
-  cursor: ${(props) => props.cursor};
 `;
 
 const PostDate = styled.p`

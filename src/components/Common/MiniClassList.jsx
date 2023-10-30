@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
 import Modal from '../Common/Modal/Modal';
 import DeleteClass from '../../api/DeleteClass';
 import ModalAlert from './Modal/ModalAlert/ModalAlert';
+
 function MiniClassList({ classItem, page, token, setClassUpdated }) {
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);

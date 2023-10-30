@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
+
 import NormalizeImage from '../NormalizeImage';
 import PostComment from '../../../api/PostComment';
-import ProfileImg from '../../../assets/img/basic-profile-img.svg';
 
 export default function CommentInput({
   postId,

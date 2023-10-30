@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+
 import HomeIcon from '../../assets/img/icon-home.svg';
 import ClassIcon from '../../assets/img/icon-class.svg';
-import ChattingIcon from '../../assets/img/icon-chat.svg';
 import PostingIcon from '../../assets/img/icon-edit.svg';
 import ProfileIcon from '../../assets/img/icon-user.svg';
+import ChattingIcon from '../../assets/img/icon-chat.svg';
 
 function MenuBar() {
   const location = useLocation();

@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import PostContent from './PostContent';
 import PostProfile from './PostProfile';
+
 export default function PostList({ post, setPostUpdated }) {
   return (
     <PostLiStyle

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import CardSkeleton from './CardSkeleton';
-import { Skeleton } from './Skeleton';
 
 export default function ClassSideSkeleton({ children, scrollBgColor }) {
   return (

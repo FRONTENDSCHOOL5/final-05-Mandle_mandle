@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { Skeleton } from './Skeleton';
 import PostSkeleton from './PostSkeleton';
 import ClassSideSkeleton from './ClassSideSkeleton';
-import ChatBtn from '../../../assets/img/icon-chat-mini.svg';
+
 import ShareBtn from '../../../assets/img/icon-share.svg';
+import ChatBtn from '../../../assets/img/icon-chat-mini.svg';
 import PostListBtnOn from '../../../assets/img/icon-post-list-on.svg';
 import PostAlbumBtnOff from '../../../assets/img/icon-post-album-off.svg';
 
 export default function ProfileSkeleton({ status, type }) {
-  console.log(status, type);
   return (
     <ProfileSkeletonWrap>
       <SkeletonProfileSection>
