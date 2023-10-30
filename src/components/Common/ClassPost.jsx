@@ -1,10 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import ProgressiveImg from '../../components/Common/ProgressiveImg/ProgressiveImg';
+import PlaceholderImg from '../../assets/img/placeholderImg.svg';
 export function ClassPost({ mainImg, tag, title }) {
   return (
     <ClassPostWrap src='' width='180px' padding='10px 6px' alt=''>
-      <img src={mainImg} alt='' />
+      <ProgressiveImg
+        src={mainImg}
+        alt='클래스 소개 이미지'
+        placeholderSrc={PlaceholderImg}
+      />
       <div>
         <p>{tag}</p>
         <h3>{title}</h3>

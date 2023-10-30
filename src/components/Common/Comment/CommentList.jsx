@@ -5,14 +5,15 @@ import { UserAtom } from '../../../Store/userInfoAtoms';
 import MoreButton from '../MoreButton';
 import CalTimeAgo from '../CalTimeAgo';
 import Modal from '../../Common/Modal/Modal';
+import NormalizeImage from '../NormalizeImage';
 import DeleteComment from '../../../api/DeleteComment';
 import ModalAlert from '../Modal/ModalAlert/ModalAlert';
 import PostReportComment from '../../../api/PostReportComment';
-import ProfileImg from '../../../assets/img/basic-profile-img.svg';
+
 export default function CommentList({ postId, comment, setCommentUpdated }) {
   const userInfo = useRecoilValue(UserAtom);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(null);
 
   const handleClick = () => {
     setModalOpen(true);
@@ -36,17 +37,17 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
     const response = await DeleteComment(postId, comment.id, userInfo.token); // Call the API component
     if (response) {
       alert(`해당 댓글이 삭제되었습니다.`);
-      setAlertModalOpen(false);
+      setAlertModalOpen(null);
       setCommentUpdated(true);
     }
   };
-
+  console.log(alertModalOpen);
   return (
     <CommentListWrap>
       <ProfileWrap>
         <ProfileInfo>
           <ProfileImgwrap>
-            <img src={comment.author.image || ProfileImg} alt='' />
+            <img src={NormalizeImage(comment.author.image)} alt='' />
           </ProfileImgwrap>
 
           <div>
@@ -62,19 +63,26 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
           <Modal
             setModalOpen={setModalOpen}
             setAlertModalOpen={setAlertModalOpen}
+            type='delete'
             text='삭제'
           />
         ) : (
           <Modal
             setModalOpen={setModalOpen}
-            onClick={handleReportSubmit}
+            setAlertModalOpen={setAlertModalOpen}
+            type='report'
             text='신고하기'
           />
         ))}
       {alertModalOpen && (
         <ModalAlert
           setAlertModalOpen={setAlertModalOpen}
-          onClick={handleDeleteSubmit}
+          onClick={
+            alertModalOpen === 'delete'
+              ? handleDeleteSubmit
+              : handleReportSubmit
+          }
+          type={alertModalOpen}
         />
       )}
     </CommentListWrap>

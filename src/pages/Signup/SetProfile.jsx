@@ -119,7 +119,6 @@ const SetProfile = () => {
           type='text'
           placeholder='자신에 대해 소개해 주세요!'
           onChange={handleInputChange}
-          onBlur={handleAccountNameValid}
           borderColor='#dbdbdb'
         />
 

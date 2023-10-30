@@ -1,10 +1,10 @@
+import React, { lazy, Suspense } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Outlet,
 } from 'react-router-dom';
-import React from 'react';
 import GlobalStyle from './styles/GlobalStyles';
 import styled from 'styled-components';
 import Class from '../src/pages/Class/Class';
@@ -29,54 +29,54 @@ import Following from './pages/Profile/FollowList/FollowingList';
 import ChatRoom from '../src/pages/Chatting/ChatRoom';
 import EditPost from './pages/Posting/EditPost';
 import ChatList from './pages/Chatting/ChatList';
+import MyReservationList from './pages/Profile/MyReservationList/MyReservationList';
 function App() {
   return (
     <Wrap>
       <GlobalStyle />
-      <Router basename='/final-05-Mandle_mandle'>
-        <Routes>
-          <Route path='/' element={<Splash />} />
-          <Route path='/intro' element={<Intro />} />
-          <Route path='/account' element={<Outlet />}>
-            <Route path='login' element={<Login />} />
-            <Route path='signup' element={<Signup />} />
-            <Route path='set_profile' element={<SetProfile />} />
-          </Route>
-          <Route path='/home' element={<Outlet />}>
-            <Route path='' element={<Home />} />
-            <Route path='search' element={<Search />} />
-          </Route>
-          <Route path='/class' element={<Outlet />}>
-            <Route path='' element={<Class />} />
-            <Route path='detail/:class_id' element={<ClassDetail />} />
-          </Route>
-          <Route path='registration' element={<ClassRegistration />} />
-          <Route path='reservation' element={<ClassReservation />} />
 
-          <Route path='/post' element={<Outlet />}>
-            <Route path=':post_id' element={<PostDetail />} />
-            <Route path=':post_id/edit' element={<EditPost />} />
-            <Route path='upload' element={<Posting />} />
-          </Route>
-          <Route path='/chat' element={<Outlet />}>
-            <Route path='chatlist' element={<ChatList />} />
-            <Route path='chatroom' element={<ChatRoom />} />
-          </Route>
+      <Routes>
+        <Route path='/' element={<Splash />} />
+        <Route path='/intro' element={<Intro />} />
+        <Route path='/account' element={<Outlet />}>
+          <Route path='login' element={<Login />} />
+          <Route path='signup' element={<Signup />} />
+          <Route path='set_profile' element={<SetProfile />} />
+        </Route>
+        <Route path='/home' element={<Outlet />}>
+          <Route path='' element={<Home />} />
+          <Route path='search' element={<Search />} />
+        </Route>
+        <Route path='/class' element={<Outlet />}>
+          <Route path='' element={<Class />} />
+          <Route path='detail/:class_id' element={<ClassDetail />} />
+        </Route>
+        <Route path='registration' element={<ClassRegistration />} />
+        <Route path='reservation' element={<ClassReservation />} />
 
-          <Route path='/my_profile' element={<Outlet />}>
-            <Route path='' element={<Profile />} />
-            <Route path='follower' element={<Follower />} />
-            <Route path='following' element={<Following />} />
-            <Route path='edit/:accountname' element={<EditProfile />} />
-          </Route>
-          <Route path='/other_profile/:accountname' element={<Outlet />}>
-            <Route path='' element={<OtherProfile />} />
-            <Route path='follower' element={<Follower />} />
-            <Route path='following' element={<Following />} />
-          </Route>
-          <Route path='/*' element={<NotFound />} />
-        </Routes>
-      </Router>
+        <Route path='/post' element={<Outlet />}>
+          <Route path=':post_id' element={<PostDetail />} />
+          <Route path=':post_id/edit' element={<EditPost />} />
+          <Route path='upload' element={<Posting />} />
+        </Route>
+        <Route path='/chat' element={<Outlet />}>
+          <Route path='chatlist' element={<ChatList />} />
+          <Route path='chatroom' element={<ChatRoom />} />
+        </Route>
+        <Route path='/my_profile' element={<Outlet />}>
+          <Route path='' element={<Profile />} />
+          <Route path='follower' element={<Follower />} />
+          <Route path='following' element={<Following />} />
+          <Route path='edit/:accountname' element={<EditProfile />} />
+          <Route path='my_reservation_list' element={<MyReservationList />} />
+        </Route>
+        <Route path='/other_profile/:accountname' element={<Outlet />}>
+          <Route path='' element={<OtherProfile />} />
+          <Route path='follower' element={<Follower />} />
+          <Route path='following' element={<Following />} />
+        </Route>
+        <Route path='/*' element={<NotFound />} />
+      </Routes>
     </Wrap>
   );
 }
@@ -86,7 +86,9 @@ const Wrap = styled.div`
   height: 100vh;
   position: relative;
   margin: 0 auto;
-  border: 1px solid var(--border-color);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  overflow: hidden;
+  background-color: #fff;
 `;
 
 export default App;

@@ -8,10 +8,13 @@ import Modal from '../Modal/Modal';
 import PostReportPost from '../../../api/PostReportPost';
 import DeletePost from '../../../api/DeletePost';
 import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
+import TeacherIcon from '../../../assets/img/icon-teacher.svg';
+import NormalizeImage from '../NormalizeImage';
+
 export default function PostProfile({ post, setPostUpdated }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
   const [isModalOpen, setModalOpen] = useState(false);
-  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(null);
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
@@ -39,14 +42,15 @@ export default function PostProfile({ post, setPostUpdated }) {
   const handleDeleteSubmit = async () => {
     const response = await DeletePost(post.id, userInfo.token); // Call the API component
     if (response) {
-      setAlertModalOpen(false);
+      setAlertModalOpen(null);
       alert(`해당 게시글이 삭제되었습니다.`);
       const currentURL = window.location.pathname;
-      if (currentURL.startsWith('/post')) {
+
+      if (currentURL.includes('/post')) {
         navigate(-1); // 이전 페이지로 이동
-      } else {
-        setPostUpdated(true); // 새로고침(상태변경으로 바꿀 예정)
+        return;
       }
+      setPostUpdated(true);
     }
   };
 
@@ -54,11 +58,14 @@ export default function PostProfile({ post, setPostUpdated }) {
     <PostProfileWrap>
       <button onClick={handleProfileClick}>
         <PostProfileImgWrap>
-          <img src={post.author.image} alt='프로필 이미지' />
+          <img src={NormalizeImage(post.author.image)} alt='프로필 이미지' />
         </PostProfileImgWrap>
         <PostProfileInfo>
           <div>
             <p>{post.author.username}</p>
+            {post.author.accountname.includes('Teacher') && (
+              <img src={TeacherIcon} alt='강사 아이콘' />
+            )}
           </div>
           <p>{post.author.accountname.substr(7)}</p>
         </PostProfileInfo>
@@ -70,13 +77,14 @@ export default function PostProfile({ post, setPostUpdated }) {
             onClick={handleMovePostEdit}
             setModalOpen={setModalOpen}
             setAlertModalOpen={setAlertModalOpen}
-            type='post'
+            type='delete'
             text='삭제'
           />
         ) : (
           <Modal
-            onClick={handleReportSubmit}
             setModalOpen={setModalOpen}
+            setAlertModalOpen={setAlertModalOpen}
+            type='report'
             text='신고하기'
           />
         ))}
@@ -84,7 +92,12 @@ export default function PostProfile({ post, setPostUpdated }) {
       {alertModalOpen && (
         <ModalAlert
           setAlertModalOpen={setAlertModalOpen}
-          onClick={handleDeleteSubmit}
+          onClick={
+            alertModalOpen === 'delete'
+              ? handleDeleteSubmit
+              : handleReportSubmit
+          }
+          type={alertModalOpen}
         />
       )}
     </PostProfileWrap>
@@ -119,7 +132,12 @@ const PostProfileImgWrap = styled.div`
 
 const PostProfileInfo = styled.div`
   div {
+    display: flex;
+    gap: 3px;
     margin-bottom: 6px;
+    img {
+      width: 12px;
+    }
   }
 
   div + p {
