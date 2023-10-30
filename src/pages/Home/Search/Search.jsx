@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+
 import { useRecoilState } from 'recoil';
-import UserList from '../../../components/Common/UserList';
-import GetSearchUser from '../../../api/GetSearchUser';
 import { UserAtom } from '../../../Store/userInfoAtoms';
+
+import GetSearchUser from '../../../api/GetSearchUser';
 import MenuBar from '../../../components/Common/MenuBar';
+import UserList from '../../../components/Common/UserList';
 import { SearchNav } from '../../../components/Common/TopNav';
+
 import { MainWrap } from './SearchStyle';
 
 export default function Search() {

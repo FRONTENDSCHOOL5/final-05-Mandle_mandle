@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import HomeLogo from '../../../assets/img/home-logo.svg';
-import ButtonStyle from '../../../components/Common/Button';
+
 import { PostBlankWrap } from './PostBlankStyle';
+import ButtonStyle from '../../../components/Common/Button';
+
 export default function PostBlank({ text, text2 }) {
   return (
     <PostBlankWrap>
