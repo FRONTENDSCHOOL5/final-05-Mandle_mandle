@@ -343,9 +343,6 @@ export default function Posting() {
         </ImgList>
         <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>{' '}
-      {toastMessage && (
-        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
-      )}
     </div>
   );
 }

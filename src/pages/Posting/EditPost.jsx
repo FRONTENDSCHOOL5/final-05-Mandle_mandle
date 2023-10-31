@@ -22,7 +22,7 @@ import Dropdown from '../../components/Common/Dropdown/Dropdown';
 import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
 import DropdownTag from '../../components/Common/Dropdown/DropdownTag';
 import { DropdonwTextBox } from '../../components/Common/Dropdown/DropItem';
-import { Toast } from '../../components/Common/Toast/Toast';
+
 import {
   TextInputBox,
   ImagePreview,
@@ -203,11 +203,14 @@ export default function EditPost() {
     );
 
     if (editedPost) {
+      alert('게시글 수정을 완료했습니다!');
       setInputValue('');
       setSelectedImages([]);
       navigate(`/post/${postId}`, {
         state: postId,
       });
+    } else {
+      alert('게시글 수정을 먼저 해주세요!');
     }
   };
 
@@ -334,10 +337,6 @@ export default function EditPost() {
         </ImgList>
         <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>
-
-      {toastMessage && (
-        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
-      )}
     </div>
   );
 }
