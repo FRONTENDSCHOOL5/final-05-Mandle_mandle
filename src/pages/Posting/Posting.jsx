@@ -289,7 +289,7 @@ export default function Posting() {
         //  (수강생용 드롭다운)
         <DropdownContainer ref={dropDownRef}>
           <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
-            <ImageBox src={classImg} />
+            <ImageBox src={classImg} alt='수강 클래스 이미지' />
             <DropdonwTextBox>
               {classIdentify}
               {selectDate && selectTime ? (
