@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import useDetectClose from '../../Hooks/useDetectClose';
+import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
-// import { PostImagesUpload } from '../../api/PostImagesUpload';
 import PutPostEdit from '../../api/PutPostEdit';
 import { GetUserProfileImage } from '../../api/GetUserProfileImage';
-import { useLocation } from 'react-router-dom';
 import { PostImagesUpload } from '../../api/PostImagesUpload';
-import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import { ClassData } from '../Profile/MyProfile';
 import whiteImg from '../../assets/img/whiteImg.webp';
 import {
@@ -24,7 +23,6 @@ import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
 import DropdownTag from '../../components/Common/Dropdown/DropdownTag';
 import { DropdonwTextBox } from '../../components/Common/Dropdown/DropItem';
 
-import { Toast } from '../../components/Common/Toast/Toast';
 import {
   TextInputBox,
   ImagePreview,
@@ -205,11 +203,14 @@ export default function EditPost() {
     );
 
     if (editedPost) {
+      alert('게시글 수정을 완료했습니다!');
       setInputValue('');
       setSelectedImages([]);
       navigate(`/post/${postId}`, {
         state: postId,
       });
+    } else {
+      alert('게시글 수정을 먼저 해주세요!');
     }
   };
 
@@ -280,7 +281,7 @@ export default function EditPost() {
         //  (수강생용 드롭다운)
         <DropdownContainer ref={dropDownRef}>
           <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
-            <ImageBox src={classImg} />
+            <ImageBox src={classImg} alt='수강 클래스 이미지' />
             <DropdonwTextBox>
               {classIdentify}
               {selectDate && selectTime ? (
@@ -336,10 +337,6 @@ export default function EditPost() {
         </ImgList>
         <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>
-
-      {toastMessage && (
-        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
-      )}
     </div>
   );
 }

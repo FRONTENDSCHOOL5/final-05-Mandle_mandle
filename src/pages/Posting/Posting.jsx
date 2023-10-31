@@ -1,6 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Dropdown from '../../components/Common/Dropdown/Dropdown';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { UserAtom } from '../../Store/userInfoAtoms';
+import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import useDetectClose from '../../Hooks/useDetectClose';
+import imageCompression from 'browser-image-compression';
+import { ClassData } from '../Profile/MyProfile';
+import { PostImagesUpload } from '../../api/PostImagesUpload';
+import PostUploadPost from '../../api/PostUploadPost';
+import { GetUserProfileImage } from '../../api/GetUserProfileImage';
+import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
+import { Toast } from '../../components/Common/Toast/Toast';
+import whiteImg from '../../assets/img/whiteImg.webp';
+import Dropdown from '../../components/Common/Dropdown/Dropdown';
+import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
+import DropdownTag from '../../components/Common/Dropdown/DropdownTag';
+import { DropdonwTextBox } from '../../components/Common/Dropdown/DropItem';
 import {
   DropdownContainer,
   DropdownButton,
@@ -8,9 +23,6 @@ import {
   TeacherDropdown,
   ImageBox,
 } from '../../components/Common/Dropdown/Dropdown';
-import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
-import DropdownTag from '../../components/Common/Dropdown/DropdownTag';
-import { DropdonwTextBox } from '../../components/Common/Dropdown/DropItem';
 import {
   DisabledUploadBtnNav,
   ProfileContainer,
@@ -23,18 +35,6 @@ import {
   ImagePreview,
   TextInputBox,
 } from './PostingStyle';
-import whiteImg from '../../assets/img/whiteImg.webp';
-import { useRecoilValue } from 'recoil';
-import { UserAtom } from '../../Store/userInfoAtoms';
-import { PostImagesUpload } from '../../api/PostImagesUpload';
-import { useNavigate } from 'react-router-dom';
-import PostUploadPost from '../../api/PostUploadPost';
-import { GetUserProfileImage } from '../../api/GetUserProfileImage';
-import imageCompression from 'browser-image-compression';
-import useTextareaResize from '../../Hooks/useTextareaResizeHook';
-import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
-import { Toast } from '../../components/Common/Toast/Toast';
-import { ClassData } from '../Profile/MyProfile';
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -289,7 +289,7 @@ export default function Posting() {
         //  (수강생용 드롭다운)
         <DropdownContainer ref={dropDownRef}>
           <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
-            <ImageBox src={classImg} />
+            <ImageBox src={classImg} alt='수강 클래스 이미지' />
             <DropdonwTextBox>
               {classIdentify}
               {selectDate && selectTime ? (
@@ -343,9 +343,6 @@ export default function Posting() {
         </ImgList>
         <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>{' '}
-      {toastMessage && (
-        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
-      )}
     </div>
   );
 }
