@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
 import Modal from '../../components/Common/Modal/Modal';
