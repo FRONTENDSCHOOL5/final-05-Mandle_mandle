@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import useDetectClose from '../../Hooks/useDetectClose';
+import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
-// import { PostImagesUpload } from '../../api/PostImagesUpload';
 import PutPostEdit from '../../api/PutPostEdit';
 import { GetUserProfileImage } from '../../api/GetUserProfileImage';
-import { useLocation } from 'react-router-dom';
 import { PostImagesUpload } from '../../api/PostImagesUpload';
-import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import { ClassData } from '../Profile/MyProfile';
 import whiteImg from '../../assets/img/whiteImg.webp';
 import {
@@ -23,7 +22,6 @@ import Dropdown from '../../components/Common/Dropdown/Dropdown';
 import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
 import DropdownTag from '../../components/Common/Dropdown/DropdownTag';
 import { DropdonwTextBox } from '../../components/Common/Dropdown/DropItem';
-
 import { Toast } from '../../components/Common/Toast/Toast';
 import {
   TextInputBox,
