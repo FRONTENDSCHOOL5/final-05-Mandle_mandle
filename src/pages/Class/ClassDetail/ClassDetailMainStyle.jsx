@@ -17,7 +17,7 @@ export const ClassWrap = styled.div`
       top: 43px;
     }
   }
-  `;
+`;
 // /common
 
 export const ClassSection = styled.section`
@@ -35,8 +35,7 @@ export const ClassSection = styled.section`
     position: relative;
   }
   &.others {
-    padding: 20px 0 0 16px;
-    height: 208px;
+    padding: 20px;
   }
 `;
 
@@ -67,15 +66,24 @@ export const ClassExplainImg = styled.img`
 `;
 // /classintro
 
-
 // classlocation
 export const LocAddress = styled.address`
   font-size: var(--font-md);
   font-weight: var(--font-regular);
   color: var(--sub-font-color);
 `;
-// /classlocation
 
+export const MapBtn = styled.button`
+  position: absolute;
+  bottom: 66px;
+  left: 35px;
+  color: #fff;
+  background-color: var(--main-color);
+  border-radius: 0 10px 10px 0;
+  padding: 10px;
+  opacity: 0.9;
+`;
+// /classlocation
 
 // classreview
 export const Profile = styled.div`
@@ -100,7 +108,6 @@ export const UserName = styled.h4`
   margin-bottom: 2px;
 `;
 
-
 export const Review = styled.div`
   display: flex;
 `;
@@ -114,7 +121,6 @@ export const ReviewImg = styled.img`
 `;
 // /classreview
 
-
 // classothers
 export const Title = styled.h3`
   font-size: var(--font-md);
@@ -126,17 +132,19 @@ export const Title = styled.h3`
 export const MiniList = styled.ul`
   display: flex;
   gap: 8px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   overflow-y: hidden;
   overflow-x: scroll;
   &::-webkit-scrollbar {
     padding-top: 5px;
+    background-color: white;
     height: 10px;
   }
   &::-webkit-scrollbar-thumb {
     background-color: var(--border-color);
     border-radius: 10px;
     background-clip: padding-box;
+    border: 2px solid white;
   }
-`
+`;
 // /classothers

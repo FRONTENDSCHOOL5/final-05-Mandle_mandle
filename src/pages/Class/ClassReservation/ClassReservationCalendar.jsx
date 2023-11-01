@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyledCalendar, SelectedDate } from './ClassReservationCalendarStyle';
 
-export function DatePicker() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
+export function DatePicker({ selectedDate, onDateChange }) {
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    onDateChange(date);
   };
 
   const removeYearNavigation = (e) => {
     e.preventDefault();
     const yearNavigation = document.querySelector(
-      '.react-calendar__navigation__arrow'
+      '.react-calendar__navigation__arrow',
     );
     if (yearNavigation) {
       yearNavigation.style.display = 'none';
@@ -25,12 +23,17 @@ export function DatePicker() {
     const isTwoDaysAgo = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
-      currentDate.getDate() - 1
+      currentDate.getDate() - 1,
     );
-  
-    return isSaturday || isSunday || date <= isTwoDaysAgo;
+
+    const dateDifference = Math.floor(
+      (date - currentDate) / (1000 * 60 * 60 * 24),
+    );
+
+    return (
+      isSaturday || isSunday || date <= isTwoDaysAgo || dateDifference > 30
+    );
   };
-  
 
   const tileClassName = ({ date }) => {
     const isPrevMonth = date.getMonth() < selectedDate.getMonth();
@@ -45,7 +48,7 @@ export function DatePicker() {
     return isPrevMonth || isNextMonth || isSaturday || isSunday
       ? null
       : isActiveDate
-      ? 'active-date-tile' // 이 클래스에 원하는 스타일을 추가
+      ? 'active-date-tile'
       : 'weekday-tile';
   };
 
@@ -63,13 +66,14 @@ export function DatePicker() {
     <>
       <StyledCalendar
         onChange={handleDateChange}
-        // value={selectedDate}
         onClickMonth={removeYearNavigation}
         calendarType='US'
-        formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
+        formatDay={(locale, date) =>
+          date.toLocaleString('en', { day: 'numeric' })
+        }
         tileDisabled={tileDisabled}
         tileClassName={tileClassName}
-        minDetail="month"
+        minDetail='month'
       />
       <SelectedDate>
         <span className='a11y-hidden'>선택한 날짜: </span>

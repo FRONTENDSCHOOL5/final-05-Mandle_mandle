@@ -1,22 +1,43 @@
 import { React, useState, useEffect } from 'react';
-import { ClassSection, ClassNav, ClassWrap, CommentP,  ClassExplainImg, LocAddress, Title, MiniList, Profile, UserImg, UserInfo, UserName, Review, ReviewImg } from './ClassDetailMainStyle'
-import ExplainImg from '../../../assets/img/temp/soapT5.png';
-import location from '../../../assets/img/temp/location.png'
+
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-import { ClassPostMini } from '../../../components/Common/ClassPost';
-import GetClassData from '../../../api/GetClassData';
-import UserIcon from '../../../assets/img/basic-profile-img.svg';
 
-export default function ClassDetailMain() {
+import GetClassData from '../../../api/GetClassData';
+import { ClassPostMini } from '../../../components/Common/ClassPost';
+import NormalizeImage from '../../../components/Common/NormalizeImage';
+import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData';
+
+import ExplainImg from '../../../assets/img/temp/soapT5.png';
+import location from '../../../assets/img/temp/location.png';
+import UserIcon from '../../../assets/img/basic-profile-img.svg';
+import {
+  ClassSection,
+  ClassNav,
+  ClassWrap,
+  CommentP,
+  ClassExplainImg,
+  MapBtn,
+  LocAddress,
+  Title,
+  MiniList,
+  Profile,
+  UserImg,
+  UserInfo,
+  UserName,
+  Review,
+  ReviewImg,
+} from './ClassDetailMainStyle';
+
+export default function ClassDetailMain({ id, token }) {
   return (
     <>
       <ClassDetailIntro />
-      <ClassDetailLocation />
+      <ClassDetailLocation id={id} token={token} />
       <ClassDetailReview />
       <ClassDetailOtherClass />
     </>
-  )
+  );
 }
 
 // classintro
@@ -42,26 +63,58 @@ export function ClassDetailIntro() {
         <ClassExplainImg src={ExplainImg} alt='비누 만드는 클래스의 모습' />
       </ClassWrap>
     </ClassSection>
-  )
+  );
 }
 // /classintro
 
 // classlocation
-export function ClassDetailLocation() {
+export function ClassDetailLocation({ id, token }) {
+  const [address, setAddress] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await GetClassDetailInfoData(id, token);
+        setAddress(data.link);
+      } catch (error) {
+        console.log('Error', error);
+      }
+    };
+    fetchData();
+  }, [id, token]);
+
+  const handleClick = () => {
+    if (address) {
+      const parts = address.split('@');
+      if (parts.length >= 2) {
+        const location = parts[1];
+        // 이동할 URL을 생성합니다.
+        const mapURL = `https://map.kakao.com/?q=${encodeURIComponent(
+          location,
+        )}`;
+        // 새 탭에서 카카오맵 링크를 엽니다.
+        window.open(mapURL, '_blank');
+      }
+    }
+  };
+
   return (
     <ClassSection className='location' id='class-location'>
       <ClassWrap>
         <h3>장소</h3>
-        <img src={location} alt="지도 위치" />
-        <LocAddress>
-          서울특별시 관악구 봉천동 911-11 (2층)
-        </LocAddress>
+        <MapBtn onClick={handleClick}>지도 바로가기</MapBtn>
+        <img
+          src={location}
+          alt='지도 위치'
+          onClick={handleClick}
+          style={{ cursor: 'pointer' }}
+        />
+        <LocAddress>{address ? address.split('@')[1] : ''}</LocAddress>
       </ClassWrap>
     </ClassSection>
-  )
+  );
 }
 // /classlocation
-
 
 // Classreview
 export function ClassDetailReview() {
@@ -73,7 +126,7 @@ export function ClassDetailReview() {
         <ReviewContent />
       </ClassWrap>
     </ClassSection>
-  )
+  );
 }
 
 // UserProfile part
@@ -106,7 +159,6 @@ export function ReviewContent() {
 // /ReviewPart
 // /Classreview
 
-
 // classothers
 export function ClassDetailOtherClass() {
   const [newClass, setNewClass] = useState([]);
@@ -119,29 +171,35 @@ export function ClassDetailOtherClass() {
         const data = await GetClassData(token, UserInfo.accountname);
         setNewClass(data.product);
       } catch (error) {
-        console.log("Error", error);
+        console.log('Error', error);
       }
     };
     fetchData();
   });
 
-  const classList = newClass.filter(classItem => String(classItem.author.accountname).includes('Teacher'));
+  const classList = newClass.filter((classItem) =>
+    String(classItem.author.accountname).includes('Teacher'),
+  );
 
   return (
     <ClassSection className='others'>
       <Title>다른 클래스</Title>
       <MiniList>
-        {classList.map(classItem => (
-          <li key={classItem._id}>
-            <a href={`/class/detail/${classItem._id}`}>
-              <ClassPostMini
-                miniImg={classItem.itemImage}
-                miniName={classItem.itemName}
-                miniTag={classItem.link}
-              />
-            </a>
-          </li>
-        ))}
+        {classList.map((classItem) => {
+          const parts = classItem.link.split('@');
+          const truncatedLink = parts[0] || '';
+          return (
+            <li key={classItem._id}>
+              <a href={`/class/detail/${classItem._id}`}>
+                <ClassPostMini
+                  miniImg={classItem.itemImage}
+                  miniName={classItem.itemName}
+                  miniTag={truncatedLink}
+                />
+              </a>
+            </li>
+          );
+        })}
       </MiniList>
     </ClassSection>
   );

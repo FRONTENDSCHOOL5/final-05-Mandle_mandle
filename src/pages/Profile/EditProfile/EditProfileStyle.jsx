@@ -3,6 +3,16 @@ import styled from 'styled-components';
 export const SignupDiv = styled.div`
   width: 390px;
 `;
+export const ColorSet = styled.div`
+  padding: 20px;
+  #colorPicker {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 160px;
+    left: 75%;
+  }
+`;
 
 export const SignupHeader = styled.header`
   text-align: center;

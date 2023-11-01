@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { UserAtom, IsLogin, AutoLogin } from '../../Store/userInfoAtoms';
+import { UseUserState } from '../../Store/ReserveStateAtom';
 import PostLogin from '../../api/PostLogin';
 import UserInfoInput from '../../Hooks/UserInfoInput';
 import Input from '../../components/Common/Account/Input';
@@ -19,8 +20,6 @@ import {
 export default function Login() {
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const [isLogin, setIsLogin] = useRecoilState(IsLogin);
-  const [emailErrorMessage, setEmailErrorMessage] = useState('');
-  const [pwErrorMessage, setPwErrorMessage] = useState('');
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const [autoLogin, setAutoLogin] = useRecoilState(AutoLogin);
 
@@ -43,7 +42,11 @@ export default function Login() {
     setPassword,
     buttonImg,
     handleInputChange,
-  } = UserInfoInput(ButtonImg, DisabledButtonImg);
+    emailErrorMessage,
+    setEmailErrorMessage,
+    pwErrorMessage,
+    setPwErrorMessage,
+  } = UserInfoInput(ButtonImg, DisabledButtonImg, 'login');
 
   const handleEmailValid = () => {
     const emailPattern = /^\S+@\S+\.\S+$/;
@@ -72,6 +75,7 @@ export default function Login() {
       return; // 버튼 비활성화일 때 기능 막기
     }
     const loginInfo = await PostLogin(email, password);
+
     if (!isLogin) {
       //로그인 실패
       if (loginInfo.status === 422) {
@@ -81,15 +85,27 @@ export default function Login() {
         //성공시
       } else {
         //로그인 성공
-        const { accountname, token, refreshToken, image, username, intro } =
-          loginInfo.user;
+
+        const {
+          _id,
+          accountname,
+          token,
+          refreshToken,
+          image,
+          username,
+          intro,
+        } = loginInfo.user;
+
         setUserInfo({
+          id: _id,
           accountname,
           username,
           token,
           refreshToken,
           image,
           intro,
+          resInfo: userInfo.resInfo || [],
+          liked: userInfo.liked || [],
         });
         setIsLogin(true);
         setLoginErrorMessage('');
@@ -123,6 +139,7 @@ export default function Login() {
           borderColor={pwErrorMessage ? 'var(--error-color)' : '#dbdbdb'}
           showPassword={showPassword}
           toggleShowPassword={toggleShowPassword}
+          maxLength={30}
         />
         {pwErrorMessage && <ErrorMessage>{pwErrorMessage}</ErrorMessage>}
         {loginErrorMessage && <ErrorMessage>{loginErrorMessage}</ErrorMessage>}
@@ -132,10 +149,13 @@ export default function Login() {
             checked={autoLogin}
             onChange={handleCheckboxChange}
           />
-          <CheckboxLabel>자동로그인 </CheckboxLabel>
+          <CheckboxLabel>자동 로그인</CheckboxLabel>
         </CheckboxContainer>
 
-        <ButtonImgStyle type='submit'>
+        <ButtonImgStyle
+          type='submit'
+          disabled={buttonImg === ButtonImg ? false : true}
+        >
           <img src={buttonImg} alt='로그인하기 버튼' />
         </ButtonImgStyle>
       </AccountForm>
@@ -146,17 +166,17 @@ export default function Login() {
 
 const CheckboxContainer = styled.div`
   display: flex;
+  margin: 10px 0 3px;
   align-items: center;
-  padding-top: 10px;
-  margin-right: 220px;
+  justify-self: flex-start;
 `;
 
 const CheckboxInput = styled.input`
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 1.5px solid gainsboro;
-  margin-right: 10px;
+  margin-right: 6px;
   border-radius: 0.35rem;
   cursor: pointer;
   &:checked {
@@ -166,12 +186,12 @@ const CheckboxInput = styled.input`
     background-size: 100% 100%;
     background-position: 50%;
     background-repeat: no-repeat;
-    background-color: #007bff;
+    background-color: #036635;
   }
 `;
 
 const CheckboxLabel = styled.label`
-  font-size: 12px;
+  font-size: 14px;
   color: #767676;
   cursor: pointer;
 `;

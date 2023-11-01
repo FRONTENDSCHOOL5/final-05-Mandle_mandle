@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 
 export const StyledCalendar = styled(Calendar)`
   text-align: center;
-  margin: 0 auto;
+  margin: 20px auto;
   && {
     border: none;
   }
@@ -37,9 +37,6 @@ export const StyledCalendar = styled(Calendar)`
 
   .react-calendar__tile {
     padding: 4px;
-  }
-
-  .react-calendar__tile {
     abbr {
       display: block;
       border: 1px solid var(--main-color);
@@ -59,10 +56,11 @@ export const StyledCalendar = styled(Calendar)`
     }
   }
 
-
   /* 토요일 일요일 폰트 색상 변경 */
   .react-calendar__month-view__days__day--weekend {
-    color: #000;
+    abbr {
+      color: #000;
+    }
   }
 
   /* 비활성화된 날짜의 배경색 설정 */
@@ -93,7 +91,7 @@ export const StyledCalendar = styled(Calendar)`
   .react-calendar__tile:enabled:focus {
     background: #fff;
   }
-  
+
   /* 날짜 클릭 시 abbr 배경색 및 폰트 색상 변경 */
   .react-calendar__tile--active abbr {
     background-color: var(--main-color);
@@ -102,9 +100,8 @@ export const StyledCalendar = styled(Calendar)`
 `;
 
 export const SelectedDate = styled.p`
-  margin-top: 6px;
-  padding: 16px 12px;
+  margin-bottom: 30px;
+  padding: 20px 12px;
   border: 0.5px solid var(--sub-font-color);
-  border-right: none;
-  border-left: none;
+  border-radius: 10px;
 `;

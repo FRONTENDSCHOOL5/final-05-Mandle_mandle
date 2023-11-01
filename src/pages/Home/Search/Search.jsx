@@ -33,7 +33,7 @@ export default function Search() {
       // 3. 1초 후에 API 요청 시작
       const response = await GetSearchUser(query, token);
       setUserData(response);
-    }, 1000); // 1s 디바운스 지연 시간
+    }, 300); // 1s 디바운스 지연 시간
 
     // 재랜더링, 언마운트 이전에 설정한 타이머를 클리어하여 디바운스 취소
     return () => clearTimeout(delayDebounceTimer);
@@ -45,7 +45,9 @@ export default function Search() {
       <MainWrap>
         <ul>
           {userData
-            ? userData.map((user) => <UserList key={user.id} user={user} />)
+            ? userData.map((user, index) => (
+                <UserList key={index} user={user} keyword={query} />
+              ))
             : ''}
         </ul>
       </MainWrap>

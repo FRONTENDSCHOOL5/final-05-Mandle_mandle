@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-import heartIcon from '../../../assets/img/icon-heart.svg';
-import shareIcon from '../../../assets/img/icon-share.svg';
-import heartClickedIcon from '../../../assets/img/icon-heart-clicked.svg';
-import askIcon from '../../../assets/img/icon-chat-mini.svg'
+import arrowRightIcon from '../../../assets/img/icon-arrow-right.svg';
 
 export const MainWrap = styled.main`
   background-color: var(--background-color);
@@ -17,11 +14,12 @@ export const MainWrap = styled.main`
   }
 `;
 
-
 export const ClassInfoSection = styled.section`
   padding: 16px 31px 28px 27px;
   box-sizing: border-box;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
   p {
     font-size: var(--font-md);
     color: var(--sub-font-color);
@@ -29,8 +27,8 @@ export const ClassInfoSection = styled.section`
 `;
 
 export const ClassImage = styled.img`
-  width: 330px;
-  aspect-ratio: 330 / 215;
+  width: 100%;
+  aspect-ratio: 332 / 220;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 12px;
@@ -39,6 +37,38 @@ export const ClassImage = styled.img`
 export const ClassName = styled.h2`
   font-size: var(--font-lg);
   margin: 4px 0 11px;
+  /* position: relative; */
+`;
+
+export const ClassTeacher = styled.a`
+  position: relative;
+  margin-bottom: 4px;
+  float: right;
+  padding-right: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: top;
+  }
+  h3 {
+    &::after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      background: url(${arrowRightIcon}) center/cover no-repeat;
+
+      position: absolute;
+      top: 50%;
+      right: -6px;
+      transform: translate(0, -50%);
+    }
+  }
 `;
 
 export const ClassPrice = styled.strong`
@@ -64,18 +94,15 @@ export const LikeBtn = styled.button`
   font-size: var(--font-md);
   color: var(--sub-font-color);
   width: calc(100% / 2);
-  padding-left: 16px;
-  text-align: center;
-  &::before {
-    content: '';
-    background: url(${(props) => props.isClicked ? heartClickedIcon : heartIcon})
-      no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  div {
     width: 20px;
-    height: 20px;
-    display: block;
-    position: absolute;
-    top: ${(props) => (props.isClicked ? '9px' : '7px')};
-    left: ${(props) => (props.isClicked ? '32px' : '31px')};
+    display: flex;
+    justify-content: center;
   }
 
   &::after {
@@ -90,33 +117,21 @@ export const LikeBtn = styled.button`
   }
 `;
 
-export const LikeNum = styled.span`
-  font-size: var(--font-md);
-  margin-left: 5px;
-`;
-
 export const ShareBtn = styled.button`
   font-size: var(--font-md);
   color: var(--sub-font-color);
   width: calc(100% / 2);
-  padding-left: 16px;
-  text-align: center;
-  &::before {
-    content: '';
-    background: url(${shareIcon});
-    width: 20px;
-    height: 20px;
-    display: block;
-    position: absolute;
-    top: 7px;
-    right: 107px;
-  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 `;
 
 export const BottomBtn = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 export const AskBtn = styled.button`
   width: 102px;
@@ -124,22 +139,12 @@ export const AskBtn = styled.button`
   border: 1px solid var(--border-color);
   font-size: var(--font-md);
   color: var(--sub-font-color);
-  padding: 8px 14px 8px 0;
   box-sizing: border-box;
   border-radius: 44px;
-  text-align: right;
-  position: relative;
-  &::before {
-    content: '';
-    background: url(${askIcon});
-    width: 20px;
-    height: 20px;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 14px;
-    margin-right: 2px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 `;
 
 export const ReverseBtn = styled.button`

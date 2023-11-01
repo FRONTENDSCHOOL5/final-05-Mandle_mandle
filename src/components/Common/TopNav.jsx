@@ -45,10 +45,13 @@ export function MoreNav({ onClick }) {
 }
 
 // 뒤로가기만 있는 버전
-export function GoBackNav() {
+export function GoBackNav({ children }) {
   return (
     <TopNavWrap>
-      <GoBackButton />
+      <div>
+        <GoBackButton />
+        <h1>{children}</h1>
+      </div>
     </TopNavWrap>
   );
 }
@@ -114,7 +117,10 @@ export const TopNavWrap = styled.header`
   justify-content: space-between;
   padding: 0 16px;
 
-  h1 {
+  div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   input {

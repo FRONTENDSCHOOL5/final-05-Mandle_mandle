@@ -8,8 +8,8 @@ import { MoreNav } from '../../components/Common/TopNav';
 import PostList from '../../components/Common/PostList/PostList';
 import MiniClassList from '../../components/Common/MiniClassList';
 import NormalizeImage from '../../components/Common/NormalizeImage';
+import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
-
 import HomeLogo from '../../assets/img/home-logo.svg';
 import ImageMore from '../../assets/img/icon-img-more.svg';
 import MenuBar from '../../components/Common/MenuBar';
@@ -30,6 +30,7 @@ import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
 import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
 import PostAlbumBtnOn from '../../assets/img/icon-post-album-on.svg';
 import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
+import { useRecoilValue } from 'recoil';
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -42,8 +43,25 @@ export default function Profile() {
   const [postUpdated, setPostUpdated] = useState(false);
   const [classUpdated, setClassUpdated] = useState(false);
   const [isListBtnActive, setListBtnActive] = useState(true);
-  const [isImgListBtnActive, setImgListBtnActive] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isImgListBtnActive, setImgListBtnActive] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(null);
+  const likedInfo = JSON.parse(localStorage.getItem('likedInfo'));
+  const likedInfoData =
+    likedInfo && likedInfo[userInfo.id] ? likedInfo[userInfo.id] : [];
+  const [introText, setIntroText] = useState('');
+  const [backgroundColor, setBackgroundColor] = useState('');
+  const [textColor, setTextColor] = useState(''); // 'textColor' 상태 변수 정의
+  function getTextColorByBackgroundColor(hexColor) {
+    const c = hexColor.substring(1); // 색상 앞의 # 제거
+    const rgb = parseInt(c, 16); // rrggbb를 10진수로 변환
+    const r = (rgb >> 16) & 0xff; // red 추출
+    const g = (rgb >> 8) & 0xff; // green 추출
+    const b = (rgb >> 0) & 0xff; // blue 추출
+    const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+    // 색상 선택
+    return luma < 127.5 ? 'white' : 'black'; // 글자색이
+  }
   useEffect(() => {
     const fetchData = async () => {
       const userProfileData = await ProfileData(userAccountname, token);
@@ -54,7 +72,21 @@ export default function Profile() {
       setClassData(userClassData);
       setPostUpdated(false);
       setClassUpdated(false);
+
+      // '#' 문자 이전의 intro 텍스트 추출하고 'introText' 상태 변수에 설정
+      if (userProfileData && userProfileData.intro) {
+        const introParts = userProfileData.intro.split('#');
+        if (introParts.length > 1) {
+          setIntroText(introParts[0]);
+          setBackgroundColor(`#${introParts[1]}`);
+          const textColor = getTextColorByBackgroundColor(`#${introParts[1]}`);
+          setTextColor(textColor); // 여기서 'textColor'의 값을 설정합니다.
+        } else {
+          setIntroText(userProfileData.intro); // '#'가 없다면 전체 intro를 'introText'로 설정
+        }
+      }
     };
+
     fetchData();
   }, [postUpdated, classUpdated]);
 
@@ -80,12 +112,23 @@ export default function Profile() {
     setModalOpen(true);
   };
   const handleLogout = () => {
-    setUserInfo({});
     alert('로그아웃 되었습니다. 다음에 또 만나요!');
+    setAlertModalOpen(null);
     localStorage.removeItem('recoil-persist');
     navigate('/');
     window.location.reload();
   };
+  const LikedItem = ({ Liked }) => (
+    <Link to={`/class/detail/${Liked.class_id}`}>
+      <li className='likedItem'>
+        <img className='likedImg' src={Liked.image} alt='Class Image' />
+        <div className='likedClassTextWrap'>
+          <p className='likedClassCategory'>{Liked.category}</p>
+          <p className='likedClassName'>{Liked.class_name}</p>
+        </div>
+      </li>
+    </Link>
+  );
 
   return (
     <ProfilePage>
@@ -95,8 +138,16 @@ export default function Profile() {
       {isModalOpen && (
         <Modal
           setModalOpen={setModalOpen}
-          onClick={handleLogout}
+          setAlertModalOpen={setAlertModalOpen}
+          type='logout'
           text='로그아웃'
+        />
+      )}
+      {alertModalOpen && (
+        <ModalAlert
+          setAlertModalOpen={setAlertModalOpen}
+          onClick={handleLogout}
+          type={alertModalOpen}
         />
       )}
       <MainWrap>
@@ -107,12 +158,16 @@ export default function Profile() {
           // 프로필 페이지
 
           <div>
-            <ProfileSection>
+            <ProfileSection style={{ backgroundColor }}>
               <Wrap>
                 <div className='follow'>
                   <Link to='/my_profile/follower'>
-                    <p>{profileData.followerCount}</p>
-                    <p className='followNum'>followers</p>
+                    <p style={{ color: textColor }}>
+                      {profileData.followerCount}
+                    </p>
+                    <p className='followNum' style={{ color: textColor }}>
+                      followers
+                    </p>
                   </Link>
                 </div>
                 <img
@@ -122,13 +177,19 @@ export default function Profile() {
                 />
                 <div className='follow'>
                   <Link to='/my_profile/following'>
-                    <p>{profileData.followingCount}</p>
-                    <p className='followNum'>followings</p>
+                    <p style={{ color: textColor }}>
+                      {profileData.followingCount}
+                    </p>
+                    <p className='followNum' style={{ color: textColor }}>
+                      followings
+                    </p>
                   </Link>
                 </div>
               </Wrap>
               <div id='usernameWrap'>
-                <p id='NickName'>{profileData.username}</p>{' '}
+                <p id='NickName' style={{ color: textColor }}>
+                  {profileData.username}
+                </p>{' '}
                 {/* Teacher 아이콘 */}
                 <span
                   className={
@@ -140,7 +201,7 @@ export default function Profile() {
                 ></span>
               </div>
               {/* 만들 아이디 예외처리 */}
-              <p id='MandleId'>
+              <p id='MandleId' style={{ color: textColor }}>
                 @
                 {(profileData.accountname &&
                   profileData.accountname.includes('Teacher')) ||
@@ -149,17 +210,21 @@ export default function Profile() {
                   ? profileData.accountname.substr(7)
                   : profileData.accountname}
               </p>
-              <p id='Introduce'>{profileData.intro}</p>
+              <p id='Introduce' style={{ color: textColor }}>
+                {introText}
+              </p>
               <WrapBtn>
                 {/* 프로필 수정버튼 */}
                 <button
                   className='profileEditBtn'
                   onClick={() => handleClick(profileData)}
+                  style={{ color: textColor, borderColor: textColor }}
                 >
                   프로필 수정
                 </button>
                 {/* 클래스 등록버튼 */}
                 <button
+                  style={{ color: textColor, borderColor: textColor }}
                   className={
                     profileData.accountname &&
                     profileData.accountname.includes('Teacher')
@@ -178,22 +243,23 @@ export default function Profile() {
                   클래스 등록
                 </button>
                 <button
+                  style={{ color: textColor, borderColor: textColor }}
                   className={
                     profileData.accountname &&
-                    profileData.accountname.includes('Teacher')
-                      ? 'a11y-hidden'
-                      : 'profileBtn'
+                    profileData.accountname.includes('Student')
+                      ? 'profileBtn'
+                      : 'a11y-hidden'
                   }
                   onClick={() => {
                     if (
                       profileData.accountname &&
-                      profileData.accountname.includes('Teacher')
+                      profileData.accountname.includes('Student')
                     ) {
-                      navigate('/registration');
+                      navigate('/my_profile/my_reservation_list');
                     }
                   }}
                 >
-                  수강한 목록
+                  예약한 클래스
                 </button>
               </WrapBtn>
             </ProfileSection>
@@ -219,6 +285,20 @@ export default function Profile() {
                   ))}
               </ClassListUl>
             </ClassSection>
+            <ClassSection
+              // Student일때만 보이게 설정
+              className={
+                profileData.accountname.includes('Student') ? '' : 'a11y-hidden'
+              }
+            >
+              <Title>찜한 클래스 리스트</Title>
+              <ClassListUl>
+                {likedInfoData.map((liked, index) => (
+                  <LikedItem key={index} Liked={liked} />
+                ))}
+              </ClassListUl>
+            </ClassSection>
+
             <PostSection>
               <div id='PostBtnWrap'>
                 {/* 포스트 리스트 버튼 */}
@@ -268,26 +348,26 @@ export default function Profile() {
                     {postData.post.map((post) => {
                       // 게시물에 이미지가 있는지 확인
                       const hasImage = post.image && post.image.split(',')[0];
-
+                      const handleAlbumBtnClick = () => {
+                        navigate(`/post/${post.id}`, { state: post.id });
+                      };
                       // 이미지가 있는 게시물만 렌더링
                       if (hasImage) {
                         return (
-                          <div key={post.id}>
-                            <div>
-                              <img
-                                src={post.image.split(',')[0]}
-                                alt='포스트 이미지'
-                              />
-                              {post.image.split(',')[1] && (
-                                <div className='icon-overlay'>
-                                  <img
-                                    src={ImageMore}
-                                    alt='여러 장 이미지 아이콘'
-                                  />
-                                </div>
-                              )}
-                            </div>
-                          </div>
+                          <button key={post.id} onClick={handleAlbumBtnClick}>
+                            <img
+                              src={post.image.split(',')[0]}
+                              alt='포스트 이미지'
+                            />
+                            {post.image.split(',')[1] && (
+                              <div className='icon-overlay'>
+                                <img
+                                  src={ImageMore}
+                                  alt='여러 장 이미지 아이콘'
+                                />
+                              </div>
+                            )}
+                          </button>
                         );
                       } else {
                         return null; // 이미지가 없는 게시물은 렌더링하지 않음
@@ -325,7 +405,7 @@ async function ProfileData(accountname, token) {
   }
   return null;
 }
-async function ClassData(accountname, token) {
+export async function ClassData(accountname, token) {
   const url = `https://api.mandarin.weniv.co.kr/product/${accountname}`;
   try {
     const res = await axios.get(url, {

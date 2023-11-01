@@ -14,7 +14,7 @@ import NormalizeImage from '../NormalizeImage';
 export default function PostProfile({ post, setPostUpdated }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
   const [isModalOpen, setModalOpen] = useState(false);
-  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(null);
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
@@ -42,14 +42,15 @@ export default function PostProfile({ post, setPostUpdated }) {
   const handleDeleteSubmit = async () => {
     const response = await DeletePost(post.id, userInfo.token); // Call the API component
     if (response) {
-      setAlertModalOpen(false);
+      setAlertModalOpen(null);
       alert(`해당 게시글이 삭제되었습니다.`);
       const currentURL = window.location.pathname;
-      if (currentURL.startsWith('/post')) {
+
+      if (currentURL.includes('/post')) {
         navigate(-1); // 이전 페이지로 이동
-      } else {
-        setPostUpdated(true); // 새로고침(상태변경으로 바꿀 예정)
+        return;
       }
+      setPostUpdated(true);
     }
   };
 
@@ -76,13 +77,14 @@ export default function PostProfile({ post, setPostUpdated }) {
             onClick={handleMovePostEdit}
             setModalOpen={setModalOpen}
             setAlertModalOpen={setAlertModalOpen}
-            type='post'
+            type='delete'
             text='삭제'
           />
         ) : (
           <Modal
-            onClick={handleReportSubmit}
             setModalOpen={setModalOpen}
+            setAlertModalOpen={setAlertModalOpen}
+            type='report'
             text='신고하기'
           />
         ))}
@@ -90,7 +92,12 @@ export default function PostProfile({ post, setPostUpdated }) {
       {alertModalOpen && (
         <ModalAlert
           setAlertModalOpen={setAlertModalOpen}
-          onClick={handleDeleteSubmit}
+          onClick={
+            alertModalOpen === 'delete'
+              ? handleDeleteSubmit
+              : handleReportSubmit
+          }
+          type={alertModalOpen}
         />
       )}
     </PostProfileWrap>

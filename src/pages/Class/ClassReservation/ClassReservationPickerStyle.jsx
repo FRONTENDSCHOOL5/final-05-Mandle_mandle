@@ -1,31 +1,27 @@
 import styled from 'styled-components';
 
 export const PickerContainer = styled.div`
-  border-bottom: 1px solid var(--sub-font-color);
+  border: 0.5px solid var(--sub-font-color);
+  border-radius: 10px;
   position: relative;
-  &.People {
-    padding: 11px 12px;
-    label {
-      font-size: var(-font-lg);
-      line-height: calc(52px - 22px);
-    }
-  }
+  margin-bottom: 30px;
 `;
 
-export const Heading = styled.h2`
-  font-size: var(--font-lg);
+export const TimeTitle = styled.p`
+  font-size: var(--font-md);
   color: var(--font-color);
-  padding: 16px 12px;
+  padding: 16px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-export const ToggleBtn = styled.button`
-  position: absolute;
-  top: 18px;
-  right: 15px;
-`;
+export const ToggleBtn = styled.button``;
 
 export const TimeList = styled.ul`
+  display: ${(props) => props.display};
   padding: 16px 15px;
+  border-radius: 0 0 10px 10px;
   background-color: var(--background-color);
   li {
     padding: 12px 21px 12px 16px;
@@ -36,13 +32,22 @@ export const TimeList = styled.ul`
       border-bottom: none;
     }
     &.active {
-      box-shadow: inset 0 0 2px var(--main-color);
+      box-shadow: inset 0 0 3px var(--main-color);
     }
+    @keyframes dropdown {
+      0% {
+        transform: translateY(-20%);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    animation: dropdown 0.4s ease-out;
   }
   h3 {
     margin: 5px 0 3px;
   }
-  strong { 
+  strong {
     color: var(--main-color);
   }
   p {
@@ -53,60 +58,16 @@ export const TimeList = styled.ul`
   }
 `;
 
-export const BtnBox = styled.div`
-  width: 93px;
-  height: 30px;
-  border: 0.5px solid #767676;
-  border-radius: 5px;
-  position: absolute;
-  top: 11px;
-  right: 12px;
-  display: flex;
-  justify-content: space-between;
-  /* overflow: hidden; */
-  button {
-    width: calc(93px / 3);
-    line-height: 30px;
-    text-align: center;
-    position: relative;
-    &.disabledbtn  {
-      background-color: #c4c4c4;
-      cursor: default;
-    }
-    &:nth-child(1)::after,
-    &:nth-child(3)::before {
-      content: '';
-      display: block;
-      width: 0.5px;
-      height: 29px;
-      background-color: var(--sub-font-color);
-      position: absolute;
-      top: 0;
-    }
-    &:nth-child(1)::after {
-      left: 31px;
-    }
-    &:nth-child(3)::before {
-      right: 31px;
-    }
-  }
-  input {
-    width: calc(93px / 3);
-    line-height: 30px;
-    position: absolute;
-    left: 42px;
-  }
-`;
-
 export const BtnReserve = styled.button`
   width: 100%;
   font-size: var(--font-md);
-  background-color: var(--main-color);
+  background-color: ${(props) => props.bg};
   padding: 14px 0;
   text-align: center;
   color: #fff;
   border-radius: 44px;
-  position: absolute;
-  top: 70px;
-  left: 0;
+
+  &:disabled {
+    cursor: default;
+  }
 `;

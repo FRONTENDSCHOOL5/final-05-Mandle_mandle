@@ -14,11 +14,15 @@ export default function PostSkeleton() {
             <SkeletonContentDesc></SkeletonContentDesc>
             <SkeletonContentImg></SkeletonContentImg>
           </SkeletonContentDetail>
-          <SkeletonBtnWrap>
-            <img src={HeartBtn} alt='' />
-            <img src={ChatBtn} alt='' />
-          </SkeletonBtnWrap>
-          <SkeletonPostDate></SkeletonPostDate>
+          <SkeletonClassLinkBtn></SkeletonClassLinkBtn>
+
+          <SkeletonIconWrap>
+            <SkeletonBtnWrap>
+              <img src={HeartBtn} alt='' />
+              <img src={ChatBtn} alt='' />
+            </SkeletonBtnWrap>
+            <SkeletonPostDate></SkeletonPostDate>
+          </SkeletonIconWrap>
         </SkeletonContent>
       </SkeletonPostList>
     </SkeletonWrap>
@@ -40,7 +44,7 @@ const SkeletonPostList = styled.div`
 const SkeletonContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   padding-left: 48px;
 `;
 const SkeletonContentDetail = styled.div`
@@ -60,10 +64,26 @@ const SkeletonContentImg = styled(Skeleton)`
 `;
 const SkeletonBtnWrap = styled.div`
   display: flex;
+  align-items: center;
   gap: 31px;
 `;
 
+const SkeletonClassLinkBtn = styled(Skeleton)`
+  width: 304px;
+  height: 68px;
+
+  border-radius: 10px;
+  margin-bottom: 6px;
+`;
+
+const SkeletonIconWrap = styled.div`
+  display: flex;
+  padding-right: 10px;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const SkeletonPostDate = styled(Skeleton)`
-  width: 80px;
+  width: 100px;
   height: 12px;
 `;

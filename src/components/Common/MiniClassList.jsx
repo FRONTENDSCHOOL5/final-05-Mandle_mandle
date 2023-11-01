@@ -8,6 +8,7 @@ function MiniClassList({ classItem, page, token, setClassUpdated }) {
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
+  const atIndex = classItem.link.indexOf('@');
   const handleClick = () => {
     if (page === 'profile') {
       setModalOpen(true);
@@ -34,7 +35,10 @@ function MiniClassList({ classItem, page, token, setClassUpdated }) {
     <>
       <ClassButtonWrap onClick={handleClick}>
         <ClassImage src={classItem.itemImage} alt={classItem.itemName} />
-        <ClassDescription>{classItem.link}</ClassDescription>
+        {/* 주소를 빼고 나오도록 파싱하기 */}
+        <ClassDescription>
+          {atIndex >= 0 ? classItem.link.substring(0, atIndex) : classItem.link}
+        </ClassDescription>
         <ClassTitle>{classItem.itemName}</ClassTitle>
       </ClassButtonWrap>
 
