@@ -8,7 +8,7 @@ import CommentItem from '../../../components/Common/Comment/CommentItem';
 import CommentInput from '../../../components/Common/Comment/CommentInput';
 import GetPostDetail from '../../../api/GetPostDetail';
 import GetCommentList from '../../../api/GetCommentList';
-import { PostDetailWrap, MainWrap, CommentUl } from './PostDetailStyle';
+import { PostDetailWrap, MainWrap, CommentList } from './PostDetailStyle';
 export default function PostDetail() {
   const location = useLocation();
   const postId = location.state;
@@ -36,7 +36,7 @@ export default function PostDetail() {
       <GoBackProfileNav />
       <MainWrap>
         {post && <PostList post={post} />}
-        <CommentUl>
+        <CommentList>
           {comments &&
             comments.map((comment) => (
               <CommentItem
@@ -46,7 +46,7 @@ export default function PostDetail() {
                 setCommentUpdated={setCommentUpdated}
               />
             ))}
-        </CommentUl>
+        </CommentList>
       </MainWrap>
       <CommentInput
         postId={postId}
