@@ -117,10 +117,14 @@ export const TopNavWrap = styled.header`
   justify-content: space-between;
   padding: 0 16px;
 
-  & + div {
+  & > div {
     display: flex;
     align-items: center;
     gap: 10px;
+  }
+
+  div + div {
+    display: flex;
   }
 
   input {
