@@ -273,16 +273,18 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
   공통으로 담당한 컴포넌트 작업 시 `페어 프로그래밍` 협업 방식을 사용해 팀원 모두가 코드 전체 흐름을 이해하고 기술적 완성도 높은 코드를 작성하도록 커뮤니케이션 기술을 적극적으로 사용할 수 있는 기회를 만들었습니다.
 
 - **🗂 깃플로우 전략**
+
   ```
   main - develop - feature/(페이지명)
   ```
+
   `깃플로우 전략`을 활용 작업할 페이지 별로 브랜치를 구분하여 협업의 능률을 높였습니다. 충돌없이 맡은 역할 페이지 작업을 수행할 수 있었습니다.
 
 - **📈 깃헙 프로젝트**
 
   `깃허브 이슈`와 `깃헙 프로젝트` 기능으로 전체 프로젝트의 일정과 목적 별로 구분해 구현해야 하는 기능들을 정리할 수 있었고 원활한 커뮤니케이션으로 작업 속도와 안정성을 동시에 얻을 수 있도록 했습니다.
   <img width="788" alt="image" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/acc5e23b-738f-4183-8313-b273ef79858c">
-   <img width="788" alt="image" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/4989c59f-18c3-49e2-9251-51d3b4e62ce8">
+  <img width="788" alt="image" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/4989c59f-18c3-49e2-9251-51d3b4e62ce8">
 
 <br>
 
