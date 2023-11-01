@@ -20,7 +20,8 @@ export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
               : '삭제할까요?'}
           </p>
           {type === 'edit' && <p>정말로 나가시겠습니까?</p>}
-          <div>
+
+          <AlertModalBtnBox>
             <button type='button' onClick={handleCancel}>
               취소
             </button>
@@ -33,7 +34,7 @@ export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
                 ? '신고하기'
                 : '삭제'}
             </button>
-          </div>
+          </AlertModalBtnBox>
         </AlertModalWrap>
       </AlertModalOverlay>
     </>
@@ -65,6 +66,10 @@ const AlertModalWrap = styled.div`
   text-align: center;
   animation: zoomIn 0.5s ease;
 
+  p {
+    font-size: var(--font-lg);
+  }
+
   @keyframes zoomIn {
     0% {
       transform: translate(-50%, -50%) scale(0.7, 0.7);
@@ -76,35 +81,31 @@ const AlertModalWrap = styled.div`
       transform: translate(-50%, -50%) scale(1, 1);
     }
   }
+`;
 
-  p {
-    font-size: var(--font-lg);
+const AlertModalBtnBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  border-top: 1px solid var(--border-color);
+
+  button {
+    font-size: var(--font-md);
+    flex-grow: 1;
+    padding: 16px 0;
+    border-radius: 0 0 0px 10px;
+    display: flex;
+    justify-content: center;
   }
 
-  div {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 24px;
-    border-top: 1px solid var(--border-color);
+  button + button {
+    color: var(--main-color);
+    border-left: 1px solid var(--border-color);
+    border-radius: 0 0 10px 0px;
+  }
 
-    button {
-      font-size: var(--font-md);
-      flex-grow: 1;
-      padding: 16px 0;
-      border-radius: 0 0 0px 10px;
-      display: flex;
-      justify-content: center;
-    }
-
-    button + button {
-      color: var(--main-color);
-      border-left: 1px solid var(--border-color);
-      border-radius: 0 0 10px 0px;
-    }
-
-    button:hover {
-      color: #fff;
-      background-color: var(--main-color);
-    }
+  button:hover {
+    color: #fff;
+    background-color: var(--main-color);
   }
 `;
