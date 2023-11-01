@@ -10,6 +10,7 @@ import PutPostEdit from '../../api/PutPostEdit';
 import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 import { PostImagesUpload } from '../../api/PostImagesUpload';
 import { ClassData } from '../Profile/MyProfile';
+import { Toast } from '../../components/Common/Toast/Toast';
 import whiteImg from '../../assets/img/whiteImg.webp';
 import {
   DropdownContainer,
@@ -202,7 +203,7 @@ export default function EditPost() {
       selectedImages.join(',')
     );
 
-    if (editedPost) {
+    if (editedPost && selectId) {
       alert('게시글 수정을 완료했습니다!');
       setInputValue('');
       setSelectedImages([]);
@@ -210,7 +211,7 @@ export default function EditPost() {
         state: postId,
       });
     } else {
-      alert('게시글 수정을 먼저 해주세요!');
+      alert('수강한 클래스를 선택해주세요!');
     }
   };
 
@@ -337,6 +338,9 @@ export default function EditPost() {
         </ImgList>
         <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>
+      {toastMessage && (
+        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
+      )}
     </div>
   );
 }
