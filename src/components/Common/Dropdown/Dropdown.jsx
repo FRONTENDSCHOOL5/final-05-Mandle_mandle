@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import DropdownItem from './DropItem';
 import { ImageBox } from './DropItem';
+
 import { TeacherDropItem } from './DropItem';
 const DropdownContainer = styled.div`
   width: 358px;

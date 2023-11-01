@@ -90,7 +90,7 @@ export default function Posting() {
   }
 
   const reserveDate = resData.map((reservation) =>
-    parseReserveDate(reservation.reserve_common_date)
+    parseReserveDate(reservation.reserve_common_date),
   );
 
   useEffect(() => {
@@ -107,13 +107,13 @@ export default function Posting() {
               classId: id,
             };
             return classInfo;
-          })
+          }),
         );
 
         // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
         const filteredData = allData.filter(
           // 현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
-          (data, index) => currentDate > reserveDate[index]
+          (data, index) => currentDate > reserveDate[index],
         );
         setClassList(filteredData);
       } catch (error) {
@@ -130,9 +130,8 @@ export default function Posting() {
 
   useEffect(() => {
     const hasClassId = resData.some(
-      (reservation) => reservation.class_id != null
+      (reservation) => reservation.class_id != null,
     );
-
     if (userAccountname.includes('Teacher')) {
     } else {
       if (!hasClassId) {
@@ -148,7 +147,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
 
   useEffect(() => {
