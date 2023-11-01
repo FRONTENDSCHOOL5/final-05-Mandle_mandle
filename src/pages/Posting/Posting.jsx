@@ -46,7 +46,6 @@ export default function Posting() {
   const userAccountname = userInfo.accountname;
   const resInfo = JSON.parse(localStorage.getItem('resInfo'));
   const resData = resInfo && resInfo[userInfo.id] ? resInfo[userInfo.id] : [];
-
   const dropDownRef = useRef();
   const [classIdentify, setClassIdentify] = useState('클래스 선택하기'); //  선택한 클래스 정보 상태를 담을 status
   const [selectDate, setSelectDate] = useState('');
@@ -59,7 +58,6 @@ export default function Posting() {
   const [toastMessage, setToastMessage] = useState('');
   const navigate = useNavigate();
   const token = userInfo.token;
-
   const classId = resData.map((reservation) => reservation.class_id);
   const classDate = resData.map((reservation) => reservation.reserve_ko_date);
   const classTime = resData.map((reservation) => reservation.reserve_time);
@@ -90,7 +88,7 @@ export default function Posting() {
   }
 
   const reserveDate = resData.map((reservation) =>
-    parseReserveDate(reservation.reserve_common_date),
+    parseReserveDate(reservation.reserve_common_date)
   );
 
   useEffect(() => {
@@ -107,13 +105,13 @@ export default function Posting() {
               classId: id,
             };
             return classInfo;
-          }),
+          })
         );
 
         // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
         const filteredData = allData.filter(
           // 현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
-          (data, index) => currentDate > reserveDate[index],
+          (data, index) => currentDate > reserveDate[index]
         );
         setClassList(filteredData);
       } catch (error) {
@@ -130,7 +128,7 @@ export default function Posting() {
 
   useEffect(() => {
     const hasClassId = resData.some(
-      (reservation) => reservation.class_id != null,
+      (reservation) => reservation.class_id != null
     );
     if (userAccountname.includes('Teacher')) {
     } else {
@@ -147,7 +145,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue,
+    setInputValue
   );
 
   useEffect(() => {
@@ -342,6 +340,9 @@ export default function Posting() {
         </ImgList>
         <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>{' '}
+      {toastMessage && (
+        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
+      )}
     </div>
   );
 }
