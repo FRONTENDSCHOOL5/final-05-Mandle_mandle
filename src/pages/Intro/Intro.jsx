@@ -32,7 +32,7 @@ function Intro() {
           <img src={LogoImg} alt='만들만들 폰트 로고' />
         </h1>
       </Header>
-      <LoginChooseList>
+      <SelectLoginBox>
         <ul>
           <li>
             <LoginLink
@@ -76,7 +76,7 @@ function Intro() {
         <SignUpLink to='/account/signup' alt='회원가입 버튼'>
           회원가입
         </SignUpLink>
-      </LoginChooseList>
+      </SelectLoginBox>
     </IntroWrap>
   );
 }
@@ -126,7 +126,7 @@ const Header = styled.header`
   }
 `;
 
-const LoginChooseList = styled.div`
+const SelectLoginBox = styled.div`
   padding: 58px 0 45px;
   display: flex;
   flex-direction: column;
