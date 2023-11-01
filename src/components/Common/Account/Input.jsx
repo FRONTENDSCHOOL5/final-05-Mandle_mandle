@@ -19,7 +19,7 @@ export default function Input({
   toggleShowPassword,
 }) {
   return (
-    <InputDiv>
+    <InputWrap>
       <Label>{label}</Label>
       <InputBox
         name={name}
@@ -55,11 +55,11 @@ export default function Input({
           />
         </ConfirmIcon>
       )}
-    </InputDiv>
+    </InputWrap>
   );
 }
 
-export const InputDiv = styled.div`
+export const InputWrap = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;

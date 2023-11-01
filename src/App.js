@@ -7,29 +7,30 @@ import {
 } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyles';
 import styled from 'styled-components';
-import Class from '../src/pages/Class/Class';
-import ClassDetail from '../src/pages/Class/ClassDetail/ClassDetail';
-import ClassRegistration from '../src/pages/Class/ClassRegistration/ClassRegistration';
-import ClassReservation from '../src/pages/Class/ClassReservation/ClassReservation';
-import Posting from '../src/pages/Posting/Posting';
-import Profile from '../src/pages/Profile/MyProfile';
-import OtherProfile from '../src/pages/Profile/OtherProfile';
+import Class from './pages/Class/Class';
+import ClassDetail from './pages/Class/ClassDetail/ClassDetail';
+import ClassRegistration from './pages/Class/ClassRegistration/ClassRegistration';
+import ClassReservation from './pages/Class/ClassReservation/ClassReservation';
+import Posting from './pages/Posting/Posting';
+import Profile from './pages/Profile/MyProfile';
+import OtherProfile from './pages/Profile/OtherProfile';
 import SetProfile from './pages/Signup/SetProfile';
 import Signup from './pages/Signup/Signup';
-import Login from '../src/pages/Login/Login';
-import Splash from '../src/pages/Splash/Splash';
-import Intro from '../src/pages/Intro/Intro';
-import Home from '../src/pages/Home/Home';
-import Search from '../src/pages/Home/Search/Search';
-import PostDetail from '../src/pages/Home/PostDetail/PostDetail';
-import NotFound from '../src/pages/NotFound/NotFound';
+import Login from './pages/Login/Login';
+import Splash from './pages/Splash/Splash';
+import Intro from './pages/Intro/Intro';
+import Home from './pages/Home/Home';
+import Search from './pages/Home/Search/Search';
+import PostDetail from './pages/Home/PostDetail/PostDetail';
+import NotFound from './pages/NotFound/NotFound';
 import EditProfile from './pages/Profile/EditProfile/EditProfile';
 import Follower from './pages/Profile/FollowList/FollowerList';
 import Following from './pages/Profile/FollowList/FollowingList';
-import ChatRoom from '../src/pages/Chatting/ChatRoom';
+import ChatRoom from './pages/Chatting/ChatRoom';
 import EditPost from './pages/Posting/EditPost';
 import ChatList from './pages/Chatting/ChatList';
 import MyReservationList from './pages/Profile/MyReservationList/MyReservationList';
+
 function App() {
   return (
     <Wrap>
@@ -86,7 +87,7 @@ const Wrap = styled.div`
   height: 100vh;
   position: relative;
   margin: 0 auto;
-  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
   overflow: hidden;
   background-color: #fff;
 `;
