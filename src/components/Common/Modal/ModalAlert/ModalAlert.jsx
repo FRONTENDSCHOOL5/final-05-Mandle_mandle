@@ -34,7 +34,7 @@ export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
                 ? '신고하기'
                 : '삭제'}
             </button>
-          </div>
+          </AlertModalBtnBox>
         </AlertModalBox>
       </AlertModalWrap>
     </>

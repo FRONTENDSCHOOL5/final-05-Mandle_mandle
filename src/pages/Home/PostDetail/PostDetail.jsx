@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { GoBackProfileNav } from '../../../components/Common/TopNav';
 import PostList from '../../../components/Common/PostList/PostList';
-import CommentList from '../../../components/Common/Comment/CommentList';
+import CommentItem from '../../../components/Common/Comment/CommentItem';
 import CommentInput from '../../../components/Common/Comment/CommentInput';
 import GetPostDetail from '../../../api/GetPostDetail';
 import GetCommentList from '../../../api/GetCommentList';
@@ -39,7 +39,7 @@ export default function PostDetail() {
         <CommentUl>
           {comments &&
             comments.map((comment) => (
-              <CommentList
+              <CommentItem
                 key={comment.id}
                 postId={postId}
                 comment={comment}

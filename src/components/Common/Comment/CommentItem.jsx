@@ -6,13 +6,13 @@ import { UserAtom } from '../../../Store/userInfoAtoms';
 
 import CalTimeAgo from '../CalTimeAgo';
 import MoreButton from '../MoreButton';
-import Modal from '../../Common/Modal/Modal';
+import Modal from '../Modal/Modal';
 import NormalizeImage from '../NormalizeImage';
 import DeleteComment from '../../../api/DeleteComment';
 import ModalAlert from '../Modal/ModalAlert/ModalAlert';
 import PostReportComment from '../../../api/PostReportComment';
 
-export default function CommentList({ postId, comment, setCommentUpdated }) {
+export default function ComentItem({ postId, comment, setCommentUpdated }) {
   const userInfo = useRecoilValue(UserAtom);
   const [isModalOpen, setModalOpen] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(null);
@@ -45,7 +45,7 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
   };
 
   return (
-    <CommentListWrap>
+    <ComentItemWrap>
       <ProfileBox>
         <ProfileInfo>
           <ProfileImgBox>
@@ -87,11 +87,11 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
           type={alertModalOpen}
         />
       )}
-    </CommentListWrap>
+    </ComentItemWrap>
   );
 }
 
-const CommentListWrap = styled.li`
+const ComentItemWrap = styled.li`
   font-size: var(--font-md);
   margin-bottom: 16px;
   img {
