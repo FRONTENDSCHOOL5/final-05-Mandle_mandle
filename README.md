@@ -19,7 +19,8 @@
 5.  [기능 UI](#5-기능-UI)
 6.  [피드백](#6-피드백)
 7.  [주요 기능](#7-주요-기능)
-8.  [팀원 소개](#8-팀원-소개)
+8.  [성능개선](#8-성능개선)
+9.  [팀원 소개](#9-팀원-소개)
 
 <br>
 
@@ -388,178 +389,34 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
 
 ## 7. 주요 기능
 
-- ### 회원가입/ 프로필 설정 시 강사 /수강생 구분
+### 수강후기 작성
 
-  저희 팀은 원데이 클래스를 주제로 선택했기 때문에, `강사`와 `수강생` 두 가지 유저 유형으로 관리해야 하는 필요성을 느꼈습니다.
-
-  ```js
-  const [type, setType] = useState('Student');
-  ```
-
-  ```js
-  const handleStudentBtnClick = () => {
-    setType('Student');
-  };
-
-  const handleTeacherBtnClick = () => {
-    setType('Teacher');
-  };
-  ```
-
-  이를 구현하기 위해 저희는 회원 가입 페이지에서 사용자는 '일반 회원 (수강생)' 버튼과 '강사 회원' 버튼 중 하나를 선택하여 회원 유형을 선택할 수 있게 만들었습니다.
-  이 선택은 `type`변수에 저장되고 '일반 회원 (수강생)' 버튼을 클릭한 경우 `type` 값은 `Student`로 설정되며, 강사 회원' 버튼을 클릭한 경우의 `type` 값은 `Teacher`로 설정됩니다.
-
-  ```js
-  const setSignup = useSetRecoilState(SignUpAtom);
-  ```
-
-  ```js
-  if (email && password && emailValid && passwordValid) {
-    setSignup({ email, password, type });
-    navigate('/account/set_profile');
-  } else {
-    setSignup(false);
-  }
-  ```
-
-  회원 가입 시에 입력한 정보와 선택한 회원 유형(type)은 가입한 이메일과 비밀번호와 함께 **Recoil**의 `SignUpAtom`을 통해 유저 정보로 저장됩니다.
-
-  이 정보는 회원 가입 과정에서 유지되며, 유저는 프로필 설정 페이지로 이동할 수 있게 됩니다.
-
-  ```js
-  const handleSetProfileSubmit = async (event) => {
-    event.preventDefault();
-
-    if (username && accountname && usernameValid && accountValid) {
-      const updatedAccountname = `${userInfo.type}${accountname}`;
-      setUserInfo((prevValue) => {
-        return {
-          ...prevValue,
-          username: username,
-          accountname: updatedAccountname,
-          intro: intro,
-          image: image,
-        };
-      });
-      navigate('/account/login');
-    }
-  };
-
-  useEffect(() => {
-    if (username && accountname && usernameValid && accountValid) {
-      PostSignUp(userInfo);
-    }
-  }, [username, accountname, usernameValid, accountValid, userInfo]);
-  ```
-
-  프로필 설정 페이지로 넘어와 프로필 설정란을 다 작성하고 "만들만들 시작하기" 버튼을 클릭하면, 해당 정보는 API에 프로필 정보로 등록됩니다.
-
-  그러나 API에서는 유저의 회원 유형에 대한 별도의 처리가 없기 때문에 회원 유형을 식별할 수 있도록 계정 ID (`accountname`) 값 앞에 `Student` 또는 `Teacher` 중 하나의 `type` 값을 추가하여 함께 전달하여 학생과 강사 계정을 구분할 수 있도록 하였습니다.
-
-- ### 클래스 리스트 랜더링
-
-  ```js
-  const data = await GetClassData(token, userInfo.accountname);
-  const filteredClasses = data.product.filter((classItem) =>
-    classItem.author.accountname.includes('Teacher'),
-  );
-  ```
-
-  GetClassData API는 제공된 token을 사용하여 클래스 데이터를 가져옵니다. 가져온 데이터는 `filter` 메소드를 사용하여 필터링되며,
-
-  여기서 accountName에 전달된 회원 유형이 "Teacher"인 클래스 항목만 filteredClasses 배열에 포함됩니다.
-
-  ```js
-  const popularClasses = filteredClasses.slice(0, 3);
-  ```
-
-  그 다음, filteredClasses 배열에서 첫 세 개의 클래스를 선택하여 popularClasses 배열을 만듭니다.
-
-  ```js
-  {
-    popularClasses.map((classItem) => (
-      <li key={classItem._id}>
-        <Link to={`/class/detail/${classItem._id}`}>
-          <ClassPostMini
-            miniImg={classItem.itemImage}
-            miniName={classItem.itemName}
-            miniTag={classItem.link}
-          />
-        </Link>
-      </li>
-    ));
-  }
-  ```
-
-  마지막으로, popularClasses 배열의 각 항목을 map 함수를 통해 반복하여 해당 클래스 항목에 대한 링크를 포함하는 li 요소를 생성합니다.
-
-  이 링크는 클래스의 세부 정보 페이지로 연결되며 ClassPostMini 컴포넌트를 통해 클래스의 구체적인 정보를 확인할 수 있습니다.
-
-- ### 이미지 3장 업로드
-
-  ```js
-  const [selectedImages, setSelectedImages] = useState([]);
-  const handleImageChange = async (event) => {
-    const files = event.target.files;
-    let imagesArray = [...selectedImages];
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      imagesArray.push(file);
-    }
-
-    setSelectedImages(imagesArray);
-  };
-  ```
-
-  사용자가 게시물 작성을 위해 이미지를 선택할 때, 선택한 이미지들은 `빈 배열`에 저장됩니다.
-
-  ```js
-  const handleUploadPost = async () => {
-    const images = await PostImagesUpload(selectedImages);
-  };
-  ```
-
-  그리고 업로드 버튼을 클릭하면 선택한 이미지들이 서버로 전송됩니다.
-
-  ```js
-  const PostImagesUpload = async (files) => {
-    const formData = new FormData();
-    if (files && files.length) {
-      for (let i = 0; i < files.length; i++) {
-        formData.append('image', files[i]);
-      }
-    } else {
-      formData.append('image', files);
-    }
-  };
-  ```
-
-  이때, 이미지의 개수를 확인하기 위해 조건문을 추가했습니다. 선택된 이미지 배열의 길이를 검사하여, 이미지가 여러 장인 경우에는 for 반복문을 사용하여 각 이미지의 `key`값에 접근하여 반복문을 순회하며 `formData` 객체에 파일로 추가합니다.
-
-  하지만 이미지가 한 장인 경우에는 단일 이미지만을 formData 객체에 추가하도록 처리했습니다. 이렇게 여러 장과 한 장의 업로드 처리를 구분하였습니다.
-
-  ```js
-  const filenames =
-  response.data.length > 1
-  ? response.data
-  .map(
-  (image) => https://api.mandarin.weniv.co.kr/${image.filename},
-  )
-  .join(',')
-  : https://api.mandarin.weniv.co.kr/${response.data[0].filename};
-
-  return filenames;
-  ```
-
-  그 다음, 이미지를 서버로 전송하고 숫자로 이루어진 이미지 파일명들을 응답받습니다. 응답받은 여러 장의 이미지 파일명이 담긴 `filenames`을 다시 서버로 전송할 때는 이미지 파일명들을 하나의 `문자열`로 전송해야 하는 조건이 API 명세에 명시되어 있습니다.
-
-  그러므로, 배열의 길이가 1보다 큰 경우(즉, 2장 이상의 이미지가 담겨 있다면) map 함수를 사용하여 서버의 기본 URL과 배열을 순회하며 각 이미지 파일명을 하나씩 추가하고, 이미지 파일명들을 쉼표로 기준으로 `join` 메서드를 활용하여 하나의 `문자열`로 결합하여 여러 장의 이미지를 전송할 수 있도록 처리했습니다.
-
-  한 장의 이미지인 경우에는 해당 이미지 파일명 앞에 기본 URL을 추가하여 전송하도록 구현했습니다.
+수강후기 작성 페이지는 사용자가 자신이 수강한 클래스의 이미지, 이름, 예약한 날짜, 시간 정보를 드롭다운으로 선택하여 해당 클래스에 대한 후기 및 경험, 사진을 공유하는 페이지입니다. 로그인한 사용자가 강사 계정인 경우, 페이지는 수강후기 작성이 아닌 공지 및 홍보를 위한 페이지로 변경됩니다. 강사는 자신이 등록한 클래스의 이미지, 이름, 클래스 태그, 그리고 가격 정보를 받아와 공지를 작성할 수 있게 됩니다. 중요한 점은 페이지가 사용자의 로그인 계정 유형(수강생 또는 강사)을 감지하고, 이에 따라 **서로 다른 정보** 를 렌더링한다는 것입니다.
 
 <br>
 
-## 8. 팀원 소개
+## 8. 성능개선
+
+### 검색 디바운싱
+
+- `문제`: 기존 계정 검색 시 input의 변화가 감지될 때 마다 API 요청이 매번 발생하여 불필요한 API 요청이 발생합니다. 또한, 사용자가 검색어 입력을 완료하지 않은 상태에서 결과가 표시되다보니 부정확한 결과가 표시되어 사용자 경험이 저하되는 문제도 있었습니다
+
+- `해결`: **lodash** 라이브러리를 활용하여 계정 검색 시 디바운스를 구현했습니다. 이를 통해 사용자가 입력하는 동안 일정 시간 동안 검색 요청을 지연시켰습니다. 결과적으로 연속된 검색 요청을 방지하고, 사용자가 입력을 마친 후 단 한 번의 검색 요청만을 처리하도록 조정했습니다.
+
+### 이미지 압축 적용
+
+- `문제`: 대용량 이미지 파일을 웹 페이지에 업로드할 때, 해당 이미지들을 로딩하는 과정에서 화면에 용량이 작은 이미지보다 더 늦게 나타나는 문제가 발생했습니다. 위 문제로 인해 사용자가 이미지를 곧바로 확인하지 못하는 불편함을 겪을 수 있었습니다.
+
+- `해결`: **imageCompression** 라이브러리를 활용하여 이미지 업로드 시 이미지를 압축하여 파일 크기를 줄였습니다. 이를 통해 대역폭과 데이터 부하를 감소시키고, 페이지 로딩 속도를 향상시켜 사용자가 웹 페이지에 접근시 이미지를 빠르게 로드하여 보다 원할하게 확인할 수 있도록 조정했습니다.
+
+### 이미지 Lazy-loading 적용
+
+- `문제`: 페이지 로딩 시 모든 이미지가 동시에 다운로드되어 초기 페이지 로딩 속도가 느렸습니다. 특히 대용량 이미지 파일이 많은 경우 사용자는 페이지가 로딩될 때까지 상당한 대기 시간을 경험했습니다.
+
+- `해결`: lazy-loading을 통해 초기 페이지 로딩 시에는 원본 이미지 대신 저화질의 이미지를 먼저 보여준 뒤 원본 이미지 로드가 완료되는 시점에 다시 원본 이미지를 보여줌으로써 로딩시간을 단축시키고 사용자 경험을 향상 시켰습니다.
+  <br>
+
+## 9. 팀원 소개
 
 ### [만들5️⃣조]
 
