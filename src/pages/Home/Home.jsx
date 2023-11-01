@@ -10,10 +10,10 @@ import PostBlank from './PostBlank/PostBlank';
 import GetFollowPost from '../../api/GetFollowPost';
 import MenuBar from '../../components/Common/MenuBar';
 import { HomeNav } from '../../components/Common/TopNav';
-import PostList from '../../components/Common/PostList/PostList';
+import PostItem from '../../components/Common/PostList/PostList';
 import PostSkeleton from '../../components/Common/Skeleton/PostSkeleton';
 
-import { HomeWrap, MainWrap, PostUlStyle } from './HomeStyle';
+import { HomeWrap, MainStyle, PostList } from './HomeStyle';
 
 export default function Home({ to }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
@@ -89,7 +89,7 @@ export default function Home({ to }) {
   return (
     <HomeWrap>
       <HomeNav title='홈' to='/home/search'></HomeNav>
-      <MainWrap id='scroll-area'>
+      <MainStyle id='scroll-area'>
         {loading ? (
           <div>
             <PostSkeleton />
@@ -101,14 +101,14 @@ export default function Home({ to }) {
           (postList.length === 0 ? (
             <PostBlank text='유저를 검색해 팔로우 해보세요!' />
           ) : (
-            <PostUlStyle>
+            <PostList>
               {postList.map((post) => (
-                <PostList key={post.id} post={post} />
+                <PostItem key={post.id} post={post} />
               ))}
-            </PostUlStyle>
+            </PostList>
           ))
         )}
-      </MainWrap>
+      </MainStyle>
       <MenuBar />
     </HomeWrap>
   );
