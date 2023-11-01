@@ -7,7 +7,7 @@ import MoreIcon from '../../../assets/img/icon-more-vertical.svg';
 
 export default function UserSkeleton() {
   return (
-    <SkeletonUserWrapper>
+    <SkeletonUserWrap>
       <SkeletonUserInfo>
         <SkeletonUserImage></SkeletonUserImage>
         <SkeletonUserDetails>
@@ -16,11 +16,11 @@ export default function UserSkeleton() {
         </SkeletonUserDetails>
       </SkeletonUserInfo>
       <SkeletonMoreButton src={MoreIcon} />
-    </SkeletonUserWrapper>
+    </SkeletonUserWrap>
   );
 }
 
-const SkeletonUserWrapper = styled.div`
+const SkeletonUserWrap = styled.div`
   width: 100%;
   height: 42px;
   display: flex;

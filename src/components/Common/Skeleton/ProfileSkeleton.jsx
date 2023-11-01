@@ -18,7 +18,7 @@ export default function ProfileSkeleton({ status, type }) {
         <SkeletonProfileName></SkeletonProfileName>
         <SkeletonProfileID></SkeletonProfileID>
         <SkeletonProfileDesc></SkeletonProfileDesc>
-        <SkeletonProfileBtnWrap>
+        <SkeletonProfileBtnBox>
           {status === 'other' && (
             <>
               <SkeletonCircleBtn>
@@ -36,15 +36,8 @@ export default function ProfileSkeleton({ status, type }) {
               <SkeletonProfileBtn></SkeletonProfileBtn>
             </>
           )}
-        </SkeletonProfileBtnWrap>
+        </SkeletonProfileBtnBox>
       </SkeletonProfileSection>
-      <ClassSideSkeletonWrap>
-        {
-          <ClassSideSkeleton scrollBgColor='#fff'>
-            클래스 리스트
-          </ClassSideSkeleton>
-        }
-      </ClassSideSkeletonWrap>
       <SkeletonPostSection>
         <SkeletonPostBtnWrap>
           <img src={PostListBtnOn} alt='목록으로 보기 버튼' />
@@ -95,7 +88,7 @@ const SkeletonProfileDesc = styled(Skeleton)`
   width: 200px;
   height: 14px;
 `;
-const SkeletonProfileBtnWrap = styled.div`
+const SkeletonProfileBtnBox = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 24px;
@@ -110,11 +103,9 @@ const SkeletonProfileBtn = styled(Skeleton)`
 const SkeletonPostSection = styled.div`
   width: 100%;
   background-color: #fff;
-  display: flex;
-  flex-direction: column;
+
   align-items: center;
   margin-bottom: 5px;
-  padding: 16px;
 `;
 
 const SkeletonPostBtnWrap = styled.div`
@@ -131,10 +122,10 @@ const SkeletonPostBtnWrap = styled.div`
   }
 `;
 const SkeletonPostWrap = styled.div`
-  padding: 0 11px;
+  padding: 16px;
 `;
 
-const ClassSideSkeletonWrap = styled.div`
+const ClassSideSkeletonBox = styled.div`
   padding: 10px;
   background-color: #fff;
 `;
