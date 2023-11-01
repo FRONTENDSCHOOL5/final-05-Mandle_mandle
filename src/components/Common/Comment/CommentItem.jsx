@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-import MoreButton from '../MoreButton';
+
 import CalTimeAgo from '../CalTimeAgo';
-import Modal from '../Modal/Modal';
+import MoreButton from '../MoreButton';
+import Modal from '../../Common/Modal/Modal';
 import NormalizeImage from '../NormalizeImage';
 import DeleteComment from '../../../api/DeleteComment';
 import ModalAlert from '../Modal/ModalAlert/ModalAlert';
