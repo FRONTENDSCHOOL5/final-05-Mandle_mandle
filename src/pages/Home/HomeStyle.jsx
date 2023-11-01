@@ -8,7 +8,7 @@ export const HomeWrap = styled.div`
   font-size: var(--font-md);
 `;
 
-export const MainWrap = styled.main`
+export const MainStyle = styled.main`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -21,6 +21,6 @@ export const MainWrap = styled.main`
     display: none;
   }
 `;
-export const PostUlStyle = styled.ul`
+export const PostList = styled.ul`
   width: 100%;
 `;

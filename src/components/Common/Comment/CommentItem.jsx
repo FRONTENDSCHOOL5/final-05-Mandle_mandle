@@ -12,7 +12,7 @@ import DeleteComment from '../../../api/DeleteComment';
 import ModalAlert from '../Modal/ModalAlert/ModalAlert';
 import PostReportComment from '../../../api/PostReportComment';
 
-export default function CommentList({ postId, comment, setCommentUpdated }) {
+export default function CommentItem({ postId, comment, setCommentUpdated }) {
   const userInfo = useRecoilValue(UserAtom);
   const [isModalOpen, setModalOpen] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(null);
@@ -45,8 +45,8 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
   };
 
   return (
-    <CommentListWrap>
-      <ProfileWrap>
+    <CommentItemWrap>
+      <ProfileBox>
         <ProfileInfo>
           <ProfileImgwrap>
             <img src={NormalizeImage(comment.author.image)} alt='' />
@@ -58,7 +58,7 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
           </div>
         </ProfileInfo>
         <MoreButton onClick={handleClick} />
-      </ProfileWrap>
+      </ProfileBox>
       <CommentContent>{comment.content}</CommentContent>
       {isModalOpen &&
         (comment.author.accountname === userInfo.accountname ? (
@@ -87,11 +87,11 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
           type={alertModalOpen}
         />
       )}
-    </CommentListWrap>
+    </CommentItemWrap>
   );
 }
 
-const CommentListWrap = styled.li`
+const CommentItemWrap = styled.li`
   font-size: var(--font-md);
   margin-bottom: 16px;
   img {
@@ -99,7 +99,7 @@ const CommentListWrap = styled.li`
   }
 `;
 
-const ProfileWrap = styled.div`
+const ProfileBox = styled.div`
   width: 100%;
   height: 42px;
   display: flex;
