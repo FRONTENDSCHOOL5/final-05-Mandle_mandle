@@ -15,7 +15,7 @@ function MenuBar() {
     <MenuBarWrap>
       <ul>
         <li>
-          <LinkWrap
+          <LinkStyle
             to='/home'
             active={location.pathname.startsWith('/home').toString()}
           >
@@ -23,10 +23,10 @@ function MenuBar() {
               <img src={HomeIcon} alt='홈 버튼'></img>
             </div>
             <p>홈</p>
-          </LinkWrap>
+          </LinkStyle>
         </li>
         <li>
-          <LinkWrap
+          <LinkStyle
             to='/class'
             active={location.pathname.startsWith('/class').toString()}
           >
@@ -34,10 +34,10 @@ function MenuBar() {
               <img src={ClassIcon} alt='클래스 버튼'></img>
             </div>
             <p>클래스</p>
-          </LinkWrap>
+          </LinkStyle>
         </li>
         <li>
-          <LinkWrap
+          <LinkStyle
             to='/chat/chatlist'
             active={location.pathname.startsWith('/chat').toString()}
           >
@@ -45,10 +45,10 @@ function MenuBar() {
               <img src={ChattingIcon} alt='채팅 버튼'></img>
             </div>
             <p>채팅</p>
-          </LinkWrap>
+          </LinkStyle>
         </li>
         <li>
-          <LinkWrap
+          <LinkStyle
             to='/post/upload'
             active={(location.pathname === '/post').toString()}
           >
@@ -56,10 +56,10 @@ function MenuBar() {
               <img src={PostingIcon} alt='게시물 작성 버튼'></img>
             </div>
             <p>게시물 작성</p>
-          </LinkWrap>
+          </LinkStyle>
         </li>
         <li>
-          <LinkWrap
+          <LinkStyle
             to='/my_profile'
             active={(location.pathname === '/my_profile').toString()}
           >
@@ -67,7 +67,7 @@ function MenuBar() {
               <img src={ProfileIcon} alt='프로필 버튼'></img>
             </div>
             <p>프로필</p>
-          </LinkWrap>
+          </LinkStyle>
         </li>
       </ul>
     </MenuBarWrap>
@@ -101,7 +101,7 @@ const MenuBarWrap = styled.footer`
   }
 `;
 
-export const LinkWrap = styled(Link)`
+export const LinkStyle = styled(Link)`
   div {
     width: 24px;
     height: 24px;

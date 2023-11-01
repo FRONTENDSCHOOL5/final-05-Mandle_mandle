@@ -48,9 +48,9 @@ export default function CommentItem({ postId, comment, setCommentUpdated }) {
     <CommentItemWrap>
       <ProfileBox>
         <ProfileInfo>
-          <ProfileImgwrap>
+          <ProfileImgBox>
             <img src={NormalizeImage(comment.author.image)} alt='' />
-          </ProfileImgwrap>
+          </ProfileImgBox>
 
           <div>
             <p>{comment.author.username}</p>
@@ -130,7 +130,7 @@ const ProfileInfo = styled.button`
   }
 `;
 
-const ProfileImgwrap = styled.div`
+const ProfileImgBox = styled.div`
   width: 36px;
   height: 36px;
 
