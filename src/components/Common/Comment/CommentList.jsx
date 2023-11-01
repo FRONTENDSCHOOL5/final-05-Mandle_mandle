@@ -46,11 +46,11 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
 
   return (
     <CommentListWrap>
-      <ProfileWrap>
+      <ProfileBox>
         <ProfileInfo>
-          <ProfileImgwrap>
+          <ProfileImgBox>
             <img src={NormalizeImage(comment.author.image)} alt='' />
-          </ProfileImgwrap>
+          </ProfileImgBox>
 
           <div>
             <p>{comment.author.username}</p>
@@ -58,7 +58,7 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
           </div>
         </ProfileInfo>
         <MoreButton onClick={handleClick} />
-      </ProfileWrap>
+      </ProfileBox>
       <CommentContent>{comment.content}</CommentContent>
       {isModalOpen &&
         (comment.author.accountname === userInfo.accountname ? (
@@ -99,7 +99,7 @@ const CommentListWrap = styled.li`
   }
 `;
 
-const ProfileWrap = styled.div`
+const ProfileBox = styled.div`
   width: 100%;
   height: 42px;
   display: flex;
@@ -130,7 +130,7 @@ const ProfileInfo = styled.button`
   }
 `;
 
-const ProfileImgwrap = styled.div`
+const ProfileImgBox = styled.div`
   width: 36px;
   height: 36px;
 

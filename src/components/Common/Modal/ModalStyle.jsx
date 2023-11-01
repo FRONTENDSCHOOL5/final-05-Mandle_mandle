@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ModalOverlay = styled.div`
+export const ModalWrap = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@ export const ModalOverlay = styled.div`
   z-index: 9999; /* 모달의 z-index 값을 설정 */
 `;
 
-export const ModalWrap = styled.div`
+export const ModalBox = styled.div`
   width: 100%;
   padding-bottom: 20px;
   position: absolute;

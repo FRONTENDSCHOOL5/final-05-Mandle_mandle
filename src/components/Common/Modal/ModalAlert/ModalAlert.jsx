@@ -8,8 +8,8 @@ export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
 
   return (
     <>
-      <AlertModalOverlay>
-        <AlertModalWrap>
+      <AlertModalWrap>
+        <AlertModalBox>
           <p>
             {type === 'edit'
               ? '저장하지 않은 변경 사항이 있습니다.'
@@ -34,14 +34,14 @@ export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
                 ? '신고하기'
                 : '삭제'}
             </button>
-          </AlertModalBtnBox>
-        </AlertModalWrap>
-      </AlertModalOverlay>
+          </div>
+        </AlertModalBox>
+      </AlertModalWrap>
     </>
   );
 }
 
-const AlertModalOverlay = styled.div`
+const AlertModalWrap = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -54,7 +54,7 @@ const AlertModalOverlay = styled.div`
   z-index: 9999; /* 모달의 z-index 값을 설정 */
 `;
 
-const AlertModalWrap = styled.div`
+const AlertModalBox = styled.div`
   width: 252px;
   padding: 24px 0 0;
   position: absolute;
