@@ -1,10 +1,5 @@
-import React, { lazy, Suspense } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Outlet,
-} from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, Outlet } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyles';
 import styled from 'styled-components';
 import Class from './pages/Class/Class';

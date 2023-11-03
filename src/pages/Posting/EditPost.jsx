@@ -18,11 +18,11 @@ import {
   DropdownList,
   TeacherDropdown,
   ImageBox,
-} from '../../components/Common/Dropdown/Dropdown';
-import Dropdown from '../../components/Common/Dropdown/Dropdown';
-import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
-import DropdownTag from '../../components/Common/Dropdown/DropdownTag';
-import { DropdonwTextBox } from '../../components/Common/Dropdown/DropItem';
+} from '../../components/Posting/Dropdown/Dropdown';
+import Dropdown from '../../components/Posting/Dropdown/Dropdown';
+import DropdownDate from '../../components/Posting/Dropdown/DropdownDate';
+import DropdownTag from '../../components/Posting/Dropdown/DropdownTag';
+import { DropdonwTextBox } from '../../components/Posting/Dropdown/DropItem';
 
 import {
   TextInputBox,
@@ -97,7 +97,7 @@ export default function EditPost() {
   }
 
   const reserveDate = resData.map((reservation) =>
-    parseReserveDate(reservation.reserve_common_date)
+    parseReserveDate(reservation.reserve_common_date),
   );
 
   useEffect(() => {
@@ -114,13 +114,13 @@ export default function EditPost() {
               classId: id,
             };
             return classInfo;
-          })
+          }),
         );
 
         // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
         const filteredData = allData.filter(
           // 현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
-          (data, index) => currentDate > reserveDate[index]
+          (data, index) => currentDate > reserveDate[index],
         );
         setClassList(filteredData);
       } catch (error) {
@@ -128,10 +128,8 @@ export default function EditPost() {
       }
 
       const TClassData = await ClassData(userAccountname, token);
-      console.log(TClassData);
       setTeacherData(TClassData);
     };
-    console.log(selectId);
     fetchData();
   }, []);
 
@@ -151,7 +149,7 @@ export default function EditPost() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -194,13 +192,12 @@ export default function EditPost() {
         : { classTag, classPrice }),
       selectId,
     };
-    console.log(classData);
     const classReview = JSON.stringify(classData);
     const editedPost = await PutPostEdit(
       postId,
       token,
       classReview,
-      selectedImages.join(',')
+      selectedImages.join(','),
     );
 
     if (editedPost && selectId) {

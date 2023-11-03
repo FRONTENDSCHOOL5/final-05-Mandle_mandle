@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { Skeleton } from './Skeleton';
 import PostSkeleton from './PostSkeleton';
-import ClassSideSkeleton from './ClassSideSkeleton';
 
 import ShareBtn from '../../../assets/img/icon-share.svg';
 import ChatBtn from '../../../assets/img/icon-chat-mini.svg';
@@ -123,11 +122,6 @@ const SkeletonPostBtnWrap = styled.div`
 `;
 const SkeletonPostWrap = styled.div`
   padding: 16px;
-`;
-
-const ClassSideSkeletonBox = styled.div`
-  padding: 10px;
-  background-color: #fff;
 `;
 
 const SkeletonCircleBtn = styled.div`

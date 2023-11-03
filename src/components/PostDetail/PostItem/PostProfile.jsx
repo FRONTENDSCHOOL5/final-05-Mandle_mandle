@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 
-import Modal from '../Modal/Modal';
-import MoreButton from '../MoreButton';
-import NormalizeImage from '../NormalizeImage';
+import Modal from '../../Common/Modal/Modal';
+import MoreButton from '../../Common/MoreButton';
+import NormalizeImage from '../../Common/NormalizeImage';
 import DeletePost from '../../../api/DeletePost';
 import PostReportPost from '../../../api/PostReportPost';
 import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';

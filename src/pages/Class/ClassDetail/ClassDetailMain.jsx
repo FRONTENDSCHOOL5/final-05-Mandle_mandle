@@ -4,8 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 
 import GetClassData from '../../../api/GetClassData';
-import { ClassPostMini } from '../../../components/Common/ClassPost';
-import NormalizeImage from '../../../components/Common/NormalizeImage';
+import { ClassPostMini } from '../../../components/Class/ClassPost';
 import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData';
 
 import ExplainImg from '../../../assets/img/temp/soapT5.png';

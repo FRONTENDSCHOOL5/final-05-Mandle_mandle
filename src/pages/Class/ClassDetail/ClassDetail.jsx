@@ -160,7 +160,6 @@ export function BtnContainer({ price, category, img, name, id }) {
       class_id: id,
     };
     navigate('/reservation', { state: state });
-    console.log(state);
   };
 
   return (

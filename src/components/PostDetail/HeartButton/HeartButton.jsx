@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 
 import { useRecoilValue } from 'recoil';
-import { UserAtom } from '../../Store/userInfoAtoms';
+import { UserAtom } from '../../../Store/userInfoAtoms';
 
-import PostHeart from '../../api/PostHeart';
-import DeleteHeart from '../../api/DeleteHeart';
+import PostHeart from '../../../api/PostHeart';
+import DeleteHeart from '../../../api/DeleteHeart';
 
-import HeartIcon from '../../assets/img/icon-heart.svg';
-import HeartedIcon from '../../assets/img/icon-heart-clicked.svg';
+import HeartIcon from '../../../assets/img/icon-heart.svg';
+import HeartedIcon from '../../../assets/img/icon-heart-clicked.svg';
 
 export default function HeartButton({ post }) {
   const [isHearted, setIsHearted] = useState(post.hearted);

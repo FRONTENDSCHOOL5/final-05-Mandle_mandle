@@ -23,6 +23,7 @@ export const Toast = ({ toastMessage, setToastMessage }) => {
         clearTimeout(timer);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFadeOut]);
 
   return <ToastWrap fadeOut={isFadeOut}>{toastMessage}</ToastWrap>;

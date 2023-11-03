@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 
-import NormalizeImage from '../NormalizeImage';
+import NormalizeImage from '../../Common/NormalizeImage';
 import PostComment from '../../../api/PostComment';
 
 export default function CommentInput({

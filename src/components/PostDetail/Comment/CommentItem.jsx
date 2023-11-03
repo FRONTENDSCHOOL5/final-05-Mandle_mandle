@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 
-import CalTimeAgo from '../CalTimeAgo';
-import MoreButton from '../MoreButton';
-import Modal from '../Modal/Modal';
-import NormalizeImage from '../NormalizeImage';
+import CalTimeAgo from '../../Common/CalTimeAgo';
+import MoreButton from '../../Common/MoreButton';
+import Modal from '../../Common/Modal/Modal';
+import NormalizeImage from '../../Common/NormalizeImage';
 import DeleteComment from '../../../api/DeleteComment';
-import ModalAlert from '../Modal/ModalAlert/ModalAlert';
+import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
 import PostReportComment from '../../../api/PostReportComment';
 
 export default function ComentItem({ postId, comment, setCommentUpdated }) {

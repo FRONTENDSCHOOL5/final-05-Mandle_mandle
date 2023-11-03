@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 
-import FollowButtton from './FollowButtton';
+import FollowButtton from '../Profile/FollowButtton';
 import NormalizeImage from './NormalizeImage';
 
 import TeacherIcon from '../../assets/img/icon-teacher.svg';
@@ -78,8 +78,6 @@ export const ProfileWrap = styled.button`
     object-fit: cover;
   }
 `;
-
-const ProfileName = styled.div``;
 
 export const ProfileInfo = styled.div`
   display: flex;

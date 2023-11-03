@@ -4,9 +4,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import PostIdValid from '../../../api/PostIdValid';
 import PutProfileUpdate from '../../../api/PutProfileUpdate';
-import UploadProfile from '../../../components/Common/UploadProfile';
+import UploadProfile from '../../../components/Account/UploadProfile';
 import GoBackButton from '../../../components/Common/GoBackButton';
-import Input from '../../../components/Common/Account/Input';
+import Input from '../../../components/Account/Input';
 import {
   EditProfileWrap,
   EditProfileHeader,
@@ -18,7 +18,7 @@ import {
   AccountForm,
   Description,
   ErrorMessage,
-} from '../../../components/Common/Account/AccountStyle';
+} from '../../../components/Account/AccountStyle';
 
 const EditProfile = () => {
   //기존 가입한 유저 정보 가져오기
@@ -37,15 +37,15 @@ const EditProfile = () => {
       ? data.accountname.substr(0, 7)
       : '';
   const [accountname, setAccountname] = useState(
-    accountType ? data.accountname.substr(7) : data.accountname
+    accountType ? data.accountname.substr(7) : data.accountname,
   );
   const intro = data.intro;
   const colorMatch = intro.match(/#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})/);
   const [backgroundColor, setBackgroundColor] = useState(
-    colorMatch ? colorMatch[0] : ''
+    colorMatch ? colorMatch[0] : '',
   );
   const [introText, setIntroText] = useState(
-    intro.replace(backgroundColor, '')
+    intro.replace(backgroundColor, ''),
   );
   const [button, setButton] = useState(false);
   const [image, setImage] = useState(data.image);

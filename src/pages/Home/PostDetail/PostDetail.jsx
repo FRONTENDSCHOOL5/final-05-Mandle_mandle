@@ -3,9 +3,9 @@ import { useRecoilValue } from 'recoil';
 import { useLocation } from 'react-router-dom';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { GoBackProfileNav } from '../../../components/Common/TopNav';
-import PostList from '../../../components/Common/PostList/PostList';
-import CommentItem from '../../../components/Common/Comment/CommentItem';
-import CommentInput from '../../../components/Common/Comment/CommentInput';
+import PostItem from '../../../components/PostDetail/PostItem/PostItem';
+import CommentItem from '../../../components/PostDetail/Comment/CommentItem';
+import CommentInput from '../../../components/PostDetail/Comment/CommentInput';
 import GetPostDetail from '../../../api/GetPostDetail';
 import GetCommentList from '../../../api/GetCommentList';
 import { PostDetailWrap, MainWrap, CommentList } from './PostDetailStyle';
@@ -35,7 +35,7 @@ export default function PostDetail() {
     <PostDetailWrap>
       <GoBackProfileNav />
       <MainWrap>
-        {post && <PostList post={post} />}
+        {post && <PostItem post={post} />}
         <CommentList>
           {comments &&
             comments.map((comment) => (

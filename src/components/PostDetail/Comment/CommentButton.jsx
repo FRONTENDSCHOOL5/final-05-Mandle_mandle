@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import ChatIcon from '../../assets/img/icon-chat-mini.svg';
+import ChatIcon from '../../../assets/img/icon-chat-mini.svg';
 
 export default function CommentButton({ post, onClick, pathname }) {
   return (

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Modal from '../Common/Modal/Modal';
 import DeleteClass from '../../api/DeleteClass';
-import ModalAlert from './Modal/ModalAlert/ModalAlert';
+import ModalAlert from '../Common/Modal/ModalAlert/ModalAlert';
 
 function MiniClassList({ classItem, page, token, setClassUpdated }) {
   const [alertModalOpen, setAlertModalOpen] = useState(false);

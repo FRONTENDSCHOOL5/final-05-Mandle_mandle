@@ -10,7 +10,7 @@ import PostBlank from './PostBlank/PostBlank';
 import GetFollowPost from '../../api/GetFollowPost';
 import MenuBar from '../../components/Common/MenuBar';
 import { HomeNav } from '../../components/Common/TopNav';
-import PostItem from '../../components/Common/PostList/PostList';
+import PostItem from '../../components/PostDetail/PostItem/PostItem';
 import PostSkeleton from '../../components/Common/Skeleton/PostSkeleton';
 
 import { HomeWrap, MainStyle, PostList } from './HomeStyle';

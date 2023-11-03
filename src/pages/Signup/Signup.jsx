@@ -7,8 +7,8 @@ import UserInfoInput from '../../Hooks/UserInfoInput';
 import usePasswordConfirm from '../../Hooks/usePasswordConfirm';
 import usePasswordToggle from '../../Hooks/usePasswordToggle';
 import { ButtonStyle } from '../../components/Common/Button';
-import AccountHeader from '../../components/Common/Account/AccountHeader';
-import Input from '../../components/Common/Account/Input';
+import AccountHeader from '../../components/Account/AccountHeader';
+import Input from '../../components/Account/Input';
 import ButtonImg from '../../assets/img/L-button(clay).svg';
 import DisabledButtonImg from '../../assets/img/L-Disabled-button(clay).svg';
 import {
@@ -18,7 +18,7 @@ import {
   ButtonImgStyle,
   ErrorMessage,
   ValidMessage,
-} from '../../components/Common/Account/AccountStyle';
+} from '../../components/Account/AccountStyle';
 
 export default function Signup() {
   const [type, setType] = useState('Student');

@@ -12,17 +12,17 @@ import { GetUserProfileImage } from '../../api/GetUserProfileImage';
 import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
 import { Toast } from '../../components/Common/Toast/Toast';
 import whiteImg from '../../assets/img/whiteImg.webp';
-import Dropdown from '../../components/Common/Dropdown/Dropdown';
-import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
-import DropdownTag from '../../components/Common/Dropdown/DropdownTag';
-import { DropdonwTextBox } from '../../components/Common/Dropdown/DropItem';
+import Dropdown from '../../components/Posting/Dropdown/Dropdown';
+import DropdownDate from '../../components/Posting/Dropdown/DropdownDate';
+import DropdownTag from '../../components/Posting/Dropdown/DropdownTag';
+import { DropdonwTextBox } from '../../components/Posting/Dropdown/DropItem';
 import {
   DropdownContainer,
   DropdownButton,
   DropdownList,
   TeacherDropdown,
   ImageBox,
-} from '../../components/Common/Dropdown/Dropdown';
+} from '../../components/Posting/Dropdown/Dropdown';
 import {
   DisabledUploadBtnNav,
   ProfileContainer,
@@ -88,7 +88,7 @@ export default function Posting() {
   }
 
   const reserveDate = resData.map((reservation) =>
-    parseReserveDate(reservation.reserve_common_date)
+    parseReserveDate(reservation.reserve_common_date),
   );
 
   useEffect(() => {
@@ -105,13 +105,13 @@ export default function Posting() {
               classId: id,
             };
             return classInfo;
-          })
+          }),
         );
 
         // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
         const filteredData = allData.filter(
           // 현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
-          (data, index) => currentDate > reserveDate[index]
+          (data, index) => currentDate > reserveDate[index],
         );
         setClassList(filteredData);
       } catch (error) {
@@ -119,16 +119,15 @@ export default function Posting() {
       }
 
       const TClassData = await ClassData(userAccountname, token);
-      console.log(TClassData);
       setTeacherData(TClassData);
     };
-    console.log(selectId);
+
     fetchData();
   }, []);
 
   useEffect(() => {
     const hasClassId = resData.some(
-      (reservation) => reservation.class_id != null
+      (reservation) => reservation.class_id != null,
     );
     if (userAccountname.includes('Teacher')) {
     } else {
@@ -145,7 +144,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
 
   useEffect(() => {
@@ -207,8 +206,6 @@ export default function Posting() {
         : { classTag, classPrice }),
       selectId,
     };
-
-    console.log(classData);
 
     const classReview = JSON.stringify(classData);
 

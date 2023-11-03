@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import hideEye from '../../../assets/img/eye-hidden.svg';
-import showEye from '../../../assets/img/eye-visible.svg';
-import checkOff from '../../../assets/img/icon-check-off.svg';
-import checkOn from '../../../assets/img/icon-check-on.svg';
+import hideEye from '../../assets/img/eye-hidden.svg';
+import showEye from '../../assets/img/eye-visible.svg';
+import checkOff from '../../assets/img/icon-check-off.svg';
+import checkOn from '../../assets/img/icon-check-on.svg';
 export default function Input({
   label,
   name,

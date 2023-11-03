@@ -3,13 +3,20 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { ClassDataAtom } from '../../Store/ClassDataAtom';
 import { HomeNav } from '../../components/Common/TopNav';
-import { ClassPost, ClassPostMini } from '../../components/Common/ClassPost';
+import { ClassPost, ClassPostMini } from '../../components/Class/ClassPost';
 import MenuBar from '../../components/Common/MenuBar';
 import { Link } from 'react-router-dom';
-import { HiddenContext, MainWrap, MiniSection, ClassSection, Title, MiniList, ClassList } from './ClassStyle';
+import {
+  HiddenContext,
+  MainWrap,
+  MiniSection,
+  ClassSection,
+  Title,
+  MiniList,
+  ClassList,
+} from './ClassStyle';
 import GetClassData from '../../api/GetClassData';
 import ClassSkeleton from '../../components/Common/Skeleton/ClassSkeleton';
-
 
 export default function Class() {
   const UserInfo = useRecoilValue(UserAtom);
@@ -21,8 +28,7 @@ export default function Class() {
   const handleScroll = () => {
     if (mainWrapRef.current) {
       const bottom =
-        mainWrapRef.current.scrollHeight -
-        mainWrapRef.current.scrollTop ===
+        mainWrapRef.current.scrollHeight - mainWrapRef.current.scrollTop ===
         mainWrapRef.current.clientHeight;
 
       if (bottom) {
@@ -37,9 +43,11 @@ export default function Class() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await GetClassData(token, classData.page); 
-        const filteredClasses = data.product.filter(classItem => classItem.author.accountname.includes('Teacher'));
-        
+        const data = await GetClassData(token, classData.page);
+        const filteredClasses = data.product.filter((classItem) =>
+          classItem.author.accountname.includes('Teacher'),
+        );
+
         if (classData.page === 1) {
           setClassData({
             ...classData,
@@ -52,14 +60,14 @@ export default function Class() {
             ...prevClassData,
             newClasses: [
               ...prevClassData.newClasses,
-              ...filteredClasses.slice(startIndex, startIndex + 8)
+              ...filteredClasses.slice(startIndex, startIndex + 8),
             ],
           }));
         }
 
         setLoading(false);
       } catch (error) {
-        console.log("Error", error);
+        console.log('Error', error);
         setLoading(false);
       }
     };
@@ -83,12 +91,14 @@ export default function Class() {
         <HiddenContext>클래스 피드</HiddenContext>
       </HomeNav>
       <MainWrap ref={mainWrapRef}>
-        {loading ? (<ClassSkeleton />) : (
+        {loading ? (
+          <ClassSkeleton />
+        ) : (
           <>
             <MiniSection>
               <Title>인기 클래스</Title>
               <MiniList>
-                {classData.popularClasses.map(classItem => {
+                {classData.popularClasses.map((classItem) => {
                   const parts = classItem.link.split('@');
                   const truncatedLink = parts[0] || '';
                   return (
@@ -109,7 +119,7 @@ export default function Class() {
             <ClassSection>
               <Title>새로운 클래스</Title>
               <ClassList>
-                {classData.newClasses.map(classItem => {
+                {classData.newClasses.map((classItem) => {
                   const parts = classItem.link.split('@');
                   const truncatedLink = parts[0] || '';
                   return (

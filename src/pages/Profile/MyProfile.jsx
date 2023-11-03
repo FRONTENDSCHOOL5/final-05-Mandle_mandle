@@ -5,8 +5,8 @@ import { useRecoilState } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import Modal from '../../components/Common/Modal/Modal';
 import { MoreNav } from '../../components/Common/TopNav';
-import PostList from '../../components/Common/PostList/PostList';
-import MiniClassList from '../../components/Common/MiniClassList';
+import PostItem from '../../components/PostDetail/PostItem/PostItem';
+import MiniClassList from '../../components/Profile/MiniClassList';
 import NormalizeImage from '../../components/Common/NormalizeImage';
 import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
@@ -327,7 +327,7 @@ export default function Profile() {
                   <div className={postData.post.length > 0 ? '' : 'posts-none'}>
                     {postData.post.length > 0 ? (
                       postData.post.map((post) => (
-                        <PostList
+                        <PostItem
                           key={post.id}
                           setPostUpdated={setPostUpdated}
                           post={post}

@@ -2,10 +2,10 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import HeartButton from '../HeartButton';
-import CommentButton from '../CommentButton';
-import NormalizeImage from '../NormalizeImage';
-import ProgressiveImg from '../ProgressiveImg/ProgressiveImg';
+import HeartButton from '../HeartButton/HeartButton';
+import CommentButton from '../Comment/CommentButton';
+import NormalizeImage from '../../Common/NormalizeImage';
+import ProgressiveImg from '../../Common/ProgressiveImg/ProgressiveImg';
 
 import PlaceholderImg from '../../../assets/img/placeholderImg.svg';
 import ArrowIcon from '../../../assets/img/icon-arrow-right.svg';

@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { UserAtom, IsLogin, AutoLogin } from '../../Store/userInfoAtoms';
-import { UseUserState } from '../../Store/ReserveStateAtom';
 import PostLogin from '../../api/PostLogin';
+import Input from '../../components/Account/Input';
 import UserInfoInput from '../../Hooks/UserInfoInput';
-import Input from '../../components/Common/Account/Input';
-import AccountHeader from '../../components/Common/Account/AccountHeader';
+import AccountHeader from '../../components/Account/AccountHeader';
 import ButtonImg from '../../assets/img/L-login-button(clay).svg';
 import DisabledButtonImg from '../../assets/img/L-login-Disabled-button(clay).svg';
 import usePasswordToggle from '../../Hooks/usePasswordToggle';
@@ -16,7 +15,7 @@ import {
   AccountForm,
   ErrorMessage,
   ButtonImgStyle,
-} from '../../components/Common/Account/AccountStyle';
+} from '../../components/Account/AccountStyle';
 export default function Login() {
   const [userInfo, setUserInfo] = useRecoilState(UserAtom);
   const [isLogin, setIsLogin] = useRecoilState(IsLogin);

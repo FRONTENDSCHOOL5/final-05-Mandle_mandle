@@ -5,9 +5,9 @@ import { SignUpAtom } from '../../Store/AtomSignupState';
 import PostSignUp from '../../api/PostSignup';
 import PostIdValid from '../../api/PostIdValid';
 import useProfileInput from '../../Hooks/useProfileInput';
-import Input from '../../components/Common/Account/Input';
-import UploadProfile from '../../components/Common/UploadProfile';
-import AccountHeader from '../../components/Common/Account/AccountHeader';
+import Input from '../../components/Account/Input';
+import UploadProfile from '../../components/Account/UploadProfile';
+import AccountHeader from '../../components/Account/AccountHeader';
 import StartButtonImg from '../../assets/img/L-start-button(clay).svg';
 import DisabledButtonImg from '../../assets/img/L-Start-Disabled-button(clay).svg';
 import {
@@ -15,7 +15,7 @@ import {
   Description,
   ButtonImgStyle,
   ErrorMessage,
-} from '../../components/Common/Account/AccountStyle';
+} from '../../components/Account/AccountStyle';
 
 const SetProfile = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const SetProfile = () => {
   const [usernameAlertMsg, setUsernameAlertMsg] = useState('');
   const { inputValues, handleInputChange, buttonImg } = useProfileInput(
     StartButtonImg,
-    DisabledButtonImg
+    DisabledButtonImg,
   );
   const { username, accountname, intro } = inputValues;
   const handleProfileImageResponse = (fileName) => {
