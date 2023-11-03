@@ -4,8 +4,8 @@ import { useRecoilValue } from 'recoil';
 import { SignUpAtom } from '../../Store/AtomSignupState';
 import PostSignUp from '../../api/PostSignup';
 import PostIdValid from '../../api/PostIdValid';
-import Input from '../../components/Common/Account/Input';
 import useProfileInput from '../../Hooks/useProfileInput';
+import Input from '../../components/Common/Account/Input';
 import UploadProfile from '../../components/Common/UploadProfile';
 import AccountHeader from '../../components/Common/Account/AccountHeader';
 import StartButtonImg from '../../assets/img/L-start-button(clay).svg';
@@ -28,7 +28,7 @@ const SetProfile = () => {
   const [usernameAlertMsg, setUsernameAlertMsg] = useState('');
   const { inputValues, handleInputChange, buttonImg } = useProfileInput(
     StartButtonImg,
-    DisabledButtonImg,
+    DisabledButtonImg
   );
   const { username, accountname, intro } = inputValues;
   const handleProfileImageResponse = (fileName) => {

@@ -2,17 +2,21 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
-
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import MenuBar from '../../components/Common/MenuBar';
 import { MoreNav } from '../../components/Common/TopNav';
 import PostList from '../../components/Common/PostList/PostList';
 import MiniClassList from '../../components/Common/MiniClassList';
 import NormalizeImage from '../../components/Common/NormalizeImage';
-
+import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
 import HomeLogo from '../../assets/img/home-logo.svg';
 import ShareImg from '../../assets/img/icon-share.svg';
 import ChatImg from '../../assets/img/icon-chat-mini.svg';
 import ImageMore from '../../assets/img/icon-img-more.svg';
-
+import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
+import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
+import PostAlbumBtnOn from '../../assets/img/icon-post-album-on.svg';
+import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
 import {
   MainWrap,
   WrapBtn,
@@ -26,19 +30,11 @@ import {
   PostListUl,
   FollowBtn,
 } from './ProfileStyle';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import MenuBar from '../../components/Common/MenuBar';
-import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
-import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
-import PostAlbumBtnOn from '../../assets/img/icon-post-album-on.svg';
-import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
-import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
+
 export default function Profile() {
   const navigate = useNavigate();
-
   const userInfo = useRecoilValue(UserAtom);
   const token = userInfo.token;
-
   const { accountname } = useParams();
   const [profileData, setProfileData] = useState(null);
   const [classData, setClassData] = useState(null);
@@ -56,12 +52,12 @@ export default function Profile() {
         const userClassData = await fetchDataFromAPI(
           ClassData,
           accountname,
-          token,
+          token
         );
         const userPostData = await fetchDataFromAPI(
           PostData,
           accountname,
-          token,
+          token
         );
         setProfileData(userProfileData);
         setClassData(userClassData);
@@ -96,7 +92,6 @@ export default function Profile() {
           console.error('Failed to copy URL:', error);
         });
     } else {
-      // Fallback for browsers that do not support the Clipboard API
       const tempInput = document.createElement('textarea');
       tempInput.value = apiUrl;
       document.body.appendChild(tempInput);
@@ -402,7 +397,7 @@ async function follow(accountname, token) {
           Authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-      },
+      }
     );
     return res.data; // Modify this based on the actual response structure
   } catch (err) {

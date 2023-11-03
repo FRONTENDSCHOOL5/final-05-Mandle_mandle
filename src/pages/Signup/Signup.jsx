@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { SignUpAtom } from '../../Store/AtomSignupState';
-import UserInfoInput from '../../Hooks/UserInfoInput';
 import PostEmailValid from '../../api/PostEmailVaild';
-import Input from '../../components/Common/Account/Input';
+import UserInfoInput from '../../Hooks/UserInfoInput';
 import usePasswordConfirm from '../../Hooks/usePasswordConfirm';
+import usePasswordToggle from '../../Hooks/usePasswordToggle';
 import { ButtonStyle } from '../../components/Common/Button';
 import AccountHeader from '../../components/Common/Account/AccountHeader';
-import usePasswordToggle from '../../Hooks/usePasswordToggle';
+import Input from '../../components/Common/Account/Input';
 import ButtonImg from '../../assets/img/L-button(clay).svg';
 import DisabledButtonImg from '../../assets/img/L-Disabled-button(clay).svg';
 import {
@@ -79,6 +79,7 @@ export default function Signup() {
       setPasswordValid(false);
     }
   };
+
   const handleConfirmedPasswordValid = () => {
     if (confirmedPassword && !passwordConfirmed) {
       setConfirmPwErrorMessage('비밀번호가 일치하지 않습니다.');
