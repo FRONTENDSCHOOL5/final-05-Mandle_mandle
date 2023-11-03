@@ -38,7 +38,7 @@ export default function PostProfile({ post, setPostUpdated }) {
     const response = await PostReportPost(post.id, userInfo.token); // Call the API component
     if (response) {
       alert(`해당 게시글이 신고되었습니다.`);
-      setModalOpen(false);
+      setAlertModalOpen(null);
     }
   };
 
@@ -47,6 +47,7 @@ export default function PostProfile({ post, setPostUpdated }) {
     if (response) {
       setAlertModalOpen(null);
       alert(`해당 게시글이 삭제되었습니다.`);
+      setModalOpen(false);
       const currentURL = window.location.pathname;
 
       if (currentURL.includes('/post')) {
