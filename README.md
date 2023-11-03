@@ -402,6 +402,204 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
 
 <br>
 
+### UX를 고려한 조건부 모달, 토스트 메시지, 스켈레톤 UI 구현
+
+   <details>
+   <summary>조건부 모달</summary>
+   <div markdown="1">
+   <img width="200" height="460"  alt="조건부 모달" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/350c4923-3a55-49de-a3c8-0f45920af642">
+<img width="200" height="460"  alt="조건부 모달2" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/b3163588-6d40-45a1-809f-2e99f0f5c5d9">
+
+   <div>
+    
+        export default function Modal({
+        onClick,
+        setModalOpen,
+        setAlertModalOpen,
+        text,
+        type,
+      }) {
+        const handleOverlayClick = (event) => {
+          if (event.target === event.currentTarget) {
+            setModalOpen(false);
+          }
+        };
+        const handleAlertModalOpen = () => {
+          setModalOpen(false);
+          setAlertModalOpen(type);
+        };
+      
+        return (
+          <ModalWrap onClick={handleOverlayClick}>
+            <ModalBox>
+              <div></div>
+              <ul>
+                <li>
+                  <button onClick={handleAlertModalOpen}>{text}</button>
+                </li>
+                {(type === 'delete' || type === 'class') && (
+                  <li>
+                    <button onClick={type && onClick}>
+                      {type === 'delete'
+                        ? '수정'
+                        : type === 'class'
+                        ? '클래스 상세 페이지로 이동'
+                        : null}
+                    </button>
+                  </li>
+                )}
+              </ul>
+            </ModalBox>
+          </ModalWrap>
+        );
+      }
+   </div>
+      
+   <div>      
+    
+         function MiniClassList({ classItem, page, token, setClassUpdated }) {
+         const [alertModalOpen, setAlertModalOpen] = useState(false);
+         const [isModalOpen, setModalOpen] = useState(false);
+         const navigate = useNavigate();
+       
+         const handleDeleteSubmit = async () => {
+           const response = await DeleteClass(classItem.id, token); // Call the API component
+           if (response) {
+             setAlertModalOpen(false);
+             alert(`해당 게시글이 삭제되었습니다.`);
+       
+             setClassUpdated(true); // 새로고침(상태변경으로 바꿀 예정)
+           }
+         };
+       
+         const handleMoveClassDetail = () => {
+           navigate(`/class/detail/${classItem.id}`);
+         };
+       
+         return (
+           <>
+             {isModalOpen && (
+               <Modal
+                 setModalOpen={setModalOpen}
+                 setAlertModalOpen={setAlertModalOpen}
+                 onClick={handleMoveClassDetail}
+                 type='class'
+                 text='삭제'
+               />
+             )}
+             {alertModalOpen && (
+               <ModalAlert
+                 setAlertModalOpen={setAlertModalOpen}
+                 onClick={handleDeleteSubmit}
+               />
+             )}
+           </>
+         );
+       }
+       
+       export default MiniClassList;
+ 
+
+   </div>
+   </div>
+
+  
+  조건부 모달 기능은 **Modal** 컴포넌트에서  `isModalOpen과` `alertModalOpen이라는` 두 개의 상태값을 통해 모달의 표시 여부를 제어하고 있습니다.<br><br> 
+            `isModalOpen` 상태값이 `true`일 때, Modal 컴포넌트가 렌더링되어 사용자에게 표시됩니다.<br>
+            **Modal** 컴포넌트에서는 `handleAlertModalOpen` 함수가 호출되면, `setModalOpen(false)`를 통해 현재 모달을 닫고, `setAlertModalOpen(type)`를 통해 알림 모달을 열게 됩니다. 이 때 `type`은 알림 모달의 타입을 결정합니다.<br>
+            알림 모달은 `alertModalOpen` 상태값이 `true일` 때 렌더링되어 사용자에게 표시됩니다. 이 때 `alertModalOpen`의 값은 알림 모달의 타입을 결정합니다.<br>
+            알림 모달에서는 사용자가 확인 또는 취소 버튼을 클릭하면 `setAlertModalOpen(false)`를 호출해 알림 모달을 닫습니다.<br>
+            Modal컴포넌트를 적용하고 있는 **MiniClassList** 컴포넌트에서 Modal과 ModalAlert 컴포넌트의 열림 상태를 제어하면서, 필요에 따라 각 모달에서 수행할 동작을 정의한 함수를 onClick prop으로 전달하여 모달의 동작을 제어합니다.
+<br> 
+   </details>
+   <details>
+   <summary>토스트 메시지</summary>
+   <div markdown="1">
+   <img width="200" height="460"  alt="토스트 메시지" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/de222118-c55c-4e08-8606-8c3f453d769e">
+      <img width="200" height="460"  alt="토스트 메시지2" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/49355ddf-5123-4b31-8df0-f030efc42528">
+
+   <div>
+    
+      import { useState, useEffect } from 'react';
+      import styled, { keyframes } from 'styled-components';
+      
+      export const Toast = ({ toastMessage, setToastMessage }) => {
+        const [isFadeOut, setIsFadeOut] = useState(false);
+        useEffect(() => {
+          const timer = setTimeout(() => {
+            setIsFadeOut(true);
+          }, 2500);
+      
+          return () => {
+            clearTimeout(timer);
+          };
+        }, [toastMessage]);
+      
+        useEffect(() => {
+          if (isFadeOut) {
+            const timer = setTimeout(() => {
+              setToastMessage('');
+              setIsFadeOut(false);
+            }, 1000);
+            return () => {
+              clearTimeout(timer);
+            };
+          }
+        }, [isFadeOut]);
+      
+        return <ToastWrap fadeOut={isFadeOut}>{toastMessage}</ToastWrap>;
+      };
+      
+      const fadeIn = keyframes`
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      `;
+      
+      const fadeOut = keyframes`
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      `;
+   </div>
+   </div>
+
+  
+  토스트 메시지를 표시하고 일정 시간이 지나면 사라지게 하는 기능을 구현하였습니다. 구현 내용은 다음과 같습니다.<br><br> 
+      1. useState를 통해 `isFadeOut`이라는 상태를 생성하고 초기값을 `false`로 설정합니다. 이 상태는 토스트 메시지가 사라지는 애니메이션을 제어합니다.<br>
+      2. 첫 번째 useEffect는 `toastMessage`가 변경될 때마다 실행됩니다. 이 useEffect 안에서는 타이머를 설정하여 2.5초 후에 `isFadeOut` 상태를 `true`로 변경합니다. 이로 인해 토스트 메시지가 사라지는 애니메이션이 시작됩니다.<br>
+      3. 두 번째 useEffect는 `isFadeOut` 상태가 변경될 때마다 실행됩니다. `isFadeOut`이 `true`일 때, 즉 토스트 메시지가 사라지는 애니메이션이 시작되면 1초 후에` setToastMessage('')`를 호출하여 토스트 메시지를 비우고, `setIsFadeOut(false)`를 호출하여 애니메이션 상태를 초기화합니다.<br>
+      4. `ToastWrap`에서 fadeOut prop에 따라 서로 다른 애니메이션을 적용합니다. fadeOut prop이 `true`일 때는 fadeOut 애니메이션을, `false`일 때는 fadeIn 애니메이션을 적용합니다.<br>
+      토스트 메시지가 사라진 후에는 toastMessage를 비우고 애니메이션 상태를 초기화하여, 호출마다 토스트 메시지가 계속해서 나타날 수 있도록 구현했습니다.
+<br> 
+   </details>
+   <details>
+   <summary>스켈레톤 UI</summary>
+   <div markdown="1">
+   <img width="200" height="460"  alt="홈-스켈레톤" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/918b14c7-289b-4b7a-8a10-33ad138b2f48">
+      <img width="200" height="460" alt="클래스 스켈레톤" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/592be9a8-4bda-474b-a4b8-eeea0840fd5d">
+      <img width="200" height="460"  alt="프로필 스켈레톤" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/d2a78fa3-e8b8-4aeb-8b8d-b35e730c64ac">
+   </div>
+<br> 
+  
+  데이터를 불러오는 동안 스켈레톤 UI를 표시함으로써 사용자에게 로딩 중임을 알려주는 기능을 구현하였습니다.<br> 
+       데이터 로딩이 끝나면 실제 데이터를 표시하는 방식으로 구현하여<br>
+       데이터 로딩 시간 동안 사용자가 빈 화면을 보는 것을 방지하고, 사용자 경험을 개선하고자 하였습니다.<br> 
+       1. useState를 통해 loading이라는 상태를 생성하고 초기값을 true로 설정합니다. 이 상태는 데이터 로딩 상태를 나타냅니다.<br> 
+       2. 데이터를 불러온 후에는 setTimeout 함수를 이용하여 1초 후에 setLoading(false)를 호출하여 로딩 상태를 종료합니다. <br> 
+       3. 렌더링 부분에서 loading 상태에 따라 다른 UI를 표시합니다. loading이 `true`일 때는 PostSkeleton 컴포넌트를 통해 스켈레톤 UI를 표시하고, loading이 `false`일 때는 스켈레톤 UI가 사라진 후 실제 데이터를 표시합니다.<br> 
+<br> 
+   </details>
+
+
+<br>
+
 ## 8. 성능개선
 
 ### 검색 디바운싱
