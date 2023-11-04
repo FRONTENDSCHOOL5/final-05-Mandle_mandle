@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { Toast } from '../../../components/Common/Toast/Toast';
 import arrowUpIcon from '../../../assets/img/icon-arrow-up.svg';
@@ -48,8 +47,6 @@ export function TimePicker({ selectedDate }) {
       reserve_common_date: formatEngDate(selectedDate),
       reserve_time: formatTime(selectedTime),
     };
-
-    console.log(resData);
 
     const userId = userInfo.id;
     const userReservations = JSON.parse(localStorage.getItem('resInfo')) || {};

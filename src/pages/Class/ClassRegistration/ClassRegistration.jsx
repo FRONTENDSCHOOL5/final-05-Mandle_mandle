@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import PostClassRegistration from '../../../api/PostClassRegistration';
+import { PostImagesUpload } from '../../../api/PostImagesUpload';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { GoBackNav } from '../../../components/Common/TopNav';
 import UploadImgBtn from '../../../assets/img/img-upload-button(gray).svg';
@@ -15,8 +17,6 @@ import {
   InputValidationError,
   AddBtn,
 } from './ClassRegistrationStyle';
-import { PostImagesUpload } from '../../../api/PostImagesUpload';
-import PostClassRegistration from '../../../api/PostClassRegistration';
 
 export default function ClassRegistration() {
   return (

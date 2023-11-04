@@ -159,6 +159,7 @@ export function ReviewContent() {
 // /Classreview
 
 // classothers
+
 export function ClassDetailOtherClass() {
   const [newClass, setNewClass] = useState([]);
   const UserInfo = useRecoilValue(UserAtom);
@@ -168,23 +169,19 @@ export function ClassDetailOtherClass() {
     const fetchData = async () => {
       try {
         const data = await GetClassData(token, UserInfo.accountname);
-        setNewClass(data.product);
+        setNewClass(data);
       } catch (error) {
         console.log('Error', error);
       }
     };
     fetchData();
-  });
-
-  const classList = newClass.filter((classItem) =>
-    String(classItem.author.accountname).includes('Teacher'),
-  );
+  }, []);
 
   return (
     <ClassSection className='others'>
       <Title>다른 클래스</Title>
       <MiniList>
-        {classList.map((classItem) => {
+        {newClass.map((classItem) => {
           const parts = classItem.link.split('@');
           const truncatedLink = parts[0] || '';
           return (

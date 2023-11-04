@@ -1,16 +1,13 @@
+import ClassDetailMain from './ClassDetailMain';
 import { React, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-
 import { useRecoilValue } from 'recoil';
+import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-
-import ClassDetailMain from './ClassDetailMain';
 import MenuBar from '../../../components/Common/MenuBar';
 import { GoBackNav } from '../../../components/Common/TopNav';
-import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData';
 import ClassDetailSkeleton from '../../../components/Common/Skeleton/ClassDetailSkeleton';
 import NormalizeImage from '../../../components/Common/NormalizeImage';
-
 import shareIcon from '../../../assets/img/icon-share.svg';
 import heartIcon from '../../../assets/img/icon-heart.svg';
 import askIcon from '../../../assets/img/icon-chat-mini.svg';
