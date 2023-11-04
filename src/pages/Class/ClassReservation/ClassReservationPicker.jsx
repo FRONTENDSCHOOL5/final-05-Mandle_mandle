@@ -30,7 +30,7 @@ export function TimePicker({ selectedDate }) {
   ];
   const formattedPrice =
     state && typeof state.price === 'number'
-      ? state.price.toLocaleString()
+      ? state.price?.toLocaleString()
       : '';
 
   const handleTimeClick = (time) => {
