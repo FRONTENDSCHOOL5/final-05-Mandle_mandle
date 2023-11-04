@@ -189,7 +189,7 @@ export default function Profile() {
                   ? profileData.accountname.substr(7)
                   : profileData.accountname}
               </p>
-              <p id='Introduce'>{profileData.intro}</p>
+              <p id='Introduce'>{profileData.intro?.split('#')[0]}</p>
               <WrapBtn>
                 <Link to='/chat/chatroom'>
                   <button className='ChatBtn'>

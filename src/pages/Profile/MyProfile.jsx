@@ -209,7 +209,7 @@ export default function Profile() {
                   : profileData.accountname}
               </p>
               <p id='Introduce' style={{ color: textColor }}>
-                {introText}
+                {introText?.split('#')[0]}
               </p>
               <WrapBtn>
                 {/* 프로필 수정버튼 */}
