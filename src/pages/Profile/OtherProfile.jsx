@@ -9,6 +9,13 @@ import PostList from '../../components/Common/PostList/PostList';
 import MiniClassList from '../../components/Common/MiniClassList';
 import NormalizeImage from '../../components/Common/NormalizeImage';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
+import {
+  ProfileData,
+  ClassData,
+  PostData,
+  follow,
+  unfollow,
+} from '../../api/GetOtherProfileData';
 import HomeLogo from '../../assets/img/home-logo.svg';
 import ShareImg from '../../assets/img/icon-share.svg';
 import ChatImg from '../../assets/img/icon-chat-mini.svg';
@@ -335,90 +342,4 @@ export default function Profile() {
       <MenuBar />
     </ProfilePage>
   );
-}
-
-async function ProfileData(accountname, token) {
-  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}`;
-
-  try {
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
-      },
-    });
-    return res.data.profile;
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-}
-async function ClassData(accountname, token) {
-  const url = `https://api.mandarin.weniv.co.kr/product/${accountname}`;
-
-  try {
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
-      },
-    });
-    return res.data;
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-}
-async function PostData(accountname, token) {
-  const url = `https://api.mandarin.weniv.co.kr/post/${accountname}/userpost`;
-
-  try {
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
-      },
-    });
-    return res.data;
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-}
-async function follow(accountname, token) {
-  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}/follow`;
-
-  try {
-    const res = await axios.post(
-      url,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
-        },
-      }
-    );
-    return res.data; // Modify this based on the actual response structure
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-}
-
-async function unfollow(accountname, token) {
-  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}/unfollow`;
-
-  try {
-    const res = await axios.delete(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
-      },
-    });
-    return res.data; // Modify this based on the actual response structure
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
 }
