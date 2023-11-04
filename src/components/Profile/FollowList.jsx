@@ -44,7 +44,7 @@ export default function SearchList({ user, type, keyword }) {
               )}
             </div>
           </div>
-          <p>{type ? user.intro : validAccountname}</p>
+          <p>{type ? user.intro?.split('#')[0] : validAccountname}</p>
         </ProfileInfo>
       </ProfileWrap>
       {type && (
