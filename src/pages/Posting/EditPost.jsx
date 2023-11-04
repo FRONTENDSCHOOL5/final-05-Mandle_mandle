@@ -1,39 +1,38 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import useDetectClose from '../../Hooks/useDetectClose';
+import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
-// import { PostImagesUpload } from '../../api/PostImagesUpload';
 import PutPostEdit from '../../api/PutPostEdit';
 import { GetUserProfileImage } from '../../api/GetUserProfileImage';
-import { useLocation } from 'react-router-dom';
 import { PostImagesUpload } from '../../api/PostImagesUpload';
-import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import { ClassData } from '../Profile/MyProfile';
+import { Toast } from '../../components/Common/Toast/Toast';
 import whiteImg from '../../assets/img/whiteImg.webp';
 import {
   DropdownContainer,
   DropdownButton,
-  DropdownMenu,
+  DropdownList,
   TeacherDropdown,
   ImageBox,
-} from '../../components/Common/Dropdown/Dropdown';
-import Dropdown from '../../components/Common/Dropdown/Dropdown';
-import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
-import DropdownTag from '../../components/Common/Dropdown/DropdownTag';
-import { DropdonwTextContainer } from '../../components/Common/Dropdown/DropItem';
+} from '../../components/Posting/Dropdown/Dropdown';
+import Dropdown from '../../components/Posting/Dropdown/Dropdown';
+import DropdownDate from '../../components/Posting/Dropdown/DropdownDate';
+import DropdownTag from '../../components/Posting/Dropdown/DropdownTag';
+import { DropdonwTextBox } from '../../components/Posting/Dropdown/DropItem';
 
-import { Toast } from '../../components/Common/Toast/Toast';
 import {
-  TextInputContainer,
+  TextInputBox,
   ImagePreview,
   EditUploadBtnNav,
   ProfileContainer,
   ProfileImage,
   FileUploadButton,
-  ImgWrapStyle,
-  PreviewImgWrapStyle,
+  ImgList,
+  PreviewImgItem,
   DeleteImgBtn,
   PostFormStyle,
 } from './PostingStyle';
@@ -98,7 +97,7 @@ export default function EditPost() {
   }
 
   const reserveDate = resData.map((reservation) =>
-    parseReserveDate(reservation.reserve_common_date)
+    parseReserveDate(reservation.reserve_common_date),
   );
 
   useEffect(() => {
@@ -115,13 +114,13 @@ export default function EditPost() {
               classId: id,
             };
             return classInfo;
-          })
+          }),
         );
 
         // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
         const filteredData = allData.filter(
           // 현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
-          (data, index) => currentDate > reserveDate[index]
+          (data, index) => currentDate > reserveDate[index],
         );
         setClassList(filteredData);
       } catch (error) {
@@ -129,10 +128,8 @@ export default function EditPost() {
       }
 
       const TClassData = await ClassData(userAccountname, token);
-      console.log(TClassData);
       setTeacherData(TClassData);
     };
-    console.log(selectId);
     fetchData();
   }, []);
 
@@ -152,7 +149,7 @@ export default function EditPost() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
   useEffect(() => {
     if (inputValue || selectedImages.length > 0) {
@@ -195,21 +192,23 @@ export default function EditPost() {
         : { classTag, classPrice }),
       selectId,
     };
-    console.log(classData);
     const classReview = JSON.stringify(classData);
     const editedPost = await PutPostEdit(
       postId,
       token,
       classReview,
-      selectedImages.join(',')
+      selectedImages.join(','),
     );
 
-    if (editedPost) {
+    if (editedPost && selectId) {
+      alert('게시글 수정을 완료했습니다!');
       setInputValue('');
       setSelectedImages([]);
       navigate(`/post/${postId}`, {
         state: postId,
       });
+    } else {
+      alert('수강한 클래스를 선택해주세요!');
     }
   };
 
@@ -244,15 +243,15 @@ export default function EditPost() {
         <DropdownContainer ref={dropDownRef}>
           <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
             <ImageBox src={classImg} />
-            <DropdonwTextContainer>
+            <DropdonwTextBox>
               {classIdentify}
               {classTag && classPrice ? (
                 <DropdownTag classTag={classTag} price={classPrice} />
               ) : null}
-            </DropdonwTextContainer>
+            </DropdonwTextBox>
           </DropdownButton>
           {isOpen && (
-            <DropdownMenu>
+            <DropdownList>
               {TeacherData.product &&
                 TeacherData.product.map((item, index) => (
                   <TeacherDropdown
@@ -273,23 +272,23 @@ export default function EditPost() {
                   />
                 ))}
               ;
-            </DropdownMenu>
+            </DropdownList>
           )}
         </DropdownContainer>
       ) : (
         //  (수강생용 드롭다운)
         <DropdownContainer ref={dropDownRef}>
           <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
-            <ImageBox src={classImg} />
-            <DropdonwTextContainer>
+            <ImageBox src={classImg} alt='수강 클래스 이미지' />
+            <DropdonwTextBox>
               {classIdentify}
               {selectDate && selectTime ? (
                 <DropdownDate date={selectDate} time={selectTime} />
               ) : null}
-            </DropdonwTextContainer>
+            </DropdonwTextBox>
           </DropdownButton>
           {isOpen && (
-            <DropdownMenu>
+            <DropdownList>
               {classList.map((item, index) => (
                 <Dropdown
                   key={index}
@@ -307,20 +306,20 @@ export default function EditPost() {
                   setSelectId={setSelectId}
                 />
               ))}
-            </DropdownMenu>
+            </DropdownList>
           )}
         </DropdownContainer>
       )}
       <PostFormStyle>
-        <TextInputContainer
+        <TextInputBox
           placeholder='게시글 입력하기..'
           onChange={handleTextareaChange}
           ref={textarea}
           value={inputValue}
-        ></TextInputContainer>
-        <ImgWrapStyle>
+        ></TextInputBox>
+        <ImgList>
           {selectedImages.map((image, index) => (
-            <PreviewImgWrapStyle key={index}>
+            <PreviewImgItem key={index}>
               <ImagePreview
                 src={
                   typeof image === 'string' ? image : URL.createObjectURL(image)
@@ -331,12 +330,11 @@ export default function EditPost() {
                 onClick={() => handleDeleteImage(index)}
                 type='button'
               />
-            </PreviewImgWrapStyle>
+            </PreviewImgItem>
           ))}
-        </ImgWrapStyle>
+        </ImgList>
         <FileUploadButton handleImageChange={handleImageChange} />
       </PostFormStyle>
-
       {toastMessage && (
         <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
       )}

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { GoBackNav } from '../../../components/Common/TopNav';
-import { FollowWrap } from './FollowListStyle';
-import { useLocation } from 'react-router-dom';
-import { UserAtom } from '../../../Store/userInfoAtoms';
 import { useRecoilValue } from 'recoil';
-import axios from 'axios';
-import UserList from '../../../components/Common/UserList';
+import { useLocation } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
+import { UserAtom } from '../../../Store/userInfoAtoms';
+import { GoBackNav } from '../../../components/Common/TopNav';
+import FollowList from '../../../components/Profile/FollowList';
+import { FollowWrap } from './FollowListStyle';
+import GetFollowerData from '../../../api/GetFollwerData';
 
 export default function FollowerList() {
   const location = useLocation();
@@ -14,12 +14,10 @@ export default function FollowerList() {
   const isMyProfile = location.pathname === '/my_profile/follower';
   const userAccountname = isMyProfile ? userInfo.accountname : location.state;
   const token = userInfo.token;
-
   const [followerData, setFollowerData] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-
-  const { ref, inView } = useInView(); // Hook to detect when an element comes into view
+  const { ref, inView } = useInView();
 
   useEffect(() => {
     fetchData();
@@ -27,7 +25,11 @@ export default function FollowerList() {
 
   const fetchData = async () => {
     try {
-      const newFollowerData = await FollowerData(userAccountname, token, page);
+      const newFollowerData = await GetFollowerData(
+        userAccountname,
+        token,
+        page,
+      );
       if (newFollowerData.length > 0) {
         setFollowerData((prevData) => [...prevData, ...newFollowerData]);
         setPage((prevPage) => prevPage + 1);
@@ -41,7 +43,7 @@ export default function FollowerList() {
 
   useEffect(() => {
     if (inView && hasMore) {
-      fetchData(); // Load more data when the ref element comes into view
+      fetchData();
     }
   }, [inView, hasMore]);
 
@@ -56,7 +58,7 @@ export default function FollowerList() {
       <ul>
         {followerData.map((user, index) => (
           <React.Fragment key={user.id}>
-            <UserList user={user} type='follow' />
+            <FollowList user={user} type='follow' />
             {index === followerData.length - 1 && (
               <li ref={ref} style={{ visibility: 'hidden' }}></li>
             )}
@@ -65,22 +67,4 @@ export default function FollowerList() {
       </ul>
     </FollowWrap>
   );
-}
-
-async function FollowerData(accountname, token, page = 1, pageSize = 7) {
-  const skip = (page - 1) * pageSize;
-  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}/follower/?limit=${pageSize}&skip=${skip}`;
-
-  try {
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
-      },
-    });
-    return res.data;
-  } catch (err) {
-    console.log(err);
-    return [];
-  }
 }

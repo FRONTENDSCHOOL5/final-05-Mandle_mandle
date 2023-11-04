@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components';
 import { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 
 export const Toast = ({ toastMessage, setToastMessage }) => {
   const [isFadeOut, setIsFadeOut] = useState(false);
@@ -23,6 +23,7 @@ export const Toast = ({ toastMessage, setToastMessage }) => {
         clearTimeout(timer);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFadeOut]);
 
   return <ToastWrap fadeOut={isFadeOut}>{toastMessage}</ToastWrap>;

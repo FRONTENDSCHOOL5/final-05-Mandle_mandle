@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { throttle } from 'lodash';
+
 export default function useScroll(data, id) {
   // 1. 영역이 전체화면이 아닌 overflow-y:scroll이 적용되는 태그를 기준으로 하기 때문에
   // 해당 태그에 id를 지정한 후 document.querySelector로 불러와 사용한다.
@@ -10,21 +11,15 @@ export default function useScroll(data, id) {
 
   useEffect(() => {
     const scrollArea = document.querySelector(id);
-    console.log('작동중', scrollArea.scrollTop);
+
     const handleScroll = throttle(() => {
-      console.log('Throttled scroll event!');
       if (
         scrollArea.scrollTop + scrollArea.clientHeight + 1 >=
         scrollArea.scrollHeight
       ) {
-        console.log(
-          scrollArea.scrollTop,
-          scrollArea.clientHeight,
-          scrollArea.scrollHeight
-        );
         setIsBottom(
           scrollArea.scrollTop + scrollArea.clientHeight + 1 >=
-            scrollArea.scrollHeight
+            scrollArea.scrollHeight,
         );
       }
     }, 2000); // 여기서 200은 200ms 간격으로 함수가 호출되게 설정합니다. 원하는 값으로 조절 가능합니다.

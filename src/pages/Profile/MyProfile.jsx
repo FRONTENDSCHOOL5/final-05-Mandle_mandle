@@ -5,15 +5,18 @@ import { useRecoilState } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import Modal from '../../components/Common/Modal/Modal';
 import { MoreNav } from '../../components/Common/TopNav';
-import PostList from '../../components/Common/PostList/PostList';
-import MiniClassList from '../../components/Common/MiniClassList';
+import PostItem from '../../components/PostDetail/PostItem/PostItem';
+import MiniClassList from '../../components/Profile/MiniClassList';
 import NormalizeImage from '../../components/Common/NormalizeImage';
 import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
+import MenuBar from '../../components/Common/MenuBar';
 import HomeLogo from '../../assets/img/home-logo.svg';
 import ImageMore from '../../assets/img/icon-img-more.svg';
-import MenuBar from '../../components/Common/MenuBar';
-import Loading from '../Loading/Loading';
+import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
+import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
+import PostAlbumBtnOn from '../../assets/img/icon-post-album-on.svg';
+import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
 import {
   MainWrap,
   WrapBtn,
@@ -26,11 +29,6 @@ import {
   Title,
   PostListUl,
 } from './ProfileStyle';
-import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
-import PostListBtnOff from '../../assets/img/icon-post-list-off.svg';
-import PostAlbumBtnOn from '../../assets/img/icon-post-album-on.svg';
-import PostAlbumBtnOff from '../../assets/img/icon-post-album-off.svg';
-import { useRecoilValue } from 'recoil';
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -329,7 +327,7 @@ export default function Profile() {
                   <div className={postData.post.length > 0 ? '' : 'posts-none'}>
                     {postData.post.length > 0 ? (
                       postData.post.map((post) => (
-                        <PostList
+                        <PostItem
                           key={post.id}
                           setPostUpdated={setPostUpdated}
                           post={post}

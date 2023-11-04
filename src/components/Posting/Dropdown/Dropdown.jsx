@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import DropdownItem from './DropItem';
 import { ImageBox } from './DropItem';
+
 import { TeacherDropItem } from './DropItem';
 const DropdownContainer = styled.div`
   width: 358px;
@@ -22,13 +23,14 @@ const DropdownButton = styled.button`
   align-items: center;
 `;
 
-const DropdownMenu = styled.ul`
+const DropdownList = styled.ul`
   position: absolute;
   top: 100%;
   display: flex;
   flex-direction: column;
   width: 100%;
   background-color: white;
+
   z-index: 1000;
 `;
 
@@ -103,4 +105,4 @@ export function TeacherDropdown(props) {
   );
 }
 
-export { DropdownContainer, DropdownButton, DropdownMenu, ImageBox };
+export { DropdownContainer, DropdownButton, DropdownList, ImageBox };

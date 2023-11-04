@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import IntroImg from '../../assets/img/full-logo(intro).svg';
+
 import LogoImg from '../../assets/img/logo-white.svg';
 import EmailIcon from '../../assets/img/icon-email.svg';
-import GoogleIcon from '../../assets/img/google-logo.svg';
 import KaKaoIcon from '../../assets/img/kakao-logo.svg';
+import GoogleIcon from '../../assets/img/google-logo.svg';
+import IntroImg from '../../assets/img/full-logo(intro).svg';
 import FaceBookIcon from '../../assets/img/facebook-logo.svg';
-import { Link } from 'react-router-dom';
-export default function Intro() {
+
+const preloadImage = (src) => {
+  const img = new Image();
+  img.src = src;
+};
+
+function Intro() {
+  useEffect(() => {
+    preloadImage(IntroImg);
+    preloadImage(LogoImg);
+    preloadImage(EmailIcon);
+    preloadImage(GoogleIcon);
+    preloadImage(KaKaoIcon);
+    preloadImage(FaceBookIcon);
+  }, []);
+
   return (
     <IntroWrap>
       <Header>
@@ -16,7 +32,7 @@ export default function Intro() {
           <img src={LogoImg} alt='만들만들 폰트 로고' />
         </h1>
       </Header>
-      <LoginChooseList>
+      <SelectLoginBox>
         <ul>
           <li>
             <LoginLink
@@ -60,10 +76,12 @@ export default function Intro() {
         <SignUpLink to='/account/signup' alt='회원가입 버튼'>
           회원가입
         </SignUpLink>
-      </LoginChooseList>
+      </SelectLoginBox>
     </IntroWrap>
   );
 }
+
+export default React.memo(Intro);
 
 const IntroWrap = styled.div`
   position: relative;
@@ -108,7 +126,7 @@ const Header = styled.header`
   }
 `;
 
-const LoginChooseList = styled.div`
+const SelectLoginBox = styled.div`
   padding: 58px 0 45px;
   display: flex;
   flex-direction: column;

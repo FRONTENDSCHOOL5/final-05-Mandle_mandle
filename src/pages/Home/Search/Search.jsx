@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+
 import { useRecoilState } from 'recoil';
-import UserList from '../../../components/Common/UserList';
-import GetSearchUser from '../../../api/GetSearchUser';
 import { UserAtom } from '../../../Store/userInfoAtoms';
+
+import GetSearchUser from '../../../api/GetSearchUser';
 import MenuBar from '../../../components/Common/MenuBar';
+import UserList from '../../../components/Common/UserList';
 import { SearchNav } from '../../../components/Common/TopNav';
-import { MainWrap } from './SearchStyle';
+
+import { MainStyle } from './SearchStyle';
 
 export default function Search() {
   const [userValue] = useRecoilState(UserAtom); // UserAtom값 불러오기
@@ -39,7 +42,7 @@ export default function Search() {
   return (
     <>
       <SearchNav token={token} onChange={handleKeywordChange}></SearchNav>
-      <MainWrap>
+      <MainStyle>
         <ul>
           {userData
             ? userData.map((user, index) => (
@@ -47,7 +50,7 @@ export default function Search() {
               ))
             : ''}
         </ul>
-      </MainWrap>
+      </MainStyle>
       <MenuBar />
     </>
   );

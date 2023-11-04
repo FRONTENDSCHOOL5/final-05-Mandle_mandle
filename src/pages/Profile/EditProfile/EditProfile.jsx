@@ -1,25 +1,24 @@
 import { React, useState } from 'react';
-import styled from 'styled-components';
-import ArrowImg from '../../../assets/img/icon-arrow-left.svg';
-import UploadProfile from '../../../components/Common/UploadProfile';
+import { useRecoilState } from 'recoil';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { UserAtom } from '../../../Store/userInfoAtoms';
 import PostIdValid from '../../../api/PostIdValid';
 import PutProfileUpdate from '../../../api/PutProfileUpdate';
-import { UserAtom } from '../../../Store/userInfoAtoms';
-import { useRecoilState } from 'recoil';
+import UploadProfile from '../../../components/Account/UploadProfile';
 import GoBackButton from '../../../components/Common/GoBackButton';
-import Input from '../../../components/Common/Account/Input';
+import Input from '../../../components/Account/Input';
 import {
-  SignupHeader,
-  Heading1,
-  SignupDiv,
+  EditProfileWrap,
+  EditProfileHeader,
+  EditProfileDiv,
+  EditProfileButton,
   ColorSet,
 } from './EditProfileStyle';
 import {
   AccountForm,
   Description,
   ErrorMessage,
-} from '../../../components/Common/Account/AccountStyle';
+} from '../../../components/Account/AccountStyle';
 
 const EditProfile = () => {
   //기존 가입한 유저 정보 가져오기
@@ -52,7 +51,6 @@ const EditProfile = () => {
   const [image, setImage] = useState(data.image);
 
   //유저 아이디 유효성검사
-
   const [accountValid, setAccountValid] = useState(true);
   const [accountAlertMsg, setAccountAlertMsg] = useState('');
   //유저 이름 유효성검사
@@ -79,7 +77,7 @@ const EditProfile = () => {
     handleActiveButton();
     // 두 입력란에 값이 모두 존재할 경우 버튼 활성화 함수 실행
   };
-  console.log(intro, colorMatch, introText);
+
   //유저 이름 유효성 검사
   const handleUsernameValid = () => {
     if (username.length >= 2 && username.length <= 10) {
@@ -89,7 +87,6 @@ const EditProfile = () => {
       setUsernameAlertMsg('유저 이름은 2자 이상~10자 이내여야 합니다.');
       setUsernameValid(false);
     }
-    // setUsername(value);
   };
 
   //아이디 유효성 검사
@@ -120,7 +117,7 @@ const EditProfile = () => {
   const handleColorChange = (event) => {
     setBackgroundColor(event.target.value);
   };
-  // console.log(colorMatch[0]);
+
   const handleSetProfileSubmit = async () => {
     const updatedUserValue = {
       ...userInfo,
@@ -148,13 +145,13 @@ const EditProfile = () => {
   };
 
   return (
-    <SignupDiv>
-      <SignupHeader>
+    <EditProfileWrap>
+      <EditProfileHeader>
         <GoBackButton />
-        <Heading1>프로필 수정</Heading1>
-      </SignupHeader>
+        <h1>프로필 수정</h1>
+      </EditProfileHeader>
       <Description>변경사항 입력 후 저장 버튼을 눌러주세요.</Description>
-      <div className='App' style={{ backgroundColor }}>
+      <EditProfileDiv className='App' style={{ backgroundColor }}>
         <ColorSet>
           <UploadProfile
             onResponse={handleProfileImageResponse}
@@ -168,7 +165,7 @@ const EditProfile = () => {
             />
           </div>
         </ColorSet>
-      </div>
+      </EditProfileDiv>
       <AccountForm first>
         <Input
           label='사용자 이름'
@@ -200,34 +197,17 @@ const EditProfile = () => {
           onChange={handleInputChange}
           borderColor='#dbdbdb'
         />
-        <Button
+        <EditProfileButton
           id='submitBtn'
           className={button ? 'active' : ''}
           type='submit'
           onClick={handleCheckValid}
         >
           저장
-        </Button>
+        </EditProfileButton>
       </AccountForm>
-    </SignupDiv>
+    </EditProfileWrap>
   );
 };
 
 export default EditProfile;
-
-const Button = styled.button`
-  &#submitBtn {
-    display: block;
-    width: 100%;
-    height: 32px;
-    background-color: var(--sub-color);
-    color: rgb(255 255 255);
-    border-radius: 32px;
-    text-align: center;
-    margin-top: 20px;
-  }
-
-  &#submitBtn.active {
-    background-color: var(--main-color);
-  }
-`;

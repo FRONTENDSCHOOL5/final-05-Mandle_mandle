@@ -17,14 +17,6 @@ export default function UserInfoInput(button, disabledButton, type) {
     const isFormConfirmed =
       password && confirmedPassword && password === confirmedPassword;
 
-    console.log(
-      isFormFilled,
-      isFormValid,
-      isFormConfirmed,
-      emailErrorMessage,
-      pwErrorMessage,
-    );
-
     setButtonImg(
       type === 'signup'
         ? isFormFilled && isFormValid && isFormConfirmed

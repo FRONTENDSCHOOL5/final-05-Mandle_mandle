@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { Skeleton } from './Skeleton';
 import PostSkeleton from './PostSkeleton';
-import ClassSideSkeleton from './ClassSideSkeleton';
-import ChatBtn from '../../../assets/img/icon-chat-mini.svg';
+
 import ShareBtn from '../../../assets/img/icon-share.svg';
+import ChatBtn from '../../../assets/img/icon-chat-mini.svg';
 import PostListBtnOn from '../../../assets/img/icon-post-list-on.svg';
 import PostAlbumBtnOff from '../../../assets/img/icon-post-album-off.svg';
 
 export default function ProfileSkeleton({ status, type }) {
-  console.log(status, type);
   return (
     <ProfileSkeletonWrap>
       <SkeletonProfileSection>
@@ -17,7 +17,7 @@ export default function ProfileSkeleton({ status, type }) {
         <SkeletonProfileName></SkeletonProfileName>
         <SkeletonProfileID></SkeletonProfileID>
         <SkeletonProfileDesc></SkeletonProfileDesc>
-        <SkeletonProfileBtnWrap>
+        <SkeletonProfileBtnBox>
           {status === 'other' && (
             <>
               <SkeletonCircleBtn>
@@ -35,15 +35,8 @@ export default function ProfileSkeleton({ status, type }) {
               <SkeletonProfileBtn></SkeletonProfileBtn>
             </>
           )}
-        </SkeletonProfileBtnWrap>
+        </SkeletonProfileBtnBox>
       </SkeletonProfileSection>
-      <ClassSideSkeletonWrap>
-        {
-          <ClassSideSkeleton scrollBgColor='#fff'>
-            클래스 리스트
-          </ClassSideSkeleton>
-        }
-      </ClassSideSkeletonWrap>
       <SkeletonPostSection>
         <SkeletonPostBtnWrap>
           <img src={PostListBtnOn} alt='목록으로 보기 버튼' />
@@ -94,7 +87,7 @@ const SkeletonProfileDesc = styled(Skeleton)`
   width: 200px;
   height: 14px;
 `;
-const SkeletonProfileBtnWrap = styled.div`
+const SkeletonProfileBtnBox = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 24px;
@@ -109,11 +102,9 @@ const SkeletonProfileBtn = styled(Skeleton)`
 const SkeletonPostSection = styled.div`
   width: 100%;
   background-color: #fff;
-  display: flex;
-  flex-direction: column;
+
   align-items: center;
   margin-bottom: 5px;
-  padding: 16px;
 `;
 
 const SkeletonPostBtnWrap = styled.div`
@@ -130,12 +121,7 @@ const SkeletonPostBtnWrap = styled.div`
   }
 `;
 const SkeletonPostWrap = styled.div`
-  padding: 0 11px;
-`;
-
-const ClassSideSkeletonWrap = styled.div`
-  padding: 10px;
-  background-color: #fff;
+  padding: 16px;
 `;
 
 const SkeletonCircleBtn = styled.div`

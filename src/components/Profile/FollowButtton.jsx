@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import PostFollow from '../../api/PostFollow';
 import DeleteFollow from '../../api/DeleteFollow';
+
 export default function FollowButtton({
   onClick,
   isfollow,

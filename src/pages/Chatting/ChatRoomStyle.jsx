@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ChattingLayout = styled.main`
+export const ChattingWrap = styled.main`
   height: calc(100% - 40px);
   box-sizing: border-box;
   padding: 48px 0 73px;
@@ -12,13 +12,13 @@ const ChattingLayout = styled.main`
   padding-right: 16px;
 `;
 
-const ChatContentLayout = styled.section`
+export const ChatContentBox = styled.section`
   display: flex;
   margin-bottom: 10px;
   background-color: #f2f2f2;
   margin-left: ${(props) => props.marginLeft};
 `;
-const UserImage = styled.img`
+export const UserImage = styled.img`
   width: 42px;
   height: 42px;
   margin-right: 12px;
@@ -26,7 +26,7 @@ const UserImage = styled.img`
   object-fit: cover;
 `;
 
-const ChatContent = styled.p`
+export const ChatContent = styled.p`
   max-width: 240px;
   border: 1px solid var(--border-color);
   padding: 12px;
@@ -40,14 +40,14 @@ const ChatContent = styled.p`
   word-break: break-word;
 `;
 
-const ChatTime = styled.span`
+export const ChatTime = styled.span`
   font-size: 10px;
   color: var(--dark-gray);
   margin-top: auto;
   padding-left: 6px;
 `;
 
-const ChatInputBox = styled.div`
+export const ChatInputBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,7 +67,7 @@ const ChatInputBox = styled.div`
   border-top: 0.5px solid var(--border-color);
 `;
 
-const ChatInput = styled.input`
+export const ChatInput = styled.input`
   border: none;
   padding-left: 6px;
   font-size: 14px;
@@ -77,20 +77,9 @@ const ChatInput = styled.input`
   }
 `;
 
-const SendButton = styled.button`
+export const SendButton = styled.button`
   width: 33px;
   height: 33px;
   color: ${(props) =>
     props.inputValue ? 'var(--main-color)' : 'var(--border-color)'};
 `;
-
-export {
-  ChattingLayout,
-  ChatContentLayout,
-  UserImage,
-  ChatContent,
-  ChatTime,
-  ChatInputBox,
-  ChatInput,
-  SendButton,
-};

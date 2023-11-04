@@ -1,9 +1,12 @@
 import { React, useState, useEffect } from 'react';
+
 import { useRecoilValue } from 'recoil';
-import GetClassData from '../../../api/GetClassData';
-import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-import { ClassPostMini } from '../../../components/Common/ClassPost';
+
+import GetClassData from '../../../api/GetClassData';
+import { ClassPostMini } from '../../../components/Class/ClassPost';
+import GetClassDetailInfoData from '../../../api/GetClassDetailInfoData';
+
 import ExplainImg from '../../../assets/img/temp/soapT5.png';
 import location from '../../../assets/img/temp/location.png';
 import UserIcon from '../../../assets/img/basic-profile-img.svg';

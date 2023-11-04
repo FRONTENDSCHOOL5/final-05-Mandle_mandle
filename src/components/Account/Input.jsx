@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import hideEye from '../../../assets/img/eye-hidden.svg';
-import showEye from '../../../assets/img/eye-visible.svg';
-import checkOff from '../../../assets/img/icon-check-off.svg';
-import checkOn from '../../../assets/img/icon-check-on.svg';
+import hideEye from '../../assets/img/eye-hidden.svg';
+import showEye from '../../assets/img/eye-visible.svg';
+import checkOff from '../../assets/img/icon-check-off.svg';
+import checkOn from '../../assets/img/icon-check-on.svg';
 export default function Input({
   label,
   name,
@@ -19,7 +19,7 @@ export default function Input({
   toggleShowPassword,
 }) {
   return (
-    <InputDiv>
+    <InputWrap>
       <Label>{label}</Label>
       <InputBox
         name={name}
@@ -55,11 +55,11 @@ export default function Input({
           />
         </ConfirmIcon>
       )}
-    </InputDiv>
+    </InputWrap>
   );
 }
 
-export const InputDiv = styled.div`
+export const InputWrap = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
