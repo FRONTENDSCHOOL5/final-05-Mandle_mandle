@@ -31,7 +31,7 @@ export default function ClassReservation() {
               <div>
                 <strong>{classInfo.name}</strong>
                 <p>
-                  <span>{classInfo.price.toLocaleString()}</span>원
+                  <span>{classInfo.price?.toLocaleString()}</span>원
                 </p>
               </div>
             </div>

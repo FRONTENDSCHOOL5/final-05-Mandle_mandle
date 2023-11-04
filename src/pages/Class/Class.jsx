@@ -10,7 +10,6 @@ import MenuBar from '../../components/Common/MenuBar';
 import { HomeNav } from '../../components/Common/TopNav';
 import { ClassPost, ClassPostMini } from '../../components/Class/ClassPost';
 
-
 import {
   HiddenContext,
   MainWrap,
@@ -21,7 +20,6 @@ import {
   ClassList,
 } from './ClassStyle';
 import ClassSkeleton from '../../components/Common/Skeleton/ClassSkeleton';
-import { HiddenContext, MainWrap, MiniSection, ClassSection, Title, MiniList, ClassList } from './ClassStyle';
 
 export default function Class() {
   const UserInfo = useRecoilValue(UserAtom);
@@ -48,9 +46,7 @@ export default function Class() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
-        const filteredClasses  = await GetClassData(token, classData.page); 
-        
+        const filteredClasses = await GetClassData(token, classData.page);
 
         if (classData.page === 1) {
           setClassData({
@@ -95,54 +91,54 @@ export default function Class() {
         <HiddenContext>클래스 피드</HiddenContext>
       </HomeNav>
       <MainWrap ref={mainWrapRef}>
+        <Suspense fallback={ClassSkeleton}>
+          {loading ? (
+            <ClassSkeleton />
+          ) : (
+            <>
+              <MiniSection>
+                <Title>인기 클래스</Title>
+                <MiniList>
+                  {classData.popularClasses.map((classItem) => {
+                    const parts = classItem.link.split('@');
+                    const truncatedLink = parts[0] || '';
+                    return (
+                      <li key={classItem._id}>
+                        <Link to={`/class/detail/${classItem._id}`}>
+                          <ClassPostMini
+                            miniImg={classItem.itemImage}
+                            miniName={classItem.itemName}
+                            miniTag={truncatedLink}
+                          />
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </MiniList>
+              </MiniSection>
 
-        <Suspense fallback = {ClassSkeleton}>
-        {loading ? (<ClassSkeleton />) : (
-
-          <>
-            <MiniSection>
-              <Title>인기 클래스</Title>
-              <MiniList>
-                {classData.popularClasses.map((classItem) => {
-                  const parts = classItem.link.split('@');
-                  const truncatedLink = parts[0] || '';
-                  return (
-                    <li key={classItem._id}>
-                      <Link to={`/class/detail/${classItem._id}`}>
-                        <ClassPostMini
-                          miniImg={classItem.itemImage}
-                          miniName={classItem.itemName}
-                          miniTag={truncatedLink}
-                        />
-                      </Link>
-                    </li>
-                  );
-                })}
-              </MiniList>
-            </MiniSection>
-
-            <ClassSection>
-              <Title>새로운 클래스</Title>
-              <ClassList>
-                {classData.newClasses.map((classItem) => {
-                  const parts = classItem.link.split('@');
-                  const truncatedLink = parts[0] || '';
-                  return (
-                    <li key={classItem._id}>
-                      <Link to={`/class/detail/${classItem._id}`}>
-                        <ClassPost
-                          mainImg={classItem.itemImage}
-                          title={classItem.itemName}
-                          tag={truncatedLink}
-                        />
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ClassList>
-            </ClassSection>
-          </>
-        )}
+              <ClassSection>
+                <Title>새로운 클래스</Title>
+                <ClassList>
+                  {classData.newClasses.map((classItem) => {
+                    const parts = classItem.link.split('@');
+                    const truncatedLink = parts[0] || '';
+                    return (
+                      <li key={classItem._id}>
+                        <Link to={`/class/detail/${classItem._id}`}>
+                          <ClassPost
+                            mainImg={classItem.itemImage}
+                            title={classItem.itemName}
+                            tag={truncatedLink}
+                          />
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ClassList>
+              </ClassSection>
+            </>
+          )}
         </Suspense>
       </MainWrap>
       <MenuBar />
