@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '../../assets/img/icon-search.svg';
-import { ButtonStyle } from './Button';
 import GoBackButton from './GoBackButton';
 import GoBackProfileButton from './GoBackProfileButton';
 import MoreButton from './MoreButton';
@@ -65,47 +64,6 @@ export function GoBackProfileNav() {
   );
 }
 
-// 뒤로가기 + 업로드 버튼
-function UploadBtnNav() {
-  return (
-    <TopNavWrap>
-      <GoBackButton />
-      <ButtonStyle
-        type='button'
-        bg='var(--main-color)'
-        width='90px'
-        height='32px'
-        br='32px'
-        color='#ffffff'
-        fontsize='14px'
-        margin='0 16px 0 0'
-      >
-        업로드
-      </ButtonStyle>
-    </TopNavWrap>
-  );
-}
-
-function DisabledUploadBtnNav() {
-  return (
-    <TopNavWrap>
-      <GoBackButton />
-      <ButtonStyle
-        type='button'
-        bg='#b1d4c3'
-        width='90px'
-        height='32px'
-        br='32px'
-        color='#ffffff'
-        fontsize='14px'
-        margin='0 16px 0 0'
-      >
-        업로드
-      </ButtonStyle>
-    </TopNavWrap>
-  );
-}
-
 export const TopNavWrap = styled.header`
   display: flex;
   gap: 20px;
@@ -117,10 +75,14 @@ export const TopNavWrap = styled.header`
   justify-content: space-between;
   padding: 0 16px;
 
-  div {
+  & > div {
     display: flex;
     align-items: center;
     gap: 10px;
+  }
+
+  div + div {
+    display: flex;
   }
 
   input {

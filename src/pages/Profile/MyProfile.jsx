@@ -5,8 +5,8 @@ import { useRecoilState } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import Modal from '../../components/Common/Modal/Modal';
 import { MoreNav } from '../../components/Common/TopNav';
-import PostList from '../../components/Common/PostList/PostList';
-import MiniClassList from '../../components/Common/MiniClassList';
+import PostItem from '../../components/PostDetail/PostItem/PostItem';
+import MiniClassList from '../../components/Profile/MiniClassList';
 import NormalizeImage from '../../components/Common/NormalizeImage';
 import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
@@ -209,7 +209,7 @@ export default function Profile() {
                   : profileData.accountname}
               </p>
               <p id='Introduce' style={{ color: textColor }}>
-                {introText}
+                {introText?.split('#')[0]}
               </p>
               <WrapBtn>
                 {/* 프로필 수정버튼 */}
@@ -327,7 +327,7 @@ export default function Profile() {
                   <div className={postData.post.length > 0 ? '' : 'posts-none'}>
                     {postData.post.length > 0 ? (
                       postData.post.map((post) => (
-                        <PostList
+                        <PostItem
                           key={post.id}
                           setPostUpdated={setPostUpdated}
                           post={post}
@@ -387,4 +387,51 @@ export default function Profile() {
       <MenuBar />
     </ProfilePage>
   );
+}
+
+
+async function ProfileData(accountname, token) {
+  const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}`;
+  try {
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    return res.data.profile;
+  } catch (err) {
+    console.error(err);
+  }
+  return null;
+}
+export async function ClassData(accountname, token) {
+  const url = `https://api.mandarin.weniv.co.kr/product/${accountname}`;
+  try {
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+async function PostData(accountname, token) {
+  const url = `https://api.mandarin.weniv.co.kr/post/${accountname}/userpost`;
+  try {
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 }

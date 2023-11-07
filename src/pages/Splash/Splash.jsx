@@ -7,8 +7,20 @@ import LoadingImg from '../../assets/img/full-logo(loading).svg';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import { SplashWrap } from './SplashStyle';
+
+const preloadImage = (src) => {
+  const img = new Image();
+  img.src = src;
+};
+
 export default function Loading() {
   const userInfo = useRecoilValue(UserAtom);
+
+  useEffect(() => {
+    preloadImage(LogoImg);
+    preloadImage(LoadedImg);
+    preloadImage(LoadingImg);
+  }, []);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const navigate = useNavigate();

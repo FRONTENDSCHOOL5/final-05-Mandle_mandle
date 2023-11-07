@@ -8,8 +8,8 @@ export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
 
   return (
     <>
-      <AlertModalOverlay>
-        <AlertModalWrap>
+      <AlertModalWrap>
+        <AlertModalBox>
           <p>
             {type === 'edit'
               ? '저장하지 않은 변경 사항이 있습니다.'
@@ -20,7 +20,8 @@ export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
               : '삭제할까요?'}
           </p>
           {type === 'edit' && <p>정말로 나가시겠습니까?</p>}
-          <div>
+
+          <AlertModalBtnBox>
             <button type='button' onClick={handleCancel}>
               취소
             </button>
@@ -33,14 +34,14 @@ export default function ModalAlert({ setAlertModalOpen, onClick, type }) {
                 ? '신고하기'
                 : '삭제'}
             </button>
-          </div>
-        </AlertModalWrap>
-      </AlertModalOverlay>
+          </AlertModalBtnBox>
+        </AlertModalBox>
+      </AlertModalWrap>
     </>
   );
 }
 
-const AlertModalOverlay = styled.div`
+const AlertModalWrap = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -53,7 +54,7 @@ const AlertModalOverlay = styled.div`
   z-index: 9999; /* 모달의 z-index 값을 설정 */
 `;
 
-const AlertModalWrap = styled.div`
+const AlertModalBox = styled.div`
   width: 252px;
   padding: 24px 0 0;
   position: absolute;
@@ -64,6 +65,10 @@ const AlertModalWrap = styled.div`
   background-color: #fff;
   text-align: center;
   animation: zoomIn 0.5s ease;
+
+  p {
+    font-size: var(--font-lg);
+  }
 
   @keyframes zoomIn {
     0% {
@@ -76,35 +81,31 @@ const AlertModalWrap = styled.div`
       transform: translate(-50%, -50%) scale(1, 1);
     }
   }
+`;
 
-  p {
-    font-size: var(--font-lg);
+const AlertModalBtnBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  border-top: 1px solid var(--border-color);
+
+  button {
+    font-size: var(--font-md);
+    flex-grow: 1;
+    padding: 16px 0;
+    border-radius: 0 0 0px 10px;
+    display: flex;
+    justify-content: center;
   }
 
-  div {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 24px;
-    border-top: 1px solid var(--border-color);
+  button + button {
+    color: var(--main-color);
+    border-left: 1px solid var(--border-color);
+    border-radius: 0 0 10px 0px;
+  }
 
-    button {
-      font-size: var(--font-md);
-      flex-grow: 1;
-      padding: 16px 0;
-      border-radius: 0 0 0px 10px;
-      display: flex;
-      justify-content: center;
-    }
-
-    button + button {
-      color: var(--main-color);
-      border-left: 1px solid var(--border-color);
-      border-radius: 0 0 10px 0px;
-    }
-
-    button:hover {
-      color: #fff;
-      background-color: var(--main-color);
-    }
+  button:hover {
+    color: #fff;
+    background-color: var(--main-color);
   }
 `;

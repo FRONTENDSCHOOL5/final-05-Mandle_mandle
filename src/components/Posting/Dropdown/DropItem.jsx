@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import DropdownDate from './DropdownDate';
+import DropdownTag from './DropdownTag';
 const DropdownItem = styled.li`
   cursor: pointer;
-  border-bottom: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  border-top: none;
   display: flex;
   align-items: center;
   &:hover {
@@ -11,7 +14,7 @@ const DropdownItem = styled.li`
   }
 `;
 
-export const DropdonwTextContainer = styled.div`
+export const DropdonwTextBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -38,6 +41,8 @@ export default function DropItem(props) {
     img,
     setIsOpen,
     isOpen,
+    id,
+    setSelectId,
   } = props;
   const handleItemClick = () => {
     setClassIdentify(value);
@@ -45,17 +50,60 @@ export default function DropItem(props) {
     setSelectDate(date);
     setSelectTime(time);
     setIsOpen(!isOpen);
+    setSelectId(id);
   };
 
   return (
     <>
       <DropdownItem onClick={handleItemClick}>
         <ImageBox src={img} />
-        <DropdonwTextContainer>
+        <DropdonwTextBox>
           {value}
           <DropdownDate date={date} time={time} />
-        </DropdonwTextContainer>
+        </DropdonwTextBox>
       </DropdownItem>
     </>
   );
 }
+
+export function TeacherDropItem(props) {
+  const {
+    value,
+    setClassIdentify,
+    img,
+    classTag,
+    setClassTag,
+    setClassImg,
+    setIsOpen,
+    isOpen,
+    id,
+    setSelectId,
+    price,
+    setPrice,
+  } = props;
+  const handleItemClick = () => {
+    setClassIdentify(value);
+    setClassTag(classTag);
+    setClassImg(img);
+    setIsOpen(!isOpen);
+    setSelectId(id);
+    setPrice(price);
+  };
+
+  return (
+    <>
+      <DropdownItem onClick={handleItemClick}>
+        <ImageBox src={img} />
+        <DropdonwTextBox>
+          {value}
+          <DropdownTag classTag={classTag} price={price} />
+        </DropdonwTextBox>
+      </DropdownItem>
+    </>
+  );
+}
+
+export const DropdownP = styled.p`
+  font-size: 12px;
+  color: var(--sub-font-color);
+`;

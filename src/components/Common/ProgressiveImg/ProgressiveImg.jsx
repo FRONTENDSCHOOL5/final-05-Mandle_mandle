@@ -17,16 +17,17 @@ export default function ProgressiveImg({
       const img = new Image();
       img.src = src;
       img.onload = () => {
-        console.log('이미지 로드 완료 :', src);
+        //이미지 로드 완료
         setImgSrc(src);
         setIsLazy(false);
       };
       img.onerror = () => {
-        console.log('이미지 로드 실패:', src);
+        //이미지 로드 실패
         setImgSrc(NoImg);
         setIsLazy(false);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [src, inView]);
 
   return (

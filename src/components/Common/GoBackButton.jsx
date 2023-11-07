@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
 
 export default function GoBackButton() {

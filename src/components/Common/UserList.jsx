@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
-import FollowButtton from './FollowButtton';
+
+import FollowButtton from '../Profile/FollowButtton';
 import NormalizeImage from './NormalizeImage';
+
 import TeacherIcon from '../../assets/img/icon-teacher.svg';
 
 export default function SearchList({ user, type, keyword }) {
@@ -33,16 +36,14 @@ export default function SearchList({ user, type, keyword }) {
         </div>
         <ProfileInfo>
           <div>
-            <div>
-              <p>
-                {parts.map((part, i) =>
-                  part === keyword ? <span key={i}>{part}</span> : part,
-                )}
-              </p>
-              {user.accountname.substr(0, 7) === 'Teacher' && (
-                <img src={TeacherIcon} alt='강사 아이콘' />
+            <p>
+              {parts.map((part, i) =>
+                part === keyword ? <span key={i}>{part}</span> : part,
               )}
-            </div>
+            </p>
+            {user.accountname.substr(0, 7) === 'Teacher' && (
+              <img src={TeacherIcon} alt='강사 아이콘' />
+            )}
           </div>
           <p>{type ? user.intro : validAccountname}</p>
         </ProfileInfo>
@@ -86,8 +87,13 @@ export const ProfileInfo = styled.div`
   gap: 6px;
   div {
     display: flex;
-    justify-content: space-between;
-    div {
+    align-items: center;
+    gap: 4px;
+    img {
+      width: 12px;
+      height: 12px;
+    }
+    /* div {
       display: flex;
       gap: 3px;
       align-items: c;
@@ -95,11 +101,8 @@ export const ProfileInfo = styled.div`
         font-weight: 700;
         color: var(--main-color);
       }
-      img {
-        width: 12px;
-        height: 12px;
-      }
-    }
+
+    } */
   }
 
   img {

@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { HomeNav } from '../../components/Common/TopNav';
 import { useNavigate } from 'react-router-dom'; // Assuming you're using React Router
 
+import { useRecoilValue } from 'recoil';
 import { AutoLogin, UserAtom } from '../../Store/userInfoAtoms';
+
 import useScroll from '../../Hooks/useScroll';
+
 import PostBlank from './PostBlank/PostBlank';
 import GetFollowPost from '../../api/GetFollowPost';
 import MenuBar from '../../components/Common/MenuBar';
-import PostList from '../../components/Common/PostList/PostList';
-import { HomeWrap, MainWrap, PostUlStyle } from './HomeStyle';
+import { HomeNav } from '../../components/Common/TopNav';
+import PostItem from '../../components/PostDetail/PostItem/PostItem';
 import PostSkeleton from '../../components/Common/Skeleton/PostSkeleton';
+
+import { HomeWrap, MainStyle, PostList } from './HomeStyle';
+
 export default function Home({ to }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
   const autoLogin = useRecoilValue(AutoLogin);
@@ -85,7 +89,7 @@ export default function Home({ to }) {
   return (
     <HomeWrap>
       <HomeNav title='홈' to='/home/search'></HomeNav>
-      <MainWrap id='scroll-area'>
+      <MainStyle id='scroll-area'>
         {loading ? (
           <div>
             <PostSkeleton />
@@ -97,14 +101,14 @@ export default function Home({ to }) {
           (postList.length === 0 ? (
             <PostBlank text='유저를 검색해 팔로우 해보세요!' />
           ) : (
-            <PostUlStyle>
+            <PostList>
               {postList.map((post) => (
-                <PostList key={post.id} post={post} />
+                <PostItem key={post.id} post={post} />
               ))}
-            </PostUlStyle>
+            </PostList>
           ))
         )}
-      </MainWrap>
+      </MainStyle>
       <MenuBar />
     </HomeWrap>
   );

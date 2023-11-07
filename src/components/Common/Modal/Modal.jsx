@@ -1,5 +1,6 @@
 import React from 'react';
-import { ModalOverlay, ModalWrap } from './ModalStyle';
+
+import { ModalBox, ModalWrap } from './ModalStyle';
 
 export default function Modal({
   onClick,
@@ -19,8 +20,8 @@ export default function Modal({
   };
 
   return (
-    <ModalOverlay onClick={handleOverlayClick}>
-      <ModalWrap>
+    <ModalWrap onClick={handleOverlayClick}>
+      <ModalBox>
         <div></div>
         <ul>
           <li>
@@ -38,7 +39,7 @@ export default function Modal({
             </li>
           )}
         </ul>
-      </ModalWrap>
-    </ModalOverlay>
+      </ModalBox>
+    </ModalWrap>
   );
 }

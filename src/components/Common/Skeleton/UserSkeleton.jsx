@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { Skeleton } from './Skeleton';
+
 import MoreIcon from '../../../assets/img/icon-more-vertical.svg';
+
 export default function UserSkeleton() {
   return (
-    <SkeletonUserWrapper>
+    <SkeletonUserWrap>
       <SkeletonUserInfo>
         <SkeletonUserImage></SkeletonUserImage>
         <SkeletonUserDetails>
@@ -13,11 +16,11 @@ export default function UserSkeleton() {
         </SkeletonUserDetails>
       </SkeletonUserInfo>
       <SkeletonMoreButton src={MoreIcon} />
-    </SkeletonUserWrapper>
+    </SkeletonUserWrap>
   );
 }
 
-const SkeletonUserWrapper = styled.div`
+const SkeletonUserWrap = styled.div`
   width: 100%;
   height: 42px;
   display: flex;
@@ -44,11 +47,11 @@ const SkeletonUserDetails = styled.div`
 `;
 
 const SkeletonUserName = styled(Skeleton)`
-  width: 100px;
+  width: 90px;
   height: 14px;
 `;
 const SkeletonUserID = styled(Skeleton)`
-  width: 80px;
+  width: 70px;
   height: 12px;
 `;
 

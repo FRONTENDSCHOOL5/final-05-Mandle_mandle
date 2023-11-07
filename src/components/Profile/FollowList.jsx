@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../Store/userInfoAtoms';
 import FollowButtton from './FollowButtton';
-import NormalizeImage from './NormalizeImage';
+import NormalizeImage from '../Common/NormalizeImage';
 import TeacherIcon from '../../assets/img/icon-teacher.svg';
 
 export default function SearchList({ user, type, keyword }) {
@@ -44,7 +44,7 @@ export default function SearchList({ user, type, keyword }) {
               )}
             </div>
           </div>
-          <p>{type ? user.intro : validAccountname}</p>
+          <p>{type ? user.intro?.split('#')[0] : validAccountname}</p>
         </ProfileInfo>
       </ProfileWrap>
       {type && (

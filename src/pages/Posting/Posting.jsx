@@ -1,58 +1,63 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Dropdown from '../../components/Common/Dropdown/Dropdown';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { UserAtom } from '../../Store/userInfoAtoms';
+import useTextareaResize from '../../Hooks/useTextareaResizeHook';
 import useDetectClose from '../../Hooks/useDetectClose';
+import imageCompression from 'browser-image-compression';
+import { ClassData } from '../Profile/MyProfile';
+import { PostImagesUpload } from '../../api/PostImagesUpload';
+import PostUploadPost from '../../api/PostUploadPost';
+import { GetUserProfileImage } from '../../api/GetUserProfileImage';
+import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
+import { Toast } from '../../components/Common/Toast/Toast';
+import whiteImg from '../../assets/img/whiteImg.webp';
+import Dropdown from '../../components/Posting/Dropdown/Dropdown';
+import DropdownDate from '../../components/Posting/Dropdown/DropdownDate';
+import DropdownTag from '../../components/Posting/Dropdown/DropdownTag';
+import { DropdonwTextBox } from '../../components/Posting/Dropdown/DropItem';
 import {
   DropdownContainer,
   DropdownButton,
-  DropdownMenu,
+  DropdownList,
+  TeacherDropdown,
   ImageBox,
-} from '../../components/Common/Dropdown/Dropdown';
-import DropdownDate from '../../components/Common/Dropdown/DropdownDate';
-import { DropdonwTextContainer } from '../../components/Common/Dropdown/DropItem';
+} from '../../components/Posting/Dropdown/Dropdown';
 import {
   DisabledUploadBtnNav,
   ProfileContainer,
   ProfileImage,
   FileUploadButton,
-  ImgWrapStyle,
-  PreviewImgWrapStyle,
+  ImgList,
+  PreviewImgItem,
   DeleteImgBtn,
   PostFormStyle,
   ImagePreview,
-  TextInputContainer,
+  TextInputBox,
 } from './PostingStyle';
-import whiteImg from '../../assets/img/whiteImg.webp';
-
-import { useRecoilValue } from 'recoil';
-import { UserAtom } from '../../Store/userInfoAtoms';
-import { PostImagesUpload } from '../../api/PostImagesUpload';
-import { useNavigate } from 'react-router-dom';
-import PostUploadPost from '../../api/PostUploadPost';
-import { GetUserProfileImage } from '../../api/GetUserProfileImage';
-import imageCompression from 'browser-image-compression';
-import useTextareaResize from '../../Hooks/useTextareaResizeHook';
-import GetClassDetailInfoData from '../../api/GetClassDetailInfoData';
-
 export default function Posting() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [buttonStyle, setButtonStyle] = useState(false);
   const [userImage, setUserImage] = useState('');
-
+  const [classTag, setClassTag] = useState('');
+  const [TeacherData, setTeacherData] = useState(null);
   const userInfo = useRecoilValue(UserAtom);
+  const userAccountname = userInfo.accountname;
   const resInfo = JSON.parse(localStorage.getItem('resInfo'));
   const resData = resInfo && resInfo[userInfo.id] ? resInfo[userInfo.id] : [];
-
   const dropDownRef = useRef();
   const [classIdentify, setClassIdentify] = useState('클래스 선택하기'); //  선택한 클래스 정보 상태를 담을 status
   const [selectDate, setSelectDate] = useState('');
   const [selectTime, setSelectTime] = useState('');
+  const [selectId, setSelectId] = useState('');
   const [classList, setClassList] = useState([]); // 수강후기를 작성할 클래스 리스트
   const [classImg, setClassImg] = useState(whiteImg);
   const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
+  const [classPrice, setClassPrice] = useState('');
+  const [toastMessage, setToastMessage] = useState('');
   const navigate = useNavigate();
   const token = userInfo.token;
-
   const classId = resData.map((reservation) => reservation.class_id);
   const classDate = resData.map((reservation) => reservation.reserve_ko_date);
   const classTime = resData.map((reservation) => reservation.reserve_time);
@@ -83,7 +88,7 @@ export default function Posting() {
   }
 
   const reserveDate = resData.map((reservation) =>
-    parseReserveDate(reservation.reserve_common_date)
+    parseReserveDate(reservation.reserve_common_date),
   );
 
   useEffect(() => {
@@ -92,40 +97,46 @@ export default function Posting() {
         const allData = await Promise.all(
           classId.map(async (id, index) => {
             const data = await GetClassDetailInfoData(id, token);
-            return {
+            const classInfo = {
               itemName: data.itemName,
               itemImage: data.itemImage,
               date: classDate[index],
               time: classTime[index],
+              classId: id,
             };
-          })
+            return classInfo;
+          }),
         );
 
         // currentDate와 reserveDate를 각각의 인덱스로 비교하여 조건을 추가
         const filteredData = allData.filter(
-          //현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
-          (data, index) => currentDate > reserveDate[index]
+          // 현재 날짜와 비교해서 수강 완료한 클래스만 클래스 리스트에 담기
+          (data, index) => currentDate > reserveDate[index],
         );
         setClassList(filteredData);
       } catch (error) {
         console.log('Error', error);
       }
+
+      const TClassData = await ClassData(userAccountname, token);
+      setTeacherData(TClassData);
     };
+
     fetchData();
   }, []);
 
   useEffect(() => {
-    // 예약 데이터에서 class_id 값을 확인
     const hasClassId = resData.some(
-      (reservation) => reservation.class_id != null
+      (reservation) => reservation.class_id != null,
     );
-
-    // 만약 class_id 값이 없으면 '/class'로 이동
-    if (!hasClassId) {
-      alert('먼저 클래스를 수강한 후 후기를 작성해주세요!');
-      navigate('/class');
+    if (userAccountname.includes('Teacher')) {
+    } else {
+      if (!hasClassId) {
+        alert('먼저 클래스를 수강한 후 후기를 작성해주세요!');
+        navigate('/class');
+      }
     }
-  }, [resData, navigate]);
+  }, []);
 
   useEffect(() => {
     GetUserProfileImage(token, setUserImage);
@@ -133,7 +144,7 @@ export default function Posting() {
 
   const { textarea, handleTextareaChange } = useTextareaResize(
     inputValue,
-    setInputValue
+    setInputValue,
   );
 
   useEffect(() => {
@@ -148,18 +159,18 @@ export default function Posting() {
     const files = event.target.files;
     let imagesArray = [...selectedImages];
     if (imagesArray.length + files.length > 3) {
-      alert('이미지는 최대 3개까지 업로드가 가능합니다.');
+      setToastMessage('이미지는 최대 3개까지 업로드가 가능합니다.');
       return;
     }
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
 
       if (file.size > 1024 * 1024 * 10) {
-        alert('10MB 이상의 이미지는 업로드 할 수 없습니다.');
+        setToastMessage('10MB 이상의 이미지는 업로드 할 수 없습니다.');
         return;
       }
       if (!file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
-        alert('이미지 파일만 업로드가 가능합니다.');
+        setToastMessage('이미지 파일만 업로드가 가능합니다.');
         return;
       }
 
@@ -186,8 +197,19 @@ export default function Posting() {
   const handleUploadPost = async () => {
     const images = await PostImagesUpload(selectedImages);
 
-    const response = await PostUploadPost(token, inputValue, images);
+    const classData = {
+      inputValue,
+      classImg,
+      classIdentify,
+      ...(selectDate && selectTime
+        ? { selectDate, selectTime }
+        : { classTag, classPrice }),
+      selectId,
+    };
 
+    const classReview = JSON.stringify(classData);
+
+    const response = await PostUploadPost(token, classReview, images);
     if (response) {
       setInputValue('');
       setSelectedImages([]);
@@ -203,6 +225,14 @@ export default function Posting() {
     setSelectedImages(updatedImages);
   };
 
+  function removeAfterAt(string) {
+    if (string.includes('@')) {
+      return string.split('@')[0];
+    } else {
+      return string;
+    }
+  }
+
   return (
     <div>
       <DisabledUploadBtnNav
@@ -212,47 +242,88 @@ export default function Posting() {
       <ProfileContainer>
         <ProfileImage src={userImage} alt='유저 프로필 이미지' />
       </ProfileContainer>
-
-      <DropdownContainer ref={dropDownRef}>
-        <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
-          <ImageBox src={classImg} />
-          <DropdonwTextContainer>
-            {classIdentify}
-            {selectDate && selectTime ? (
-              <DropdownDate date={selectDate} time={selectTime} />
-            ) : null}
-          </DropdonwTextContainer>
-        </DropdownButton>
-        {isOpen && (
-          <DropdownMenu>
-            {classList.map((item, index) => (
-              <Dropdown
-                key={index}
-                value={item.itemName}
-                date={item.date}
-                time={item.time}
-                img={item.itemImage}
-                setIsOpen={setIsOpen}
-                setClassIdentify={setClassIdentify}
-                isOpen={isOpen}
-                setClassImg={setClassImg}
-                setSelectDate={setSelectDate}
-                setSelectTime={setSelectTime}
-              />
-            ))}
-          </DropdownMenu>
-        )}
-      </DropdownContainer>
+      {userAccountname.includes('Teacher') ? (
+        //  (강사용 드롭다운)
+        <DropdownContainer ref={dropDownRef}>
+          <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
+            <ImageBox src={classImg} />
+            <DropdonwTextBox>
+              {classIdentify}
+              {classTag && classPrice ? (
+                <DropdownTag classTag={classTag} price={classPrice} />
+              ) : null}
+            </DropdonwTextBox>
+          </DropdownButton>
+          {isOpen && (
+            <DropdownList>
+              {TeacherData.product &&
+                TeacherData.product.map((item, index) => (
+                  <TeacherDropdown
+                    key={index}
+                    id={item.id}
+                    img={item.itemImage}
+                    price={item.price + '원'}
+                    value={item.itemName}
+                    token={token}
+                    classTag={removeAfterAt(item.link)}
+                    isOpen={isOpen}
+                    setClassIdentify={setClassIdentify}
+                    setClassImg={setClassImg}
+                    setSelectId={setSelectId}
+                    setClassTag={setClassTag}
+                    setIsOpen={setIsOpen}
+                    setPrice={setClassPrice}
+                  />
+                ))}
+              ;
+            </DropdownList>
+          )}
+        </DropdownContainer>
+      ) : (
+        //  (수강생용 드롭다운)
+        <DropdownContainer ref={dropDownRef}>
+          <DropdownButton onClick={() => setIsOpen(!isOpen)} type='button'>
+            <ImageBox src={classImg} alt='수강 클래스 이미지' />
+            <DropdonwTextBox>
+              {classIdentify}
+              {selectDate && selectTime ? (
+                <DropdownDate date={selectDate} time={selectTime} />
+              ) : null}
+            </DropdonwTextBox>
+          </DropdownButton>
+          {isOpen && (
+            <DropdownList>
+              {classList.map((item, index) => (
+                <Dropdown
+                  key={index}
+                  value={item.itemName}
+                  date={item.date}
+                  time={item.time}
+                  img={item.itemImage}
+                  setIsOpen={setIsOpen}
+                  setClassIdentify={setClassIdentify}
+                  isOpen={isOpen}
+                  setClassImg={setClassImg}
+                  setSelectDate={setSelectDate}
+                  setSelectTime={setSelectTime}
+                  id={item.classId}
+                  setSelectId={setSelectId}
+                />
+              ))}
+            </DropdownList>
+          )}
+        </DropdownContainer>
+      )}
       <PostFormStyle>
-        <TextInputContainer
+        <TextInputBox
           placeholder='게시글 입력하기..'
           onChange={handleTextareaChange}
           ref={textarea}
-        ></TextInputContainer>
+        ></TextInputBox>
 
-        <ImgWrapStyle>
+        <ImgList>
           {selectedImages.map((image, index) => (
-            <PreviewImgWrapStyle key={index}>
+            <PreviewImgItem key={index}>
               <ImagePreview
                 src={URL.createObjectURL(image)}
                 alt={`게시글 이미지 ${index + 1}`}
@@ -261,11 +332,14 @@ export default function Posting() {
                 onClick={() => handleDeleteImage(index)}
                 type='button'
               />
-            </PreviewImgWrapStyle>
+            </PreviewImgItem>
           ))}
-        </ImgWrapStyle>
+        </ImgList>
         <FileUploadButton handleImageChange={handleImageChange} />
-      </PostFormStyle>
+      </PostFormStyle>{' '}
+      {toastMessage && (
+        <Toast toastMessage={toastMessage} setToastMessage={setToastMessage} />
+      )}
     </div>
   );
 }

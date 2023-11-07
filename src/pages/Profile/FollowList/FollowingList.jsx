@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { GoBackNav } from '../../../components/Common/TopNav';
-import FollowList from '../../../components/Common/FollowList';
+import FollowList from '../../../components/Profile/FollowList';
 import { FollowWrap } from './FollowListStyle';
 import GetFollowingData from '../../../api/GetFollwerData';
 
@@ -28,7 +28,7 @@ export default function FollowingList() {
       const newFollowingData = await GetFollowingData(
         userAccountname,
         token,
-        page
+        page,
       );
       if (newFollowingData.length > 0) {
         setFollowingData((prevData) => [...prevData, ...newFollowingData]);

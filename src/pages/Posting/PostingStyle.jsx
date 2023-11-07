@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProfileImg from '../../assets/img/mini-basic-progile-img.svg';
 import ImgUploadBtn from '../../assets/img/img-upload-button.svg';
+import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
+import DeletBtn from '../../assets/img/icon-x.svg';
+import styled from 'styled-components';
 import { ButtonStyle } from '../../components/Common/Button';
 import { TopNavWrap } from '../../components/Common/TopNav';
-import ArrowIcon from '../../assets/img/icon-arrow-left.svg';
-import { useNavigate } from 'react-router-dom';
-import DeletBtn from '../../assets/img/icon-x.svg';
 import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 export const ProfileContainer = styled.div`
   position: relative;
@@ -43,7 +43,7 @@ export const PostFormStyle = styled.form`
   position: relative;
 `;
 
-export const ImgWrapStyle = styled.ul`
+export const ImgList = styled.ul`
   display: flex;
 
   overflow-x: scroll;
@@ -70,7 +70,7 @@ export const ImgWrapStyle = styled.ul`
   }
 `;
 
-export const PreviewImgWrapStyle = styled.li`
+export const PreviewImgItem = styled.li`
   position: relative;
 `;
 
@@ -199,7 +199,7 @@ export const ImagePreview = styled.img`
   box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
 `;
 
-export const TextInputContainer = styled.textarea`
+export const TextInputBox = styled.textarea`
   position: absolute;
   left: 70px;
   font-family: 'SpoqaHanSansNeo-Regular';

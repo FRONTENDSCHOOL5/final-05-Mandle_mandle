@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-
 import { TimePicker } from './ClassReservationPicker';
 import { DatePicker } from './ClassReservationCalendar';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { GoBackNav } from '../../../components/Common/TopNav';
 
 import {
@@ -32,7 +31,7 @@ export default function ClassReservation() {
               <div>
                 <strong>{classInfo.name}</strong>
                 <p>
-                  <span>{classInfo.price.toLocaleString()}</span>원
+                  <span>{classInfo.price?.toLocaleString()}</span>원
                 </p>
               </div>
             </div>

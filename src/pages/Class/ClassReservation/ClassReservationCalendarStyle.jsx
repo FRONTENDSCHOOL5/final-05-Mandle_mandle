@@ -38,9 +38,10 @@ export const StyledCalendar = styled(Calendar)`
   .react-calendar__tile {
     padding: 4px;
     abbr {
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border: 1px solid var(--main-color);
-      padding: 7px;
       width: 32px;
       height: 32px;
       border-radius: 50%;

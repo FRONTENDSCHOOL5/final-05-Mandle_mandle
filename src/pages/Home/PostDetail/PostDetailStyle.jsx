@@ -17,7 +17,7 @@ export const MainWrap = styled.main`
   }
 `;
 
-export const CommentUl = styled.ul`
+export const CommentList = styled.ul`
   padding-top: 12px;
   width: 100%;
   border-top: 1px solid var(--border-color);

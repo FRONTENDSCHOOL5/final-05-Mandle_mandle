@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { UserAtom } from '../../../Store/userInfoAtoms';
+import styled from 'styled-components';
+
 import { useRecoilValue } from 'recoil';
-import MoreButton from '../MoreButton';
-import Modal from '../Modal/Modal';
-import PostReportPost from '../../../api/PostReportPost';
+import { UserAtom } from '../../../Store/userInfoAtoms';
+
+import Modal from '../../Common/Modal/Modal';
+import MoreButton from '../../Common/MoreButton';
+import NormalizeImage from '../../Common/NormalizeImage';
 import DeletePost from '../../../api/DeletePost';
+import PostReportPost from '../../../api/PostReportPost';
 import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
+
 import TeacherIcon from '../../../assets/img/icon-teacher.svg';
-import NormalizeImage from '../NormalizeImage';
 
 export default function PostProfile({ post, setPostUpdated }) {
   const userInfo = useRecoilValue(UserAtom); // UserAtom값 불러오기
@@ -35,7 +38,7 @@ export default function PostProfile({ post, setPostUpdated }) {
     const response = await PostReportPost(post.id, userInfo.token); // Call the API component
     if (response) {
       alert(`해당 게시글이 신고되었습니다.`);
-      setModalOpen(false);
+      setAlertModalOpen(null);
     }
   };
 
@@ -44,15 +47,17 @@ export default function PostProfile({ post, setPostUpdated }) {
     if (response) {
       setAlertModalOpen(null);
       alert(`해당 게시글이 삭제되었습니다.`);
+      setModalOpen(false);
       const currentURL = window.location.pathname;
-      if (currentURL.startsWith('/post')) {
+
+      if (currentURL.includes('/post')) {
         navigate(-1); // 이전 페이지로 이동
-      } else {
-        setPostUpdated(true); // 새로고침(상태변경으로 바꿀 예정)
+        return;
       }
+      setPostUpdated(true);
     }
   };
-  console.log(alertModalOpen);
+
   return (
     <PostProfileWrap>
       <button onClick={handleProfileClick}>

@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
 import { useRecoilValue } from 'recoil';
 import { UserAtom } from '../../../Store/userInfoAtoms';
-import MoreButton from '../MoreButton';
-import CalTimeAgo from '../CalTimeAgo';
+
+import CalTimeAgo from '../../Common/CalTimeAgo';
+import MoreButton from '../../Common/MoreButton';
 import Modal from '../../Common/Modal/Modal';
-import NormalizeImage from '../NormalizeImage';
+import NormalizeImage from '../../Common/NormalizeImage';
 import DeleteComment from '../../../api/DeleteComment';
-import ModalAlert from '../Modal/ModalAlert/ModalAlert';
+import ModalAlert from '../../Common/Modal/ModalAlert/ModalAlert';
 import PostReportComment from '../../../api/PostReportComment';
 
-export default function CommentList({ postId, comment, setCommentUpdated }) {
+export default function ComentItem({ postId, comment, setCommentUpdated }) {
   const userInfo = useRecoilValue(UserAtom);
   const [isModalOpen, setModalOpen] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(null);
@@ -41,14 +43,14 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
       setCommentUpdated(true);
     }
   };
-  console.log(alertModalOpen);
+
   return (
-    <CommentListWrap>
-      <ProfileWrap>
+    <ComentItemWrap>
+      <ProfileBox>
         <ProfileInfo>
-          <ProfileImgwrap>
+          <ProfileImgBox>
             <img src={NormalizeImage(comment.author.image)} alt='' />
-          </ProfileImgwrap>
+          </ProfileImgBox>
 
           <div>
             <p>{comment.author.username}</p>
@@ -56,7 +58,7 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
           </div>
         </ProfileInfo>
         <MoreButton onClick={handleClick} />
-      </ProfileWrap>
+      </ProfileBox>
       <CommentContent>{comment.content}</CommentContent>
       {isModalOpen &&
         (comment.author.accountname === userInfo.accountname ? (
@@ -85,11 +87,11 @@ export default function CommentList({ postId, comment, setCommentUpdated }) {
           type={alertModalOpen}
         />
       )}
-    </CommentListWrap>
+    </ComentItemWrap>
   );
 }
 
-const CommentListWrap = styled.li`
+const ComentItemWrap = styled.li`
   font-size: var(--font-md);
   margin-bottom: 16px;
   img {
@@ -97,7 +99,7 @@ const CommentListWrap = styled.li`
   }
 `;
 
-const ProfileWrap = styled.div`
+const ProfileBox = styled.div`
   width: 100%;
   height: 42px;
   display: flex;
@@ -128,7 +130,7 @@ const ProfileInfo = styled.button`
   }
 `;
 
-const ProfileImgwrap = styled.div`
+const ProfileImgBox = styled.div`
   width: 36px;
   height: 36px;
 

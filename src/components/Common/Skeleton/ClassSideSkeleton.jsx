@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import CardSkeleton from './CardSkeleton';
-import { Skeleton } from './Skeleton';
 
 export default function ClassSideSkeleton({ children, scrollBgColor }) {
   return (
     <ClassSideSkeletonWrap>
       <SkeletonClasstitle>{children}</SkeletonClasstitle>
-      <SkeletonClassListWrap scrollBgColor={scrollBgColor}>
+      <SkeletonClassList scrollBgColor={scrollBgColor}>
         <CardSkeleton width='140px' height='138px' imgHeight='90px' />
         <CardSkeleton width='140px' height='138px' imgHeight='90px' />
         <CardSkeleton width='140px' height='138px' imgHeight='90px' />
-      </SkeletonClassListWrap>
+      </SkeletonClassList>
     </ClassSideSkeletonWrap>
   );
 }
@@ -21,7 +21,7 @@ const SkeletonClasstitle = styled.h2`
   font-size: 14px;
   margin-bottom: 16px;
 `;
-const SkeletonClassListWrap = styled.div`
+const SkeletonClassList = styled.div`
   padding-bottom: 10px;
   display: flex;
 

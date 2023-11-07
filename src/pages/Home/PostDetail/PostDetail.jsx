@@ -3,12 +3,12 @@ import { useRecoilValue } from 'recoil';
 import { useLocation } from 'react-router-dom';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { GoBackProfileNav } from '../../../components/Common/TopNav';
-import PostList from '../../../components/Common/PostList/PostList';
-import CommentList from '../../../components/Common/Comment/CommentList';
-import CommentInput from '../../../components/Common/Comment/CommentInput';
+import PostItem from '../../../components/PostDetail/PostItem/PostItem';
+import CommentItem from '../../../components/PostDetail/Comment/CommentItem';
+import CommentInput from '../../../components/PostDetail/Comment/CommentInput';
 import GetPostDetail from '../../../api/GetPostDetail';
 import GetCommentList from '../../../api/GetCommentList';
-import { PostDetailWrap, MainWrap, CommentUl } from './PostDetailStyle';
+import { PostDetailWrap, MainWrap, CommentList } from './PostDetailStyle';
 export default function PostDetail() {
   const location = useLocation();
   const postId = location.state;
@@ -35,18 +35,18 @@ export default function PostDetail() {
     <PostDetailWrap>
       <GoBackProfileNav />
       <MainWrap>
-        {post && <PostList post={post} />}
-        <CommentUl>
+        {post && <PostItem post={post} />}
+        <CommentList>
           {comments &&
             comments.map((comment) => (
-              <CommentList
+              <CommentItem
                 key={comment.id}
                 postId={postId}
                 comment={comment}
                 setCommentUpdated={setCommentUpdated}
               />
             ))}
-        </CommentUl>
+        </CommentList>
       </MainWrap>
       <CommentInput
         postId={postId}

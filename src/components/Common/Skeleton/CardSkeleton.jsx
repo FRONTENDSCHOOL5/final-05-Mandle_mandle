@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { Skeleton } from './Skeleton';
 
 export default function CardSkeleton({ width, height, imgHeight }) {
-  console.log(width, height, imgHeight);
   return (
     <SkeletonCardWrap width={width} height={height}>
       <SkeletonCardImg imgHeight={imgHeight}></SkeletonCardImg>

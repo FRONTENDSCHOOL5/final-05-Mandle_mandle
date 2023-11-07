@@ -1,15 +1,11 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { ReserveDataState } from '../../../Store/ReserveStateAtom'; // 아톰이 정의된 파일을 가져옵니다.
 import { GoBackNav } from '../../../components/Common/TopNav';
 import ReservationList from '../MyReservationList/MyReservationListStyle';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { UserAtom } from '../../../Store/userInfoAtoms';
 import { Link } from 'react-router-dom';
 
 const MyReservationList = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const userInfo = useRecoilValue(UserAtom);
 
   const resInfo = JSON.parse(localStorage.getItem('resInfo'));
@@ -58,7 +54,7 @@ const MyReservationList = () => {
   const ReservationItem = ({ reservation }) => (
     <Link to={`/class/detail/${reservation.class_id}`}>
       <li className='classItem'>
-        <img className='classImg' src={reservation.image} alt='Class Image' />
+        <img className='classImg' src={reservation.image} alt='ClassImg' />
         <div className='textWrap'>
           <p className='reservationClass'>{reservation.className}</p>
           <p className='reservationDate'>{reservation.reserve_ko_date}</p>

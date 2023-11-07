@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import DropdownItem from './DropItem';
 import { ImageBox } from './DropItem';
 
+import { TeacherDropItem } from './DropItem';
 const DropdownContainer = styled.div`
   width: 358px;
   height: 100%;
@@ -22,14 +23,14 @@ const DropdownButton = styled.button`
   align-items: center;
 `;
 
-const DropdownMenu = styled.ul`
+const DropdownList = styled.ul`
   position: absolute;
   top: 100%;
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 1px solid #ccc;
   background-color: white;
+
   z-index: 1000;
 `;
 
@@ -45,6 +46,8 @@ export default function Dropdown(props) {
     img,
     setIsOpen,
     isOpen,
+    id,
+    setSelectId,
   } = props;
 
   return (
@@ -59,10 +62,47 @@ export default function Dropdown(props) {
         date={date}
         setSelectDate={setSelectDate}
         setSelectTime={setSelectTime}
+        id={id}
+        setSelectId={setSelectId}
         time={time}
       />
     </>
   );
 }
 
-export { DropdownContainer, DropdownButton, DropdownMenu, ImageBox };
+export function TeacherDropdown(props) {
+  const {
+    value,
+    setClassIdentify,
+    img,
+    classTag,
+    setClassTag,
+    setClassImg,
+    setIsOpen,
+    isOpen,
+    id,
+    setSelectId,
+    price,
+    setPrice,
+  } = props;
+  return (
+    <>
+      <TeacherDropItem
+        value={value}
+        classTag={classTag}
+        setClassTag={setClassTag}
+        setClassIdentify={setClassIdentify}
+        setClassImg={setClassImg}
+        img={img}
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
+        id={id}
+        setSelectId={setSelectId}
+        price={price}
+        setPrice={setPrice}
+      />
+    </>
+  );
+}
+
+export { DropdownContainer, DropdownButton, DropdownList, ImageBox };
