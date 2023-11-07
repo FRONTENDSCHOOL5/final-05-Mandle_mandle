@@ -1,55 +1,39 @@
 # <span id="top">🧤 만들만들 🧤</span>
 
----
+![프로젝트 배너 이미지](https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/66aea2a1-8cef-4f34-b74e-af7842adc9fb)
 
-### 🔗 [MandleMandle URL](https://frontendschool5.github.io/final-05-Mandle_mandle/)
+## 함께 만드는 즐거움으로, 일상을 가득 채우다 🍏
 
-### 👩‍👧‍👦 테스트 계정
+| 🔗 배포 링크                       | 👩‍🏫 강사 계정                               | 👩‍👧‍👦 수강생 계정                     |
+| ---------------------------------- | ------------------------------------------ | ---------------------------------- |
+| https://mandle-mandle.netlify.app/ | ID: mandle2@mandle.com<br>PW: Mandletest2! | ID: dodo@mandle.com<br>PW: dodo123 |
 
-- 강사<br/>
-  ID : mandle2@mandle.com<br/>
-  PW : Mandletest2!
-- 수강생<br/>
-  ID : dodo@mandle.com<br/>
-  PW : dodo123
-
----
+<br>
 
 ## 0. 목차
 
 1.  [프로젝트 소개](#1-프로젝트-소개)
-2.  [팀원 소개](#2-팀원-소개)
-3.  [기술 및 개발 환경](#3-기술-및-개발-환경)
+2.  [기술 및 개발환경](#2-기술-및-개발환경)
+3.  [협업 방식](#3-협업-방식)
 4.  [폴더구조](#4-폴더구조)
-5.  [구현 기능](#5-구현-기능)
-6.  [기능 UI](#6-기능-UI)
-7.  [주요 코드](#7-주요-코드)
-8.  [협업 방식](#8-협업-방식)
-9. [후기](#9-후기)
+5.  [기능 UI](#5-기능-UI)
+6.  [피드백](#6-피드백)
+7.  [주요 기능](#7-주요-기능)
+8.  [성능개선](#8-성능개선)
+9.  [팀원 소개](#9-팀원-소개)
+
+<br>
 
 ## 1. 프로젝트 소개
 
-![소개 이미지](https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/1f856ec1-ed14-446e-960f-f730703bb394)
+> - 만들만들은 원데이 클래스 서비스를 제공하는 참여형 소셜 커머스 플랫폼 입니다.
+> - 클래스 예약기능과 홍보를 지원해 강사들이 자유롭게 자신의 역량을 발휘하고 창의적인 활동을 할 수 있는 공간을 제공합니다.
+> - 강사와 수강생이 서로 소통하고, 수강생이 자신의 관심 분야나 취미를 발전시키는 동시에 다른 사람들과 교류하며 함께 즐길 수 있는 SNS 공간을 제공합니다.
+> - 역량을 나누고, 함께 성장하며, 자신의 능력을 발전시키는 공간을 통해 우리는 사용자들의 라이프 스타일을 더욱 풍요롭게 만들고자 합니다.
 
-> 만들만들은 **참여형 플랫폼**으로, 사용자들의 라이프 스타일에 새로운 도전을 응원합니다. 우리는 단순히 무언가를 만들어내는 개념을 넘어, 취미를 만들고 라이프 스타일을 창조해 나갈 수 있는 경험을 제공합니다. 이를 통해 다양한 원데이 클래스를 제공하고, 사용자들이 새로운 도전에 참여하고 즐길 수 있는 기회를 제공합니다.<br><br>만들만들은 사용자들에게 **자신의 관심 분야나 취미를 발전**시키는 동시에 다른 사람들과 **교류하며 함께 성장**할 수 있는 플랫폼을 제공합니다. 우리의 목표는 사용자들이 자유롭게 자신의 역량을 발휘하고 창의적인 활동을 할 수 있는 공간을 만드는 것입니다. 이를 통해 새로운 기술을 배우거나 예술적인 스킬을 향상시키는 등의 다양한 활동을 통해 더욱 풍요로운 삶을 즐길 수 있습니다.<br><br>만들만들은 사용자들이 자신의 삶에 의미 있는 도전을 할 수 있도록 다양한 클래스와 강사들을 소개합니다. 예를 들어, 그림 그리기, 요리, 체육 등 **다양한 분야의 클래스를 제공**하며, **전문적인 강사**들이 사용자들을 가르치고 지원합니다. 또한, 사용자들은 이러한 클래스를 통해 새로운 취미나 특기를 개발하고, 동시에 다른 참가자들과 소통하며 교류할 수 있습니다. 이렇게 함께 성장하고 자신의 능력을 발전시키는 과정을 통해, 우리는 사용자들의 라이프 스타일을 더욱 풍요롭게 만들고자 합니다.
+<br>
 
-## 2. 팀원 소개
-
-### 만들5️⃣ 조 [➡️노션](https://pepper-countess-597.notion.site/5-e559838423024965b1e025a1a687bb52?pvs=4)
-
-안녕하세요! 저희는 4명의 Front-end 개발자로 구성된 '만들5️⃣ 조' 입니다.<br/> <br/>
-_(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
-|**차다연**|**김예지**|**우경석**|**윤서준** |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img width="180" alt="Dayoun_profile_img" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/1d81c7a2-508e-4cc2-91f3-85342e65eac7"> | <img width="180"  alt="Yegi_profile_img" src="https://likelion.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F23901406-5d30-4f87-a166-03a79e52a991%2FKakaoTalk_Photo_2023-02-28-20-38-30.jpeg?table=block&id=f41783c9-bc51-4c24-ad37-de2caf59e1bd&spaceId=c69962b0-3951-485b-b10a-5bb29576bba8&width=2000&userId=&cache=v2"> | <img width="180" alt="kyungseuk_profile_img" src="https://cdn.discordapp.com/attachments/1114083723663650887/1114083747642482728/1668348982968.jpg"> | <img width="180" alt="seojun_profile_img" src="https://avatars.githubusercontent.com/u/72855681?v=4" > |
-| [Da-Youn](https://github.com/Da-Youn) | [ yeji_kim ](https://github.com/yejify) | [5647kr](https://github.com/5647kr) | [junny97](https://github.com/junny97) |
-| 팀장 | 팀원 | 팀원 | 팀원 |
-
-### [역할 분배]
-
-<img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/blob/cf0a8bfc179d31b2e0b6eeb49bbd7d9d3dd0f813/src/assets/img/role.png" >
-
-## 3. 기술 및 개발 환경
+## 2. 기술 및 개발환경
 
 ### [기술 스택]
 
@@ -108,8 +92,9 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
   - 대규모 데이터를 다루는 것이 아니고 상대적으로 적은 코드를 작성하는 Recoil이 Redux에 비해 유리하다 생각하였습니다.
   - 상태 관리 라이브러리를 사용해 본 경험의 필요성을 느껴 recoil로 상태관리하기로 결정하였습니다.
   - 유저정보의 지속성을 위해 사용한 recoil-Persist
-     - recoil은 기본적으로 새로고침 또는 컴포넌트 언마운트 시 상태가 초기화되지만, recoil-persist를 사용하면서 세션 스토리지에 저장하여 지속성을 유지하였습니다.
-    <br><br>
+    - recoil은 기본적으로 새로고침 또는 컴포넌트 언마운트 시 상태가 초기화되지만, recoil-persist를 사용하면서 세션 스토리지에 저장하여 지속성을 유지하였습니다.
+      <br><br>
+
 - **Custom Hook** 사용
 
   1. `useProfileInput`
@@ -130,7 +115,6 @@ _(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
   - 일반적으로 부모 라우트 컴포넌트 내에서 사용되며, 중첩된 자식 라우트 컴포넌트의 출력을 표시하는데 사용하였습니다.
   - 중첩된 뷰를 구성하고 다양한 경로에 따라 적절한 컴포넌트를 렌더링 할 수 있었습니다.
     <br><br>
-
 
 ### [코딩 컨벤션]
 
@@ -267,6 +251,43 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
  </div>
 </details>
 
+<br>
+
+## 3. 협업 방식
+
+- [**🌱 순서도 & 와이어 프레임**](https://www.figma.com/file/jEF9l7HGVDSYXRsvSwXqIY/%EC%88%9C%EC%84%9C%EB%8F%84?type=whiteboard&node-id=0%3A1&t=oeO5DurA19XcAwMW-1)
+
+###
+
+- **🗣 스크럼**
+
+  `스크럼`을 매일 오전 9시와 오후 5시에 진행하여 각 구성원의 진행 상황과 겪은 문제, 해결 방안을 공유하였습니다.
+  <img width="788" alt="image" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/e5cd7d3f-e922-480f-bfaa-9e6ad290de3d">
+
+- **📹 라이브 쉐어**
+
+  `라이브 쉐어` 프로그램을 사용하여 오류나 어려움이 있는 부분을 함께 해결하고 기술적 중요도가 높은 파트에서는 함께 작업함으로써 전체 코드에 대한 각 구성원들의 이해도를 높일 수 있었습니다.
+
+- **🥢 페어 프로그래밍**
+
+  공통으로 담당한 컴포넌트 작업 시 `페어 프로그래밍` 협업 방식을 사용해 팀원 모두가 코드 전체 흐름을 이해하고 기술적 완성도 높은 코드를 작성하도록 커뮤니케이션 기술을 적극적으로 사용할 수 있는 기회를 만들었습니다.
+
+- **🗂 깃플로우 전략**
+
+  ```
+  main - develop - feature/(페이지명)
+  ```
+
+  `깃플로우 전략`을 활용 작업할 페이지 별로 브랜치를 구분하여 협업의 능률을 높였습니다. 충돌없이 맡은 역할 페이지 작업을 수행할 수 있었습니다.
+
+- **📈 깃헙 프로젝트**
+
+  `깃허브 이슈`와 `깃헙 프로젝트` 기능으로 전체 프로젝트의 일정과 목적 별로 구분해 구현해야 하는 기능들을 정리할 수 있었고 원활한 커뮤니케이션으로 작업 속도와 안정성을 동시에 얻을 수 있도록 했습니다.
+  <img width="788" alt="image" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/acc5e23b-738f-4183-8313-b273ef79858c">
+  <img width="788" alt="image" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/4989c59f-18c3-49e2-9251-51d3b4e62ce8">
+
+<br>
+
 ## 4. 폴더구조
 
 <details>
@@ -307,321 +328,323 @@ git commit -m "[✨Feat] 로그인 기능 구현 #13
 └─ 📂 styles
 </details>
 
-## 5. 구현 기능
+<br>
 
-- **🙂 Account**
-
-  - 로그인/로그아웃
-  - 로그인/ 회원가입/프로필 유효성 검사
-  - 강사/수강생 구분하여 회원가입 진행
-  - 강사/수강생 구분하여 프로필 정보 설정
-
-- **✍️ Post**
-  - 게시글 등록/수정/삭제
-  - 모달창
-  - 이미지 유효성 검사
-  - 이미지 최대 3장 업로드
-  - 유저 게시글 목록
-  - 팔로잉 게시글 목록
-  - 게시글 신고
-- **📢 Commemt**
-
-  - 댓글 등록/수정/삭제
-  - 신고하기
-
-- **🔎 Search**
-
-  - 유저 검색
-
-- **🌹 Profile**
-
-  - 개인 프로필
-  - 프로필 수정
-  - 팔로우/언팔로우
-  - 팔로우/팔로잉 리스트
-
-- **♥️ Like**
-
-  - 게시물 좋아요 및 취소
-
-- **🙌 Class**
-  - 클래스 등록/예약/삭제
-  - 클래스 피드
-  - 인기 클래스 리스트
-  - 클래스 상세
-
-## 6. 기능 UI
-
-### [🌱 순서도 & 와이어 프레임](https://www.figma.com/file/jEF9l7HGVDSYXRsvSwXqIY/%EC%88%9C%EC%84%9C%EB%8F%84?type=whiteboard&node-id=0%3A1&t=oeO5DurA19XcAwMW-1)
+## 5. 기능 UI
 
 - ### Splash, 회원가입, 로그인
 
 |                                                                      Splash                                                                       |                                                                     회원가입                                                                     |                                                                   프로필 설정                                                                    |                                                                      로그인                                                                      |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/f843c68c-7a20-4175-b75e-5c24d0be958f" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/78a710ce-4609-4c12-95df-2e65d41b2dff" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/1df4e0af-79eb-48e1-a45c-a18018d6a0e5" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/2abc2355-3867-4173-9603-27ecaa2b9cdb" height=462 width=220> |
+| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/b5c9bfd9-2258-4b85-bb12-6c5139477983" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/2dde7782-e3bf-4934-86e5-7abbcab6ec4d" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/53321ea6-c36e-4bd3-8ea3-58673118ec03" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/d01eaa68-d823-4931-9628-5631f688cfc4" height=462 width=220> |
 
 - ### 홈피드, 검색
 
 |                                                                  홈피드(팔로잉O)                                                                  |                                                                 홈피드(팔로잉X)                                                                  |                                                                       검색                                                                       |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/b39f24a3-f5d4-4527-9a24-610c97a47d0c" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/9d947583-00a9-4327-8769-6e38c7b17666" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/f6436b63-6d7d-42da-b9dd-b59e7af65e47" height=462 width=220> |
+| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/67e97b7b-cc99-4977-b4ea-d521737c0c29" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/370125aa-027e-4d4e-af74-f59546b7156f" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/269015c5-d462-443c-ad89-f97bb5ed8a13" height=462 width=220> |
 
 - ### 게시글
 
-|                                                                게시물 상세(좋아요)                                                                |                                                                   게시글 등록                                                                    |                                                                   게시글 수정                                                                    |                                                                   게시글 삭제                                                                    |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/218b41fa-f0ca-4b47-b9b2-75694401b3c0" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/188e8c5c-7c75-4c4a-b809-3146f00e625c" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/ff8fac16-9a63-4c3f-9e3f-03243ed0b7f3" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/a5bb9c8e-15fe-447c-9e49-11002c10871a" height=462 width=220> |
+|                                                                    게시글 등록                                                                    |                                                                   게시글 수정                                                                    |                                                                 게시글 삭제                                                                  |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/dcacb69f-bea2-4ec6-a36f-0f4dc3dada08" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/4eab7044-7ab9-4878-bd62-2851b6a66b1d" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/3afc250f-168b-4c81-a8bb-d722a62dc21e" height=462 width=220> |
+
 
 - ### 클래스
 
 |                                                                    클래스 피드                                                                    |                                                                   클래스 상세                                                                    |                                                                 클래스 예약하기                                                                  |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/4883ba4b-eea2-44c5-8f0c-56a1eaabb147" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/c9b7877c-1bfd-4885-9de1-8b5b0c44ae4b" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/95c1fe1c-c05a-4c00-a2d0-60e49a50f7d5" height=462 width=220> |
+| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/549fb79c-3648-4986-a036-59103ef5f278" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/5c9c7610-81b9-42b1-b088-e9d7906cf402" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/78bd98c3-44f1-4bf0-a489-5291ae1ca314" height=462 width=220> |
 
 |                                                                    클래스 등록                                                                    |                                                                   클래스 삭제                                                                    |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/9cf076ae-8b5f-4043-a32c-90b5b956a1e8" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/f9e795c1-7c8f-4ee0-bc63-321f24a169c7" height=462 width=220> |
+| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/c1f34feb-eabe-475b-a981-5305c0c93e08" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/ea29ee69-fdc4-48b7-ad88-cfd211e225ba" height=462 width=220> |
 
 - ### 댓글
 
-|                                                                     댓글 등록                                                                     |                                                                    댓글 삭제                                                                     |                                                                    댓글 신고                                                                     |
+|                                                                     댓글 등록 & 좋아요                                                                     |                                                                    댓글 삭제                                                                     |                                                                    댓글 신고                                                                     |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/d790b1a8-3c88-4bf3-b32e-6d1a0f97e120" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/6e706e74-3b2d-4452-aef3-9c169b40cd74" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/92780f6c-052c-4540-b1a6-1118cd33c748" height=462 width=220> |
+| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/50ffd1e8-a2e6-49b8-987d-b77f8f5258f0" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/6ed792ba-c123-4dfd-a7ae-f036fc871883" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/f36aa413-f989-4bfa-a59b-366afefaaefd" height=462 width=220> |
 
 - ### 마이 프로필
 
 |                                                                    강사 프로필                                                                    |                                                                  수강생 프로필                                                                   |                                                                  게시물 앨범형                                                                   |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/20a16ee5-11f1-4e59-878a-889d5d083b1c" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/d9de7882-399a-4990-820b-b6be2dce26ff" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/fed74ad5-cf1b-4742-baa4-5cb11e504473" height=462 width=220> |
+| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/d9504e20-2e5e-42f0-a098-b4834670f432" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/ce4eaad9-ce3a-4576-a7b4-00eb646e1c53" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/74d874d3-f1ae-4477-9088-ce48d74df4b9" height=462 width=220> |
+
+|                                                                   찜한 클래스                                                                    |                                                                  예약 클래스                                                                  |
+| :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/d86ca5af-d5d9-42ad-bc90-7ab34729805b" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/3397579a-134e-4835-94aa-981f05c48ee7" height=462 width=220> |
 
 |                                                                   프로필 수정                                                                    |                                                                  팔로잉, 팔로우                                                                  |
 | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/c0c4d2aa-9185-48b5-b1b6-e19c2f42116e" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/30bd69ac-20af-42f7-9d03-a753e961a30c" height=462 width=220> |
+| <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/9c224697-c567-4396-97e5-423cc75cd2d0" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/30bd69ac-20af-42f7-9d03-a753e961a30c" height=462 width=220> |
 
 - ### 다른 유저 프로필
 
 |                                                                채팅, 팔로우, 공유                                                                 |                                                                 다른 강사 프로필                                                                 |                                                                다른 수강생 프로필                                                                |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/fe674226-1a70-48b8-bb4e-e45d15a93b91" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/81075b57-963c-48cf-8597-926d53a5a083" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/073886a0-4c4c-42df-a8df-a1864efb6db9" height=462 width=220> |
+| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/f9f07ac5-fedd-49e9-bb29-f1793b888a6b" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/b29cb3d3-3290-4733-b213-3244e5fbb230" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/c7de3bba-4c38-486d-87ae-e117a96c694d" height=462 width=220> |
 
 - ### 채팅, NotFound(404), 로그아웃
 
-|                                                                       채팅                                                                        |                                                                  NotFound(404)                                                                   |                                                                      로딩중                                                                      |                                                                     로그아웃                                                                     |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
-| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/69f4715a-7a44-4fe0-b741-ce8ac1ee431c" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/8cc156eb-00a2-4094-91a7-90f55af33b7c" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/24954eb4-858e-4817-ab86-1640ba55fd87" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/18b6de8d-151a-43aa-9860-fe945fab40f1" height=462 width=220> |
+|                                                                채팅                                                                 |                                                                 NotFound(404)                                                                 |                                                                로그아웃                                                                |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src= "https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/7984271d-cb14-474b-99cd-8cd92054e10c" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/a2bc0881-f39b-4143-bfc7-91a1ffd7e47f" height=462 width=220> | <img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/119591236/af7e8ebe-4654-426f-8759-0d781583279c" height=462 width=220> |
 
 <br/>
 
-## 7. 주요 코드
+## 6. 피드백
 
-- ### 회원가입/ 프로필 설정 시 강사 /수강생 구분
+<br>
 
-  저희 팀은 원데이 클래스를 주제로 선택했기 때문에, `강사`와 `수강생` 두 가지 유저 유형으로 관리해야 하는 필요성을 느꼈습니다.
+## 7. 주요 기능
 
-  ```js
-  const [type, setType] = useState('Student');
-  ```
+### [클래스 찜하기, 예약 기능](https://arrow-week-97f.notion.site/7261c16632bf4d619021c1a3977b934c?pvs=4)
 
-  ```js
-  const handleStudentBtnClick = () => {
-    setType('Student');
-  };
+클래스 상세 페이지에 있는 찜하기 기능은 해당 클래스를 찜하여 수강생 본인 프로필에서 찜한 클래스 목록을 볼 수 있으며 또한 찜하기를 취소하여 찜한 클래스를 관리할 수 있습니다. <br/>
+클래스 예약 페이지는 수강생이 원하는 클래스를 날짜와 시간을 정하여 예약하는 페이지입니다. 날짜와 시간을 모두 선택해야만 예약이  가능하며, 만약 동일한 날짜에 이미 예약한 클래스가 있을 경우 중복 예약이 불가능합니다. 예약한 클래스 정보는 수강생 본인 프로필로 이동하여 예약한 클래스 정보를 확인할 수 있습니다. 
 
-  const handleTeacherBtnClick = () => {
-    setType('Teacher');
-  };
-  ```
+### [수강후기 작성](https://velog.io/@sj_yun/%EC%88%98%EA%B0%95%ED%9B%84%EA%B8%B0-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84)
 
-  이를 구현하기 위해 저희는 회원 가입 페이지에서 사용자는 '일반 회원 (수강생)' 버튼과 '강사 회원' 버튼 중 하나를 선택하여 회원 유형을 선택할 수 있게 만들었습니다.
-  이 선택은 `type`변수에 저장되고 '일반 회원 (수강생)' 버튼을 클릭한 경우 `type` 값은 `Student`로 설정되며, 강사 회원' 버튼을 클릭한 경우의 `type` 값은 `Teacher`로 설정됩니다.
+수강후기 작성 페이지는 사용자가 자신이 수강한 클래스의 이미지, 이름, 예약한 날짜, 시간 정보를 드롭다운으로 선택하여 해당 클래스에 대한 후기 및 경험, 사진을 공유하는 페이지입니다. 로그인한 사용자가 강사 계정인 경우, 페이지는 수강후기 작성이 아닌 공지 및 홍보를 위한 페이지로 변경됩니다. 강사는 자신이 등록한 클래스의 이미지, 이름, 클래스 태그, 그리고 가격 정보를 받아와 공지를 작성할 수 있게 됩니다. 중요한 점은 페이지가 사용자의 로그인 계정 유형(수강생 또는 강사)을 감지하고, 이에 따라 **서로 다른 정보** 를 렌더링한다는 것입니다.
 
-  ```js
-  const setSignup = useSetRecoilState(SignUpAtom);
-  ```
+<br>
 
-  ```js
-  if (email && password && emailValid && passwordValid) {
-    setSignup({ email, password, type });
-    navigate('/account/set_profile');
-  } else {
-    setSignup(false);
-  }
-  ```
+### UX를 고려한 조건부 모달, 토스트 메시지, 스켈레톤 UI 구현
 
-  회원 가입 시에 입력한 정보와 선택한 회원 유형(type)은 가입한 이메일과 비밀번호와 함께 **Recoil**의 `SignUpAtom`을 통해 유저 정보로 저장됩니다.
+   <details>
+   <summary>조건부 모달</summary>
+   <div markdown="1">
+   <img width="200" height="460"  alt="조건부 모달" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/350c4923-3a55-49de-a3c8-0f45920af642">
+<img width="200" height="460"  alt="조건부 모달2" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/b3163588-6d40-45a1-809f-2e99f0f5c5d9">
 
-  이 정보는 회원 가입 과정에서 유지되며, 유저는 프로필 설정 페이지로 이동할 수 있게 됩니다.
-
-  ```js
-  const handleSetProfileSubmit = async (event) => {
-    event.preventDefault();
-
-    if (username && accountname && usernameValid && accountValid) {
-      const updatedAccountname = `${userInfo.type}${accountname}`;
-      setUserInfo((prevValue) => {
-        return {
-          ...prevValue,
-          username: username,
-          accountname: updatedAccountname,
-          intro: intro,
-          image: image,
+   <div>
+    
+        export default function Modal({
+        onClick,
+        setModalOpen,
+        setAlertModalOpen,
+        text,
+        type,
+      }) {
+        const handleOverlayClick = (event) => {
+          if (event.target === event.currentTarget) {
+            setModalOpen(false);
+          }
         };
-      });
-      navigate('/account/login');
-    }
-  };
-
-   useEffect(() => {
-    if (username && accountname && usernameValid && accountValid) {
-      PostSignUp(userInfo);
-    }
-  }, [username, accountname, usernameValid, accountValid, userInfo]);
-  ```
-
-  프로필 설정 페이지로 넘어와 프로필 설정란을 다 작성하고 "만들만들 시작하기" 버튼을 클릭하면, 해당 정보는 API에 프로필 정보로 등록됩니다.
-
-  그러나 API에서는 유저의 회원 유형에 대한 별도의 처리가 없기 때문에 회원 유형을 식별할 수 있도록 계정 ID (`accountname`) 값 앞에 `Student` 또는 `Teacher` 중 하나의 `type` 값을 추가하여 함께 전달하여 학생과 강사 계정을 구분할 수 있도록 하였습니다.
-
-- ### 클래스 리스트 랜더링
-
-  ```js
-  const data = await GetClassData(token, userInfo.accountname);
-  const filteredClasses = data.product.filter((classItem) =>
-    classItem.author.accountname.includes('Teacher')
-  );
-  ```
-
-  GetClassData API는 제공된 token을 사용하여 클래스 데이터를 가져옵니다. 가져온 데이터는 `filter` 메소드를 사용하여 필터링되며,
-
-  여기서 accountName에 전달된 회원 유형이 "Teacher"인 클래스 항목만 filteredClasses 배열에 포함됩니다.
-
-  ```js
-  const popularClasses = filteredClasses.slice(0, 3);
-  ```
-
-  그 다음, filteredClasses 배열에서 첫 세 개의 클래스를 선택하여 popularClasses 배열을 만듭니다.
-
-  ```js
-  {
-    popularClasses.map((classItem) => (
-      <li key={classItem._id}>
-        <Link to={`/class/detail/${classItem._id}`}>
-          <ClassPostMini
-            miniImg={classItem.itemImage}
-            miniName={classItem.itemName}
-            miniTag={classItem.link}
-          />
-        </Link>
-      </li>
-    ));
-  }
-  ```
-
-  마지막으로, popularClasses 배열의 각 항목을 map 함수를 통해 반복하여 해당 클래스 항목에 대한 링크를 포함하는 li 요소를 생성합니다.
-
-  이 링크는 클래스의 세부 정보 페이지로 연결되며 ClassPostMini 컴포넌트를 통해 클래스의 구체적인 정보를 확인할 수 있습니다.
-
-- ### 이미지 3장 업로드
-
-  ```js
-  const [selectedImages, setSelectedImages] = useState([]);
-  const handleImageChange = async (event) => {
-    const files = event.target.files;
-    let imagesArray = [...selectedImages];
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      imagesArray.push(file);
-    }
-
-    setSelectedImages(imagesArray);
-  };
-  ```
-
-  사용자가 게시물 작성을 위해 이미지를 선택할 때, 선택한 이미지들은 `빈 배열`에 저장됩니다.
-
-  ```js
-  const handleUploadPost = async () => {
-    const images = await PostImagesUpload(selectedImages);
-  };
-  ```
-
-  그리고 업로드 버튼을 클릭하면 선택한 이미지들이 서버로 전송됩니다.
-
-  ```js
-  const PostImagesUpload = async (files) => {
-    const formData = new FormData();
-    if (files && files.length) {
-      for (let i = 0; i < files.length; i++) {
-        formData.append('image', files[i]);
+        const handleAlertModalOpen = () => {
+          setModalOpen(false);
+          setAlertModalOpen(type);
+        };
+      
+        return (
+          <ModalWrap onClick={handleOverlayClick}>
+            <ModalBox>
+              <div></div>
+              <ul>
+                <li>
+                  <button onClick={handleAlertModalOpen}>{text}</button>
+                </li>
+                {(type === 'delete' || type === 'class') && (
+                  <li>
+                    <button onClick={type && onClick}>
+                      {type === 'delete'
+                        ? '수정'
+                        : type === 'class'
+                        ? '클래스 상세 페이지로 이동'
+                        : null}
+                    </button>
+                  </li>
+                )}
+              </ul>
+            </ModalBox>
+          </ModalWrap>
+        );
       }
-    } else {
-      formData.append('image', files);
-    }
-  };
-  ```
+   </div>
+      
+   <div>      
+    
+         function MiniClassList({ classItem, page, token, setClassUpdated }) {
+         const [alertModalOpen, setAlertModalOpen] = useState(false);
+         const [isModalOpen, setModalOpen] = useState(false);
+         const navigate = useNavigate();
+       
+         const handleDeleteSubmit = async () => {
+           const response = await DeleteClass(classItem.id, token); // Call the API component
+           if (response) {
+             setAlertModalOpen(false);
+             alert(`해당 게시글이 삭제되었습니다.`);
+       
+             setClassUpdated(true); // 새로고침(상태변경으로 바꿀 예정)
+           }
+         };
+       
+         const handleMoveClassDetail = () => {
+           navigate(`/class/detail/${classItem.id}`);
+         };
+       
+         return (
+           <>
+             {isModalOpen && (
+               <Modal
+                 setModalOpen={setModalOpen}
+                 setAlertModalOpen={setAlertModalOpen}
+                 onClick={handleMoveClassDetail}
+                 type='class'
+                 text='삭제'
+               />
+             )}
+             {alertModalOpen && (
+               <ModalAlert
+                 setAlertModalOpen={setAlertModalOpen}
+                 onClick={handleDeleteSubmit}
+               />
+             )}
+           </>
+         );
+       }
+       
+       export default MiniClassList;
+ 
 
-  이때, 이미지의 개수를 확인하기 위해 조건문을 추가했습니다. 선택된 이미지 배열의 길이를 검사하여, 이미지가 여러 장인 경우에는 for 반복문을 사용하여 각 이미지의 `key`값에 접근하여 반복문을 순회하며 `formData` 객체에 파일로 추가합니다.
+   </div>
+   </div>
 
-  하지만 이미지가 한 장인 경우에는 단일 이미지만을 formData 객체에 추가하도록 처리했습니다. 이렇게 여러 장과 한 장의 업로드 처리를 구분하였습니다.
+  
+  조건부 모달 기능은 **Modal** 컴포넌트에서  `isModalOpen과` `alertModalOpen이라는` 두 개의 상태값을 통해 모달의 표시 여부를 제어하고 있습니다.<br><br> 
+            `isModalOpen` 상태값이 `true`일 때, Modal 컴포넌트가 렌더링되어 사용자에게 표시됩니다.<br>
+            **Modal** 컴포넌트에서는 `handleAlertModalOpen` 함수가 호출되면, `setModalOpen(false)`를 통해 현재 모달을 닫고, `setAlertModalOpen(type)`를 통해 알림 모달을 열게 됩니다. 이 때 `type`은 알림 모달의 타입을 결정합니다.<br>
+            알림 모달은 `alertModalOpen` 상태값이 `true일` 때 렌더링되어 사용자에게 표시됩니다. 이 때 `alertModalOpen`의 값은 알림 모달의 타입을 결정합니다.<br>
+            알림 모달에서는 사용자가 확인 또는 취소 버튼을 클릭하면 `setAlertModalOpen(false)`를 호출해 알림 모달을 닫습니다.<br>
+            Modal컴포넌트를 적용하고 있는 **MiniClassList** 컴포넌트에서 Modal과 ModalAlert 컴포넌트의 열림 상태를 제어하면서, 필요에 따라 각 모달에서 수행할 동작을 정의한 함수를 onClick prop으로 전달하여 모달의 동작을 제어합니다.
+<br> 
+   </details>
+   <details>
+   <summary>토스트 메시지</summary>
+   <div markdown="1">
+   <img width="200" height="460"  alt="토스트 메시지" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/de222118-c55c-4e08-8606-8c3f453d769e">
+      <img width="200" height="460"  alt="토스트 메시지2" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/49355ddf-5123-4b31-8df0-f030efc42528">
 
-  ```js
-  const filenames =
-  response.data.length > 1
-  ? response.data
-  .map(
-  (image) => https://api.mandarin.weniv.co.kr/${image.filename},
-  )
-  .join(',')
-  : https://api.mandarin.weniv.co.kr/${response.data[0].filename};
+   <div>
+    
+      import { useState, useEffect } from 'react';
+      import styled, { keyframes } from 'styled-components';
+      
+      export const Toast = ({ toastMessage, setToastMessage }) => {
+        const [isFadeOut, setIsFadeOut] = useState(false);
+        useEffect(() => {
+          const timer = setTimeout(() => {
+            setIsFadeOut(true);
+          }, 2500);
+      
+          return () => {
+            clearTimeout(timer);
+          };
+        }, [toastMessage]);
+      
+        useEffect(() => {
+          if (isFadeOut) {
+            const timer = setTimeout(() => {
+              setToastMessage('');
+              setIsFadeOut(false);
+            }, 1000);
+            return () => {
+              clearTimeout(timer);
+            };
+          }
+        }, [isFadeOut]);
+      
+        return <ToastWrap fadeOut={isFadeOut}>{toastMessage}</ToastWrap>;
+      };
+      
+      const fadeIn = keyframes`
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      `;
+      
+      const fadeOut = keyframes`
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      `;
+   </div>
+   </div>
 
-  return filenames;
-  ```
+  
+  토스트 메시지를 표시하고 일정 시간이 지나면 사라지게 하는 기능을 구현하였습니다. 구현 내용은 다음과 같습니다.<br><br> 
+      1. useState를 통해 `isFadeOut`이라는 상태를 생성하고 초기값을 `false`로 설정합니다. 이 상태는 토스트 메시지가 사라지는 애니메이션을 제어합니다.<br>
+      2. 첫 번째 useEffect는 `toastMessage`가 변경될 때마다 실행됩니다. 이 useEffect 안에서는 타이머를 설정하여 2.5초 후에 `isFadeOut` 상태를 `true`로 변경합니다. 이로 인해 토스트 메시지가 사라지는 애니메이션이 시작됩니다.<br>
+      3. 두 번째 useEffect는 `isFadeOut` 상태가 변경될 때마다 실행됩니다. `isFadeOut`이 `true`일 때, 즉 토스트 메시지가 사라지는 애니메이션이 시작되면 1초 후에` setToastMessage('')`를 호출하여 토스트 메시지를 비우고, `setIsFadeOut(false)`를 호출하여 애니메이션 상태를 초기화합니다.<br>
+      4. `ToastWrap`에서 fadeOut prop에 따라 서로 다른 애니메이션을 적용합니다. fadeOut prop이 `true`일 때는 fadeOut 애니메이션을, `false`일 때는 fadeIn 애니메이션을 적용합니다.<br>
+      토스트 메시지가 사라진 후에는 toastMessage를 비우고 애니메이션 상태를 초기화하여, 호출마다 토스트 메시지가 계속해서 나타날 수 있도록 구현했습니다.
+<br> 
+   </details>
+   <details>
+   <summary>스켈레톤 UI</summary>
+   <div markdown="1">
+   <img width="200" height="460"  alt="홈-스켈레톤" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/918b14c7-289b-4b7a-8a10-33ad138b2f48">
+      <img width="200" height="460" alt="클래스 스켈레톤" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/592be9a8-4bda-474b-a4b8-eeea0840fd5d">
+      <img width="200" height="460"  alt="프로필 스켈레톤" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/d2a78fa3-e8b8-4aeb-8b8d-b35e730c64ac">
+   </div>
+<br> 
+  
+  데이터를 불러오는 동안 스켈레톤 UI를 표시함으로써 사용자에게 로딩 중임을 알려주는 기능을 구현하였습니다.<br> 
+       데이터 로딩이 끝나면 실제 데이터를 표시하는 방식으로 구현하여<br>
+       데이터 로딩 시간 동안 사용자가 빈 화면을 보는 것을 방지하고, 사용자 경험을 개선하고자 하였습니다.<br> 
+       1. useState를 통해 loading이라는 상태를 생성하고 초기값을 true로 설정합니다. 이 상태는 데이터 로딩 상태를 나타냅니다.<br> 
+       2. 데이터를 불러온 후에는 setTimeout 함수를 이용하여 1초 후에 setLoading(false)를 호출하여 로딩 상태를 종료합니다. <br> 
+       3. 렌더링 부분에서 loading 상태에 따라 다른 UI를 표시합니다. loading이 `true`일 때는 PostSkeleton 컴포넌트를 통해 스켈레톤 UI를 표시하고, loading이 `false`일 때는 스켈레톤 UI가 사라진 후 실제 데이터를 표시합니다.<br> 
+<br> 
+   </details>
 
-  그 다음, 이미지를 서버로 전송하고 숫자로 이루어진 이미지 파일명들을 응답받습니다. 응답받은 여러 장의 이미지 파일명이 담긴 `filenames`을 다시 서버로 전송할 때는 이미지 파일명들을 하나의 `문자열`로 전송해야 하는 조건이 API 명세에 명시되어 있습니다.
 
-  그러므로, 배열의 길이가 1보다 큰 경우(즉, 2장 이상의 이미지가 담겨 있다면) map 함수를 사용하여 서버의 기본 URL과 배열을 순회하며 각 이미지 파일명을 하나씩 추가하고, 이미지 파일명들을 쉼표로 기준으로 `join` 메서드를 활용하여 하나의 `문자열`로 결합하여 여러 장의 이미지를 전송할 수 있도록 처리했습니다.
+<br>
 
-  한 장의 이미지인 경우에는 해당 이미지 파일명 앞에 기본 URL을 추가하여 전송하도록 구현했습니다.
+## 8. 성능개선
 
-## 8. 협업 방식
+### 검색 디바운싱
 
-- **🗣 스크럼**
+- `문제`: 기존 계정 검색 시 input의 변화가 감지될 때 마다 API 요청이 매번 발생하여 불필요한 API 요청이 발생합니다. 또한, 사용자가 검색어 입력을 완료하지 않은 상태에서 결과가 표시되다보니 부정확한 결과가 표시되어 사용자 경험이 저하되는 문제도 있었습니다
 
-  `스크럼`을 매일 오전 9시와 오후 5시에 진행하여 각 구성원의 진행 상황과 겪은 문제, 해결 방안을 공유하였습니다.
+- `해결`: **lodash** 라이브러리를 활용하여 계정 검색 시 디바운스를 구현했습니다. 이를 통해 사용자가 입력하는 동안 일정 시간 동안 검색 요청을 지연시켰습니다. 결과적으로 연속된 검색 요청을 방지하고, 사용자가 입력을 마친 후 단 한 번의 검색 요청만을 처리하도록 조정했습니다.
 
-- **📹 라이브 쉐어**
+### 이미지 압축 적용
 
-  `라이브 쉐어` 프로그램을 사용하여 오류나 어려움이 있는 부분을 함께 해결하고 기술적 중요도가 높은 파트에서는 함께 작업함으로써 전체 코드에 대한 각 구성원들의 이해도를 높였습니다.
+- `문제`: 대용량 이미지 파일을 웹 페이지에 업로드할 때, 해당 이미지들을 로딩하는 과정에서 화면에 용량이 작은 이미지보다 더 늦게 나타나는 문제가 발생했습니다. 위 문제로 인해 사용자가 이미지를 곧바로 확인하지 못하는 불편함을 겪을 수 있었습니다.
 
-- **🥢 페어 프로그래밍**
+- `해결`: **imageCompression** 라이브러리를 활용하여 이미지 업로드 시 이미지를 압축하여 파일 크기를 줄였습니다. 이를 통해 대역폭과 데이터 부하를 감소시키고, 페이지 로딩 속도를 향상시켜 사용자가 웹 페이지에 접근시 이미지를 빠르게 로드하여 보다 원할하게 확인할 수 있도록 조정했습니다.
 
-  공통으로 담당한 컴포넌트 작업 시 `페어 프로그래밍` 협업 방식을 사용해 팀원 모두가 코드 전체 흐름을 이해하고 기술적 완성도 높은 코드를 작성하도록 커뮤니케이션 기술을 적극적으로 사용할 수 있는 기회를 만들었습니다.
+### 이미지 Lazy-loading 적용
 
-- **🗂 깃플로우 전략**
+- `문제`: 페이지 로딩 시 모든 이미지가 동시에 다운로드되어 초기 페이지 로딩 속도가 느렸습니다. 특히 대용량 이미지 파일이 많은 경우 사용자는 페이지가 로딩될 때까지 상당한 대기 시간을 경험했습니다.
 
-  `깃플로우 전략`을 프로젝트 규모에 맞춰 활용함으로 브랜치 및 이슈를 효율적으로 관리하고, 충돌을 효과적으로 처리했으며 `컨벤션`을 맞춰 커밋 메세지를 작성함으로 작업 진행 상황에 대한 빠른 이해를 도왔습니다.
+- `해결`: lazy-loading을 통해 초기 페이지 로딩 시에는 원본 이미지 대신 저화질의 이미지를 먼저 보여준 뒤 원본 이미지 로드가 완료되는 시점에 다시 원본 이미지를 보여줌으로써 로딩시간을 단축시키고 사용자 경험을 향상 시켰습니다.
+  <br>
 
-- **📈 깃헙 프로젝트**
+## 9. 팀원 소개
 
-  `깃헙 프로젝트` 기능으로 전체 프로젝트의 일정과 구현해야 하는 기능들을 일목요연하게 정리할 수 있었고 원활한 커뮤니케이션으로 작업 속도와 안정성을 동시에 획득할 수 있었습니다.
+### [만들5️⃣조]
 
-## 9. 후기
+안녕하세요! 저희는 4명의 Front-end 개발자로 구성된 '만들5️⃣ 조' 입니다.<br/> <br/>
+_(🦁멋쟁이사자처럼 프론트엔드스쿨 5기 프로젝트 5팀)_
+|**차다연**|**김예지**|**우경석**|**윤서준** |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img width="180" alt="Dayeon_profile_img" src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/assets/105140201/85ec0387-21f3-4f1c-868e-32bc1d97812c"> | <img width="180"  alt="Yegi_profile_img" src="https://likelion.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F23901406-5d30-4f87-a166-03a79e52a991%2FKakaoTalk_Photo_2023-02-28-20-38-30.jpeg?table=block&id=f41783c9-bc51-4c24-ad37-de2caf59e1bd&spaceId=c69962b0-3951-485b-b10a-5bb29576bba8&width=2000&userId=&cache=v2"> | <img width="180" alt="kyungseuk_profile_img" src="https://cdn.discordapp.com/attachments/1114083723663650887/1114083747642482728/1668348982968.jpg"> | <img width="180" alt="seojun_profile_img" src="https://avatars.githubusercontent.com/u/72855681?v=4" > |
+| [Da-Yeon](https://github.com/dayannne) | [ yeji_kim ](https://github.com/yejify) | [5647kr](https://github.com/5647kr) | [junny97](https://github.com/junny97) |
+| 팀장 | 팀원 | 팀원 | 팀원 |
 
-<details>
-  <summary>💚 차다연</summary>
-    팀원 모두가 리액트 프로젝트 경험이 처음이었기에 팀리더로서 어떻게 하면 이 프로젝트를 통해 '과정'이 팀원 모두에게 도움이 됨과 동시에 만족스러운 첫 협업 경험으로 남길 수 있을지 매일 고민하고 생각했던 것 같습니다. 이를 위해 페어프로그래밍, 스크럼, 라이브쉐어, 일정관리 등 다양한 전략과 방법들을 많이 공부하고, 고민하고, 실천해 보았는데, 실제 팀원들의 만족도도 높았고 협업에 큰 도움이 되어 팀리더로서 어떤 방향을 선택하고 팀원들을 이끄는 것이 좋을지 많이 느끼고 배워간 경험이었습니다. 또 이러한 새로운 방법과 방향을 긍정적, 적극적으로 받아들이고 잘 따라와 준 팀원분들에게 감사합니다 :)<br/>
-    한달 동안 구현을 목적으로 부딪히고 배우며 정말 크게 성장을 했음을 느낍니다. 항상 공통 컴포넌트의 재사용성과 불필요한 코드를 줄이는 것을 우선적으로 고려하게 되었고, props를 어떻게 잘 활용할 수 있을지 고민하며 Recoil 상태관리도 공부하고, API 모든 에러에 대처하며 요청응답 원리를 이해하는 등 부트캠프의 마지막에 실전을 통한 무척 값진 학습 경험을 얻게 된 것 같습니다. 무엇보다 구현에서 어려움을 하나씩 극복하며 자신감을 얻었고, 앞으로도 이러한 자신감 잃지않고 진짜 프론트엔드 개발자가 될 때까지 차근차근 성장하며 나아가고 싶습니다. 모두 수고하셨습니다!
-</details>
-<details>
-  <summary>🌱 김예지</summary>
-  프로젝트를 통해 짧은 기간에 폭발적으로 성장한 경험과 성공적으로 마무리 한 것이 매우 보람차다고 생각합니다. 그동안 수업을 통해 습득한 지식과 기술이 실제로 활용 가능한 수준까지 발전한 경험이 인상적이었습니다. 프로젝트 기간이 짧았지만 모든 팀원들이 최선을 다했기 때문에 가능했던 것 같고, 멋사 커뮤니티에서 서로 질문하고 배우며 긍정적인 상호작용이 활발하게 이루어진 부분도 중요한 요인이었던 것 같습니다. 이런 소중한 경험을 할 수 있어서 감사하게 생각합니다. 처음에는 스스로의 능력과 프로젝트 완수에 대한 의문이 있었습니다. 그러나 프로젝트를 진행하면서 문제를 해결하는 과정에서 시간이 걸릴 수 있더라도 그 문제를 극복할 수 있다는 자신감을 키워나갔습니다. 이러한 경험을 통해 앞으로의 도전에 더욱 자신감을 갖고, 성장해 나갈 수 있는 자신을 발견했습니다. 프로젝트를 통해 얻은 성장과 자신감은 앞으로 다른 과정에서도 문제와 오류를 극복하고 성공적으로 마무리 할 수 있는 자산이 될 것 같습니다.
-</details>
-<details>
-  <summary>🐢 우경석</summary>
-  프로젝트를 시작하기전 과연 할 수 있을까하는 생각이 들었으나 점차 진행하면서 할 수 있다라는 생각이 들면서 프로젝트에 임하게 되었습니다
-  익숙하지 않던 React 문법과 협업툴인 깃허브도 점차 익숙해지는 경험이었습니다. 중간중간 실력적 한계로 어려움을 겪었지만 동료 멘토님께 질문하며 한단계 한단계 나아갈 수 있었고 또한 성장 할 수 있었습니다. 진행하는 동안 소통의 중요성을 다시 한번 더 느낄 수 있었고 모르는 거에 대한 질문을 점점 더 적극적으로 할 수 있어 진행에 있어 순조로웠던 거 같습니다. 프로젝트 기간이 길다면 길고 짧다면 짧지만 뜻깊은 기간이였고 한 단계 성장 할 수 있는 계기가 되어 좋았고 팀원들도 잘 이끌어 줘서 끝까지 잘 마무리 할 수 있었습니다 만들오줘 짱짱 멋사 5기 짱짱
-</details>
-<details>
-  <summary>🍀윤서준</summary>
-  이번 팀 프로젝트를 통해 협업 과정으로도 기술적으로도 짧은 시간이지만 큰 성장을 이루는 특별한 경험이었습니다 특히 API 통신을 통해 실제 서버와의 요청 응답 원리를 이해하고, 다른 사람들의 코드를 읽고 이해하는 능력을 쌓으면서 한 단계 더 성장할 수 있었습니다. 마지막까지 항상 의견 내주시고 열정적으로 임해주신 팀원분들 덕에 프로젝트를 성공적으로 마무리할 수 있었습니다. 다들 수고하셨어요!!
-</details>
+<br>
+
+### [역할 분담]
+
+<img src="https://github.com/FRONTENDSCHOOL5/final-05-Mandle_mandle/raw/cf0a8bfc179d31b2e0b6eeb49bbd7d9d3dd0f813/src/assets/img/role.png" >
