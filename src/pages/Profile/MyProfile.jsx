@@ -11,6 +11,7 @@ import NormalizeImage from '../../components/Common/NormalizeImage';
 import ModalAlert from '../../components/Common/Modal/ModalAlert/ModalAlert';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
 import MenuBar from '../../components/Common/MenuBar';
+import { ProfileData, ClassData, PostData } from '../../api/GetProfileData';
 import HomeLogo from '../../assets/img/home-logo.svg';
 import ImageMore from '../../assets/img/icon-img-more.svg';
 import PostListBtnOn from '../../assets/img/icon-post-list-on.svg';
@@ -154,7 +155,6 @@ export default function Profile() {
           <ProfileSkeleton status='my'>{}</ProfileSkeleton>
         ) : (
           // 프로필 페이지
-
           <div>
             <ProfileSection style={{ backgroundColor }}>
               <Wrap>
@@ -388,6 +388,8 @@ export default function Profile() {
     </ProfilePage>
   );
 }
+
+
 async function ProfileData(accountname, token) {
   const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}`;
   try {

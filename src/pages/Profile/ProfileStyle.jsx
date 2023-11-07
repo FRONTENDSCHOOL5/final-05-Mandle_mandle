@@ -6,6 +6,7 @@ const ProfilePage = styled.div`
   width: 100%;
   height: 100%;
 `;
+
 const MainWrap = styled.main`
   background-color: var(--background-color);
   width: 100%;
@@ -14,6 +15,11 @@ const MainWrap = styled.main`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const Title = styled.p`
+  font-size: var(--font-md);
+  margin-bottom: 16px;
 `;
 
 const ProfileSection = styled.section`
@@ -66,6 +72,7 @@ const ProfileSection = styled.section`
     background-image: url(${speechBubble});
   }
 `;
+
 const Wrap = styled.div`
   display: flex;
   justify-content: space-around;
@@ -87,6 +94,7 @@ const Wrap = styled.div`
     font-size: 8px;
   }
 `;
+
 const WrapBtn = styled.div`
   display: flex;
   gap: 10px;
@@ -120,57 +128,7 @@ const WrapBtn = styled.div`
     display: block;
   }
 `;
-const PostSection = styled.section`
-  background: white;
-  #PostBtnWrap {
-    width: 100%;
-    height: 44px;
-    border-bottom: 1.5px solid var(--background-color);
-    display: flex;
-    justify-content: flex-end;
-    background: white;
-    padding-bottom: 10px;
-    gap: 5px;
-    padding: 9px 11px;
-    button {
-      width: 26px;
-      height: 26px;
-    }
-    img {
-      width: 100%;
-    }
-  }
 
-  .image-grid {
-    width: 360px;
-    margin: 14px auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    // padding-bottom: 88px;
-  }
-
-  .image-grid img {
-    width: 100%;
-    height: 110px;
-    object-fit: cover;
-  }
-
-  .image-none {
-    width: 360px;
-    margin: 14px auto;
-    min-height: 350px;
-    div {
-      margin: 80px auto;
-      text-align: center;
-    }
-  }
-  .post-none {
-    margin: 80px auto;
-    text-align: center;
-    min-height: 350px;
-  }
-`;
 const ClassSection = styled.section`
   width: 100%;
   box-sizing: border-box;
@@ -227,9 +185,71 @@ const ClassListUl = styled.ul`
     margin: 6px 0 7px 4px;
   }
 `;
-const Title = styled.p`
-  font-size: var(--font-md);
-  margin-bottom: 16px;
+const FollowBtn = styled.button`
+  width: 100px;
+  height: 28px;
+  color: white;
+  border-radius: 28px;
+  background-color: var(--main-color);
+  text-align: center;
+
+  &.following {
+    background-color: white;
+    color: var(--sub-font-color);
+    border: 1px solid var(--sub-font-color);
+  }
+`;
+
+const PostSection = styled.section`
+  background: white;
+  #PostBtnWrap {
+    width: 100%;
+    height: 44px;
+    border-bottom: 1.5px solid var(--background-color);
+    display: flex;
+    justify-content: flex-end;
+    background: white;
+    padding-bottom: 10px;
+    gap: 5px;
+    padding: 9px 11px;
+    button {
+      width: 26px;
+      height: 26px;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
+  .image-grid {
+    width: 360px;
+    margin: 14px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    // padding-bottom: 88px;
+  }
+
+  .image-grid img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+  }
+
+  .image-none {
+    width: 360px;
+    margin: 14px auto;
+    min-height: 350px;
+    div {
+      margin: 80px auto;
+      text-align: center;
+    }
+  }
+  .post-none {
+    margin: 80px auto;
+    text-align: center;
+    min-height: 350px;
+  }
 `;
 
 const PostListUl = styled.ul`
@@ -252,20 +272,6 @@ const PostListUl = styled.ul`
     object-fit: contain;
     top: 0;
     right: 0;
-  }
-`;
-const FollowBtn = styled.button`
-  width: 100px;
-  height: 28px;
-  color: white;
-  border-radius: 28px;
-  background-color: var(--main-color);
-  text-align: center;
-
-  &.following {
-    background-color: white;
-    color: var(--sub-font-color);
-    border: 1px solid var(--sub-font-color);
   }
 `;
 

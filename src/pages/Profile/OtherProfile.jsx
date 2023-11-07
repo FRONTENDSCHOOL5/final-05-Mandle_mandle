@@ -9,6 +9,13 @@ import PostItem from '../../components/PostDetail/PostItem/PostItem';
 import MiniClassList from '../../components/Profile/MiniClassList';
 import NormalizeImage from '../../components/Common/NormalizeImage';
 import ProfileSkeleton from '../../components/Common/Skeleton/ProfileSkeleton';
+import {
+  ProfileData,
+  ClassData,
+  PostData,
+  follow,
+  unfollow,
+} from '../../api/GetOtherProfileData';
 import HomeLogo from '../../assets/img/home-logo.svg';
 import ShareImg from '../../assets/img/icon-share.svg';
 import ChatImg from '../../assets/img/icon-chat-mini.svg';
@@ -337,6 +344,7 @@ export default function Profile() {
   );
 }
 
+
 async function ProfileData(accountname, token) {
   const url = `https://api.mandarin.weniv.co.kr/profile/${accountname}`;
 
@@ -422,3 +430,4 @@ async function unfollow(accountname, token) {
     return null;
   }
 }
+
