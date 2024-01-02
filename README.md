@@ -42,7 +42,7 @@
  <td align="center" width="100px">사용 기술</td>
  <td width="800px">
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=ffffff"/>&nbsp  
-  <img src="https://img.shields.io/badge/Recoil-764ABC?style=for-the-badge&logo=Redux&logoColor=white"/>&nbsp 
+  <img src="https://img.shields.io/badge/Recoil-764ABC?style=for-the-badge&logo=Recoil&logoColor=white"/>&nbsp 
    <img src="https://img.shields.io/badge/React%20Router-CA4245?style=for-the-badge&logo=ReactRouter&logoColor=white"/>&nbsp 
   <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>&nbsp 
    <img src="https://img.shields.io/badge/axios-7F2B7B?style=for-the-badge&logo=axios&logoColor=white"/>&nbsp 
@@ -173,7 +173,7 @@ GlobalStyled 커벤션
 - `feature` : 세부 기능 작업들을 위한 브랜치
   - 각 브랜치의 이름은 `feat/세부기능`으로 이름 지어 어떠한 기능의 브랜치인지를 알 수 있도록 했습니다.
   - push 완료 후에는 해당 브랜치를 develop으로 merge하여 역할 별로 진행한 기능을 확인하며 구현했습니다.
-    안녕
+ 
 
 ### [Git/Commit 컨벤션]
 
